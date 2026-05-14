@@ -57,15 +57,15 @@
 	 * @value tag 		标签模式
 	 * @property {Boolean} multiple = [true|false] 是否多选
 	 * @property {Array|String|Number} value 默认值
-	 * @property {Array} localdata 本地数据 ，格式 [{text:'',value:''}]
-	 * @property {Number|String} min 最小选择个数 ，multiple为true时生效
-	 * @property {Number|String} max 最大选择个数 ，multiple为true时生效
+	 * @property {Array} localdata 本地数据 ,格式 [{text:'',value:''}]
+	 * @property {Number|String} min 最小选择个数 ,multiple为true时生效
+	 * @property {Number|String} max 最大选择个数 ,multiple为true时生效
 	 * @property {Boolean} wrap 是否换行显示
 	 * @property {String} icon = [left|right]  list 列表模式下icon显示位置
 	 * @property {Boolean} selectedColor 选中颜色
-	 * @property {Boolean} emptyText 没有数据时显示的文字 ，本地数据无效
-	 * @property {Boolean} selectedTextColor 选中文本颜色，如不填写则自动显示
-	 * @property {Object} map 字段映射， 默认 map={text:'text',value:'value'}
+	 * @property {Boolean} emptyText 没有数据时显示的文字 ,本地数据无效
+	 * @property {Boolean} selectedTextColor 选中文本颜色,如不填写则自动显示
+	 * @property {Object} map 字段映射, 默认 map={text:'text',value:'value'}
 	 * @value left 左侧显示
 	 * @value right 右侧显示
 	 * @event {Function} change  选中发生变化触发
@@ -288,7 +288,7 @@
 					detail
 				})
 				if (this.multiple) {
-					// 如果 v-model 没有绑定 ，则走内部逻辑
+					// 如果 v-model 没有绑定 ,则走内部逻辑
 					// if (this.value.length === 0) {
 					this.dataList = this.getDataList(detail.value, true)
 					// }
@@ -302,7 +302,7 @@
 			 * @param {Object} value 选中内容
 			 */
 			getDataList(value) {
-				// 解除引用关系，破坏原引用关系，避免污染源数据
+				// 解除引用关系,破坏原引用关系,避免污染源数据
 				let dataList = JSON.parse(JSON.stringify(this.range))
 				let list = []
 				if (this.multiple) {

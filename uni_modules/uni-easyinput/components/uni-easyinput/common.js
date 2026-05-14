@@ -2,7 +2,7 @@
  * @desc 函数防抖
  * @param func 目标函数
  * @param wait 延迟执行毫秒数
- * @param immediate true - 立即执行， false - 延迟执行
+ * @param immediate true - 立即执行, false - 延迟执行
  */
 export const debounce = function(func, wait = 1000, immediate = true) {
 	let timer;
@@ -27,7 +27,7 @@ export const debounce = function(func, wait = 1000, immediate = true) {
  * @desc 函数节流
  * @param func 函数
  * @param wait 延迟执行毫秒数
- * @param type 1 使用表时间戳，在时间段开始的时候触发 2 使用表定时器，在时间段结束的时候触发
+ * @param type 1 使用表时间戳,在时间段开始的时候触发 2 使用表定时器,在时间段结束的时候触发
  */
 export const throttle = (func, wait = 1000, type = 1) => {
 	let previous = 0;

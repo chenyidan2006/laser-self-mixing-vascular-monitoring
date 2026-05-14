@@ -41,8 +41,8 @@
 import WeCropper from './weCropper.js';
 export default {
 	props: {
-		// 裁剪矩形框的样式，其中可包含的属性为lineWidth-边框宽度(单位rpx)，color: 边框颜色，
-		// mask-遮罩颜色，一般设置为一个rgba的透明度，如"rgba(0, 0, 0, 0.35)"
+		// 裁剪矩形框的样式,其中可包含的属性为lineWidth-边框宽度(单位rpx),color: 边框颜色,
+		// mask-遮罩颜色,一般设置为一个rgba的透明度,如"rgba(0, 0, 0, 0.35)"
 		boundStyle: {
 			type: Object,
 			default() {
@@ -53,33 +53,33 @@ export default {
 				};
 			}
 		}
-		// // 裁剪框宽度，单位rpx
+		// // 裁剪框宽度,单位rpx
 		// rectWidth: {
 		// 	type: [String, Number],
 		// 	default: 400
 		// },
-		// // 裁剪框高度，单位rpx
+		// // 裁剪框高度,单位rpx
 		// rectHeight: {
 		// 	type: [String, Number],
 		// 	default: 400
 		// },
-		// // 输出图片宽度，单位rpx
+		// // 输出图片宽度,单位rpx
 		// destWidth: {
 		// 	type: [String, Number],
 		// 	default: 400
 		// },
-		// // 输出图片高度，单位rpx
+		// // 输出图片高度,单位rpx
 		// destHeight: {
 		// 	type: [String, Number],
 		// 	default: 400
 		// },
-		// // 输出的图片类型，如果发现裁剪的图片很大，可能是因为设置为了"png"，改成"jpg"即可
+		// // 输出的图片类型,如果发现裁剪的图片很大,可能是因为设置为了"png",改成"jpg"即可
 		// fileType: {
 		// 	type: String,
 		// 	default: 'jpg',
 		// },
 		// // 生成的图片质量
-		// // H5上无效，目前不考虑使用此参数
+		// // H5上无效,目前不考虑使用此参数
 		// quality: {
 		// 	type: [Number, String],
 		// 	default: 1
@@ -112,14 +112,14 @@ export default {
 					color: this.boundStyle.borderColor
 				}
 			},
-			// 裁剪框和输出图片的尺寸，高度默认等于宽度
-			// 输出图片宽度，单位px
+			// 裁剪框和输出图片的尺寸,高度默认等于宽度
+			// 输出图片宽度,单位px
 			destWidth: 200,
-			// 裁剪框宽度，单位px
+			// 裁剪框宽度,单位px
 			rectWidth: 200,
-			// 输出的图片类型，如果'png'类型发现裁剪的图片太大，改成"jpg"即可
+			// 输出的图片类型,如果'png'类型发现裁剪的图片太大,改成"jpg"即可
 			fileType: 'jpg',
-			src: '', // 选择的图片路径，用于在点击确定时，判断是否选择了图片
+			src: '', // 选择的图片路径,用于在点击确定时,判断是否选择了图片
 		};
 	},
 	onLoad(option) {
@@ -156,18 +156,18 @@ export default {
 			.on('beforeDraw', (ctx, instance) => {
 				// before canvas draw,i can do something
 			});
-		// 设置导航栏样式，以免用户在page.json中没有设置为黑色背景
+		// 设置导航栏样式,以免用户在page.json中没有设置为黑色背景
 		uni.setNavigationBarColor({
 			frontColor: '#ffffff',
 			backgroundColor: '#000000'
 		});
 		uni.chooseImage({
 			count: 1, // 默认9
-			sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-			sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+			sizeType: ['compressed'], // 可以指定是原图还是压缩图,默认二者都有
+			sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机,默认二者都有
 			success: res => {
 				this.src = res.tempFilePaths[0];
-				//  获取裁剪图片资源后，给data添加src属性及其值
+				//  获取裁剪图片资源后,给data添加src属性及其值
 				this.cropper.pushOrign(this.src);
 			}
 		});
@@ -215,11 +215,11 @@ export default {
 			const self = this;
 			uni.chooseImage({
 				count: 1, // 默认9
-				sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-				sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+				sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图,默认二者都有
+				sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机,默认二者都有
 				success: (res) => {
 					self.src = res.tempFilePaths[0];
-					//  获取裁剪图片资源后，给data添加src属性及其值
+					//  获取裁剪图片资源后,给data添加src属性及其值
 
 					self.cropper.pushOrign(this.src);
 				}

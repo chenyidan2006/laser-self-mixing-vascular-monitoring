@@ -30,16 +30,16 @@
 /**
  * slider 滑块选择器
  * @tutorial https://uviewui.com/components/slider.html
- * @property {Number | String} value 滑块默认值（默认0）
- * @property {Number | String} min 最小值（默认0）
- * @property {Number | String} max 最大值（默认100）
- * @property {Number | String} step 步长（默认1）
- * @property {Number | String} blockWidth 滑块宽度，高等于宽（30）
- * @property {Number | String} height 滑块条高度，单位rpx（默认6）
- * @property {String} inactiveColor 底部条背景颜色（默认#c0c4cc）
- * @property {String} activeColor 底部选择部分的背景颜色（默认#2979ff）
- * @property {String} blockColor 滑块颜色（默认#ffffff）
- * @property {Object} blockStyle 给滑块自定义样式，对象形式
+ * @property {Number | String} value 滑块默认值(默认0)
+ * @property {Number | String} min 最小值(默认0)
+ * @property {Number | String} max 最大值(默认100)
+ * @property {Number | String} step 步长(默认1)
+ * @property {Number | String} blockWidth 滑块宽度,高等于宽(30)
+ * @property {Number | String} height 滑块条高度,单位rpx(默认6)
+ * @property {String} inactiveColor 底部条背景颜色(默认#c0c4cc)
+ * @property {String} activeColor 底部选择部分的背景颜色(默认#2979ff)
+ * @property {String} blockColor 滑块颜色(默认#ffffff)
+ * @property {Object} blockStyle 给滑块自定义样式,对象形式
  * @property {Boolean} disabled 是否禁用滑块(默认为false)
  * @event {Function} start 滑动触发
  * @event {Function} moving 正在滑动中
@@ -49,7 +49,7 @@
 export default {
 	name: 'u-slider',
 	props: {
-		// 当前进度百分比值，范围0-100
+		// 当前进度百分比值,范围0-100
 		value: {
 			type: [Number, String],
 			default: 0
@@ -59,7 +59,7 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		// 滑块宽度，高等于宽，单位rpx
+		// 滑块宽度,高等于宽,单位rpx
 		blockWidth: {
 			type: [Number, String],
 			default: 30
@@ -79,7 +79,7 @@ export default {
 			type: [Number, String],
 			default: 1
 		},
-		// 滑块条高度，单位rpx
+		// 滑块条高度,单位rpx
 		height: {
 			type: [Number, String],
 			default: 6
@@ -123,7 +123,7 @@ export default {
 	},
 	watch: {
 		value(n) {
-			// 只有在非滑动状态时，才可以通过value更新滑块值，这里监听，是为了让用户触发
+			// 只有在非滑动状态时,才可以通过value更新滑块值,这里监听,是为了让用户触发
 			if(this.status == 'end') this.updateValue(this.value, false);
 		}
 	},
@@ -144,21 +144,21 @@ export default {
 			let touches = event.touches[0];
 			// 触摸点到屏幕左边的距离
 			this.startX = touches.clientX;
-			// 此处的this.value虽为props值，但是通过$emit('input')进行了修改
+			// 此处的this.value虽为props值,但是通过$emit('input')进行了修改
 			this.startValue = this.format(this.value);
 			// 标示当前的状态为开始触摸滑动
 			this.status = 'start';
 		},
 		onTouchMove(event) {
 			if (this.disabled) return;
-			// 连续触摸的过程会一直触发本方法，但只有手指触发且移动了才被认为是拖动了，才发出事件
-			// 触摸后第一次移动已经将status设置为moving状态，故触摸第二次移动不会触发本事件
+			// 连续触摸的过程会一直触发本方法,但只有手指触发且移动了才被认为是拖动了,才发出事件
+			// 触摸后第一次移动已经将status设置为moving状态,故触摸第二次移动不会触发本事件
 			if (this.status == 'start') this.$emit('start');
 			let touches = event.touches[0];
-			// 滑块的左边不一定跟屏幕左边接壤，所以需要减去最外层父元素的左边值
+			// 滑块的左边不一定跟屏幕左边接壤,所以需要减去最外层父元素的左边值
 			this.distanceX = touches.clientX - this.sliderRect.left;
-			// 获得移动距离对整个滑块的百分比值，此为带有多位小数的值，不能用此更新视图
-			// 否则造成通信阻塞，需要每改变一个step值时修改一次视图
+			// 获得移动距离对整个滑块的百分比值,此为带有多位小数的值,不能用此更新视图
+			// 否则造成通信阻塞,需要每改变一个step值时修改一次视图
 			this.newValue = (this.distanceX / this.sliderRect.width) * 100;
 			this.status = 'moving';
 			// 发出moving事件
@@ -174,9 +174,9 @@ export default {
 			this.status = 'end';
 		},
 		updateValue(value, drag) {
-			// 去掉小数部分，同时也是对step步进的处理
+			// 去掉小数部分,同时也是对step步进的处理
 			const width = this.format(value);
-			// 不允许滑动的值超过max最大值，百分比也不能超过100
+			// 不允许滑动的值超过max最大值,百分比也不能超过100
 			if(width > this.max || width > 100) return;
 			// 设置移动的百分比值
 			let barStyle = {
@@ -186,7 +186,7 @@ export default {
 			if (drag == true) {
 				barStyle.transition = 'none';
 			} else {
-				// 非移动期间，删掉对过渡为空的声明，让css中的声明起效
+				// 非移动期间,删掉对过渡为空的声明,让css中的声明起效
 				delete barStyle.transition;
 			}
 			// 修改value值
@@ -194,12 +194,12 @@ export default {
 			this.barStyle = barStyle;
 		},
 		format(value) {
-			// 将小数变成整数，为了减少对视图的更新，造成视图层与逻辑层的阻塞
+			// 将小数变成整数,为了减少对视图的更新,造成视图层与逻辑层的阻塞
 			return Math.round(Math.max(this.min, Math.min(value, this.max)) / this.step) * this.step;
 		},
 		onClick(event) {
 			if (this.disabled) return;
-			// 直接点击滑块的情况，计算方式与onTouchMove方法相同
+			// 直接点击滑块的情况,计算方式与onTouchMove方法相同
 			const value = ((event.detail.x - this.sliderRect.left) / this.sliderRect.width) * 100;
 			this.updateValue(value, false);
 		}

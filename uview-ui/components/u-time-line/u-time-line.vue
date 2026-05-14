@@ -7,7 +7,7 @@
 <script>
 	/**
 	 * timeLine 时间轴
-	 * @description 时间轴组件一般用于物流信息展示，各种跟时间相关的记录等场景。
+	 * @description 时间轴组件一般用于物流信息展示,各种跟时间相关的记录等场景.
 	 * @tutorial https://www.uviewui.com/components/timeLine.html
 	 * @example <u-time-line></u-time-line>
 	 */

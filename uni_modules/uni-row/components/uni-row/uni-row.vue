@@ -12,7 +12,7 @@
 	const modifierSeparator = '--';
 	/**
 	 * Row	布局-行
-	 * @description	流式栅格系统，随着屏幕或视口分为 24 份，可以迅速简便地创建布局。
+	 * @description	流式栅格系统,随着屏幕或视口分为 24 份,可以迅速简便地创建布局.
 	 * @tutorial	https://ext.dcloud.net.cn/plugin?id=3958
 	 *
 	 * @property	{gutter} type = Number 栅格间隔
@@ -32,7 +32,7 @@
 		componentName: 'uniRow',
 		// #ifdef MP-WEIXIN
 		options: {
-			virtualHost: true // 在微信小程序中将组件节点渲染为虚拟节点，更加接近Vue组件的表现，可使用flex布局
+			virtualHost: true // 在微信小程序中将组件节点渲染为虚拟节点,更加接近Vue组件的表现,可使用flex布局
 		},
 		// #endif
 		props: {
@@ -46,7 +46,7 @@
 				type: String,
 				default: 'top'
 			},
-			// nvue如果使用span等属性，需要配置宽度
+			// nvue如果使用span等属性,需要配置宽度
 			width: {
 				type: [String, Number],
 				default: 750
@@ -133,7 +133,7 @@
 		// 非nvue使用float布局
 		@include utils-clearfix;
 
-		// 在QQ、字节、百度小程序平台，编译后使用shadow dom，不可使用flex布局，使用float
+		// 在QQ,字节,百度小程序平台,编译后使用shadow dom,不可使用flex布局,使用float
 		@at-root {
 
 			/* #ifndef MP-QQ || MP-TOUTIAO || MP-BAIDU */
@@ -179,7 +179,7 @@
 
 	}
 
-	// 字节、QQ配置后不生效
+	// 字节,QQ配置后不生效
 	// 此处用法无法使用scoped
 	/* #ifdef MP-WEIXIN || MP-TOUTIAO || MP-QQ */
 	:host {

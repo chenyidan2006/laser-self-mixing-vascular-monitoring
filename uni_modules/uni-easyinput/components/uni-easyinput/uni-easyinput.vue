@@ -31,31 +31,31 @@
 <script>
 	/**
 	 * Easyinput 输入框
-	 * @description 此组件可以实现表单的输入与校验，包括 "text" 和 "textarea" 类型。
+	 * @description 此组件可以实现表单的输入与校验,包括 "text" 和 "textarea" 类型.
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=3455
 	 * @property {String}	value	输入内容
-	 * @property {String }	type	输入框的类型（默认text） password/text/textarea/..
+	 * @property {String }	type	输入框的类型(默认text) password/text/textarea/..
 	 * 	@value text			文本输入键盘
 	 * 	@value textarea	多行文本输入键盘
 	 * 	@value password	密码输入键盘
-	 * 	@value number		数字输入键盘，注意iOS上app-vue弹出的数字键盘并非9宫格方式
-	 * 	@value idcard		身份证输入键盘，信、支付宝、百度、QQ小程序
-	 * 	@value digit		带小数点的数字键盘	，App的nvue页面、微信、支付宝、百度、头条、QQ小程序支持
-	 * @property {Boolean}	clearable	是否显示右侧清空内容的图标控件，点击可清空输入框内容（默认true）
-	 * @property {Boolean}	autoHeight	是否自动增高输入区域，type为textarea时有效（默认true）
+	 * 	@value number		数字输入键盘,注意iOS上app-vue弹出的数字键盘并非9宫格方式
+	 * 	@value idcard		身份证输入键盘,信,支付宝,百度,QQ小程序
+	 * 	@value digit		带小数点的数字键盘	,App的nvue页面,微信,支付宝,百度,头条,QQ小程序支持
+	 * @property {Boolean}	clearable	是否显示右侧清空内容的图标控件,点击可清空输入框内容(默认true)
+	 * @property {Boolean}	autoHeight	是否自动增高输入区域,type为textarea时有效(默认true)
 	 * @property {String }	placeholder	输入框的提示文字
-	 * @property {String }	placeholderStyle	placeholder的样式(内联样式，字符串)，如"color: #ddd"
-	 * @property {Boolean}	focus	是否自动获得焦点（默认false）
-	 * @property {Boolean}	disabled	是否禁用（默认false）
-	 * @property {Number }	maxlength	最大输入长度，设置为 -1 的时候不限制最大长度（默认140）
-	 * @property {String }	confirmType	设置键盘右下角按钮的文字，仅在type="text"时生效（默认done）
-	 * @property {Number }	clearSize	清除图标的大小，单位px（默认15）
+	 * @property {String }	placeholderStyle	placeholder的样式(内联样式,字符串),如"color: #ddd"
+	 * @property {Boolean}	focus	是否自动获得焦点(默认false)
+	 * @property {Boolean}	disabled	是否禁用(默认false)
+	 * @property {Number }	maxlength	最大输入长度,设置为 -1 的时候不限制最大长度(默认140)
+	 * @property {String }	confirmType	设置键盘右下角按钮的文字,仅在type="text"时生效(默认done)
+	 * @property {Number }	clearSize	清除图标的大小,单位px(默认15)
 	 * @property {String}	prefixIcon	输入框头部图标
 	 * @property {String}	suffixIcon	输入框尾部图标
-	 * @property {String}	primaryColor	设置主题色（默认#2979ff）
+	 * @property {String}	primaryColor	设置主题色(默认#2979ff)
 	 * @property {Boolean}	trim	是否自动去除两端的空格
-	 * @property {Boolean}	cursorSpacing	指定光标与键盘的距离，单位 px
-	 * @property {Boolean}  ajust-position 当键盘弹起时，是否上推内容，默认值：true
+	 * @property {Boolean}	cursorSpacing	指定光标与键盘的距离,单位 px
+	 * @property {Boolean}  ajust-position 当键盘弹起时,是否上推内容,默认值:true
 	 * @value both	去除两端空格
 	 * @value left	去除左侧空格
 	 * @value right	去除右侧空格
@@ -63,7 +63,7 @@
 	 * @value end		去除右侧空格
 	 * @value all		去除全部空格
 	 * @value none	不去除空格
-	 * @property {Boolean}	inputBorder	是否显示input输入框的边框（默认true）
+	 * @property {Boolean}	inputBorder	是否显示input输入框的边框(默认true)
 	 * @property {Boolean}	passwordIcon	type=password时是否显示小眼睛图标
 	 * @property {Object}	styles	自定义颜色
 	 * @event {Function}	input	输入框内容发生变化时触发
@@ -242,7 +242,7 @@
 			// 输入框内是否有值
 			isVal() {
 				const val = this.val;
-				// fixed by mehaotian 处理值为0的情况，字符串0不在处理范围
+				// fixed by mehaotian 处理值为0的情况,字符串0不在处理范围
 				if (val || val === 0) {
 					return true;
 				}
@@ -257,7 +257,7 @@
 				// TODO 处理头条 formItem 中 errMsg 不更新的问题
 				return this.localMsg || this.errorMessage;
 			},
-			// 因为uniapp的input组件的maxlength组件必须要数值，这里转为数值，用户可以传入字符串数值
+			// 因为uniapp的input组件的maxlength组件必须要数值,这里转为数值,用户可以传入字符串数值
 			inputMaxlength() {
 				return Number(this.maxlength);
 			},
@@ -304,7 +304,7 @@
 		},
 		watch: {
 			value(newVal) {
-				// fix by mehaotian 解决 值为null的情况下，input报错的bug
+				// fix by mehaotian 解决 值为null的情况下,input报错的bug
 				if (newVal === null) {
 					this.val = '';
 					return
@@ -327,7 +327,7 @@
 		},
 		created() {
 			this.init();
-			// TODO 处理头条vue3 computed 不监听 inject 更改的问题（formItem.errMsg）
+			// TODO 处理头条vue3 computed 不监听 inject 更改的问题(formItem.errMsg)
 			if (this.form && this.formItem) {
 				this.$watch('formItem.errMsg', newVal => {
 					this.localMsg = newVal;
@@ -354,7 +354,7 @@
 				) {
 					this.val = this.modelValue;
 				} else {
-					// fix by ht 如果初始值为null，则input报错，待框架修复
+					// fix by ht 如果初始值为null,则input报错,待框架修复
 					this.val = '';
 				}
 			},
@@ -368,7 +368,7 @@
 			},
 
 			/**
-			 * 显示隐藏内容，密码框时生效
+			 * 显示隐藏内容,密码框时生效
 			 */
 			onEyes() {
 				this.showPassword = !this.showPassword;
@@ -395,7 +395,7 @@
 				// TODO　兼容　vue3
 				this.$emit('update:modelValue', value);
 
-				// fix by ht input 修改一定要放在 update:modelvalue 后面，避免在input中修改值，导致 v-model 不生效
+				// fix by ht input 修改一定要放在 update:modelvalue 后面,避免在input中修改值,导致 v-model 不生效
 				// TODO 兼容 vue2
 				this.$emit('input', value);
 			},
@@ -430,7 +430,7 @@
 				let value = event.detail.value;
 				this.focusShow = false;
 				this.$emit('blur', event);
-				// 根据类型返回值，在event中获取的值理论上讲都是string
+				// 根据类型返回值,在event中获取的值理论上讲都是string
 				if (this.isEnter === false) {
 					this.$emit('change', this.val);
 				}
@@ -473,7 +473,7 @@
 
 			/**
 			 * 键盘高度发生变化的时候触发此事件
-			 * 兼容性：微信小程序2.7.0+、App 3.1.0+
+			 * 兼容性:微信小程序2.7.0+,App 3.1.0+
 			 * @param {Object} event
 			 */
 			onkeyboardheightchange(event) {

@@ -31,7 +31,7 @@
 	 * @description 用于展示 icons 图标
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=28
 	 * @property {Number} size 图标大小
-	 * @property {String} type 图标图案，参考示例
+	 * @property {String} type 图标图案,参考示例
 	 * @property {String} color 图标颜色
 	 * @property {String} customPrefix 自定义图标
 	 * @event {Function} click 点击 Icon 触发事件

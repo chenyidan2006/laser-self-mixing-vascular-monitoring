@@ -43,7 +43,7 @@ export default {
 			const {
 				clientX
 			} = e.changedTouches[0]
-			// fixed by xxxx 模拟点击事件，解决 ios 13 点击区域错位的问题
+			// fixed by xxxx 模拟点击事件,解决 ios 13 点击区域错位的问题
 			let diff = Math.abs(this.clientX - clientX)
 			let time = (new Date().getTime()) - this.timestamp
 			if (diff < 40 && time < 300) {
@@ -131,7 +131,7 @@ export default {
 		 */
 		close() {
 			this.x = this.moveX
-			// TODO 解决 x 值不更新的问题，所以会多触发一次 nextTick ，待优化
+			// TODO 解决 x 值不更新的问题,所以会多触发一次 nextTick ,待优化
 			this.$nextTick(() => {
 				this.x = -this.leftWidth
 				if (this.isopen !== 'none') {
@@ -169,7 +169,7 @@ export default {
 				this.width = data[0].width
 				this.viewWidth = this.width + this.rightWidth + this.leftWidth
 				if (this.leftWidth === 0) {
-					// TODO 疑似bug ,初始化的时候如果x 是0，会导致移动位置错误，所以让元素超出一点
+					// TODO 疑似bug ,初始化的时候如果x 是0,会导致移动位置错误,所以让元素超出一点
 					this.x = -0.1
 				} else {
 					this.x = -this.leftWidth

@@ -44,21 +44,21 @@
 <script>
 /**
  * steps 步骤条
- * @description 该组件一般用于完成一个任务要分几个步骤，标识目前处于第几步的场景。
+ * @description 该组件一般用于完成一个任务要分几个步骤,标识目前处于第几步的场景.
  * @tutorial https://www.uviewui.com/components/steps.html
- * @property {String} mode 设置模式（默认dot）
- * @property {Array} list 数轴条数据，数组。具体见上方示例
- * @property {String} type type主题（默认primary）
- * @property {String} direction row-横向，column-竖向（默认row）
+ * @property {String} mode 设置模式(默认dot)
+ * @property {Array} list 数轴条数据,数组.具体见上方示例
+ * @property {String} type type主题(默认primary)
+ * @property {String} direction row-横向,column-竖向(默认row)
  * @property {Number String} current 设置当前处于第几步
- * @property {String} active-color 已完成步骤的激活颜色，如设置，type值会失效
- * @property {String} un-active-color 未激活的颜色，用于表示未完成步骤的颜色（默认#606266）
+ * @property {String} active-color 已完成步骤的激活颜色,如设置,type值会失效
+ * @property {String} un-active-color 未激活的颜色,用于表示未完成步骤的颜色(默认#606266)
  * @example <u-steps :list="numList" active-color="#fa3534"></u-steps>
  */
 export default {
 	name: 'u-steps',
 	props: {
-		// 步骤条的类型，dot|number
+		// 步骤条的类型,dot|number
 		mode: {
 			type: String,
 			default: 'dot'
@@ -95,7 +95,7 @@ export default {
 			type: String,
 			default: 'checkmark'
 		},
-		// step的排列方向，row-横向，column-竖向
+		// step的排列方向,row-横向,column-竖向
 		direction: {
 			type: String,
 			default: 'row'

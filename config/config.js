@@ -1,4 +1,4 @@
-// config/config.js
+// D:/code/app/appprogram/config/config.js
 // 统一配置文件 - 根据环境自动切换
 
 // 导入环境配置

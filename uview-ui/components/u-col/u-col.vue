@@ -17,17 +17,17 @@
 <script>
 	/**
 	 * col 布局单元格
-	 * @description 通过基础的 12 分栏，迅速简便地创建布局（搭配<u-row>使用）
+	 * @description 通过基础的 12 分栏,迅速简便地创建布局(搭配<u-row>使用)
 	 * @tutorial https://www.uviewui.com/components/layout.html
-	 * @property {String Number} span 栅格占据的列数，总12等分（默认0）
-	 * @property {String} text-align 文字水平对齐方式（默认left）
-	 * @property {String Number} offset 分栏左边偏移，计算方式与span相同（默认0）
+	 * @property {String Number} span 栅格占据的列数,总12等分(默认0)
+	 * @property {String} text-align 文字水平对齐方式(默认left)
+	 * @property {String Number} offset 分栏左边偏移,计算方式与span相同(默认0)
 	 * @example <u-col span="3"><view class="demo-layout bg-purple"></view></u-col>
 	 */
 	export default {
 		name: "u-col",
 		props: {
-			// 占父容器宽度的多少等分，总分为12份
+			// 占父容器宽度的多少等分,总分为12份
 			span: {
 				type: [Number, String],
 				default: 12
@@ -37,12 +37,12 @@
 				type: [Number, String],
 				default: 0
 			},
-			// 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
+			// 水平排列方式,可选值为`start`(或`flex-start`),`end`(或`flex-end`),`center`,`around`(或`space-around`),`between`(或`space-between`)
 			justify: {
 				type: String,
 				default: 'start'
 			},
-			// 垂直对齐方式，可选值为top、center、bottom
+			// 垂直对齐方式,可选值为top,center,bottom
 			align: {
 				type: String,
 				default: 'center'
@@ -60,14 +60,14 @@
 		},
 		data() {
 			return {
-				gutter: 20, // 给col添加间距，左右边距各占一半，从父组件u-row获取
+				gutter: 20, // 给col添加间距,左右边距各占一半,从父组件u-row获取
 			}
 		},
 		created() {
 			this.parent = false;
 		},
 		mounted() {
-			// 获取父组件实例，并赋值给对应的参数
+			// 获取父组件实例,并赋值给对应的参数
 			this.parent = this.$u.$parent.call(this, 'u-row');
 			if (this.parent) {
 				this.gutter = this.parent.gutter;

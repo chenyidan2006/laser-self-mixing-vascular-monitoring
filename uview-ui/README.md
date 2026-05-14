@@ -7,16 +7,16 @@
 
 ## 说明
 
-uView UI，是[uni-app](https://uniapp.dcloud.io/)生态优秀的UI框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水
+uView UI,是[uni-app](https://uniapp.dcloud.io/)生态优秀的UI框架,全面的组件和便捷的工具会让您信手拈来,如鱼得水
 
 ## 特性
 
-- 兼容安卓，iOS，微信小程序，H5，QQ小程序，百度小程序，支付宝小程序，头条小程序
-- 60+精选组件，功能丰富，多端兼容，让您快速集成，开箱即用
-- 众多贴心的JS利器，让您飞镖在手，召之即来，百步穿杨
-- 众多的常用页面和布局，让您专注逻辑，事半功倍
-- 详尽的文档支持，现代化的演示效果
-- 按需引入，精简打包体积
+- 兼容安卓,iOS,微信小程序,H5,QQ小程序,百度小程序,支付宝小程序,头条小程序
+- 60+精选组件,功能丰富,多端兼容,让您快速集成,开箱即用
+- 众多贴心的JS利器,让您飞镖在手,召之即来,百步穿杨
+- 众多的常用页面和布局,让您专注逻辑,事半功倍
+- 详尽的文档支持,现代化的演示效果
+- 按需引入,精简打包体积
 
 
 ## 安装
@@ -55,7 +55,7 @@ Vue.use(uView);
 // pages.json
 {
 	"easycom": {
-		// npm安装的方式不需要前面的"@/"，下载安装的方式需要"@/"
+		// npm安装的方式不需要前面的"@/",下载安装的方式需要"@/"
 		// npm安装方式
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 		// 下载安装方式
@@ -71,7 +71,7 @@ Vue.use(uView);
 请通过[快速上手](https://uviewui.com/components/quickstart.html)了解更详细的内容 
 
 ## 使用方法
-配置easycom规则后，自动按需引入，无需`import`组件，直接引用即可。
+配置easycom规则后,自动按需引入,无需`import`组件,直接引用即可.
 
 ```html
 <template>
@@ -90,17 +90,17 @@ Vue.use(uView);
 
 ## 预览
 
-您可以通过**微信**扫码，查看最佳的演示效果。
+您可以通过**微信**扫码,查看最佳的演示效果.
 <br>
 <br>
 <img src="https://uviewui.com/common/weixin_mini_qrcode.png" width="220" height="220" >
 
 <!-- ## 捐赠uView的研发
 
-uView文档和源码全部开源免费，如果您认为uView帮到了您的开发工作，您可以捐赠uView的研发工作，捐赠无门槛，哪怕是一杯可乐也好(相信这比打赏主播更有意义)。
+uView文档和源码全部开源免费,如果您认为uView帮到了您的开发工作,您可以捐赠uView的研发工作,捐赠无门槛,哪怕是一杯可乐也好(相信这比打赏主播更有意义).
 
 <img src="https://uviewui.com/common/wechat.png" width="220" >
 <img style="margin-left: 100px;" src="https://uviewui.com/common/alipay.png" width="220" >
  -->
 ## 版权信息
-uView遵循[MIT](https://en.wikipedia.org/wiki/MIT_License)开源协议，意味着您无需支付任何费用，也无需授权，即可将uView应用到您的产品中。
+uView遵循[MIT](https://en.wikipedia.org/wiki/MIT_License)开源协议,意味着您无需支付任何费用,也无需授权,即可将uView应用到您的产品中.

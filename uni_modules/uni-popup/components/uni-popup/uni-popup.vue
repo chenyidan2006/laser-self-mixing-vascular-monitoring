@@ -23,7 +23,7 @@
 
 	/**
 	 * PopUp 弹出层
-	 * @description 弹出层组件，为了解决遮罩弹层的问题
+	 * @description 弹出层组件,为了解决遮罩弹层的问题
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=329
 	 * @property {String} type = [top|center|bottom|left|right|message|dialog|share] 弹出方式
 	 * 	@value top 顶部弹出
@@ -39,9 +39,9 @@
 	 * @property {Boolean} isMaskClick = [true|false] 蒙版点击是否关闭弹窗
 	 * @property {String}  backgroundColor 主窗口背景色
 	 * @property {String}  maskBackgroundColor 蒙版颜色
-	 * @property {String}  borderRadius 设置圆角(左上、右上、右下和左下) 示例:"10px 10px 10px 10px"
+	 * @property {String}  borderRadius 设置圆角(左上,右上,右下和左下) 示例:"10px 10px 10px 10px"
 	 * @property {Boolean} safeArea		   是否适配底部安全区
-	 * @event {Function} change 打开关闭弹窗触发，e={show: false}
+	 * @event {Function} change 打开关闭弹窗触发,e={show: false}
 	 * @event {Function} maskClick 点击遮罩触发
 	 */
 
@@ -59,7 +59,7 @@
 				type: Boolean,
 				default: true
 			},
-			// 弹出层类型，可选值，top: 顶部弹出层；bottom：底部弹出层；center：全屏弹出层
+			// 弹出层类型,可选值,top: 顶部弹出层;bottom:底部弹出层;center:全屏弹出层
 			// message: 消息提示 ; dialog : 对话框
 			type: {
 				type: String,
@@ -70,7 +70,7 @@
 				type: Boolean,
 				default: null
 			},
-			// TODO 2 个版本后废弃属性 ，使用 isMaskClick
+			// TODO 2 个版本后废弃属性 ,使用 isMaskClick
 			maskClick: {
 				type: Boolean,
 				default: null
@@ -214,7 +214,7 @@
 				// #endif
 				this.popupWidth = windowWidth
 				this.popupHeight = windowHeight + (windowTop || 0)
-				// TODO fix by mehaotian 是否适配底部安全区 ,目前微信ios 、和 app ios 计算有差异，需要框架修复
+				// TODO fix by mehaotian 是否适配底部安全区 ,目前微信ios ,和 app ios 计算有差异,需要框架修复
 				if (safeArea && this.safeArea) {
 					// #ifdef MP-WEIXIN
 					this.safeAreaInsets = screenHeight - safeArea.bottom
@@ -278,13 +278,13 @@
 				// #endif
 			},
 			/**
-			 * 公用方法，不显示遮罩层
+			 * 公用方法,不显示遮罩层
 			 */
 			closeMask() {
 				this.maskShow = false
 			},
 			/**
-			 * 公用方法，遮罩层禁止点击
+			 * 公用方法,遮罩层禁止点击
 			 */
 			disableMask() {
 				this.mkclick = false
@@ -307,7 +307,7 @@
 					direction = this.type
 				}
 				if (!this.config[direction]) {
-					console.error('缺少类型：', direction)
+					console.error('缺少类型:', direction)
 					return
 				}
 				this[this.config[direction]]()
@@ -329,7 +329,7 @@
 					this.showPopup = false
 				}, 300)
 			},
-			// TODO 处理冒泡事件，头条的冒泡事件有问题 ，先这样兼容
+			// TODO 处理冒泡事件,头条的冒泡事件有问题 ,先这样兼容
 			touchstart() {
 				this.clearPropagation = false
 			},
@@ -357,7 +357,7 @@
 					backgroundColor: this.bg,
 					borderRadius:this.borderRadius || "0"
 				}
-				// TODO 兼容 type 属性 ，后续会废弃
+				// TODO 兼容 type 属性 ,后续会废弃
 				if (type) return
 				this.showPopup = true
 				this.showTrans = true
@@ -383,7 +383,7 @@
 					backgroundColor: this.bg,
 					borderRadius:this.borderRadius || "0",
 				}
-				// TODO 兼容 type 属性 ，后续会废弃
+				// TODO 兼容 type 属性 ,后续会废弃
 				if (type) return
 				this.showPoptrans()
 			},
@@ -392,7 +392,7 @@
 			 */
 			center(type) {
 				this.popupstyle = 'center'
-				//微信小程序下，组合动画会出现文字向上闪动问题，再此做特殊处理
+				//微信小程序下,组合动画会出现文字向上闪动问题,再此做特殊处理
 				// #ifdef MP-WEIXIN
 					this.ani = ['fade']
 				// #endif
@@ -413,7 +413,7 @@
 					alignItems: 'center',
 					borderRadius:this.borderRadius || "0"
 				}
-				// TODO 兼容 type 属性 ，后续会废弃
+				// TODO 兼容 type 属性 ,后续会废弃
 				if (type) return
 				this.showPoptrans()
 			},
@@ -432,7 +432,7 @@
 					flexDirection: 'column'
 					/* #endif */
 				}
-				// TODO 兼容 type 属性 ，后续会废弃
+				// TODO 兼容 type 属性 ,后续会废弃
 				if (type) return
 				this.showPoptrans()
 			},
@@ -451,7 +451,7 @@
 					flexDirection: 'column'
 					/* #endif */
 				}
-				// TODO 兼容 type 属性 ，后续会废弃
+				// TODO 兼容 type 属性 ,后续会废弃
 				if (type) return
 				this.showPoptrans()
 			},
@@ -488,7 +488,7 @@
 			/* #endif */
 			position: relative;
 
-			/* iphonex 等安全区设置，底部安全区适配 */
+			/* iphonex 等安全区设置,底部安全区适配 */
 			/* #ifndef APP-NVUE */
 			// padding-bottom: constant(safe-area-inset-bottom);
 			// padding-bottom: env(safe-area-inset-bottom);

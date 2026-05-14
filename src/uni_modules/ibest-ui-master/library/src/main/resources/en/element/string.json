@@ -1,0 +1,216 @@
+{
+	"string": [
+		{
+			"name": "ibest_monday",
+			"value": "Monday"
+		},
+		{
+			"name": "ibest_tuesday",
+			"value": "Tuesday"
+		},
+		{
+			"name": "ibest_wednesday",
+			"value": "Wednesday"
+		},
+		{
+			"name": "ibest_thursday",
+			"value": "Thursday"
+		},
+		{
+			"name": "ibest_friday",
+			"value": "Friday"
+		},
+		{
+			"name": "ibest_saturday",
+			"value": "Saturday"
+		},
+		{
+			"name": "ibest_sunday",
+			"value": "Sunday"
+		},
+		{
+			"name": "ibest_monday_omit",
+			"value": "Mon"
+		},
+		{
+			"name": "ibest_tuesday_omit",
+			"value": "Tue"
+		},
+		{
+			"name": "ibest_wednesday_omit",
+			"value": "Wed"
+		},
+		{
+			"name": "ibest_thursday_omit",
+			"value": "Thu"
+		},
+		{
+			"name": "ibest_friday_omit",
+			"value": "Fri"
+		},
+		{
+			"name": "ibest_saturday_omit",
+			"value": "Sat"
+		},
+		{
+			"name": "ibest_sunday_omit",
+			"value": "Sun"
+		},
+		{
+			"name": "ibest_calendar_clocked",
+			"value": "clocked"
+		},
+		{
+			"name": "ibest_calendar_unclock",
+			"value": "unclock"
+		},
+		{
+			"name": "ibest_text_confirm",
+			"value": "Confirm"
+		},
+		{
+			"name": "ibest_text_cancel",
+			"value": "Cancel"
+		},
+		{
+			"name": "ibest_maximum_limit",
+			"value": "No more than %d days at most"
+		},
+		{
+			"name": "ibest_please_select",
+			"value": "please select"
+		},
+		{
+			"name": "ibest_year",
+			"value": " Year"
+		},
+		{
+			"name": "ibest_month",
+			"value": " Month"
+		},
+		{
+			"name": "ibest_day",
+			"value": " Day"
+		},
+		{
+			"name": "ibest_hour",
+			"value": " Hour"
+		},
+		{
+			"name": "ibest_minute",
+			"value": " Minute"
+		},
+		{
+			"name": "ibest_second",
+			"value": " Second"
+		},
+		{
+			"name": "ibest_text_complete",
+			"value": "Close"
+		},
+		{
+			"name": "ibest_text_clear",
+			"value": "Clear"
+		},
+		{
+			"name": "ibest_upload_failed",
+			"value": "Failed"
+		},
+		{
+			"name": "ibest_uploading",
+			"value": "Uploading"
+		},
+		{
+			"name": "ibest_text_pulling",
+			"value": "Pull down to refresh"
+		},
+		{
+			"name": "ibest_text_loosing",
+			"value": "Release to refresh"
+		},
+		{
+			"name": "ibest_text_loading",
+			"value": "Loading"
+		},
+		{
+			"name": "ibest_text_slidingUp",
+			"value": "Slide up to refresh"
+		},
+		{
+			"name": "ibest_text_expand",
+			"value": "expand"
+		},
+		{
+			"name": "ibest_text_collapse",
+			"value": "collapse"
+		},
+		{
+			"name": "ibest_text_sum",
+			"value": "Sum"
+		},
+		{
+			"name": "ibest_text_input_correct_content",
+			"value": "Please enter the correct content"
+		},
+		{
+			"name": "ibest_text_input_name",
+			"value": "Please input your name"
+		},
+		{
+			"name": "ibest_text_input_phone",
+			"value": "Please enter your phone"
+		},
+		{
+			"name": "ibest_text_select_region",
+			"value": "Please select the regional location"
+		},
+		{
+			"name": "ibest_text_identify",
+			"value": "identify"
+		},
+		{
+			"name": "ibest_text_name",
+			"value": "name"
+		},
+		{
+			"name": "ibest_text_phone_number",
+			"value": "phone"
+		},
+		{
+			"name": "ibest_text_province_city_district",
+			"value": "ProvinceCityDistrict"
+		},
+		{
+			"name": "ibest_text_select_region2",
+			"value": "Please select province, city, or district"
+		},
+		{
+			"name": "ibest_text_detailed_address",
+			"value": "detailed address"
+		},
+		{
+			"name": "ibest_text_detailed_address_description",
+			"value": "Enter residential area/office building/house number, etc"
+		},
+		{
+			"name": "ibest_text_postal_code",
+			"value": "postal code"
+		},
+		{
+			"name": "ibest_text_input_postal_code",
+			"value": "Please enter postal code"
+		},
+		{
+			"name": "ibest_guide_previous",
+			"value": "Previous"
+		},
+		{
+			"name": "ibest_guide_next",
+			"value": "Next"
+		},
+		{
+			"name": "ibest_guide_complete",
+			"value": "Complete"
+		}
+	]
+}

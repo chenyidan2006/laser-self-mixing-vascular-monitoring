@@ -60,10 +60,10 @@
 <script>
 	/**
 	 * calendar 日历
-	 * @description 此组件用于单个选择日期，范围选择日期等，日历被包裹在底部弹起的容器中。
+	 * @description 此组件用于单个选择日期,范围选择日期等,日历被包裹在底部弹起的容器中.
 	 * @tutorial http://uviewui.com/components/calendar.html
-	 * @property {String} mode 选择日期的模式，date-为单个日期，range-为选择日期范围
-	 * @property {Boolean} v-model 布尔值变量，用于控制日历的弹出与收起
+	 * @property {String} mode 选择日期的模式,date-为单个日期,range-为选择日期范围
+	 * @property {Boolean} v-model 布尔值变量,用于控制日历的弹出与收起
 	 * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配(默认false)
 	 * @property {Boolean} change-year 是否显示顶部的切换年份方向的按钮(默认true)
 	 * @property {Boolean} change-month 是否显示顶部的切换月份方向的按钮(默认true)
@@ -71,7 +71,7 @@
 	 * @property {String Number} min-year 可切换的最小年份(默认1950)
 	 * @property {String Number} min-date 最小可选日期(默认1950-01-01)
 	 * @property {String Number} max-date 最大可选日期(默认当前日期)
-	 * @property {String Number} 弹窗顶部左右两边的圆角值，单位rpx(默认20)
+	 * @property {String Number} 弹窗顶部左右两边的圆角值,单位rpx(默认20)
 	 * @property {Boolean} mask-close-able 是否允许通过点击遮罩关闭日历(默认true)
 	 * @property {String} month-arrow-color 月份切换按钮箭头颜色(默认#606266)
 	 * @property {String} year-arrow-color 年份切换按钮箭头颜色(默认#909399)
@@ -84,7 +84,7 @@
 	 * @property {String} start-text 起始日期底部的提示文字(默认 '开始')
 	 * @property {String} end-text 结束日期底部的提示文字(默认 '结束')
 	 * @property {String} btn-type 底部确定按钮的主题(默认 'primary')
-	 * @property {String} toolTip 顶部提示文字，如设置名为tooltip的slot，此参数将失效(默认 '选择日期')
+	 * @property {String} toolTip 顶部提示文字,如设置名为tooltip的slot,此参数将失效(默认 '选择日期')
 	 * @property {Boolean} closeable 是否显示右上角的关闭图标(默认true)
 	 * @example <u-calendar v-model="show" :mode="mode"></u-calendar>
 	 */
@@ -121,7 +121,7 @@
 				type: Boolean,
 				default: true
 			},
-			// date-单个日期选择，range-开始日期+结束日期选择
+			// date-单个日期选择,range-开始日期+结束日期选择
 			mode: {
 				type: String,
 				default: 'date'
@@ -143,7 +143,7 @@
 			},
 			/**
 			 * 最大可选日期
-			 * 默认最大值为今天，之后的日期不可选
+			 * 默认最大值为今天,之后的日期不可选
 			 * 2030-12-31
 			 * */
 			maxDate: {
@@ -190,12 +190,12 @@
 				type: String,
 				default: '#2979ff'
 			},
-			// mode=range时生效，起始日期自定义文案
+			// mode=range时生效,起始日期自定义文案
 			startText: {
 				type: String,
 				default: '开始'
 			},
-			// mode=range时生效，结束日期自定义文案
+			// mode=range时生效,结束日期自定义文案
 			endText: {
 				type: String,
 				default: '结束'
@@ -259,7 +259,7 @@
 				return `${this.mode}-${this.minDate}-${this.maxDate}`;
 			},
 			uZIndex() {
-				// 如果用户有传递z-index值，优先使用
+				// 如果用户有传递z-index值,优先使用
 				return this.zIndex ? this.zIndex : this.$u.zIndex.popup;
 			}
 		},
@@ -425,7 +425,7 @@
 				}
 			},
 			close() {
-				// 修改通过v-model绑定的父组件变量的值为false，从而隐藏日历弹窗
+				// 修改通过v-model绑定的父组件变量的值为false,从而隐藏日历弹窗
 				this.$emit('input', false);
 			},
 			getWeekText(date) {

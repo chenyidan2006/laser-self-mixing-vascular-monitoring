@@ -63,7 +63,7 @@
 				default: false
 			},
 			// #ifdef APP-PLUS
-			// 是否显示动画,app 端默认不开启动画，卡顿严重
+			// 是否显示动画,app 端默认不开启动画,卡顿严重
 			showAnimation: {
 				type: Boolean,
 				default: false
@@ -101,7 +101,7 @@
 			}
 		},
 		data() {
-			// TODO 随机生生元素ID，解决百度小程序获取同一个元素位置信息的bug
+			// TODO 随机生生元素ID,解决百度小程序获取同一个元素位置信息的bug
 			const elId = `Uni_${Math.ceil(Math.random() * 10e5).toString(36)}`
 			return {
 				isOpen: false,
@@ -198,7 +198,7 @@
 					.fields({
 						size: true
 					}, data => {
-						// TODO 百度中可能获取不到节点信息 ，需要循环获取
+						// TODO 百度中可能获取不到节点信息 ,需要循环获取
 						if (index >= 10) return
 						if (!data) {
 							index++

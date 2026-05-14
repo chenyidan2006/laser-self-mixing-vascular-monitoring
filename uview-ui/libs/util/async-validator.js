@@ -343,7 +343,7 @@ var types = {
 			return false;
 		}
 
-		// 修改源码，将字符串数值先转为数值
+		// 修改源码,将字符串数值先转为数值
 		return typeof +value === 'number';
 	},
 	object: function object(value) {
@@ -408,7 +408,7 @@ function type(rule, value, source, errors, options) {
 function range(rule, value, source, errors, options) {
 	var len = typeof rule.len === 'number';
 	var min = typeof rule.min === 'number';
-	var max = typeof rule.max === 'number'; // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
+	var max = typeof rule.max === 'number'; // 正则匹配码点范围从U+010000一直到U+10FFFF的文字(补充平面Supplementary Plane)
 
 	var spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 	var val = value;
@@ -437,7 +437,7 @@ function range(rule, value, source, errors, options) {
 	}
 
 	if (str) {
-		// 处理码点大于U+010000的文字length属性不准确的bug，如"𠮷𠮷𠮷".length !== 3
+		// 处理码点大于U+010000的文字length属性不准确的bug,如"𠮷𠮷𠮷".length !== 3
 		val = value.replace(spRegexp, '_').length;
 	}
 

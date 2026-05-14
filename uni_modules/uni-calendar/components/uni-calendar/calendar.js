@@ -1,15 +1,15 @@
 /**
-* @1900-2100区间内的公历、农历互转
+* @1900-2100区间内的公历,农历互转
 * @charset UTF-8
 * @github  https://github.com/jjonline/calendar.js
 * @Author  Jea杨(JJonline@JJonline.Cn)
 * @Time    2014-7-21
-* @Time    2016-8-13 Fixed 2033hex、Attribution Annals
+* @Time    2016-8-13 Fixed 2033hex,Attribution Annals
 * @Time    2016-9-25 Fixed lunar LeapMonth Param Bug
 * @Time    2017-7-24 Fixed use getTerm Func Param Error.use solar year,NOT lunar year
 * @Version 1.0.3
-* @公历转农历：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
-* @农历转公历：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
+* @公历转农历:calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
+* @农历转公历:calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
 */
 /* eslint-disable */
 var calendar = {
@@ -190,7 +190,7 @@ var calendar = {
   },
 
   /**
-      * 返回农历y年闰月是哪个月；若y年没有闰月 则返回0
+      * 返回农历y年闰月是哪个月;若y年没有闰月 则返回0
       * @param lunar Year
       * @return Number (0-12)
       * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
@@ -202,7 +202,7 @@ var calendar = {
   /**
       * 返回农历y年闰月的天数 若该年没有闰月则返回0
       * @param lunar Year
-      * @return Number (0、29、30)
+      * @return Number (0,29,30)
       * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
       */
   leapDays: function (y) {
@@ -213,20 +213,20 @@ var calendar = {
   },
 
   /**
-      * 返回农历y年m月（非闰月）的总天数，计算m为闰月时的天数请使用leapDays方法
+      * 返回农历y年m月(非闰月)的总天数,计算m为闰月时的天数请使用leapDays方法
       * @param lunar Year
-      * @return Number (-1、29、30)
+      * @return Number (-1,29,30)
       * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
       */
   monthDays: function (y, m) {
-    if (m > 12 || m < 1) { return -1 }// 月份参数从1至12，参数错误返回-1
+    if (m > 12 || m < 1) { return -1 }// 月份参数从1至12,参数错误返回-1
     return ((this.lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29)
   },
 
   /**
       * 返回公历(!)y年m月的天数
       * @param solar Year
-      * @return Number (-1、28、29、30、31)
+      * @return Number (-1,28,29,30,31)
       * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
       */
   solarDays: function (y, m) {
@@ -253,7 +253,7 @@ var calendar = {
   },
 
   /**
-     * 公历月、日判断所属星座
+     * 公历月,日判断所属星座
      * @param  cMonth [description]
      * @param  cDay [description]
      * @return Cn string
@@ -275,7 +275,7 @@ var calendar = {
 
   /**
       * 传入公历(!)y年获得该年第n个节气的公历日期
-      * @param y公历年(1900-2100)；n二十四节气中的第几个节气(1~24)；从n=1(小寒)算起
+      * @param y公历年(1900-2100);n二十四节气中的第几个节气(1~24);从n=1(小寒)算起
       * @return day Number
       * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
       */
@@ -361,7 +361,7 @@ var calendar = {
   },
 
   /**
-      * 年份转生肖[!仅能大致转换] => 精确划分生肖分界线是“立春”
+      * 年份转生肖[!仅能大致转换] => 精确划分生肖分界线是"立春"
       * @param y year
       * @return Cn string
       * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
@@ -371,7 +371,7 @@ var calendar = {
   },
 
   /**
-      * 传入阳历年月日获得详细的公历、农历object信息 <=>JSON
+      * 传入阳历年月日获得详细的公历,农历object信息 <=>JSON
       * @param y  solar year
       * @param m  solar month
       * @param d  solar day
@@ -379,7 +379,7 @@ var calendar = {
       * @eg:console.log(calendar.solar2lunar(1987,11,01));
       */
   solar2lunar: function (y, m, d) { // 参数区间1900.1.31~2100.12.31
-    // 年份限定、上限
+    // 年份限定,上限
     if (y < 1900 || y > 2100) {
       return -1// undefined转换为数字变为NaN
     }
@@ -489,7 +489,7 @@ var calendar = {
   },
 
   /**
-      * 传入农历年月日以及传入的月份是否闰月获得详细的公历、农历object信息 <=>JSON
+      * 传入农历年月日以及传入的月份是否闰月获得详细的公历,农历object信息 <=>JSON
       * @param y  lunar year
       * @param m  lunar month
       * @param d  lunar day

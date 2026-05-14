@@ -102,28 +102,28 @@ import areas from '../../libs/util/area.js';
 
 /**
  * picker picker弹出选择器
- * @description 此选择器有两种弹出模式：一是时间模式，可以配置年，日，月，时，分，秒参数 二是地区模式，可以配置省，市，区参数
+ * @description 此选择器有两种弹出模式:一是时间模式,可以配置年,日,月,时,分,秒参数 二是地区模式,可以配置省,市,区参数
  * @tutorial https://www.uviewui.com/components/picker.html
- * @property {Object} params 需要显示的参数，见官网说明
- * @property {String} mode 模式选择，region-地区类型，time-时间类型（默认time）
- * @property {String Number} start-year 可选的开始年份，mode=time时有效（默认1950）
- * @property {String Number} end-year 可选的结束年份，mode=time时有效（默认2050）
- * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配（默认false）
- * @property {Boolean} show-time-tag 时间模式时，是否显示后面的年月日中文提示
- * @property {String} cancel-color 取消按钮的颜色（默认#606266）
- * @property {String} confirm-color 确认按钮的颜色（默认#2979ff）
- * @property {String} default-time 默认选中的时间，mode=time时有效
+ * @property {Object} params 需要显示的参数,见官网说明
+ * @property {String} mode 模式选择,region-地区类型,time-时间类型(默认time)
+ * @property {String Number} start-year 可选的开始年份,mode=time时有效(默认1950)
+ * @property {String Number} end-year 可选的结束年份,mode=time时有效(默认2050)
+ * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配(默认false)
+ * @property {Boolean} show-time-tag 时间模式时,是否显示后面的年月日中文提示
+ * @property {String} cancel-color 取消按钮的颜色(默认#606266)
+ * @property {String} confirm-color 确认按钮的颜色(默认#2979ff)
+ * @property {String} default-time 默认选中的时间,mode=time时有效
  * @property {String} confirm-text 确认按钮的文字
  * @property {String} cancel-text 取消按钮的文字
- * @property {String} default-region 默认选中的地区，中文形式，mode=region时有效
- * @property {String} default-code 默认选中的地区，编号形式，mode=region时有效
- * @property {Boolean} mask-close-able 是否允许通过点击遮罩关闭Picker（默认true）
- * @property {String Number} z-index 弹出时的z-index值（默认1075）
- * @property {Array} default-selector 数组形式，其中每一项表示选择了range对应项中的第几个
- * @property {Array} range 自定义选择的数据，mode=selector或mode=multiSelector时有效
- * @property {String} range-key 当range参数的元素为对象时，指定Object中的哪个key的值作为选择器显示内容
- * @event {Function} confirm 点击确定按钮，返回当前选择的值
- * @event {Function} cancel 点击取消按钮，返回当前选择的值
+ * @property {String} default-region 默认选中的地区,中文形式,mode=region时有效
+ * @property {String} default-code 默认选中的地区,编号形式,mode=region时有效
+ * @property {Boolean} mask-close-able 是否允许通过点击遮罩关闭Picker(默认true)
+ * @property {String Number} z-index 弹出时的z-index值(默认1075)
+ * @property {Array} default-selector 数组形式,其中每一项表示选择了range对应项中的第几个
+ * @property {Array} range 自定义选择的数据,mode=selector或mode=multiSelector时有效
+ * @property {String} range-key 当range参数的元素为对象时,指定Object中的哪个key的值作为选择器显示内容
+ * @event {Function} confirm 点击确定按钮,返回当前选择的值
+ * @event {Function} cancel 点击取消按钮,返回当前选择的值
  * @example <u-picker v-model="show" mode="time"></u-picker>
  */
 export default {
@@ -147,26 +147,26 @@ export default {
 				};
 			}
 		},
-		// 当mode=selector或者mode=multiSelector时，提供的数组
+		// 当mode=selector或者mode=multiSelector时,提供的数组
 		range: {
 			type: Array,
 			default() {
 				return [];
 			}
 		},
-		// 当mode=selector或者mode=multiSelector时，提供的默认选中的下标
+		// 当mode=selector或者mode=multiSelector时,提供的默认选中的下标
 		defaultSelector: {
 			type: Array,
 			default() {
 				return [0];
 			}
 		},
-		// 当 range 是一个 Array＜Object＞ 时，通过 range-key 来指定 Object 中 key 的值作为选择器显示内容
+		// 当 range 是一个 Array＜Object＞ 时,通过 range-key 来指定 Object 中 key 的值作为选择器显示内容
 		rangeKey: {
 			type: String,
 			default: ''
 		},
-		// 模式选择，region-地区类型，time-时间类型，selector-单列模式，multiSelector-多列模式
+		// 模式选择,region-地区类型,time-时间类型,selector-单列模式,multiSelector-多列模式
 		mode: {
 			type: String,
 			default: 'time'
@@ -191,24 +191,24 @@ export default {
 			type: String,
 			default: '#2979ff'
 		},
-		// 默认显示的时间，2025-07-02 || 2025-07-02 13:01:00 || 2025/07/02
+		// 默认显示的时间,2025-07-02 || 2025-07-02 13:01:00 || 2025/07/02
 		defaultTime: {
 			type: String,
 			default: ''
 		},
-		// 默认显示的地区，可传类似["河北省", "秦皇岛市", "北戴河区"]
+		// 默认显示的地区,可传类似["河北省", "秦皇岛市", "北戴河区"]
 		defaultRegion: {
 			type: Array,
 			default() {
 				return [];
 			}
 		},
-		// 时间模式时，是否显示后面的年月日中文提示
+		// 时间模式时,是否显示后面的年月日中文提示
 		showTimeTag: {
 			type: Boolean,
 			default: true
 		},
-		// 默认显示地区的编码，defaultRegion和areaCode同时存在，areaCode优先，可传类似["13", "1303", "130304"]
+		// 默认显示地区的编码,defaultRegion和areaCode同时存在,areaCode优先,可传类似["13", "1303", "130304"]
 		areaCode: {
 			type: Array,
 			default() {
@@ -274,7 +274,7 @@ export default {
 			province: 0,
 			city: 0,
 			area: 0,
-			moving: false // 列是否还在滑动中，微信小程序如果在滑动中就点确定，结果可能不准确
+			moving: false // 列是否还在滑动中,微信小程序如果在滑动中就点确定,结果可能不准确
 		};
 	},
 	mounted() {
@@ -282,18 +282,18 @@ export default {
 	},
 	computed: {
 		propsChange() {
-			// 引用这几个变量，是为了监听其变化
+			// 引用这几个变量,是为了监听其变化
 			return `${this.mode}-${this.defaultTime}-${this.startYear}-${this.endYear}-${this.defaultRegion}-${this.areaCode}`;
 		},
 		regionChange() {
-			// 引用这几个变量，是为了监听其变化
+			// 引用这几个变量,是为了监听其变化
 			return `${this.province}-${this.city}`;
 		},
 		yearAndMonth() {
 			return `${this.year}-${this.month}`;
 		},
 		uZIndex() {
-			// 如果用户有传递z-index值，优先使用
+			// 如果用户有传递z-index值,优先使用
 			return this.zIndex ? this.zIndex : this.$u.zIndex.popup;
 		}
 	},
@@ -302,17 +302,17 @@ export default {
 			this.reset = true;
 			setTimeout(() => this.init(), 10);
 		},
-		// 如果地区发生变化，为了让picker联动起来，必须重置this.citys和this.areas
+		// 如果地区发生变化,为了让picker联动起来,必须重置this.citys和this.areas
 		regionChange(val) {
 			this.citys = citys[this.province];
 			this.areas = areas[this.province][this.city];
 		},
-		// watch监听月份的变化，实时变更日的天数，因为不同月份，天数不一样
-		// 一个月可能有30，31天，甚至闰年2月的29天，平年2月28天
+		// watch监听月份的变化,实时变更日的天数,因为不同月份,天数不一样
+		// 一个月可能有30,31天,甚至闰年2月的29天,平年2月28天
 		yearAndMonth(val) {
 			if (this.params.year) this.setDays();
 		},
-		// 微信和QQ小程序由于一些奇怪的原因(故同时对所有平台均初始化一遍)，需要重新初始化才能显示正确的值
+		// 微信和QQ小程序由于一些奇怪的原因(故同时对所有平台均初始化一遍),需要重新初始化才能显示正确的值
 		value(n) {
 			if (n) {
 				this.reset = true;
@@ -321,7 +321,7 @@ export default {
 		}
 	},
 	methods: {
-		// 标识滑动开始，只有微信小程序才有这样的事件
+		// 标识滑动开始,只有微信小程序才有这样的事件
 		pickstart() {
 			// #ifdef MP-WEIXIN
 			this.moving = true;
@@ -335,33 +335,33 @@ export default {
 		},
 		// 对单列和多列形式的判断是否有传入变量的情况
 		getItemValue(item, mode) {
-			// 目前(2020-05-25)uni-app对微信小程序编译有错误，导致v-if为false中的内容也执行，错误导致
-			// 单列模式或者多列模式中的getItemValue同时被执行，故在这里再加一层判断
+			// 目前(2020-05-25)uni-app对微信小程序编译有错误,导致v-if为false中的内容也执行,错误导致
+			// 单列模式或者多列模式中的getItemValue同时被执行,故在这里再加一层判断
 			if (this.mode == mode) {
 				return typeof item == 'object' ? item[this.rangeKey] : item;
 			}
 		},
-		// 小于10前面补0，用于月份，日期，时分秒等
+		// 小于10前面补0,用于月份,日期,时分秒等
 		formatNumber(num) {
 			return +num < 10 ? '0' + num : String(num);
 		},
 		// 生成递进的数组
 		generateArray: function(start, end) {
-			// 转为数值格式，否则用户给end-year等传递字符串值时，下面的end+1会导致字符串拼接，而不是相加
+			// 转为数值格式,否则用户给end-year等传递字符串值时,下面的end+1会导致字符串拼接,而不是相加
 			start = Number(start);
 			end = Number(end);
 			end = end > start ? end : start;
-			// 生成数组，获取其中的索引，并剪出来
+			// 生成数组,获取其中的索引,并剪出来
 			return [...Array(end + 1).keys()].slice(start);
 		},
 		getIndex: function(arr, val) {
 			let index = arr.indexOf(val);
-			// 如果index为-1(即找不到index值)，~(-1)=-(-1)-1=0，导致条件不成立
+			// 如果index为-1(即找不到index值),~(-1)=-(-1)-1=0,导致条件不成立
 			return ~index ? index : 0;
 		},
 		//日期时间处理
 		initTimeValue() {
-			// 格式化时间，在IE浏览器(uni不存在此情况)，无法识别日期间的"-"间隔符号
+			// 格式化时间,在IE浏览器(uni不存在此情况),无法识别日期间的"-"间隔符号
 			let fdate = this.defaultTime.replace(/\-/g, '/');
 			fdate = fdate && fdate.indexOf('/') == -1 ? `2020/01/01 ${fdate}` : fdate;
 			let time = null;
@@ -429,7 +429,7 @@ export default {
 		setYears() {
 			// 获取年份集合
 			this.years = this.generateArray(this.startYear, this.endYear);
-			// 设置this.valueArr某一项的值，是为了让picker预选中某一个值
+			// 设置this.valueArr某一项的值,是为了让picker预选中某一个值
 			this.valueArr.splice(this.valueArr.length - 1, 1, this.getIndex(this.years, this.year));
 		},
 		setMonths() {
@@ -441,13 +441,13 @@ export default {
 			this.days = this.generateArray(1, totalDays);
 			let index = 0;
 			// 这里不能使用类似setMonths()中的this.valueArr.splice(this.valueArr.length - 1, xxx)做法
-			// 因为this.month和this.year变化时，会触发watch中的this.setDays()，导致this.valueArr.length计算有误
+			// 因为this.month和this.year变化时,会触发watch中的this.setDays(),导致this.valueArr.length计算有误
 			if (this.params.year && this.params.month) index = 2;
 			else if (this.params.month) index = 1;
 			else if (this.params.year) index = 1;
 			else index = 0;
-			// 当月份变化时，会导致日期的天数也会变化，如果原来选的天数大于变化后的天数，则重置为变化后的最大值
-			// 比如原来选中3月31日，调整为2月后，日期变为最大29，这时如果day值继续为31显然不合理，于是将其置为29(picker-column从1开始)
+			// 当月份变化时,会导致日期的天数也会变化,如果原来选的天数大于变化后的天数,则重置为变化后的最大值
+			// 比如原来选中3月31日,调整为2月后,日期变为最大29,这时如果day值继续为31显然不合理,于是将其置为29(picker-column从1开始)
 			if(this.day > this.days.length) this.day = this.days.length;
 			this.valueArr.splice(index, 1, this.getIndex(this.days, this.day));
 		},
@@ -468,7 +468,7 @@ export default {
 			if (!this.params.province) return;
 			let tmp = '';
 			let useCode = false;
-			// 如果同时配置了defaultRegion和areaCode，优先使用areaCode参数
+			// 如果同时配置了defaultRegion和areaCode,优先使用areaCode参数
 			if (this.areaCode.length) {
 				tmp = this.areaCode[0];
 				useCode = true;
@@ -529,8 +529,8 @@ export default {
 			this.valueArr = e.detail.value;
 			let i = 0;
 			if (this.mode == 'time') {
-				// 这里使用i++，是因为this.valueArr数组的长度是不确定长度的，它根据this.params的值来配置长度
-				// 进入if规则，i会加1，保证了能获取准确的值
+				// 这里使用i++,是因为this.valueArr数组的长度是不确定长度的,它根据this.params的值来配置长度
+				// 进入if规则,i会加1,保证了能获取准确的值
 				if (this.params.year) this.year = this.years[this.valueArr[i++]];
 				if (this.params.month) this.month = this.months[this.valueArr[i++]];
 				if (this.params.day) this.day = this.days[this.valueArr[i++]];
@@ -543,11 +543,11 @@ export default {
 				if (this.params.area) this.area = this.valueArr[i++];
 			} else if (this.mode == 'multiSelector') {
 				let index = null;
-				// 对比前后两个数组，寻找变更的是哪一列，如果某一个元素不同，即可判定该列发生了变化
+				// 对比前后两个数组,寻找变更的是哪一列,如果某一个元素不同,即可判定该列发生了变化
 				this.defaultSelector.map((val, idx) => {
 					if (val != e.detail.value[idx]) index = idx;
 				});
-				// 为了让用户对多列变化时，对动态设置其他列的变更
+				// 为了让用户对多列变化时,对动态设置其他列的变更
 				if (index != null) {
 					this.$emit('columnchange', {
 						column: index,
@@ -585,7 +585,7 @@ export default {
 		},
 		// 获取时间戳
 		getTimestamp() {
-			// yyyy-mm-dd为安卓写法，不支持iOS，需要使用"/"分隔，才能二者兼容
+			// yyyy-mm-dd为安卓写法,不支持iOS,需要使用"/"分隔,才能二者兼容
 			let time = this.year + '/' + this.month + '/' + this.day + ' ' + this.hour + ':' + this.minute + ':' + this.second;
 			return new Date(time).getTime() / 1000;
 		}

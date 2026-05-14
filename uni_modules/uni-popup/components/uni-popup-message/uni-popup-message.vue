@@ -20,7 +20,7 @@
 	 * 	@value info 消息
 	 * 	@value error 错误
 	 * @property {String} message 消息提示文字
-	 * @property {String} duration 显示时间，设置为 0 则不会自动关闭
+	 * @property {String} duration 显示时间,设置为 0 则不会自动关闭
 	 */
 
 	export default {
@@ -42,7 +42,7 @@
 				default: ''
 			},
 			/**
-			 * 显示时间，设置为 0 则不会自动关闭
+			 * 显示时间,设置为 0 则不会自动关闭
 			 */
 			duration: {
 				type: Number,

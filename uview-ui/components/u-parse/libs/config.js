@@ -17,18 +17,18 @@ var cfg = {
 		ensp: '\u2002',
 		emsp: '\u2003',
 		ndash: '–',
-		mdash: '—',
+		mdash: '-',
 		middot: '·',
-		lsquo: '‘',
-		rsquo: '’',
-		ldquo: '“',
-		rdquo: '”',
+		lsquo: ''',
+		rsquo: ''',
+		ldquo: '"',
+		rdquo: '"',
 		bull: '•',
-		hellip: '…'
+		hellip: '...'
 	},
 	blankChar: makeMap(' ,\xA0,\t,\r,\n,\f'),
 	boolAttrs: makeMap('allowfullscreen,autoplay,autostart,controls,ignore,loop,muted'),
-	// 块级标签，将被转为 div
+	// 块级标签,将被转为 div
 	blockTags: makeMap('address,article,aside,body,caption,center,cite,footer,header,html,nav,pre,section'),
 	// 将被移除的标签
 	ignoreTags: makeMap('area,base,canvas,frame,iframe,input,link,map,meta,param,script,source,style,svg,textarea,title,track,wbr'),

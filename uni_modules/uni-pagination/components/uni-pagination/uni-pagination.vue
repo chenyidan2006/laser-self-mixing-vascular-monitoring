@@ -54,7 +54,7 @@
 <script>
 	/**
 	 * Pagination 分页器
-	 * @description 分页器组件，用于展示页码、请求数据等
+	 * @description 分页器组件,用于展示页码,请求数据等
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=32
 	 * @property {String} prevText 左侧按钮文字
 	 * @property {String} nextText 右侧按钮文字
@@ -65,7 +65,7 @@
 	 * @property {Boolean} showIcon = [true|false] 是否以 icon 形式展示按钮
 	 * @property {Boolean} showPageSize = [true|false] 是否展示每页条数
 	 * @property {Array} pageSizeRange = [20, 50, 100, 500] 每页条数选框
-	 * @event {Function} change 点击页码按钮时触发 ,e={type,current} current为当前页，type值为：next/prev，表示点击的是上一页还是下一个
+	 * @event {Function} change 点击页码按钮时触发 ,e={type,current} current为当前页,type值为:next/prev,表示点击的是上一页还是下一个
 	 * * @event {Function} pageSizeChange 当前每页条数改变时触发 ,e={pageSize} pageSize 为当前所选的每页条数
 	 */
 

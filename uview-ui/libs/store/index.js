@@ -1,4 +1,4 @@
-// 暂时不用vuex模块方式实现，将该方法直接放入到/store/index.js中
+// 暂时不用vuex模块方式实现,将该方法直接放入到/store/index.js中
 const module = {
 	actions: {
 		$uStore({rootState}, params) {

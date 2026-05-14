@@ -42,19 +42,19 @@
 <script>
 	/**
 	 * skeleton 骨架屏
-	 * @description 骨架屏一般用于页面在请求远程数据尚未完成时，页面用灰色块预显示本来的页面结构，给用户更好的体验。
+	 * @description 骨架屏一般用于页面在请求远程数据尚未完成时,页面用灰色块预显示本来的页面结构,给用户更好的体验.
 	 * @tutorial https://www.uviewui.com/components/skeleton.html
-	 * @property {String} el-color 骨架块状元素的背景颜色（默认#e5e5e5）
-	 * @property {String} bg-color 骨架组件背景颜色（默认#ffffff）
-	 * @property {Boolean} animation 骨架块是否显示动画效果（默认false）
-	 * @property {String Number} border-radius u-skeleton-fillet类名元素，对应的骨架块的圆角大小，单位rpx（默认10）
-	 * @property {Boolean} loading 是否显示骨架组件，请求完成后，将此值设置为false（默认true）
+	 * @property {String} el-color 骨架块状元素的背景颜色(默认#e5e5e5)
+	 * @property {String} bg-color 骨架组件背景颜色(默认#ffffff)
+	 * @property {Boolean} animation 骨架块是否显示动画效果(默认false)
+	 * @property {String Number} border-radius u-skeleton-fillet类名元素,对应的骨架块的圆角大小,单位rpx(默认10)
+	 * @property {Boolean} loading 是否显示骨架组件,请求完成后,将此值设置为false(默认true)
 	 * @example <u-skeleton :loading="true" :animation="true"></u-skeleton>
 	 */
 	export default {
 		name: "u-skeleton",
 		props: {
-			// 需要渲染的元素背景颜色，十六进制或者rgb等都可以
+			// 需要渲染的元素背景颜色,十六进制或者rgb等都可以
 			elColor: {
 				type: String,
 				default: '#e5e5e5'
@@ -69,12 +69,12 @@
 				type: Boolean,
 				default: false
 			},
-			// 圆角值，只对类名为u-skeleton-fillet的元素生效，为数值，不带单位
+			// 圆角值,只对类名为u-skeleton-fillet的元素生效,为数值,不带单位
 			borderRadius: {
 				type: [String, Number],
 				default: "10"
 			},
-			// 是否显示骨架，true-显示，false-隐藏
+			// 是否显示骨架,true-显示,false-隐藏
 			loading: {
 				type: Boolean,
 				default: true
@@ -94,8 +94,8 @@
 		methods: {
 			// 查询各节点的信息
 			selecterQueryInfo() {
-				// 获取整个父组件容器的高度，当做骨架屏的高度 
-				// 在微信小程序中，如果把骨架屏放入组件中使用的话，需要调in(this)上下文为父组件才有效
+				// 获取整个父组件容器的高度,当做骨架屏的高度 
+				// 在微信小程序中,如果把骨架屏放入组件中使用的话,需要调in(this)上下文为父组件才有效
 				let query = '';
 				// #ifdef MP-WEIXIN
 				query = uni.createSelectorQuery().in(this.$parent);
@@ -119,7 +119,7 @@
 			// 矩形元素列表
 			getRectEls() {
 				let query = '';
-				// 在微信小程序中，如果把骨架屏放入组件中使用的话，需要调in(this)上下文为父组件才有效
+				// 在微信小程序中,如果把骨架屏放入组件中使用的话,需要调in(this)上下文为父组件才有效
 				// #ifdef MP-WEIXIN
 				query = uni.createSelectorQuery().in(this.$parent);
 				// #endif
@@ -133,7 +133,7 @@
 			// 圆角元素列表
 			getFilletEls() {
 				let query = '';
-				// 在微信小程序中，如果把骨架屏放入组件中使用的话，需要调in(this)上下文为父组件才有效
+				// 在微信小程序中,如果把骨架屏放入组件中使用的话,需要调in(this)上下文为父组件才有效
 				// #ifdef MP-WEIXIN
 				query = uni.createSelectorQuery().in(this.$parent);
 				// #endif
@@ -147,7 +147,7 @@
 			// 圆形元素列表
 			getCircleEls() {
 				let query = '';
-				// 在微信小程序中，如果把骨架屏放入组件中使用的话，需要调in(this)上下文为父组件才有效
+				// 在微信小程序中,如果把骨架屏放入组件中使用的话,需要调in(this)上下文为父组件才有效
 				// #ifdef MP-WEIXIN
 				query = uni.createSelectorQuery().in(this.$parent);
 				// #endif

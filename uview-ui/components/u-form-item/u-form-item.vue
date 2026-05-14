@@ -3,7 +3,7 @@
 		<view class="u-form-item__body" :style="{
 			flexDirection: elLabelPosition == 'left' ? 'row' : 'column'
 		}">
-			<!-- 微信小程序中，将一个参数设置空字符串，结果会变成字符串"true" -->
+			<!-- 微信小程序中,将一个参数设置空字符串,结果会变成字符串"true" -->
 			<view class="u-form-item--left" :style="{
 				width: uLabelWidth,
 				flex: `0 0 ${uLabelWidth}`,
@@ -49,20 +49,20 @@
 
 	/**
 	 * form-item 表单item
-	 * @description 此组件一般用于表单场景，可以配置Input输入框，Select弹出框，进行表单验证等。
+	 * @description 此组件一般用于表单场景,可以配置Input输入框,Select弹出框,进行表单验证等.
 	 * @tutorial http://uviewui.com/components/form.html
 	 * @property {String} label 左侧提示文字
-	 * @property {Object} prop 表单域model对象的属性名，在使用 validate、resetFields 方法的情况下，该属性是必填的
+	 * @property {Object} prop 表单域model对象的属性名,在使用 validate,resetFields 方法的情况下,该属性是必填的
 	 * @property {Boolean} border-bottom 是否显示表单域的下划线边框
-	 * @property {String} label-position 表单域提示文字的位置，left-左侧，top-上方
-	 * @property {String Number} label-width 提示文字的宽度，单位rpx（默认90）
-	 * @property {Object} label-style lable的样式，对象形式
+	 * @property {String} label-position 表单域提示文字的位置,left-左侧,top-上方
+	 * @property {String Number} label-width 提示文字的宽度,单位rpx(默认90)
+	 * @property {Object} label-style lable的样式,对象形式
 	 * @property {String} label-align lable的对齐方式
 	 * @property {String} right-icon 右侧自定义字体图标(限uView内置图标)或图片地址
 	 * @property {String} left-icon 左侧自定义字体图标(限uView内置图标)或图片地址
-	 * @property {Object} left-icon-style 左侧图标的样式，对象形式
-	 * @property {Object} right-icon-style 右侧图标的样式，对象形式
-	 * @property {Boolean} required 是否显示左边的"*"号，这里仅起展示作用，如需校验必填，请通过rules配置必填规则(默认false)
+	 * @property {Object} left-icon-style 左侧图标的样式,对象形式
+	 * @property {Object} right-icon-style 右侧图标的样式,对象形式
+	 * @property {Boolean} required 是否显示左边的"*"号,这里仅起展示作用,如需校验必填,请通过rules配置必填规则(默认false)
 	 * @example <u-form-item label="姓名"><u-input v-model="form.name" /></u-form-item>
 	 */
 
@@ -92,17 +92,17 @@
 				type: [String, Boolean],
 				default: ''
 			},
-			// label的位置，left-左边，top-上边
+			// label的位置,left-左边,top-上边
 			labelPosition: {
 				type: String,
 				default: ''
 			},
-			// label的宽度，单位rpx
+			// label的宽度,单位rpx
 			labelWidth: {
 				type: [String, Number],
 				default: ''
 			},
-			// lable的样式，对象形式
+			// lable的样式,对象形式
 			labelStyle: {
 				type: Object,
 				default () {
@@ -138,7 +138,7 @@
 					return {}
 				}
 			},
-			// 是否显示左边的必填星号，只作显示用，具体校验必填的逻辑，请在rules中配置
+			// 是否显示左边的必填星号,只作显示用,具体校验必填的逻辑,请在rules中配置
 			required: {
 				type: Boolean,
 				default: false
@@ -147,13 +147,13 @@
 		data() {
 			return {
 				initialValue: '', // 存储的默认值
-				// isRequired: false, // 是否必填，由于人性化考虑，必填"*"号通过props的required配置，不再通过rules的规则自动生成
+				// isRequired: false, // 是否必填,由于人性化考虑,必填"*"号通过props的required配置,不再通过rules的规则自动生成
 				validateState: '', // 是否校验成功
 				validateMessage: '', // 校验失败的提示语
-				// 有错误时的提示方式，message-提示信息，border-如果input设置了边框，变成呈红色，
+				// 有错误时的提示方式,message-提示信息,border-如果input设置了边框,变成呈红色,
 				errorType: ['message'],
 				fieldValue: '', // 获取当前子组件input的输入的值
-				// 父组件的参数，在computed计算中，无法得知this.parent发生变化，故将父组件的参数值，放到data中
+				// 父组件的参数,在computed计算中,无法得知this.parent发生变化,故将父组件的参数值,放到data中
 				parentData: {
 					borderBottom: true,
 					labelWidth: 90,
@@ -174,15 +174,15 @@
 			},
 		},
 		computed: {
-			// 计算后的label宽度，由于需要多个判断，故放到computed中
+			// 计算后的label宽度,由于需要多个判断,故放到computed中
 			uLabelWidth() {
-				// 如果用户设置label为空字符串(微信小程序空字符串最终会变成字符串的'true')，意味着要将label的位置宽度设置为auto
+				// 如果用户设置label为空字符串(微信小程序空字符串最终会变成字符串的'true'),意味着要将label的位置宽度设置为auto
 				return this.elLabelPosition == 'left' ? (this.label === 'true' || this.label === '' ? 'auto' : this.$u.addUnit(this
 					.elLabelWidth)) : '100%';
 			},
 			showError() {
 				return type => {
-					// 如果errorType数组中含有none，或者toast提示类型
+					// 如果errorType数组中含有none,或者toast提示类型
 					if (this.errorType.indexOf('none') >= 0) return false;
 					else if (this.errorType.indexOf(type) >= 0) return true;
 					else return false;
@@ -190,7 +190,7 @@
 			},
 			// label的宽度
 			elLabelWidth() {
-				// label默认宽度为90，优先使用本组件的值，如果没有(如果设置为0，也算是配置了值，依然起效)，则用u-form的值
+				// label默认宽度为90,优先使用本组件的值,如果没有(如果设置为0,也算是配置了值,依然起效),则用u-form的值
 				return (this.labelWidth != 0 || this.labelWidth != '') ? this.labelWidth : (this.parentData.labelWidth ? this.parentData
 					.labelWidth :
 					90);
@@ -200,7 +200,7 @@
 				return Object.keys(this.labelStyle).length ? this.labelStyle : (this.parentData.labelStyle ? this.parentData.labelStyle :
 					{});
 			},
-			// label的位置，左侧或者上方
+			// label的位置,左侧或者上方
 			elLabelPosition() {
 				return this.labelPosition ? this.labelPosition : (this.parentData.labelPosition ? this.parentData.labelPosition :
 					'left');
@@ -211,25 +211,25 @@
 			},
 			// label的下划线
 			elBorderBottom() {
-				// 子组件的borderBottom默认为空字符串，如果不等于空字符串，意味着子组件设置了值，优先使用子组件的值
+				// 子组件的borderBottom默认为空字符串,如果不等于空字符串,意味着子组件设置了值,优先使用子组件的值
 				return this.borderBottom !== '' ? this.borderBottom : this.parentData.borderBottom ? this.parentData.borderBottom :
 					true;
 			}
 		},
 		methods: {
 			broadcastInputError() {
-				// 子组件发出事件，第三个参数为true或者false，true代表有错误
+				// 子组件发出事件,第三个参数为true或者false,true代表有错误
 				this.broadcast('u-input', 'on-form-item-error', this.validateState === 'error' && this.showError('border'));
 			},
 			// 判断是否需要required校验
 			setRules() {
 				let that = this;
-				// 由于人性化考虑，必填"*"号通过props的required配置，不再通过rules的规则自动生成
+				// 由于人性化考虑,必填"*"号通过props的required配置,不再通过rules的规则自动生成
 				// 从父组件u-form拿到当前u-form-item需要验证 的规则
 				// let rules = this.getRules();
 				// if (rules.length) {
 				// 	this.isRequired = rules.some(rule => {
-				// 		// 如果有必填项，就返回，没有的话，就是undefined
+				// 		// 如果有必填项,就返回,没有的话,就是undefined
 				// 		return rule.required;
 				// 	});
 				// }
@@ -240,7 +240,7 @@
 				this.$on('on-form-change', that.onFieldChange);
 			},
 
-			// 从u-form的rules属性中，取出当前u-form-item的校验规则
+			// 从u-form的rules属性中,取出当前u-form-item的校验规则
 			getRules() {
 				// 父组件的所有规则
 				let rules = this.parent.rules;
@@ -262,26 +262,26 @@
 			// 过滤出符合要求的rule规则
 			getFilteredRule(triggerType = '') {
 				let rules = this.getRules();
-				// 整体验证表单时，triggerType为空字符串，此时返回所有规则进行验证
+				// 整体验证表单时,triggerType为空字符串,此时返回所有规则进行验证
 				if (!triggerType) return rules;
-				// 历遍判断规则是否有对应的事件，比如blur，change触发等的事件
-				// 使用indexOf判断，是因为某些时候设置的验证规则的trigger属性可能为多个，比如['blur','change']
-				// 某些场景可能的判断规则，可能不存在trigger属性，故先判断是否存在此属性
+				// 历遍判断规则是否有对应的事件,比如blur,change触发等的事件
+				// 使用indexOf判断,是因为某些时候设置的验证规则的trigger属性可能为多个,比如['blur','change']
+				// 某些场景可能的判断规则,可能不存在trigger属性,故先判断是否存在此属性
 				return rules.filter(res => res.trigger && res.trigger.indexOf(triggerType) !== -1);
 			},
 
 			// 校验数据
 			validation(trigger, callback = () => {}) {
-				// 检验之间，先获取需要校验的值
+				// 检验之间,先获取需要校验的值
 				this.fieldValue = this.parent.model[this.prop];
 				// blur和change是否有当前方式的校验规则
 				let rules = this.getFilteredRule(trigger);
-				// 判断是否有验证规则，如果没有规则，也调用回调方法，否则父组件u-form会因为
+				// 判断是否有验证规则,如果没有规则,也调用回调方法,否则父组件u-form会因为
 				// 对count变量的统计错误而无法进入上一层的回调
 				if (!rules || rules.length === 0) {
 					return callback('');
 				}
-				// 设置当前的装填，标识为校验中
+				// 设置当前的装填,标识为校验中
 				this.validateState = 'validating';
 				// 调用async-validator的方法
 				let validator = new schema({
@@ -303,29 +303,29 @@
 			// 清空当前的u-form-item
 			resetField() {
 				this.parent.model[this.prop] = this.initialValue;
-				// 设置为`success`状态，只是为了清空错误标记
+				// 设置为`success`状态,只是为了清空错误标记
 				this.validateState = 'success';
 			}
 		},
 
-		// 组件创建完成时，将当前实例保存到u-form中
+		// 组件创建完成时,将当前实例保存到u-form中
 		mounted() {
-			// 支付宝、头条小程序不支持provide/inject，所以使用这个方法获取整个父组件，在created定义，避免循环应用
+			// 支付宝,头条小程序不支持provide/inject,所以使用这个方法获取整个父组件,在created定义,避免循环应用
 			this.parent = this.$u.$parent.call(this, 'u-form');
 			if (this.parent) {
-				// 历遍parentData中的属性，将parent中的同名属性赋值给parentData
+				// 历遍parentData中的属性,将parent中的同名属性赋值给parentData
 				Object.keys(this.parentData).map(key => {
 					this.parentData[key] = this.parent[key];
 				});
-				// 如果没有传入prop，或者uForm为空(如果u-form-input单独使用，就不会有uForm注入)，就不进行校验
+				// 如果没有传入prop,或者uForm为空(如果u-form-input单独使用,就不会有uForm注入),就不进行校验
 				if (this.prop) {
 					// 将本实例添加到父组件中
 					this.parent.fields.push(this);
 					this.errorType = this.parent.errorType;
 					// 设置初始值
 					this.initialValue = this.fieldValue;
-					// 添加表单校验，这里必须要写在$nextTick中，因为u-form的rules是通过ref手动传入的
-					// 不在$nextTick中的话，可能会造成执行此处代码时，父组件还没通过ref把规则给u-form，导致规则为空
+					// 添加表单校验,这里必须要写在$nextTick中,因为u-form的rules是通过ref手动传入的
+					// 不在$nextTick中的话,可能会造成执行此处代码时,父组件还没通过ref把规则给u-form,导致规则为空
 					this.$nextTick(() => {
 						this.setRules();
 					})
@@ -333,9 +333,9 @@
 			}
 		},
 
-		// 组件销毁前，将实例从u-form的缓存中移除
+		// 组件销毁前,将实例从u-form的缓存中移除
 		beforeDestroy() {
-			// 如果当前没有prop的话表示当前不要进行删除（因为没有注入）
+			// 如果当前没有prop的话表示当前不要进行删除(因为没有注入)
 			if (this.parent && this.prop) {
 				this.parent.fields.map((item, index) => {
 					if (item === this) this.parent.fields.splice(index, 1);

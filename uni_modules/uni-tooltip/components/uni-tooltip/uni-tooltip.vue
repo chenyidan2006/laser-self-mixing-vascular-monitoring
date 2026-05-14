@@ -13,10 +13,10 @@
 <script>
 	/**
 	 * Tooltip 提示文字
-	 * @description 常用于展示鼠标 hover 时的提示信息。
+	 * @description 常用于展示鼠标 hover 时的提示信息.
 	 * @tutorial https://uniapp.dcloud.io/component/uniui/uni-tooltip
 	 * @property {String} content   弹出层显示的内容
-	 * @property {String}  placement出现位置, 目前支持：left right top bottom
+	 * @property {String}  placement出现位置, 目前支持:left right top bottom
 	 */
 	export default {
 		name: "uni-tooltip",

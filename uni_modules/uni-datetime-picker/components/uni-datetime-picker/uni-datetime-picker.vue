@@ -116,7 +116,7 @@
 	 * @property {String} range-separator 选择范围时的分隔符
 	 * @property {Boolean} border = [true|false] 是否有边框
 	 * @property {Boolean} disabled = [true|false] 是否禁用
-	 * @property {Boolean} clearIcon = [true|false] 是否显示清除按钮（仅PC端适用）
+	 * @property {Boolean} clearIcon = [true|false] 是否显示清除按钮(仅PC端适用)
 	 * @property {[String} defaultValue 选择器打开时默认显示的时间
 	 * @event {Function} change 确定日期时触发的事件
 	 * @event {Function} maskClick 点击遮罩层触发的事件
@@ -1040,7 +1040,7 @@
 		margin-right: 50px;
 	}
 
-	/* picker 弹出层通用的指示小三角, todo：扩展至上下左右方向定位 */
+	/* picker 弹出层通用的指示小三角, todo:扩展至上下左右方向定位 */
 	.uni-popper__arrow,
 	.uni-popper__arrow::after {
 		position: absolute;

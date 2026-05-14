@@ -34,14 +34,14 @@
 <script>
 export default {
 	props: {
-		// 显示的内容，数组
+		// 显示的内容,数组
 		list: {
 			type: Array,
 			default() {
 				return [];
 			}
 		},
-		// 显示的主题，success|error|primary|info|warning
+		// 显示的主题,success|error|primary|info|warning
 		type: {
 			type: String,
 			default: 'warning'
@@ -66,7 +66,7 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		// 文字颜色，各图标也会使用文字颜色
+		// 文字颜色,各图标也会使用文字颜色
 		color: {
 			type: String,
 			default: ''
@@ -76,7 +76,7 @@ export default {
 			type: String,
 			default: ''
 		},
-		// 滚动方向，row-水平滚动，column-垂直滚动
+		// 滚动方向,row-水平滚动,column-垂直滚动
 		direction: {
 			type: String,
 			default: 'row'
@@ -86,12 +86,12 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		// 字体大小，单位rpx
+		// 字体大小,单位rpx
 		fontSize: {
 			type: [Number, String],
 			default: 26
 		},
-		// 滚动一个周期的时间长，单位ms
+		// 滚动一个周期的时间长,单位ms
 		duration: {
 			type: [Number, String],
 			default: 2000
@@ -101,28 +101,28 @@ export default {
 			type: [Number, String],
 			default: 34
 		},
-		// 水平滚动时的滚动速度，即每秒滚动多少rpx，这有利于控制文字无论多少时，都能有一个恒定的速度
+		// 水平滚动时的滚动速度,即每秒滚动多少rpx,这有利于控制文字无论多少时,都能有一个恒定的速度
 		speed: {
 			type: Number,
 			default: 160
 		},
-		// 水平滚动时，是否采用衔接形式滚动
+		// 水平滚动时,是否采用衔接形式滚动
 		isCircular: {
 			type: Boolean,
 			default: true
 		},
-		// 滚动方向，horizontal-水平滚动，vertical-垂直滚动
+		// 滚动方向,horizontal-水平滚动,vertical-垂直滚动
 		mode: {
 			type: String,
 			default: 'horizontal'
 		},
-		// 播放状态，play-播放，paused-暂停
+		// 播放状态,play-播放,paused-暂停
 		playState: {
 			type: String,
 			default: 'play'
 		},
 		// 是否禁止用手滑动切换
-		// 目前HX2.6.11，只支持App 2.5.5+、H5 2.5.5+、支付宝小程序、字节跳动小程序
+		// 目前HX2.6.11,只支持App 2.5.5+,H5 2.5.5+,支付宝小程序,字节跳动小程序
 		disableTouch: {
 			type: Boolean,
 			default: true
@@ -134,10 +134,10 @@ export default {
 		}
 	},
 	computed: {
-		// 计算字体颜色，如果没有自定义的，就用uview主题颜色
+		// 计算字体颜色,如果没有自定义的,就用uview主题颜色
 		computeColor() {
 			if (this.color) return this.color;
-			// 如果是无主题，就默认使用content-color
+			// 如果是无主题,就默认使用content-color
 			else if(this.type == 'none') return '#606266';
 			else return this.type;
 		},

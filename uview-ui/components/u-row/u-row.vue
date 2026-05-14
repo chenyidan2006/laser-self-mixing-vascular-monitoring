@@ -12,27 +12,27 @@
 <script>
 	/**
 	 * row 行布局
-	 * @description 通过基础的 12 分栏，迅速简便地创建布局。
+	 * @description 通过基础的 12 分栏,迅速简便地创建布局.
 	 * @tutorial https://www.uviewui.com/components/layout.html#row-props
-	 * @property {String Number} gutter 栅格间隔，左右各为此值的一半，单位rpx（默认0）
-	 * @property {String} justify 水平排列方式(微信小程序暂不支持)默认（start(或flex-start)）
-	 * @property {String} align 垂直排列方式（默认center）
+	 * @property {String Number} gutter 栅格间隔,左右各为此值的一半,单位rpx(默认0)
+	 * @property {String} justify 水平排列方式(微信小程序暂不支持)默认(start(或flex-start))
+	 * @property {String} align 垂直排列方式(默认center)
 	 * @example <u-row gutter="16"></u-row>
 	 */
 	export default {
 		name: "u-row",
 		props: {
-			// 给col添加间距，左右边距各占一半
+			// 给col添加间距,左右边距各占一半
 			gutter: {
 				type: [String, Number],
 				default: 20
 			},
-			// 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
+			// 水平排列方式,可选值为`start`(或`flex-start`),`end`(或`flex-end`),`center`,`around`(或`space-around`),`between`(或`space-between`)
 			justify: {
 				type: String,
 				default: 'start'
 			},
-			// 垂直对齐方式，可选值为top、center、bottom
+			// 垂直对齐方式,可选值为top,center,bottom
 			align: {
 				type: String,
 				default: 'center'
@@ -67,7 +67,7 @@
 	@import "../../libs/css/style.components.scss";
 
 	.u-row {
-		// 由于微信小程序编译后奇怪的页面结构，只能使用float布局实现，flex无法实现
+		// 由于微信小程序编译后奇怪的页面结构,只能使用float布局实现,flex无法实现
 		/* #ifndef MP-WEIXIN || MP-QQ || MP-TOUTIAO */
 		@include vue-flex;
 		/* #endif */

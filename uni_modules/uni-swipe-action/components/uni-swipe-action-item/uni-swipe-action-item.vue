@@ -71,7 +71,7 @@
 			</view>
 		</view>
 		<!-- #endif -->
-		<!-- 其他平台使用 js ，长列表性能可能会有影响-->
+		<!-- 其他平台使用 js ,长列表性能可能会有影响-->
 		<!-- #ifdef MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ || MP-HARMONY -->
 		<view class="uni-swipe">
 			<view class="uni-swipe_box" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"
@@ -137,14 +137,14 @@
 	 * SwipeActionItem 滑动操作子组件
 	 * @description 通过滑动触发选项的容器
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=181
-	 * @property {Boolean} show = [left|right｜none] 	开启关闭组件，auto-close = false 时生效
+	 * @property {Boolean} show = [left|right｜none] 	开启关闭组件,auto-close = false 时生效
 	 * @property {Boolean} disabled = [true|false] 		是否禁止滑动
-	 * @property {Boolean} autoClose = [true|false] 	滑动打开当前组件，是否关闭其他组件
+	 * @property {Boolean} autoClose = [true|false] 	滑动打开当前组件,是否关闭其他组件
 	 * @property {Number}  threshold 					滑动缺省值
 	 * @property {Array} leftOptions 					左侧选项内容及样式
 	 * @property {Array} rightOptions 					右侧选项内容及样式
-	 * @event {Function} click 							点击选项按钮时触发事件，e = {content,index} ，content（点击内容）、index（下标)
-	 * @event {Function} change 						组件打开或关闭时触发，left\right\none
+	 * @event {Function} click 							点击选项按钮时触发事件,e = {content,index} ,content(点击内容),index(下标)
+	 * @event {Function} change 						组件打开或关闭时触发,left\right\none
 	 */
 
 	export default {

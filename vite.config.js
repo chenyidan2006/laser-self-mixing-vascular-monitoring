@@ -1,13 +1,24 @@
+// 如果还没导入,需要先导入
 import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
-import path from 'path'
+import path from 'path'  // 用于路径处理
 
-export default defineConfig({
+export default defineConfig({  
+  // 插件配置
   plugins: [uni()],
+  
+  // 构建配置
+  build: {
+    rollupOptions: {
+      input: 'src/main.js'  // 明确指定入口
+    }
+  },
+  
+  // CSS 配置
   css: {
     preprocessorOptions: {
       scss: {
-        // 将 styles 目录添加到 Sass 的查找路径中
+        additionalData: `@import "uview-plus/theme.scss";`,
         includePaths: [path.resolve(__dirname, 'styles')]
       }
     }

@@ -14,8 +14,8 @@ function wranning(str) {
 	}
 }
 
-// 尝试判断在根目录的/store中是否有$u.mixin.js，此文件uView默认为需要挂在到全局的vuex的state变量
-// HX2.6.11版本,放到try中,控制台依然会警告,暂时不用此方式，
+// 尝试判断在根目录的/store中是否有$u.mixin.js,此文件uView默认为需要挂在到全局的vuex的state变量
+// HX2.6.11版本,放到try中,控制台依然会警告,暂时不用此方式,
 // let vuexStore = {};
 // try {
 // 	vuexStore = require("@/store/$u.mixin.js");
@@ -54,15 +54,15 @@ import test from './libs/function/test.js'
 import random from './libs/function/random.js'
 // 去除空格
 import trim from './libs/function/trim.js'
-// toast提示，对uni.showToast的封装
+// toast提示,对uni.showToast的封装
 import toast from './libs/function/toast.js'
 // 获取父组件参数
 import getParent from './libs/function/getParent.js'
 // 获取整个父组件
 import $parent from './libs/function/$parent.js'
 // 获取sys()和os()工具方法
-// 获取设备信息，挂载到$u的sys()(system的缩写)属性中，
-// 同时把安卓和ios平台的名称"ios"和"android"挂到$u.os()中，方便取用
+// 获取设备信息,挂载到$u的sys()(system的缩写)属性中,
+// 同时把安卓和ios平台的名称"ios"和"android"挂到$u.os()中,方便取用
 import {sys, os} from './libs/function/sys.js'
 // 防抖方法
 import debounce from './libs/function/debounce.js'
@@ -107,7 +107,7 @@ const $u = {
 	type: ['primary', 'success', 'error', 'warning', 'info'],
 	http,
 	toast,
-	config, // uView配置信息相关，比如版本号
+	config, // uView配置信息相关,比如版本号
 	zIndex,
 	debounce,
 	throttle,
@@ -122,14 +122,14 @@ const install = Vue => {
 		Vue.mixin(mpShare);
 	}
 	// Vue.mixin(vuexStore);
-	// 时间格式化，同时两个名称，date和timeFormat
+	// 时间格式化,同时两个名称,date和timeFormat
 	Vue.filter('timeFormat', (timestamp, format) => {
 		return timeFormat(timestamp, format)
 	})
 	Vue.filter('date', (timestamp, format) => {
 		return timeFormat(timestamp, format)
 	})
-	// 将多久以前的方法，注入到全局过滤器
+	// 将多久以前的方法,注入到全局过滤器
 	Vue.filter('timeFrom', (timestamp, format) => {
 		return timeFrom(timestamp, format)
 	})

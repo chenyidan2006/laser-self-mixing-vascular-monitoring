@@ -1,0 +1,216 @@
+{
+	"string": [
+		{
+			"name": "ibest_monday",
+			"value": "周一"
+		},
+		{
+			"name": "ibest_tuesday",
+			"value": "周二"
+		},
+		{
+			"name": "ibest_wednesday",
+			"value": "周三"
+		},
+		{
+			"name": "ibest_thursday",
+			"value": "周四"
+		},
+		{
+			"name": "ibest_friday",
+			"value": "周五"
+		},
+		{
+			"name": "ibest_saturday",
+			"value": "周六"
+		},
+		{
+			"name": "ibest_sunday",
+			"value": "周日"
+		},
+		{
+			"name": "ibest_monday_omit",
+			"value": "一"
+		},
+		{
+			"name": "ibest_tuesday_omit",
+			"value": "二"
+		},
+		{
+			"name": "ibest_wednesday_omit",
+			"value": "三"
+		},
+		{
+			"name": "ibest_thursday_omit",
+			"value": "四"
+		},
+		{
+			"name": "ibest_friday_omit",
+			"value": "五"
+		},
+		{
+			"name": "ibest_saturday_omit",
+			"value": "六"
+		},
+		{
+			"name": "ibest_sunday_omit",
+			"value": "日"
+		},
+		{
+			"name": "ibest_calendar_clocked",
+			"value": "已打卡"
+		},
+		{
+			"name": "ibest_calendar_unclock",
+			"value": "未打卡"
+		},
+		{
+			"name": "ibest_text_confirm",
+			"value": "确定"
+		},
+		{
+			"name": "ibest_text_cancel",
+			"value": "取消"
+		},
+		{
+			"name": "ibest_maximum_limit",
+			"value": "最多选择%d天"
+		},
+		{
+			"name": "ibest_please_select",
+			"value": "请选择"
+		},
+		{
+			"name": "ibest_year",
+			"value": "年"
+		},
+		{
+			"name": "ibest_month",
+			"value": "月"
+		},
+		{
+			"name": "ibest_day",
+			"value": "日"
+		},
+		{
+			"name": "ibest_hour",
+			"value": "时"
+		},
+		{
+			"name": "ibest_minute",
+			"value": "分"
+		},
+		{
+			"name": "ibest_second",
+			"value": "秒"
+		},
+		{
+			"name": "ibest_text_complete",
+			"value": "完成"
+		},
+		{
+			"name": "ibest_text_clear",
+			"value": "清空"
+		},
+		{
+			"name": "ibest_upload_failed",
+			"value": "上传失败"
+		},
+		{
+			"name": "ibest_uploading",
+			"value": "上传中..."
+		},
+		{
+			"name": "ibest_text_pulling",
+			"value": "下拉即可刷新..."
+		},
+		{
+			"name": "ibest_text_loosing",
+			"value": "释放即可刷新..."
+		},
+		{
+			"name": "ibest_text_loading",
+			"value": "加载中..."
+		},
+		{
+			"name": "ibest_text_slidingUp",
+			"value": "上滑即可加载..."
+		},
+		{
+			"name": "ibest_text_expand",
+			"value": "展开"
+		},
+		{
+			"name": "ibest_text_collapse",
+			"value": "收起"
+		},
+		{
+			"name": "ibest_text_sum",
+			"value": "合计"
+		},
+		{
+			"name": "ibest_text_input_correct_content",
+			"value": "请输入正确的内容"
+		},
+		{
+			"name": "ibest_text_input_name",
+			"value": "请输入姓名"
+		},
+		{
+			"name": "ibest_text_input_phone",
+			"value": "请输入手机号"
+		},
+		{
+			"name": "ibest_text_select_region",
+			"value": "请选择区域位置"
+		},
+		{
+			"name": "ibest_text_identify",
+			"value": "识别"
+		},
+		{
+			"name": "ibest_text_name",
+			"value": "姓名"
+		},
+		{
+			"name": "ibest_text_phone_number",
+			"value": "手机号"
+		},
+		{
+			"name": "ibest_text_province_city_district",
+			"value": "省市区"
+		},
+		{
+			"name": "ibest_text_select_region2",
+			"value": "请选择省市区"
+		},
+		{
+			"name": "ibest_text_detailed_address",
+			"value": "详细地址"
+		},
+		{
+			"name": "ibest_text_detailed_address_description",
+			"value": "输入小区/写字楼/门牌号等"
+		},
+		{
+			"name": "ibest_text_postal_code",
+			"value": "邮政编码"
+		},
+		{
+			"name": "ibest_text_input_postal_code",
+			"value": "请输入邮政编码"
+		},
+		{
+			"name": "ibest_guide_previous",
+			"value": "上一步"
+		},
+		{
+			"name": "ibest_guide_next",
+			"value": "下一步"
+		},
+		{
+			"name": "ibest_guide_complete",
+			"value": "结束导览"
+		}
+	]
+}

@@ -1,0 +1,410 @@
+健康监测系统 - 本地开发与服务器部署指南
+========================================
+
+一,本地开发环境搭建
+==================
+
+1. 安装必要软件
+----------------
+- Node.js (推荐 v16+)
+- MySQL (推荐 v8.0+)
+- HBuilderX (前端开发工具)
+- Git (可选,用于版本控制)
+
+2. 启动MySQL服务
+----------------
+Windows系统:
+- 以管理员身份打开CMD
+- 运行命令: net start MySQL96
+- 或者在"服务"中找到MySQL服务并启动
+
+如果MySQL服务无法启动:
+- 检查MySQL配置文件my.ini
+- 确保端口3306未被占用
+- 检查MySQL数据目录权限
+
+3. 初始化数据库
+----------------
+进入项目目录:
+cd D:\code\app\appprogram
+
+执行数据库初始化脚本:
+cd health-backend
+node scripts/init_db.js
+
+这将创建:
+- 数据库: health_monitor
+- 表: users, devices, user_devices, health_data, daily_summary, hourly_range
+- 测试数据: 7天的模拟健康数据
+
+4. 配置后端
+----------------
+后端配置文件: health-backend/.env
+
+默认配置(已配置好):
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=health_monitor
+PORT=3000
+
+如果MySQL有密码,请修改DB_PASSWORD字段
+
+5. 启动后端服务
+----------------
+打开CMD,进入后端目录:
+cd D:\code\app\appprogram\health-backend
+
+安装依赖(首次运行):
+npm install
+
+启动后端服务:
+node app.js
+
+成功启动后,会显示:
+Server running on port 3000
+
+6. 启动前端
+----------------
+使用HBuilderX打开项目:
+1. 打开HBuilderX
+2. 文件 -> 打开目录 -> 选择 D:\code\app\appprogram
+3. 运行 -> 运行到浏览器 -> Chrome
+
+前端会自动打开 http://localhost:8080
+
+7. 启动模拟硬件数据发送
+--------------------
+打开新的CMD窗口,进入项目目录:
+cd D:\code\appprogram\health-backend
+
+运行模拟脚本:
+node scripts/simulate_device.js
+
+默认每8秒发送一次数据,可以修改间隔:
+node scripts/simulate_device.js 5  # 每5秒发送一次
+
+模拟数据包括:
+- 心率: 55-90 bpm
+- 收缩压: 90-130 mmHg
+- 舒张压: 60-85 mmHg
+- 血氧: 95-100%
+
+8. 验证系统运行
+----------------
+- 打开浏览器访问 http://localhost:8080
+- 应该能看到健康监测系统首页
+- 设备状态显示为"在线"(绿色)
+- 实时数据每8秒更新一次
+- 24小时趋势图显示柱状图
+
+
+二,服务器部署
+==============
+
+1. 服务器环境准备
+----------------
+操作系统: Linux (Ubuntu/CentOS)
+必要软件:
+- Node.js v16+
+- MySQL v8.0+
+- Nginx (可选,用于反向代理)
+- PM2 (进程管理器)
+
+2. 上传代码到服务器
+----------------
+方式一:使用Git
+git clone <你的仓库地址>
+cd appprogram
+
+方式二:使用SCP/FTP
+将整个项目文件夹上传到服务器
+
+3. 服务器数据库配置
+----------------
+登录MySQL:
+mysql -u root -p
+
+创建数据库:
+CREATE DATABASE health_monitor DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+导入数据库结构:
+mysql -u root -p health_monitor < health-backend/scripts/init_db.sql
+
+或者运行Node.js脚本:
+cd health-backend
+node scripts/init_db.js
+
+4. 配置服务器后端
+----------------
+编辑配置文件: health-backend/.env
+
+修改以下配置:
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=<你的MySQL密码>
+DB_NAME=health_monitor
+PORT=3000
+
+5. 安装后端依赖
+----------------
+cd health-backend
+npm install --production
+
+6. 使用PM2管理后端进程
+--------------------
+安装PM2:
+npm install -g pm2
+
+启动后端:
+pm2 start app.js --name health-backend
+
+查看状态:
+pm2 status
+
+查看日志:
+pm2 logs health-backend
+
+重启服务:
+pm2 restart health-backend
+
+停止服务:
+pm2 stop health-backend
+
+设置开机自启:
+pm2 startup
+pm2 save
+
+7. 配置Nginx反向代理(可选)
+----------------------------
+编辑Nginx配置文件:
+sudo nano /etc/nginx/sites-available/health-monitor
+
+添加以下配置:
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location /api/ {
+        proxy_pass http://localhost:3000/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location / {
+        root /path/to/your/frontend/dist;
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+启用配置:
+sudo ln -s /etc/nginx/sites-available/health-monitor /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+8. 配置前端
+----------------
+编辑前端配置文件: config/env.prod.js
+
+修改服务器地址:
+export default {
+  baseURL: 'http://your-server-ip:3000/api',
+  // 如果使用Nginx,可以使用域名
+  // baseURL: 'http://your-domain.com/api',
+  ...
+}
+
+9. 构建前端
+----------------
+在HBuilderX中:
+1. 发行 -> H5
+2. 选择输出目录
+3. 点击"发行"
+
+或在命令行:
+npm run build:h5
+
+将构建后的dist目录上传到服务器的Web目录
+
+10. 配置防火墙
+----------------
+开放必要端口:
+sudo ufw allow 3000  # 后端API端口
+sudo ufw allow 80    # HTTP
+sudo ufw allow 443   # HTTPS
+
+11. SSL证书配置(推荐)
+--------------------
+使用Let's Encrypt免费证书:
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d your-domain.com
+
+自动续期:
+sudo certbot renew --dry-run
+
+
+三,数据采集流程说明
+==================
+
+1. 硬件数据采集
+----------------
+STM32采集SMI脉搏波信号
+- 通过串口发送到ESP32
+- ESP32通过WiFi上传到服务器
+
+数据格式:
+{
+  "deviceId": "ESP32_001",
+  "measureTime": "2025-05-06T10:30:00.000Z",
+  "heartRate": 72,
+  "systolicBp": 118,
+  "diastolicBp": 78,
+  "spo2": 98,
+  "userId": 1
+}
+
+上传接口:
+POST http://your-server:3000/api/upload/health
+
+2. 服务器数据处理
+----------------
+后端接收数据后:
+1. 存储到health_data表(原始数据)
+2. 触发Python算法处理(如果配置)
+3. 计算每日汇总(daily_summary表)
+4. 计算每小时极值(hourly_range表)
+
+3. 前端数据展示
+----------------
+前端通过API获取数据:
+- 设备状态: GET /api/data/deviceStatus
+- 实时数据: GET /api/data/realtime
+- 每日汇总: GET /api/data/dailySummary
+- 每小时趋势: GET /api/data/hourlyRange
+- 历史趋势: GET /api/data/historyTrend
+
+
+四,常见问题解决
+================
+
+1. MySQL连接失败
+----------------
+错误: ECONNREFUSED
+
+解决方法:
+- 检查MySQL服务是否启动
+- 检查端口3306是否被占用
+- 检查用户名和密码是否正确
+- 检查防火墙设置
+
+2. 后端启动失败
+----------------
+错误: EADDRINUSE
+
+解决方法:
+- 检查端口3000是否被占用
+- 修改.env文件中的PORT配置
+- 杀死占用端口的进程: netstat -ano | findstr :3000
+
+3. 前端无法连接后端
+----------------
+错误: Network Error
+
+解决方法:
+- 检查后端是否正常启动
+- 检查config/env.dev.js中的baseURL配置
+- 检查浏览器控制台的错误信息
+- 确保CORS配置正确
+
+4. 数据不更新
+----------------
+解决方法:
+- 检查模拟硬件脚本是否运行
+- 检查后端日志是否有错误
+- 刷新前端页面
+- 检查数据库中是否有新数据
+
+5. 图表显示异常
+----------------
+解决方法:
+- 清除浏览器缓存
+- 检查数据格式是否正确
+- 查看浏览器控制台错误信息
+
+6. 部署到服务器后无法访问
+----------------
+解决方法:
+- 检查防火墙设置
+- 检查Nginx配置
+- 检查PM2进程状态
+- 检查服务器IP地址是否正确
+
+
+五,项目结构说明
+================
+
+appprogram/
+├── health-backend/          # 后端项目
+│   ├── app.js             # 主入口文件
+│   ├── config/            # 配置文件
+│   │   └── db.js        # 数据库配置
+│   ├── controllers/       # 控制器
+│   ├── models/            # 数据模型
+│   ├── routes/            # 路由
+│   ├── scripts/           # 脚本
+│   │   ├── init_db.js    # 数据库初始化脚本
+│   │   └── simulate_device.js  # 模拟硬件脚本
+│   └── package.json       # 依赖配置
+├── src/                  # 前端项目
+│   ├── pages/            # 页面
+│   ├── config/           # 配置
+│   ├── App.vue           # 根组件
+│   └── main.js          # 入口文件
+├── config/               # 前端配置
+│   ├── config.js
+│   ├── env.dev.js       # 开发环境配置
+│   └── env.prod.js      # 生产环境配置
+└── prodict_algorithm_infuwuqi/  # 算法文件(服务器端)
+
+
+六,维护建议
+============
+
+1. 定期备份数据库
+----------------
+mysqldump -u root -p health_monitor > backup_$(date +%Y%m%d).sql
+
+2. 监控服务器性能
+----------------
+- CPU使用率
+- 内存使用率
+- 磁盘空间
+- 网络流量
+
+3. 日志管理
+----------------
+后端日志: pm2 logs health-backend
+Nginx日志: /var/log/nginx/
+
+4. 定期更新依赖
+----------------
+cd health-backend
+npm update
+
+5. 数据清理
+----------------
+定期清理过期的历史数据,保持数据库性能
+
+
+七,联系方式
+============
+
+如有问题,请联系技术支持.
+
+
+最后更新: 2025-05-06

@@ -31,7 +31,7 @@
  * @property {Boolean} 	type 					是否开启多选
  * @property {String} 	emptyText 			空数据时显示的文本内容
  * @property {Boolean} 	loading 			显示加载中
- * @event {Function} 	selection-change 	开启多选时，当选择项发生变化时会触发该事件
+ * @event {Function} 	selection-change 	开启多选时,当选择项发生变化时会触发该事件
  */
 export default {
 	name: 'uniTable',
@@ -156,7 +156,7 @@ export default {
 			})
 		},
 		/**
-		 * 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）
+		 * 用于多选表格,切换某一行的选中状态,如果使用了第二个参数,则是设置这一行选中与否(selected 为 true 则选中)
 		 */
 		toggleRowSelection(row, selected) {
 			// if (!this.theadChildren) return
@@ -195,7 +195,7 @@ export default {
 		},
 
 		/**
-		 * 用于多选表格，清空用户的选择
+		 * 用于多选表格,清空用户的选择
 		 */
 		clearSelection() {
 			let theadChildren = this.theadChildren
@@ -220,7 +220,7 @@ export default {
 			})
 		},
 		/**
-		 * 用于多选表格，切换所有行的选中状态
+		 * 用于多选表格,切换所有行的选中状态
 		 */
 		toggleAllSelection() {
 			let list = []
@@ -360,7 +360,7 @@ $border-color: #ebeef5;
 	/* #endif */
 }
 
-/* 表格加载、无数据样式 */
+/* 表格加载,无数据样式 */
 .uni-table-loading {
 	position: relative;
 	/* #ifndef APP-NVUE */

@@ -16,7 +16,7 @@ export const typeFilter = (format) => {
 }
 
 /**
- * 把 value 转换成指定的类型，用于处理初始值，原因是初始值需要入库不能为 undefined
+ * 把 value 转换成指定的类型,用于处理初始值,原因是初始值需要入库不能为 undefined
  * @param {String} key 字段名
  * @param {any} value 字段值
  * @param {Object} rules 表单校验规则
@@ -43,7 +43,7 @@ export const getValue = (key, value, rules) => {
 
 /**
  * 获取表单数据
- * @param {String|Array} name 真实名称，需要使用 realName 获取
+ * @param {String|Array} name 真实名称,需要使用 realName 获取
  * @param {Object} data 原始数据
  * @param {any} value  需要设置的值
  */
@@ -54,7 +54,7 @@ export const setDataValue = (field, formdata, value) => {
 
 /**
  * 获取表单数据
- * @param {String|Array} field 真实名称，需要使用 realName 获取
+ * @param {String|Array} field 真实名称,需要使用 realName 获取
  * @param {Object} data 原始数据
  */
 export const getDataValue = (field, data) => {
@@ -63,7 +63,7 @@ export const getDataValue = (field, data) => {
 
 /**
  * 获取表单类型
- * @param {String|Array} field 真实名称，需要使用 realName 获取
+ * @param {String|Array} field 真实名称,需要使用 realName 获取
  */
 export const getDataValueType = (field, data) => {
 	const value = getDataValue(field, data)
@@ -135,10 +135,10 @@ export const objSet = (object, path, value) => {
 			o[k] = value
 			return null
 		} else if (k in o) { 
-			// 若存在对应路径，则返回找到的对象，进行下一次遍历
+			// 若存在对应路径,则返回找到的对象,进行下一次遍历
 			return o[k]
 		} else { 
-			// 若不存在对应路径，则创建对应对象，若下一路径是数字，新对象赋值为空数组，否则赋值为空对象
+			// 若不存在对应路径,则创建对应对象,若下一路径是数字,新对象赋值为空数组,否则赋值为空对象
 			o[k] = /^[0-9]{1,}$/.test(_[i + 1]) ? [] : {}
 			return o[k]
 		}
@@ -147,11 +147,11 @@ export const objSet = (object, path, value) => {
 	return object;
 }
 
-// 处理 path， path有三种形式：'a[0].b.c'、'a.0.b.c' 和 ['a','0','b','c']，需要统一处理成数组，便于后续使用
+// 处理 path, path有三种形式:'a[0].b.c','a.0.b.c' 和 ['a','0','b','c'],需要统一处理成数组,便于后续使用
 function _basePath(path) {
-	// 若是数组，则直接返回
+	// 若是数组,则直接返回
 	if (Array.isArray(path)) return path
-	// 若有 '[',']'，则替换成将 '[' 替换成 '.',去掉 ']'
+	// 若有 '[',']',则替换成将 '[' 替换成 '.',去掉 ']'
 	return path.replace(/\[/g, '.').replace(/\]/g, '').split('.')
 }
 
@@ -164,7 +164,7 @@ function _basePath(path) {
 export const objGet = (object, path, defaultVal = 'undefined') => {
 	// 先将path处理成统一格式
 	let newPath = _basePath(path)
-	// 递归处理，返回最后结果
+	// 递归处理,返回最后结果
 	let val = newPath.reduce((o, k) => {
 		return (o || {})[k]
 	}, object);
@@ -245,11 +245,11 @@ export const isEqual = (a, b) => {
 	//接下来判断a和b的数据类型
 	var classNameA = toString.call(a),
 		classNameB = toString.call(b);
-	//如果数据类型不相等，则返回false
+	//如果数据类型不相等,则返回false
 	if (classNameA !== classNameB) {
 		return false;
 	}
-	//如果数据类型相等，再根据不同数据类型分别判断
+	//如果数据类型相等,再根据不同数据类型分别判断
 	switch (classNameA) {
 		case '[object RegExp]':
 		case '[object String]':
@@ -276,7 +276,7 @@ export const isEqual = (a, b) => {
 		}
 		for (var i = 0; i < propsA.length; i++) {
 			var propName = propsA[i];
-			//如果对应属性对应值不相等，则返回false
+			//如果对应属性对应值不相等,则返回false
 			if (a[propName] !== b[propName]) {
 				return false;
 			}

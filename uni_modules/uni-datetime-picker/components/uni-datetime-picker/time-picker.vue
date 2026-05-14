@@ -246,7 +246,7 @@
 				immediate: true
 			},
 
-			// 月、日、时、分、秒可选范围变化后，检查当前值是否在范围内，不在则当前值重置为可选范围第一项
+			// 月,日,时,分,秒可选范围变化后,检查当前值是否在范围内,不在则当前值重置为可选范围第一项
 			months(newVal) {
 				this.checkValue('month', this.month, newVal)
 			},
@@ -264,7 +264,7 @@
 			}
 		},
 		computed: {
-			// 当前年、月、日、时、分、秒选择范围
+			// 当前年,月,日,时,分,秒选择范围
 			years() {
 				return this.getCurrentRange('year')
 			},
@@ -307,7 +307,7 @@
 				return this.year === this.endYear && this.month === this.endMonth && this.day === this.endDay
 			},
 
-			// 当前年、月、日、时、分、秒的最小值和最大值
+			// 当前年,月,日,时,分,秒的最小值和最大值
 			minYear() {
 				return this.startYear
 			},
@@ -469,7 +469,7 @@
 			},
 
 			/**
-			 * 解析时分秒字符串，例如：00:00:00
+			 * 解析时分秒字符串,例如:00:00:00
 			 * @param {String} timeString
 			 */
 			parseTimeType(timeString) {
@@ -482,7 +482,7 @@
 			},
 
 			/**
-			 * 解析选择器初始值，类型可以是字符串、时间戳，例如：2000-10-02、'08:30:00'、 1610695109000
+			 * 解析选择器初始值,类型可以是字符串,时间戳,例如:2000-10-02,'08:30:00', 1610695109000
 			 * @param {String | Number} datetime
 			 */
 			initPickerValue(datetime) {
@@ -497,13 +497,13 @@
 			},
 
 			/**
-			 * 初始值规则：
+			 * 初始值规则:
 			 * - 用户设置初始值 value
-			 * 	- 设置了起始时间 start、终止时间 end，并 start < value < end，初始值为 value， 否则初始值为 start
-			 * 	- 只设置了起始时间 start，并 start < value，初始值为 value，否则初始值为 start
-			 * 	- 只设置了终止时间 end，并 value < end，初始值为 value，否则初始值为 end
-			 * 	- 无起始终止时间，则初始值为 value
-			 * - 无初始值 value，则初始值为当前本地时间 Date.now()
+			 * 	- 设置了起始时间 start,终止时间 end,并 start < value < end,初始值为 value, 否则初始值为 start
+			 * 	- 只设置了起始时间 start,并 start < value,初始值为 value,否则初始值为 start
+			 * 	- 只设置了终止时间 end,并 value < end,初始值为 value,否则初始值为 end
+			 * 	- 无起始终止时间,则初始值为 value
+			 * - 无初始值 value,则初始值为当前本地时间 Date.now()
 			 * @param {Object} value
 			 * @param {Object} dateBase
 			 */
@@ -533,7 +533,7 @@
 			},
 
 			/**
-			 * 转换为可比较的时间戳，接受日期、时分秒、时间戳
+			 * 转换为可比较的时间戳,接受日期,时分秒,时间戳
 			 * @param {Object} value
 			 */
 			superTimeStamp(value) {
@@ -553,7 +553,7 @@
 			},
 
 			/**
-			 * 解析默认值 value，字符串、时间戳
+			 * 解析默认值 value,字符串,时间戳
 			 * @param {Object} defaultTime
 			 */
 			parseValue(value) {
@@ -582,11 +582,11 @@
 			},
 
 			/**
-			 * 解析可选择时间范围 start、end，年月日字符串、时间戳
+			 * 解析可选择时间范围 start,end,年月日字符串,时间戳
 			 * @param {Object} defaultTime
 			 */
 			parseDatetimeRange(point, pointType) {
-				// 时间为空，则重置为初始值
+				// 时间为空,则重置为初始值
 				if (!point) {
 					if (pointType === 'start') {
 						this.startYear = 1920
@@ -637,7 +637,7 @@
 				}
 			},
 
-			// 获取 年、月、日、时、分、秒 当前可选范围
+			// 获取 年,月,日,时,分,秒 当前可选范围
 			getCurrentRange(value) {
 				const range = []
 				for (let i = this['min' + this.capitalize(value)]; i <= this['max' + this.capitalize(value)]; i++) {
@@ -651,7 +651,7 @@
 				return str.charAt(0).toUpperCase() + str.slice(1)
 			},
 
-			// 检查当前值是否在范围内，不在则当前值重置为可选范围第一项
+			// 检查当前值是否在范围内,不在则当前值重置为可选范围第一项
 			checkValue(name, value, values) {
 				if (values.indexOf(value) === -1) {
 					this[name] = values[0]
@@ -708,7 +708,7 @@
 			},
 
 			/**
-			 * 初始化返回值，并抛出 change 事件
+			 * 初始化返回值,并抛出 change 事件
 			 */
 			initTime(emit = true) {
 				this.time = this.createDomSting()
@@ -759,7 +759,7 @@
 			},
 
 			/**
-			 * 用户点击“清空”按钮，清空当前值
+			 * 用户点击"清空"按钮,清空当前值
 			 */
 			clearTime() {
 				this.time = ''
@@ -770,7 +770,7 @@
 			},
 
 			/**
-			 * 用户点击“确定”按钮
+			 * 用户点击"确定"按钮
 			 */
 			setTime() {
 				this.initTime()
@@ -907,7 +907,7 @@
 	.uni-datetime-picker-sign {
 		position: absolute;
 		top: 53px;
-		/* 减掉 10px 的元素高度，兼容nvue */
+		/* 减掉 10px 的元素高度,兼容nvue */
 		color: #999;
 		/* #ifdef APP-NVUE */
 		font-size: 16px;

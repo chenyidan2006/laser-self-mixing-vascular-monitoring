@@ -27,15 +27,15 @@
 <script>
 	/**
 	 * collapseItem 手风琴Item
-	 * @description 通过折叠面板收纳内容区域（搭配u-collapse使用）
+	 * @description 通过折叠面板收纳内容区域(搭配u-collapse使用)
 	 * @tutorial https://www.uviewui.com/components/collapse.html
 	 * @property {String} title 面板标题
-	 * @property {String Number} index 主要用于事件的回调，标识那个Item被点击
-	 * @property {Boolean} disabled 面板是否可以打开或收起（默认false）
-	 * @property {Boolean} open 设置某个面板的初始状态是否打开（默认false）
-	 * @property {String Number} name 唯一标识符，如不设置，默认用当前collapse-item的索引值
-	 * @property {String} align 标题的对齐方式（默认left）
-	 * @property {Object} active-style 不显示箭头时，可以添加当前选择的collapse-item活动样式，对象形式
+	 * @property {String Number} index 主要用于事件的回调,标识那个Item被点击
+	 * @property {Boolean} disabled 面板是否可以打开或收起(默认false)
+	 * @property {Boolean} open 设置某个面板的初始状态是否打开(默认false)
+	 * @property {String Number} name 唯一标识符,如不设置,默认用当前collapse-item的索引值
+	 * @property {String} align 标题的对齐方式(默认left)
+	 * @property {Object} active-style 不显示箭头时,可以添加当前选择的collapse-item活动样式,对象形式
 	 * @event {Function} change 某个item被打开或者收起时触发
 	 * @example <u-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">{{item.body}}</u-collapse-item>
 	 */
@@ -85,7 +85,7 @@
 				isShow: false,
 				elId: this.$u.guid(),
 				height: 0, // body内容的高度
-				headStyle: {}, // 头部样式，对象形式
+				headStyle: {}, // 头部样式,对象形式
 				bodyStyle: {}, // 主体部分样式
 				itemStyle: {}, // 每个item的整体样式
 				arrowColor: '', // 箭头的颜色
@@ -101,11 +101,11 @@
 		},
 		created() {
 			this.parent = false;
-			// 获取u-collapse的信息，放在u-collapse是为了方便，不用每个u-collapse-item写一遍
+			// 获取u-collapse的信息,放在u-collapse是为了方便,不用每个u-collapse-item写一遍
 			this.isShow = this.open;
 		},
 		methods: {
-			// 异步获取内容，或者动态修改了内容时，需要重新初始化
+			// 异步获取内容,或者动态修改了内容时,需要重新初始化
 			init() {
 				this.parent = this.$u.$parent.call(this, 'u-collapse');
 				if(this.parent) {
@@ -128,7 +128,7 @@
 				if (this.disabled) return;
 				if (this.parent && this.parent.accordion == true) {
 					this.parent.childrens.map(val => {
-						// 自身不设置为false，因为后面有this.isShow = !this.isShow;处理了
+						// 自身不设置为false,因为后面有this.isShow = !this.isShow;处理了
 						if (this != val) {
 							val.isShow = false;
 						}
@@ -147,8 +147,8 @@
 			},
 			// 查询内容高度
 			queryRect() {
-				// $uGetRect为uView自带的节点查询简化方法，详见文档介绍：https://www.uviewui.com/js/getRect.html
-				// 组件内部一般用this.$uGetRect，对外的为this.$u.getRect，二者功能一致，名称不同
+				// $uGetRect为uView自带的节点查询简化方法,详见文档介绍:https://www.uviewui.com/js/getRect.html
+				// 组件内部一般用this.$uGetRect,对外的为this.$u.getRect,二者功能一致,名称不同
 				this.$uGetRect('#' + this.elId).then(res => {
 					this.height = res.height;
 				})

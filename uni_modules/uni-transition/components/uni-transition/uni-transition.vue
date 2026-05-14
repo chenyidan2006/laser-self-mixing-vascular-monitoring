@@ -28,7 +28,7 @@
 	 *  @value zoom-in 由小到大过渡
 	 *  @value zoom-out 由大到小过渡
 	 * @property {Number} duration 过渡动画持续时间
-	 * @property {Object} styles 组件样式，同 css 样式，注意带’-‘连接符的属性需要使用小驼峰写法如：`backgroundColor:red`
+	 * @property {Object} styles 组件样式,同 css 样式,注意带'-'连接符的属性需要使用小驼峰写法如:`backgroundColor:red`
 	 */
 	export default {
 		name: 'uniTransition',
@@ -163,13 +163,13 @@
 			open() {
 				clearTimeout(this.timer)
 				this.isShow = true
-				// 新增初始状态重置逻辑（关键）
+				// 新增初始状态重置逻辑(关键)
 				this.transform = this.styleInit(false).transform || ''
 				this.opacity = this.styleInit(false).opacity || 0
 
-				// 确保动态样式已经生效后，执行动画，如果不加 nextTick ，会导致 wx 动画执行异常
+				// 确保动态样式已经生效后,执行动画,如果不加 nextTick ,会导致 wx 动画执行异常
 				this.$nextTick(() => {
-					// TODO 定时器保证动画完全执行，目前有些问题，后面会取消定时器
+					// TODO 定时器保证动画完全执行,目前有些问题,后面会取消定时器
 					this.timer = setTimeout(() => {
 						this.animation = createAnimation(this.config, this)
 						this.tranfromInit(false).step()

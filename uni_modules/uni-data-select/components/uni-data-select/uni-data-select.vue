@@ -1,6 +1,6 @@
 <template>
 	<view class="uni-stat__select">
-		<span v-if="label" class="uni-label-text hide-on-phone">{{label + '：'}}</span>
+		<span v-if="label" class="uni-label-text hide-on-phone">{{label + ':'}}</span>
 		<view class="uni-stat-box" :class="{'uni-stat__actived': current}">
 			<view class="uni-select" :class="{'uni-select--disabled':disabled, 'uni-select--wrap': shouldWrap , 'border-default': mode == 'default','border-bottom': mode == 'underline'}">
 				<view class="uni-select__input-box" @click="toggleSelector" :class="{'uni-select__input-box--wrap': shouldWrap}">
@@ -65,10 +65,10 @@
 	 * DataChecklist 数据选择器
 	 * @description 通过数据渲染的下拉框组件
 	 * @tutorial https://uniapp.dcloud.io/component/uniui/uni-data-select
-	 * @property {String|Array} value 默认值，多选时为数组
-	 * @property {Array} localdata 本地数据 ，格式 [{text:'',value:''}]
+	 * @property {String|Array} value 默认值,多选时为数组
+	 * @property {Array} localdata 本地数据 ,格式 [{text:'',value:''}]
 	 * @property {Boolean} clear 是否可以清空已选项
-	 * @property {Boolean} emptyText 没有数据时显示的文字 ，本地数据无效
+	 * @property {Boolean} emptyText 没有数据时显示的文字 ,本地数据无效
 	 * @property {String} label 左侧标题
 	 * @property {String} placeholder 输入框的提示文字
 	 * @property {Boolean} disabled 是否禁用
@@ -76,7 +76,7 @@
 	 * @property {Boolean} wrap 是否允许选中文本换行显示
 	 * @property {String} placement 弹出位置
 	 * 	@value top   		顶部弹出
-	 * 	@value bottom		底部弹出（default)
+	 * 	@value bottom		底部弹出(default)
 	 * @property {String} align 选择文字的位置
 	 *  @value left 显示左侧
 	 *  @value center 显示中间
@@ -228,7 +228,7 @@
 						const selectedItems = this.mixinDatacomResData.filter(item => currentValues.includes(item.value));
 						return selectedItems.map(item => this.formatItemName(item)).join(', ');
 					} else {
-						return ''; // 空数组时返回空字符串，显示占位符
+						return ''; // 空数组时返回空字符串,显示占位符
 					}
 				} else {
 					return this.current;
@@ -243,7 +243,7 @@
 				}
 			},
 			shouldWrap() {
-				// 只有在多选模式、开启换行、且有内容时才应用换行样式
+				// 只有在多选模式,开启换行,且有内容时才应用换行样式
 				return this.multiple && this.wrap && !!this.textShow;
 			},
 			getOffsetByPlacement() {
@@ -393,7 +393,7 @@
 			 */
 			isDisabled(value) {
 				if (Array.isArray(value)) {
-					// 对于数组，如果任意一个值被禁用，则认为整体被禁用
+					// 对于数组,如果任意一个值被禁用,则认为整体被禁用
 					return value.some(val => {
 						return this.mixinDatacomResData.some(item => item.value === val && item.disable);
 					});

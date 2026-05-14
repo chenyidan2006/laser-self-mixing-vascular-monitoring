@@ -95,7 +95,7 @@ function rgbToHex(rgb) {
 
 
 /**
-* JS颜色十六进制转换为rgb或rgba,返回的格式为 rgba（255，255，255，0.5）字符串
+* JS颜色十六进制转换为rgb或rgba,返回的格式为 rgba(255,255,255,0.5)字符串
 * sHex为传入的十六进制的色值
 * alpha为rgba的透明度
 */

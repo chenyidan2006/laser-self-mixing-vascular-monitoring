@@ -38,7 +38,7 @@
 				type: String,
 				default: 'yyyy/MM/dd hh:mm:ss'
 			},
-			// refreshRate使用不当可能导致性能问题，谨慎使用
+			// refreshRate使用不当可能导致性能问题,谨慎使用
 			refreshRate: {
 				type: [Number, String],
 				default: 0

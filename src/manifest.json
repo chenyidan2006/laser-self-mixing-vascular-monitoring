@@ -1,0 +1,72 @@
+{
+  "name": "Health Support",
+  "appid": "__UNI__34292D5",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  
+  // 启用 uniCloud(DCloud提供的云开发)
+  "uniCloud": {
+    "enable": false,
+    "provider": "aliyun",  // 或 "tcb" 腾讯云
+    "spaceId": "mp-4c720286-d2a9-47bd-ac02-bb9f04ae1704",//需要换成自己的spaceId
+    "clientSecret": "pET7ABUS7/Qe46zTVbie4w=="//需要换成自己的clientSecret
+  },
+  
+  // 注意:如果需要禁用 uniCloud,请将上方的 "enable": true 改为 false,并确保下方没有重复的 uniCloud 键
+  // 原注释块已移除,因为其内部结构会破坏JSON.
+  
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": false,
+      "waiting": false,
+      "autoclose": true,
+      "delay": 0
+    }
+  },
+  
+  // 提示:APP打包的详细配置(distribute)通常在发行时由HBuilderX的图形界面生成,
+  // 如需手动配置,请确保其作为 "app-plus" 的一个子节点,例如:
+  // "app-plus": {
+  //   ... // 现有配置
+  //   "distribute": {
+  //     ... // 打包配置
+  //   }
+  // }
+  
+  "mp-weixin": {
+    "appid": "",//输入自己的微信小程序appid,留空不影响App开发
+    "setting": {
+      "urlCheck": false,  // 开发时关闭域名校验,上线后开启域名校验
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true
+    // 配置合法服务器域名(需要在微信后台也配置)
+    // "permission": {
+    //   "scope.userLocation": {
+    //     "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    //   }
+    // }
+  },
+  
+  "h5": {
+    "devServer": {
+      "port": 8081,
+      "disableHostCheck": true,
+      "https": false,
+      "proxy": {
+        "/api": {
+          "target": "https://192.144.185.64",//需要换https://你的DCloud云函数域名
+          "changeOrigin": true,
+          "secure": false
+        }
+      }
+    }
+  },
+  
+  "vueVersion": "3"
+}

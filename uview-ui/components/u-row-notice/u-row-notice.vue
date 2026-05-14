@@ -37,15 +37,15 @@
 <script>
 export default {
 	props: {
-		// 显示的内容，数组
+		// 显示的内容,数组
 		list: {
 			type: Array,
 			default() {
 				return [];
 			}
 		},
-		// 显示的主题，success|error|primary|info|warning|none
-		// none主题默认为透明背景，黑色(contentColor)字体
+		// 显示的主题,success|error|primary|info|warning|none
+		// none主题默认为透明背景,黑色(contentColor)字体
 		type: {
 			type: String,
 			default: 'warning'
@@ -70,7 +70,7 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		// 文字颜色，各图标也会使用文字颜色
+		// 文字颜色,各图标也会使用文字颜色
 		color: {
 			type: String,
 			default: ''
@@ -85,7 +85,7 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		// 字体大小，单位rpx
+		// 字体大小,单位rpx
 		fontSize: {
 			type: [Number, String],
 			default: 26
@@ -95,12 +95,12 @@ export default {
 			type: [Number, String],
 			default: 34
 		},
-		// 水平滚动时的滚动速度，即每秒滚动多少rpx，这有利于控制文字无论多少时，都能有一个恒定的速度
+		// 水平滚动时的滚动速度,即每秒滚动多少rpx,这有利于控制文字无论多少时,都能有一个恒定的速度
 		speed: {
 			type: [Number, String],
 			default: 160
 		},
-		// 播放状态，play-播放，paused-暂停
+		// 播放状态,play-播放,paused-暂停
 		playState: {
 			type: String,
 			default: 'play'
@@ -114,7 +114,7 @@ export default {
 	data() {
 		return {
 			textWidth: 0, // 滚动的文字宽度
-			boxWidth: 0, // 供文字滚动的父盒子的宽度，和前者一起为了计算滚动速度
+			boxWidth: 0, // 供文字滚动的父盒子的宽度,和前者一起为了计算滚动速度
 			animationDuration: '10s', // 动画执行时间
 			animationPlayState: 'paused', // 动画的开始和结束执行
 			showText: '' // 显示的文本
@@ -124,7 +124,7 @@ export default {
 		list: {
 			immediate: true,
 			handler(val) {
-				this.showText = val.join('，');
+				this.showText = val.join(',');
 				this.$nextTick(() => {
 					this.initSize();
 				});
@@ -139,10 +139,10 @@ export default {
 		}
 	},
 	computed: {
-		// 计算字体颜色，如果没有自定义的，就用uview主题颜色
+		// 计算字体颜色,如果没有自定义的,就用uview主题颜色
 		computeColor() {
 			if (this.color) return this.color;
-			// 如果是无主题，就默认使用content-color
+			// 如果是无主题,就默认使用content-color
 			else if(this.type == 'none') return '#606266';
 			else return this.type;
 		},
@@ -182,10 +182,10 @@ export default {
 			});
 			query.push(textQuery);
 			Promise.all(query).then(() => {
-				// 根据t=s/v(时间=路程/速度)，这里为何不需要加上#u-notice-box的宽度，因为中设置了.u-notice-content样式中设置了padding-left: 100%
+				// 根据t=s/v(时间=路程/速度),这里为何不需要加上#u-notice-box的宽度,因为中设置了.u-notice-content样式中设置了padding-left: 100%
 				// 恰巧计算出来的结果中已经包含了#u-notice-box的宽度
 				this.animationDuration = `${this.textWidth / uni.upx2px(this.speed)}s`;
-				// 这里必须这样开始动画，否则在APP上动画速度不会改变(HX版本2.4.6，IOS13)
+				// 这里必须这样开始动画,否则在APP上动画速度不会改变(HX版本2.4.6,IOS13)
 				this.animationPlayState = 'paused';
 				setTimeout(() => {
 					if(this.playState == 'play' && this.autoplay) this.animationPlayState = 'running';
@@ -245,7 +245,7 @@ export default {
 .u-notice-content {
 	animation: u-loop-animation 10s linear infinite both;
 	text-align: right;
-	// 这一句很重要，为了能让滚动左右连接起来
+	// 这一句很重要,为了能让滚动左右连接起来
 	padding-left: 100%;
 	@include vue-flex;
 	flex-wrap: nowrap;

@@ -25,21 +25,21 @@
 <script>
 	/**
 	 * readMore 阅读更多
-	 * @description 该组件一般用于内容较长，预先收起一部分，点击展开全部内容的场景。
+	 * @description 该组件一般用于内容较长,预先收起一部分,点击展开全部内容的场景.
 	 * @tutorial https://www.uviewui.com/components/readMore.html
-	 * @property {String Number} show-height 内容超出此高度才会显示展开全文按钮，单位rpx（默认400）
-	 * @property {Boolean} toggle 展开后是否显示收起按钮（默认false）
-	 * @property {String} close-text 关闭时的提示文字（默认“展开阅读全文”）
-	 * @property {String Number} font-size 提示文字的大小，单位rpx（默认28）
-	 * @property {String} text-indent 段落首行缩进的字符个数（默认2em）
-	 * @property {String} open-text 展开时的提示文字（默认“收起”）
-	 * @property {String} color 提示文字的颜色（默认#2979ff）
+	 * @property {String Number} show-height 内容超出此高度才会显示展开全文按钮,单位rpx(默认400)
+	 * @property {Boolean} toggle 展开后是否显示收起按钮(默认false)
+	 * @property {String} close-text 关闭时的提示文字(默认"展开阅读全文")
+	 * @property {String Number} font-size 提示文字的大小,单位rpx(默认28)
+	 * @property {String} text-indent 段落首行缩进的字符个数(默认2em)
+	 * @property {String} open-text 展开时的提示文字(默认"收起")
+	 * @property {String} color 提示文字的颜色(默认#2979ff)
 	 * @example <u-read-more><rich-text :nodes="content"></rich-text></u-read-more>
 	 */
 	export default {
 		name: "u-read-more",
 		props: {
-			// 默认的显示占位高度，单位为rpx
+			// 默认的显示占位高度,单位为rpx
 			showHeight: {
 				type: [Number, String],
 				default: 400
@@ -85,7 +85,7 @@
 				type: String,
 				default: '2em'
 			},
-			// open和close事件时，将此参数返回在回调参数中
+			// open和close事件时,将此参数返回在回调参数中
 			index: {
 				type: [Number, String],
 				default: ''
@@ -100,7 +100,7 @@
 			paramsChange() {
 				return `${this.toggle}-${this.showHeight}`;
 			},
-			// 展开后无需阴影，收起时才需要阴影样式
+			// 展开后无需阴影,收起时才需要阴影样式
 			innerShadowStyle() {
 				if (this.showMore) return {};
 				else return this.shadowStyle
@@ -109,7 +109,7 @@
 		data() {
 			return {
 				isLongContent: false, // 是否需要隐藏一部分内容
-				showMore: false, // 当前隐藏与显示的状态，true-显示，false-收起
+				showMore: false, // 当前隐藏与显示的状态,true-显示,false-收起
 				elId: this.$u.guid(), // 生成唯一class
 			};
 		},
@@ -121,7 +121,7 @@
 		methods: {
 			init() {
 				this.$uGetRect('.' + this.elId).then(res => {
-					// 判断高度，如果真实内容高度大于占位高度，则显示收起与展开的控制按钮
+					// 判断高度,如果真实内容高度大于占位高度,则显示收起与展开的控制按钮
 					if (res.height > uni.upx2px(this.showHeight)) {
 						this.isLongContent = true;
 						this.showMore = false;
@@ -131,7 +131,7 @@
 			// 展开或者收起
 			toggleReadMore() {
 				this.showMore = !this.showMore;
-				// 如果toggle为false，隐藏"收起"部分的内容
+				// 如果toggle为false,隐藏"收起"部分的内容
 				if (this.toggle == false) this.isLongContent = false;
 				// 发出打开或者收齐的事件
 				this.$emit(this.showMore ? 'open' : 'close', this.index);

@@ -65,22 +65,22 @@
 				type: String,
 				default: '#ffffff'
 			},
-			// tabbar的高度，默认50px，单位任意，如果为数值，则为rpx单位
+			// tabbar的高度,默认50px,单位任意,如果为数值,则为rpx单位
 			height: {
 				type: [String, Number],
 				default: '50px'
 			},
-			// 非凸起图标的大小，单位任意，数值默认rpx
+			// 非凸起图标的大小,单位任意,数值默认rpx
 			iconSize: {
 				type: [String, Number],
 				default: 40
 			},
-			// 凸起的图标的大小，单位任意，数值默认rpx
+			// 凸起的图标的大小,单位任意,数值默认rpx
 			midButtonSize: {
 				type: [String, Number],
 				default: 90
 			},
-			// 激活时的演示，包括字体图标，提示文字等的演示
+			// 激活时的演示,包括字体图标,提示文字等的演示
 			activeColor: {
 				type: String,
 				default: '#303133'
@@ -120,7 +120,7 @@
 		},
 		data() {
 			return {
-				// 由于安卓太菜了，通过css居中凸起按钮的外层元素有误差，故通过js计算将其居中
+				// 由于安卓太菜了,通过css居中凸起按钮的外层元素有误差,故通过js计算将其居中
 				midButtonLeft: '50%',
 				pageUrl: '', // 当前页面URL
 			}
@@ -128,19 +128,19 @@
 		created() {
 			// 是否隐藏原生tabbar
 			if(this.hideTabBar) uni.hideTabBar();
-			// 获取引入了u-tabbar页面的路由地址，该地址没有路径前面的"/"
+			// 获取引入了u-tabbar页面的路由地址,该地址没有路径前面的"/"
 			let pages = getCurrentPages();
-			// 页面栈中的最后一个即为项为当前页面，route属性为页面路径
+			// 页面栈中的最后一个即为项为当前页面,route属性为页面路径
 			this.pageUrl = pages[pages.length - 1].route;
 		},
 		computed: {
 			elIconPath() {
 				return (index) => {
-					// 历遍u-tabbar的每一项item时，判断是否传入了pagePath参数，如果传入了
-					// 和data中的pageUrl参数对比，如果相等，即可判断当前的item对应当前的tabbar页面，设置高亮图标
-					// 采用这个方法，可以无需使用v-model绑定的value值
+					// 历遍u-tabbar的每一项item时,判断是否传入了pagePath参数,如果传入了
+					// 和data中的pageUrl参数对比,如果相等,即可判断当前的item对应当前的tabbar页面,设置高亮图标
+					// 采用这个方法,可以无需使用v-model绑定的value值
 					let pagePath = this.list[index].pagePath;
-					// 如果定义了pagePath属性，意味着使用系统自带tabbar方案，否则使用一个页面用几个组件模拟tabbar页面的方案
+					// 如果定义了pagePath属性,意味着使用系统自带tabbar方案,否则使用一个页面用几个组件模拟tabbar页面的方案
 					// 这两个方案对处理tabbar item的激活与否方式不一样
 					if(pagePath) {
 						if(pagePath == this.pageUrl || pagePath == '/' + this.pageUrl) {
@@ -149,7 +149,7 @@
 							return this.list[index].iconPath;
 						}
 					} else {
-						// 普通方案中，索引等于v-model值时，即为激活项
+						// 普通方案中,索引等于v-model值时,即为激活项
 						return index == this.value ? this.list[index].selectedIconPath : this.list[index].iconPath
 					}
 				}
@@ -173,14 +173,14 @@
 		methods: {
 			async clickHandler(index) {
 				if(this.beforeSwitch && typeof(this.beforeSwitch) === 'function') {
-					// 执行回调，同时传入索引当作参数
-					// 在微信，支付宝等环境(H5正常)，会导致父组件定义的customBack()函数体中的this变成子组件的this
-					// 通过bind()方法，绑定父组件的this，让this.customBack()的this为父组件的上下文
+					// 执行回调,同时传入索引当作参数
+					// 在微信,支付宝等环境(H5正常),会导致父组件定义的customBack()函数体中的this变成子组件的this
+					// 通过bind()方法,绑定父组件的this,让this.customBack()的this为父组件的上下文
 					let beforeSwitch = this.beforeSwitch.bind(this.$u.$parent.call(this))(index);
 					// 判断是否返回了promise
 					if (!!beforeSwitch && typeof beforeSwitch.then === 'function') {
 						await beforeSwitch.then(res => {
-							// promise返回成功，
+							// promise返回成功,
 							this.switchTab(index);
 						}).catch(err => {
 
@@ -197,20 +197,20 @@
 			switchTab(index) {
 				// 发出事件和修改v-model绑定的值
 				this.$emit('change', index);
-				// 如果有配置pagePath属性，使用uni.switchTab进行跳转
+				// 如果有配置pagePath属性,使用uni.switchTab进行跳转
 				if(this.list[index].pagePath) {
 					uni.switchTab({
 						url: this.list[index].pagePath
 					})
 				} else {
-					// 如果配置了papgePath属性，将不会双向绑定v-model传入的value值
-					// 因为这个模式下，不再需要v-model绑定的value值了，而是通过getCurrentPages()适配
+					// 如果配置了papgePath属性,将不会双向绑定v-model传入的value值
+					// 因为这个模式下,不再需要v-model绑定的value值了,而是通过getCurrentPages()适配
 					this.$emit('input', index);
 				}
 			},
 			// 计算角标的right值
 			getOffsetRight(count, isDot) {
-				// 点类型，count大于9(两位数)，分别设置不同的right值，避免位置太挤
+				// 点类型,count大于9(两位数),分别设置不同的right值,避免位置太挤
 				if(isDot) {
 					return -20;
 				} else if(count > 9) {
@@ -219,10 +219,10 @@
 					return -30;
 				}
 			},
-			// 获取凸起按钮外层元素的left值，让其水平居中
+			// 获取凸起按钮外层元素的left值,让其水平居中
 			getMidButtonLeft() {
 				let windowWidth = this.$u.sys().windowWidth;
-				// 由于安卓中css计算left: 50%的结果不准确，故用js计算
+				// 由于安卓中css计算left: 50%的结果不准确,故用js计算
 				this.midButtonLeft = (windowWidth / 2) + 'px';
 			}
 		}
@@ -260,8 +260,8 @@
 				position: absolute;
 				z-index: 4;
 				background-color: #ffffff;
-				// 由于安卓的无能，导致只有3个tabbar item时，此css计算方式有误差
-				// 故使用js计算的形式来定位，此处不注释，是因为js计算有延后，避免出现位置闪动
+				// 由于安卓的无能,导致只有3个tabbar item时,此css计算方式有误差
+				// 故使用js计算的形式来定位,此处不注释,是因为js计算有延后,避免出现位置闪动
 				left: 50%;
 				transform: translateX(-50%);
 

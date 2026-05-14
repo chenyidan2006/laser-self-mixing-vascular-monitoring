@@ -52,7 +52,7 @@ const parser = {
 	},
 }
 
-// 这都n年了iOS依然不认识2020-12-12，需要转换为2020/12/12
+// 这都n年了iOS依然不认识2020-12-12,需要转换为2020/12/12
 function getDate(time) {
 	if (time instanceof Date) {
 		return time
@@ -60,7 +60,7 @@ function getDate(time) {
 	switch (typeof time) {
 		case 'string':
 			{
-				// 2020-12-12T12:12:12.000Z、2020-12-12T12:12:12.000
+				// 2020-12-12T12:12:12.000Z,2020-12-12T12:12:12.000
 				if (time.indexOf('T') > -1) {
 					return new Date(time)
 				}

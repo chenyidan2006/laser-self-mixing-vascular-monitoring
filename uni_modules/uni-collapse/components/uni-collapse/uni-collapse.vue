@@ -8,9 +8,9 @@
 	 * Collapse 折叠面板
 	 * @description 展示可以折叠 / 展开的内容区域
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=23
-	 * @property {String|Array} value 当前激活面板改变时触发(如果是手风琴模式，参数类型为string，否则为array)
+	 * @property {String|Array} value 当前激活面板改变时触发(如果是手风琴模式,参数类型为string,否则为array)
 	 * @property {Boolean} accordion = [true|false] 是否开启手风琴效果是否开启手风琴效果
-	 * @event {Function} change 切换面板时触发，如果是手风琴模式，返回类型为string，否则为array
+	 * @event {Function} change 切换面板时触发,如果是手风琴模式,返回类型为string,否则为array
 	 */
 	export default {
 		name: 'uniCollapse',

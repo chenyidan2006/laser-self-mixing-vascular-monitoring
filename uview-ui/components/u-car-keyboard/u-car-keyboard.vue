@@ -34,7 +34,7 @@
 		},
 		data() {
 			return {
-				// 车牌输入时，abc=true为输入车牌号码，bac=false为输入省份中文简称
+				// 车牌输入时,abc=true为输入车牌号码,bac=false为输入省份中文简称
 				abc: false
 			};
 		},
@@ -140,19 +140,19 @@
 			// 点击键盘按钮
 			carInputClick(i, j) {
 				let value = '';
-				// 不同模式，获取不同数组的值
+				// 不同模式,获取不同数组的值
 				if (this.abc) value = this.EngKeyBoardList[i][j];
 				else value = this.areaList[i][j];
 				this.$emit('change', value);
 			},
-			// 修改汽车牌键盘的输入模式，中文|英文
+			// 修改汽车牌键盘的输入模式,中文|英文
 			changeCarInputMode() {
 				this.abc = !this.abc;
 			},
 			// 点击退格键
 			backspaceClick() {
 				this.$emit('backspace');
-				clearInterval(this.timer); //再次清空定时器，防止重复注册定时器
+				clearInterval(this.timer); //再次清空定时器,防止重复注册定时器
 				this.timer = null;
 				this.timer = setInterval(() => {
 					this.$emit('backspace');

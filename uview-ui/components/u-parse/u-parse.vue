@@ -52,7 +52,7 @@
 	 * @property {Boolean} autoscroll 是否自动给所有表格添加一个滚动层
 	 * @property {Boolean} autosetTitle 是否自动将 title 标签中的内容设置到页面标题
 	 * @property {Number} compress 压缩等级
-	 * @property {String} domain 图片、视频等链接的主域名
+	 * @property {String} domain 图片,视频等链接的主域名
 	 * @property {Boolean} lazyLoad 是否开启图片懒加载
 	 * @property {String} loadingImg 图片加载完成前的占位图
 	 * @property {Boolean} selectable 是否开启长按复制

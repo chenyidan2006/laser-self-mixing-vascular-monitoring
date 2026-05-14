@@ -53,7 +53,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'string') {
-					console.error(("id：" + value + " is invalid"));
+					console.error(("id:" + value + " is invalid"));
 				}
 				tmp.id = value;
 			}
@@ -65,7 +65,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'number') {
-					console.error(("width：" + value + " is invalid"));
+					console.error(("width:" + value + " is invalid"));
 				}
 				tmp.width = value;
 			}
@@ -77,7 +77,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'number') {
-					console.error(("height：" + value + " is invalid"));
+					console.error(("height:" + value + " is invalid"));
 				}
 				tmp.height = value;
 			}
@@ -89,7 +89,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'number') {
-					console.error(("pixelRatio：" + value + " is invalid"));
+					console.error(("pixelRatio:" + value + " is invalid"));
 				}
 				tmp.pixelRatio = value;
 			}
@@ -101,7 +101,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'number') {
-					console.error(("scale：" + value + " is invalid"));
+					console.error(("scale:" + value + " is invalid"));
 				}
 				tmp.scale = value;
 			}
@@ -113,7 +113,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'number') {
-					console.error(("zoom：" + value + " is invalid"));
+					console.error(("zoom:" + value + " is invalid"));
 				} else if (value < 0 || value > 10) {
 					console.error("zoom should be ranged in 0 ~ 10");
 				}
@@ -127,7 +127,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'string') {
-					console.error(("src：" + value + " is invalid"));
+					console.error(("src:" + value + " is invalid"));
 				}
 				tmp.src = value;
 			}
@@ -139,7 +139,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'object') {
-					console.error(("cut：" + value + " is invalid"));
+					console.error(("cut:" + value + " is invalid"));
 				}
 				tmp.cut = value;
 			}
@@ -151,7 +151,7 @@
 			},
 			set: function set(value) {
 				if (typeof(value) !== 'object') {
-					console.error(("boundStyle：" + value + " is invalid"));
+					console.error(("boundStyle:" + value + " is invalid"));
 				}
 				tmp.boundStyle = value;
 			}
@@ -205,7 +205,7 @@
 			var pages = getCurrentPages();
 			// 获取到当前page上下文
 			var pageContext = pages[pages.length - 1];
-			// 把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
+			// 把this依附在Page上下文的wecropper属性上,便于在page钩子函数中访问
 			Object.defineProperty(pageContext, 'wecropper', {
 				get: function get() {
 					console.warn(
@@ -420,7 +420,7 @@
 
 			// `decode` is designed to be fully compatible with `atob` as described in the
 			// HTML Standard. http://whatwg.org/html/webappapis.html#dom-windowbase64-atob
-			// The optimized base64-decoding algorithm used is based on @atk’s excellent
+			// The optimized base64-decoding algorithm used is based on @atk's excellent
 			// implementation. https://gist.github.com/atk/1020396
 			var decode = function(input) {
 				input = String(input)
@@ -447,9 +447,9 @@
 				while (++position < length) {
 					buffer = TABLE.indexOf(input.charAt(position));
 					bitStorage = bitCounter % 4 ? bitStorage * 64 + buffer : buffer;
-					// Unless this is the first of a group of 4 characters…
+					// Unless this is the first of a group of 4 characters...
 					if (bitCounter++ % 4) {
-						// …convert the first 8 bits to a single ASCII character.
+						// ...convert the first 8 bits to a single ASCII character.
 						output += String.fromCharCode(
 							0xFF & bitStorage >> (-2 * bitCounter & 6)
 						);
@@ -760,8 +760,8 @@
 	function methods() {
 		var self = this;
 
-		var boundWidth = self.width; // 裁剪框默认宽度，即整个画布宽度
-		var boundHeight = self.height; // 裁剪框默认高度，即整个画布高度
+		var boundWidth = self.width; // 裁剪框默认宽度,即整个画布宽度
+		var boundHeight = self.height; // 裁剪框默认高度,即整个画布高度
 
 		var id = self.id;
 		var targetId = self.targetId;
@@ -1035,7 +1035,7 @@
 
 			setTouchState(self, true, null, null);
 
-			// 计算第一个触摸点的位置，并参照改点进行缩放
+			// 计算第一个触摸点的位置,并参照改点进行缩放
 			self.__oneTouchStart(touch0);
 
 			// 两指手势触发
@@ -1081,9 +1081,9 @@
 
 	function cut() {
 		var self = this;
-		var boundWidth = self.width; // 裁剪框默认宽度，即整个画布宽度
+		var boundWidth = self.width; // 裁剪框默认宽度,即整个画布宽度
 		var boundHeight = self.height;
-		// 裁剪框默认高度，即整个画布高度
+		// 裁剪框默认高度,即整个画布高度
 		var ref = self.cut;
 		var x = ref.x;
 		if (x === void 0) x = 0;

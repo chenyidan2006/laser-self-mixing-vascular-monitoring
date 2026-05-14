@@ -33,29 +33,29 @@
 	let fileInput = null
 	/**
 	 * FilePicker 文件选择上传
-	 * @description 文件选择上传组件，可以选择图片、视频等任意文件并上传到当前绑定的服务空间
+	 * @description 文件选择上传组件,可以选择图片,视频等任意文件并上传到当前绑定的服务空间
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=4079
-	 * @property {Object|Array}	value	组件数据，通常用来回显 ,类型由return-type属性决定
+	 * @property {Object|Array}	value	组件数据,通常用来回显 ,类型由return-type属性决定
 	 * @property {Boolean}	disabled = [true|false]	组件禁用
 	 * 	@value true 	禁用
 	 * 	@value false 	取消禁用
-	 * @property {Boolean}	readonly = [true|false]	组件只读，不可选择，不显示进度，不显示删除按钮
+	 * @property {Boolean}	readonly = [true|false]	组件只读,不可选择,不显示进度,不显示删除按钮
 	 * 	@value true 	只读
 	 * 	@value false 	取消只读
-	 * @property {String}	return-type = [array|object]	限制 value 格式，当为 object 时 ，组件只能单选，且会覆盖
+	 * @property {String}	return-type = [array|object]	限制 value 格式,当为 object 时 ,组件只能单选,且会覆盖
 	 * 	@value array	规定 value 属性的类型为数组
 	 * 	@value object	规定 value 属性的类型为对象
-	 * @property {Boolean}	disable-preview = [true|false]	禁用图片预览，仅 mode:grid 时生效
+	 * @property {Boolean}	disable-preview = [true|false]	禁用图片预览,仅 mode:grid 时生效
 	 * 	@value true 	禁用图片预览
 	 * 	@value false 	取消禁用图片预览
 	 * @property {Boolean}	del-icon = [true|false]	是否显示删除按钮
 	 * 	@value true 	显示删除按钮
 	 * 	@value false 	不显示删除按钮
-	 * @property {Boolean}	auto-upload = [true|false]	是否自动上传，值为true则只触发@select,可自行上传
+	 * @property {Boolean}	auto-upload = [true|false]	是否自动上传,值为true则只触发@select,可自行上传
 	 * 	@value true 	自动上传
 	 * 	@value false 	取消自动上传
-	 * @property {Number|String}	limit	最大选择个数 ，h5 会自动忽略多选的部分
-	 * @property {String}	title	组件标题，右侧显示上传计数
+	 * @property {Number|String}	limit	最大选择个数 ,h5 会自动忽略多选的部分
+	 * @property {String}	title	组件标题,右侧显示上传计数
 	 * @property {String}	mode = [list|grid]	选择文件后的文件列表样式
 	 * 	@value list 	列表显示
 	 * 	@value grid 	宫格显示
@@ -63,9 +63,9 @@
 	 * 	@value image	只选择图片
 	 * 	@value video	只选择视频
 	 * 	@value all		选择所有文件
-	 * @property {Array}	file-extname	选择文件后缀，根据 file-mediatype 属性而不同
+	 * @property {Array}	file-extname	选择文件后缀,根据 file-mediatype 属性而不同
 	 * @property {Object}	list-style	mode:list 时的样式
-	 * @property {Object}	image-styles	选择文件后缀，根据 file-mediatype 属性而不同
+	 * @property {Object}	image-styles	选择文件后缀,根据 file-mediatype 属性而不同
 	 * @event {Function} select 	选择文件后触发
 	 * @event {Function} progress 文件上传时触发
 	 * @event {Function} success 	上传成功触发
@@ -112,7 +112,7 @@
 				type: Boolean,
 				default: true
 			},
-			// 最大选择个数 ，h5只能限制单选或是多选
+			// 最大选择个数 ,h5只能限制单选或是多选
 			limit: {
 				type: [Number, String],
 				default: 9
@@ -260,7 +260,7 @@
 		},
 		methods: {
 			/**
-			 * 公开用户使用，清空文件
+			 * 公开用户使用,清空文件
 			 * @param {Object} index
 			 */
 			clearFiles(index) {
@@ -277,7 +277,7 @@
 				})
 			},
 			/**
-			 * 公开用户使用，继续上传
+			 * 公开用户使用,继续上传
 			 */
 			upload() {
 				let files = []
@@ -354,7 +354,7 @@
 						compressed: false,
 						sizeType: this.sizeType,
 						sourceType: this.sourceType,
-						// TODO 如果为空，video 有问题
+						// TODO 如果为空,video 有问题
 						extension: _extname.length > 0 ? _extname : undefined,
 						count: this.limitLength - this.files.length, //默认9
 						onChooseFile: this.chooseFileCallback,
@@ -382,7 +382,7 @@
 						this.disablePreview &&
 						!this.disabled) ||
 					this.returnType === 'object'
-				// 如果这有一个文件 ，需要清空本地缓存数据
+				// 如果这有一个文件 ,需要清空本地缓存数据
 				if (is_one) {
 					this.files = []
 				}
@@ -403,7 +403,7 @@
 					let filedata = await get_file_data(files[i], this.fileMediatype)
 					filedata.progress = 0
 					filedata.status = 'ready'
-					// fix by mehaotian ,统一返回，删除也包含file对象
+					// fix by mehaotian ,统一返回,删除也包含file对象
 					let fileTempData = {
 						...filedata,
 						file: files[i]
@@ -427,7 +427,7 @@
 					const fileName = fileNameSplit.join('.').replace(/[\s\/\?<>\\:\*\|":]/g, '_')
 					// 选择文件目录上传
 					let dir = this.dirPath || ''; // 防止用户传入的 dir 不正常
-					// 检查最后一个字符是否为 '/'（同时处理空字符串情况）
+					// 检查最后一个字符是否为 '/'(同时处理空字符串情况)
 					if (dir && dir[dir.length - 1] !== '/') {
 						dir += '/';
 					}
@@ -527,7 +527,7 @@
 					idx = this.files.findIndex(p => p.uuid === progressEvent.tempFile.uuid)
 				}
 				if (idx === -1 || !this.files[idx]) return
-				// fix by mehaotian 100 就会消失，-1 是为了让进度条消失
+				// fix by mehaotian 100 就会消失,-1 是为了让进度条消失
 				this.files[idx].progress = percentCompleted - 1
 				// 上传中
 				this.$emit('progress', {

@@ -42,7 +42,7 @@
 	// #endif
 	/**
 	 * Forms 表单
-	 * @description 由输入框、选择器、单选框、多选框等控件组成，用以收集、校验、提交数据
+	 * @description 由输入框,选择器,单选框,多选框等控件组成,用以收集,校验,提交数据
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=2773
 	 * @property {Object} rules	表单校验规则
 	 * @property {String} validateTrigger = [bind|submit|blur]	校验触发器方式 默认 submit
@@ -52,7 +52,7 @@
 	 * @property {String} labelPosition = [top|left]	label 位置 默认 left
 	 * @value top		顶部显示 label
 	 * @value left	左侧显示 label
-	 * @property {String} labelWidth	label 宽度，默认 70px
+	 * @property {String} labelWidth	label 宽度,默认 70px
 	 * @property {String} labelAlign = [left|center|right]	label 居中方式  默认 left
 	 * @value left		label 左侧显示
 	 * @value center	label 居中
@@ -90,7 +90,7 @@
 					return null;
 				}
 			},
-			// 1.4.0 开始将不支持 v-model ，且废弃 value 和 modelValue
+			// 1.4.0 开始将不支持 v-model ,且废弃 value 和 modelValue
 			model: {
 				type: Object,
 				default () {
@@ -114,7 +114,7 @@
 				type: String,
 				default: 'submit'
 			},
-			// label 位置，默认 left 取值  top/left
+			// label 位置,默认 left 取值  top/left
 			labelPosition: {
 				type: String,
 				default: 'left'
@@ -124,7 +124,7 @@
 				type: [String, Number],
 				default: ''
 			},
-			// label 居中方式，默认 left 取值 left/center/right
+			// label 居中方式,默认 left 取值 left/center/right
 			labelAlign: {
 				type: String,
 				default: 'left'
@@ -141,7 +141,7 @@
 		},
 		data() {
 			return {
-				// 表单本地值的记录，不应该与传如的值进行关联
+				// 表单本地值的记录,不应该与传如的值进行关联
 				formData: {},
 				formRules: {}
 			};
@@ -157,7 +157,7 @@
 			}
 		},
 		watch: {
-			// 监听数据变化 ,暂时不使用，需要单独赋值
+			// 监听数据变化 ,暂时不使用,需要单独赋值
 			// localData: {},
 			// 监听规则变化
 			rules: {
@@ -195,18 +195,18 @@
 
 			// 子组件实例数组
 			this.childrens = []
-			// TODO 兼容旧版 uni-data-picker ,新版本中无效，只是避免报错
+			// TODO 兼容旧版 uni-data-picker ,新版本中无效,只是避免报错
 			this.inputChildrens = []
 			this.setRules(this.rules)
 		},
 		methods: {
 			/**
 			 * 外部调用方法
-			 * 设置规则 ，主要用于小程序自定义检验规则
+			 * 设置规则 ,主要用于小程序自定义检验规则
 			 * @param {Array} rules 规则源数据
 			 */
 			setRules(rules) {
-				// TODO 有可能子组件合并规则的时机比这个要早，所以需要合并对象 ，而不是直接赋值，可能会被覆盖
+				// TODO 有可能子组件合并规则的时机比这个要早,所以需要合并对象 ,而不是直接赋值,可能会被覆盖
 				this.formRules = Object.assign({}, this.formRules, rules)
 				// 初始化校验函数
 				this.validator = new Validator(rules);
@@ -214,7 +214,7 @@
 
 			/**
 			 * 外部调用方法
-			 * 设置数据，用于设置表单数据，公开给用户使用 ， 不支持在动态表单中使用
+			 * 设置数据,用于设置表单数据,公开给用户使用 , 不支持在动态表单中使用
 			 * @param {Object} key
 			 * @param {Object} value
 			 */
@@ -228,7 +228,7 @@
 			/**
 			 * 外部调用方法
 			 * 手动提交校验表单
-			 * 对整个表单进行校验的方法，参数为一个回调函数。
+			 * 对整个表单进行校验的方法,参数为一个回调函数.
 			 * @param {Array} keepitem 保留不参与校验的字段
 			 * @param {type} callback 方法回调
 			 */
@@ -258,8 +258,8 @@
 
 			/**
 			 * 外部调用方法
-			 * 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果
-			 * @param {Array|String} props 需要移除校验的字段 ，不填为所有
+			 * 移除表单项的校验结果.传入待移除的表单项的 prop 属性或者 prop 组成的数组,如不传则移除整个表单的校验结果
+			 * @param {Array|String} props 需要移除校验的字段 ,不填为所有
 			 */
 			clearValidate(props = []) {
 				props = [].concat(props);
@@ -276,9 +276,9 @@
 			},
 
 			/**
-			 * 外部调用方法 ，即将废弃
+			 * 外部调用方法 ,即将废弃
 			 * 手动提交校验表单
-			 * 对整个表单进行校验的方法，参数为一个回调函数。
+			 * 对整个表单进行校验的方法,参数为一个回调函数.
 			 * @param {Array} keepitem 保留不参与校验的字段
 			 * @param {type} callback 方法回调
 			 */
@@ -293,7 +293,7 @@
 				}
 
 				if (!type) {
-					console.warn('submit 方法即将废弃，请使用validate方法代替！');
+					console.warn('submit 方法即将废弃,请使用validate方法代替!');
 				}
 
 				return this.checkAll(this.formData, keepitem, callback, 'submit');
@@ -301,7 +301,7 @@
 
 			// 校验所有
 			async checkAll(invalidFields, keepitem, callback, type) {
-				// 不存在校验规则 ，则停止校验流程
+				// 不存在校验规则 ,则停止校验流程
 				if (!this.validator) return
 				let childrens = []
 				// 处理参与校验的item实例
@@ -318,7 +318,7 @@
 				}
 
 				let promise;
-				// 如果不存在回调，那么使用 Promise 方式返回
+				// 如果不存在回调,那么使用 Promise 方式返回
 				if (!callback && typeof callback !== 'function' && Promise) {
 					promise = new Promise((resolve, reject) => {
 						callback = function(valid, invalidFields) {
@@ -328,7 +328,7 @@
 				}
 
 				let results = [];
-				// 避免引用错乱 ，建议拷贝对象处理
+				// 避免引用错乱 ,建议拷贝对象处理
 				let tempFormData = JSON.parse(JSON.stringify(invalidFields))
 				// 所有子组件参与校验,使用 for 可以使用  awiat
 				for (let i in childrens) {

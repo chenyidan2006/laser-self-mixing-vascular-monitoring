@@ -82,7 +82,7 @@
 	 * 	@value true 展示模式
 	 * 	@value false 选择模式
 	 * @property {Object} options 索引列表需要的数据对象
-	 * @event {Function} click 点击列表事件 ，返回当前选择项的事件对象
+	 * @event {Function} click 点击列表事件 ,返回当前选择项的事件对象
 	 * @example <uni-indexed-list options="" showSelect="false" @click=""></uni-indexed-list>
 	 */
 	export default {

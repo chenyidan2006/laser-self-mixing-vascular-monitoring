@@ -32,24 +32,24 @@
 <script>
 	/**
 	 * uni-fomrs-item 表单子组件
-	 * @description uni-fomrs-item 表单子组件，提供了基础布局已经校验能力
+	 * @description uni-fomrs-item 表单子组件,提供了基础布局已经校验能力
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=2773
-	 * @property {Boolean} required 是否必填，左边显示红色"*"号
+	 * @property {Boolean} required 是否必填,左边显示红色"*"号
 	 * @property {String } 	label 				输入框左边的文字提示
-	 * @property {Number } 	labelWidth 			label的宽度，单位px（默认70）
-	 * @property {String } 	labelAlign = [left|center|right] label的文字对齐方式（默认left）
+	 * @property {Number } 	labelWidth 			label的宽度,单位px(默认70)
+	 * @property {String } 	labelAlign = [left|center|right] label的文字对齐方式(默认left)
 	 * 	@value left		label 左侧显示
 	 * 	@value center	label 居中
 	 * 	@value right	label 右侧对齐
-	 * @property {String } 	errorMessage 		显示的错误提示内容，如果为空字符串或者false，则不显示错误信息
-	 * @property {String } 	name 				表单域的属性名，在使用校验规则时必填
-	 * @property {String } 	leftIcon 			【1.4.0废弃】label左边的图标，限 uni-ui 的图标名称
-	 * @property {String } 	iconColor 		【1.4.0废弃】左边通过icon配置的图标的颜色（默认#606266）
-	 * @property {String} validateTrigger = [bind|submit|blur]	【1.4.0废弃】校验触发器方式 默认 submit
+	 * @property {String } 	errorMessage 		显示的错误提示内容,如果为空字符串或者false,则不显示错误信息
+	 * @property {String } 	name 				表单域的属性名,在使用校验规则时必填
+	 * @property {String } 	leftIcon 			[1.4.0废弃]label左边的图标,限 uni-ui 的图标名称
+	 * @property {String } 	iconColor 		[1.4.0废弃]左边通过icon配置的图标的颜色(默认#606266)
+	 * @property {String} validateTrigger = [bind|submit|blur]	[1.4.0废弃]校验触发器方式 默认 submit
 	 * 	@value bind 	发生变化时触发
 	 * 	@value submit 提交时触发
 	 * 	@value blur 	失去焦点触发
-	 * @property {String } 	labelPosition = [top|left] 【1.4.0废弃】label的文字的位置（默认left）
+	 * @property {String } 	labelPosition = [top|left] [1.4.0废弃]label的文字的位置(默认left)
 	 * 	@value top	顶部显示 label
 	 * 	@value left	左侧显示 label
 	 */
@@ -83,7 +83,7 @@
 					return null;
 				}
 			},
-			// 表单域的属性名，在使用校验规则时必填
+			// 表单域的属性名,在使用校验规则时必填
 			name: {
 				type: [String, Array],
 				default: ''
@@ -101,7 +101,7 @@
 				type: [String, Number],
 				default: ''
 			},
-			// label 居中方式，默认 left 取值 left/center/right
+			// label 居中方式,默认 left 取值 left/center/right
 			labelAlign: {
 				type: String,
 				default: ''
@@ -111,17 +111,17 @@
 				type: [String, Boolean],
 				default: ''
 			},
-			// 1.4.0 弃用，统一使用 form 的校验时机
+			// 1.4.0 弃用,统一使用 form 的校验时机
 			// validateTrigger: {
 			// 	type: String,
 			// 	default: ''
 			// },
-			// 1.4.0 弃用，统一使用 form 的label 位置
+			// 1.4.0 弃用,统一使用 form 的label 位置
 			// labelPosition: {
 			// 	type: String,
 			// 	default: ''
 			// },
-			// 1.4.0 以下属性已经废弃，请使用  #label 插槽代替
+			// 1.4.0 以下属性已经废弃,请使用  #label 插槽代替
 			leftIcon: String,
 			iconColor: {
 				type: String,
@@ -184,9 +184,9 @@
 					},
 					(value, oldVal) => {
 						const isEqual = this.form._isEqual(value, oldVal)
-						// 简单判断前后值的变化，只有发生变化才会发生校验
-						// TODO  如果 oldVal = undefined ，那么大概率是源数据里没有值导致 ，这个情况不哦校验 ,可能不严谨 ，需要在做观察
-						// fix by mehaotian 暂时取消 && oldVal !== undefined ，如果formData 中不存在，可能会不校验
+						// 简单判断前后值的变化,只有发生变化才会发生校验
+						// TODO  如果 oldVal = undefined ,那么大概率是源数据里没有值导致 ,这个情况不哦校验 ,可能不严谨 ,需要在做观察
+						// fix by mehaotian 暂时取消 && oldVal !== undefined ,如果formData 中不存在,可能会不校验
 						if (!isEqual) {
 							const val = this.itemSetValue(value)
 							this.onFieldChange(val, false)
@@ -213,7 +213,7 @@
 		methods: {
 			/**
 			 * 外部调用方法
-			 * 设置规则 ，主要用于小程序自定义检验规则
+			 * 设置规则 ,主要用于小程序自定义检验规则
 			 * @param {Array} rules 规则源数据
 			 */
 			setRules(rules = null) {
@@ -222,7 +222,7 @@
 			},
 			// 兼容老版本表单组件
 			setValue() {
-				// console.log('setValue 方法已经弃用，请使用最新版本的 uni-forms 表单组件以及其他关联组件。');
+				// console.log('setValue 方法已经弃用,请使用最新版本的 uni-forms 表单组件以及其他关联组件.');
 			},
 			/**
 			 * 外部调用方法
@@ -245,10 +245,10 @@
 				if (!value) {
 					value = this.form.formData[name]
 				}
-				// fixd by mehaotian 不在校验前清空信息，解决闪屏的问题
+				// fixd by mehaotian 不在校验前清空信息,解决闪屏的问题
 				// this.errMsg = '';
 
-				// fix by mehaotian 解决没有检验规则的情况下，抛出错误的问题
+				// fix by mehaotian 解决没有检验规则的情况下,抛出错误的问题
 				const ruleLen = this.itemRules.rules && this.itemRules.rules.length
 				if (!this.validator || !ruleLen || ruleLen === 0) return;
 
@@ -256,7 +256,7 @@
 				// let trigger = this.isTrigger(this.itemRules.validateTrigger, this.validateTrigger, validateTrigger);
 				const isRequiredField = _isRequiredField(this.itemRules.rules || []);
 				let result = null;
-				// 只有等于 bind 时 ，才能开启时实校验
+				// 只有等于 bind 时 ,才能开启时实校验
 				if (validateTrigger === 'bind' || formtrigger) {
 					// 校验当前表单项
 					result = await this.validator.validateUpdate({
@@ -265,7 +265,7 @@
 						formData
 					);
 
-					// 判断是否必填,非必填，不填不校验，填写才校验 ,暂时只处理 undefined  和空的情况
+					// 判断是否必填,非必填,不填不校验,填写才校验 ,暂时只处理 undefined  和空的情况
 					if (!isRequiredField && (value === undefined || value === '')) {
 						result = null;
 					}
@@ -388,7 +388,7 @@
 
 			// 是否显示星号
 			_isRequired() {
-				// TODO 不根据规则显示 星号，考虑后续兼容
+				// TODO 不根据规则显示 星号,考虑后续兼容
 				// if (this.form) {
 				// 	if (this.form._isRequiredField(this.itemRules.rules || []) && this.required) {
 				// 		return true
@@ -466,7 +466,7 @@
 		position: relative;
 		display: flex;
 		/* #ifdef APP-NVUE */
-		// 在 nvue 中，使用 margin-bottom error 信息会被隐藏
+		// 在 nvue 中,使用 margin-bottom error 信息会被隐藏
 		padding-bottom: 22px;
 		/* #endif */
 		/* #ifndef APP-NVUE */
@@ -511,7 +511,7 @@
 			flex-direction: row;
 
 			/* #ifndef APP || H5 || MP-WEIXIN || APP-NVUE */
-			// TODO 因为小程序平台会多一层标签节点 ，所以需要在多余节点继承当前样式
+			// TODO 因为小程序平台会多一层标签节点 ,所以需要在多余节点继承当前样式
 			&>uni-easyinput,
 			&>uni-data-picker {
 				width: 100%;

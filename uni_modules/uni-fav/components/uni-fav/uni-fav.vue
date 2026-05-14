@@ -18,7 +18,7 @@
 
 	/**
 	 * Fav 收藏按钮
-	 * @description 用于收藏功能，可点击切换选中、不选中的状态
+	 * @description 用于收藏功能,可点击切换选中,不选中的状态
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=864
 	 * @property {Boolean} star = [true|false] 按钮是否带星星
 	 * @property {String} bgColor 未收藏时的背景色
@@ -41,7 +41,7 @@
 
 	export default {
 		name: "UniFav",
-		// TODO 兼容 vue3，需要注册事件
+		// TODO 兼容 vue3,需要注册事件
 		emits: ['click'],
 		props: {
 			star: {

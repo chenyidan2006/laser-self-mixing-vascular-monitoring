@@ -25,7 +25,7 @@
 <script>
 	export default {
 		props: {
-			// 键盘的类型，number-数字键盘，card-身份证键盘
+			// 键盘的类型,number-数字键盘,card-身份证键盘
 			mode: {
 				type: String,
 				default: 'number'
@@ -73,7 +73,7 @@
 					}
 				}
 			},
-			// 按键的样式，在非乱序&&数字键盘&&不显示点按钮时，index为9时，按键占位两个空间
+			// 按键的样式,在非乱序&&数字键盘&&不显示点按钮时,index为9时,按键占位两个空间
 			itemStyle() {
 				return index => {
 					let style = {};
@@ -81,7 +81,7 @@
 					return style;
 				};
 			},
-			// 是否让按键显示灰色，只在非乱序&&数字键盘&&且允许点按键的时候
+			// 是否让按键显示灰色,只在非乱序&&数字键盘&&且允许点按键的时候
 			btnBgGray() {
 				return index => {
 					if (!this.random && index == 9 && (this.mode != 'number' || (this.mode == 'number' && this.dotEnabled))) return true;
@@ -99,7 +99,7 @@
 			// 点击退格键
 			backspaceClick() {
 				this.$emit('backspace');
-				clearInterval(this.timer); //再次清空定时器，防止重复注册定时器
+				clearInterval(this.timer); //再次清空定时器,防止重复注册定时器
 				this.timer = null;
 				this.timer = setInterval(() => {
 					this.$emit('backspace');
@@ -111,7 +111,7 @@
 			},
 			// 获取键盘显示的内容
 			keyboardClick(val) {
-				// 允许键盘显示点模式和触发非点按键时，将内容转为数字类型
+				// 允许键盘显示点模式和触发非点按键时,将内容转为数字类型
 				if (this.dotEnabled && val != this.dot && val != this.cardX) val = Number(val);
 				this.$emit('change', val);
 			}

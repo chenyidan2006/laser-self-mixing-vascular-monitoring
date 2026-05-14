@@ -1,7 +1,8 @@
-// 生产环境配置 - 使用你自己的服务器
+//使用你自己的服务器
+//D:/code/app/appprogram/config/env.prod.js
 export default {
   // 你的服务器地址（重要！这里要改成你的服务器）
-  baseURL: 'https://your-domain.com/api', // 或 http://你的IP:端口/api
+  baseURL: 'http://192.144.185.64:3001/api', // 认证服务端口
   
   // 生产环境配置
   debug: false,

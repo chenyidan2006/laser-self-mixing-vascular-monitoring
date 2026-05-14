@@ -41,13 +41,13 @@
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=329
 	 * @property {String} value input 模式下的默认值
 	 * @property {String} placeholder input 模式下输入提示
-	 * @property {Boolean} focus input模式下是否自动聚焦，默认为true
+	 * @property {Boolean} focus input模式下是否自动聚焦,默认为true
 	 * @property {String} type = [success|warning|info|error] 主题样式
 	 *  @value success 成功
 	 * 	@value warning 提示
 	 * 	@value info 消息
 	 * 	@value error 错误
-	 * @property {String} mode = [base|input] 模式、
+	 * @property {String} mode = [base|input] 模式,
 	 * 	@value base 基础对话框
 	 * 	@value input 可输入对话框
 	 * @showClose {Boolean} 是否显示关闭按钮

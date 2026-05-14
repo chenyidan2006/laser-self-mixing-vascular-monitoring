@@ -1,5 +1,5 @@
 <template>
-	<!-- 支付宝小程序使用$u.getRect()获取组件的根元素尺寸，所以在外面套一个"壳" -->
+	<!-- 支付宝小程序使用$u.getRect()获取组件的根元素尺寸,所以在外面套一个"壳" -->
 	<view>
 		<view class="u-index-bar">
 			<slot />
@@ -33,12 +33,12 @@
 	 * indexList 索引列表
 	 * @description 通过折叠面板收纳内容区域,搭配<u-index-anchor>使用
 	 * @tutorial https://www.uviewui.com/components/indexList.html#indexanchor-props
-	 * @property {Number String} scroll-top 当前滚动高度，自定义组件无法获得滚动条事件，所以依赖接入方传入
-	 * @property {Array} index-list 索引字符列表，数组（默认A-Z）
-	 * @property {Number String} z-index 锚点吸顶时的层级（默认965）
-	 * @property {Boolean} sticky 是否开启锚点自动吸顶（默认true）
-	 * @property {Number String} offset-top 锚点自动吸顶时与顶部的距离（默认0）
-	 * @property {String} highlight-color 锚点和右边索引字符高亮颜色（默认#2979ff）
+	 * @property {Number String} scroll-top 当前滚动高度,自定义组件无法获得滚动条事件,所以依赖接入方传入
+	 * @property {Array} index-list 索引字符列表,数组(默认A-Z)
+	 * @property {Number String} z-index 锚点吸顶时的层级(默认965)
+	 * @property {Boolean} sticky 是否开启锚点自动吸顶(默认true)
+	 * @property {Number String} offset-top 锚点自动吸顶时与顶部的距离(默认0)
+	 * @property {String} highlight-color 锚点和右边索引字符高亮颜色(默认#2979ff)
 	 * @event {Function} select 选中右边索引字符时触发
 	 * @example <u-index-list :scrollTop="scrollTop"></u-index-list>
 	 */
@@ -79,7 +79,7 @@
 			// #ifndef H5
 			this.stickyOffsetTop = this.offsetTop ? uni.upx2px(this.offsetTop) : 0;
 			// #endif
-			// 只能在created生命周期定义children，如果在data定义，会因为循环引用而报错
+			// 只能在created生命周期定义children,如果在data定义,会因为循环引用而报错
 			this.children = [];
 		},
 		data() {

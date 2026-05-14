@@ -5,10 +5,10 @@
 			<view class="u-tips">
 				{{tips}}
 			</view>
-			<!-- 只有APP平台，才能跳转设置页，因为需要调用plus环境 -->
+			<!-- 只有APP平台,才能跳转设置页,因为需要调用plus环境 -->
 			<!-- #ifdef APP-PLUS -->
 			<view class="u-to-setting">
-				请检查网络，或前往<text class="u-setting-btn" @tap="openSettings">设置</text>
+				请检查网络,或前往<text class="u-setting-btn" @tap="openSettings">设置</text>
 			</view>
 			<!-- #endif -->
 			<view class="u-retry" :hover-stay-time="150" @tap="retry" hover-class="u-retry-hover">
@@ -21,11 +21,11 @@
 <script>
 	/**
 	 * noNetwork 无网络提示
-	 * @description 该组件无需任何配置，引入即可，内部自动处理所有功能和事件。
+	 * @description 该组件无需任何配置,引入即可,内部自动处理所有功能和事件.
 	 * @tutorial https://www.uviewui.com/components/noNetwork.html
-	 * @property {String} tips 没有网络时的提示语（默认哎呀，网络信号丢失）
-	 * @property {String Number} zIndex 组件的z-index值（默认1080）
-	 * @property {String} image 无网络的图片提示，可用的src地址或base64图片
+	 * @property {String} tips 没有网络时的提示语(默认哎呀,网络信号丢失)
+	 * @property {String Number} zIndex 组件的z-index值(默认1080)
+	 * @property {String} image 无网络的图片提示,可用的src地址或base64图片
 	 * @event {Function} retry 用户点击页面的"重试"按钮时触发
 	 * @example <u-no-network></u-no-network>
 	 */
@@ -35,9 +35,9 @@
 			// 页面文字提示
 			tips: {
 				type: String,
-				default: '哎呀，网络信号丢失'
+				default: '哎呀,网络信号丢失'
 			},
-			// 一个z-index值，用于设置没有网络这个组件的层次，因为页面可能会有其他定位的元素层级过高，导致此组件被覆盖
+			// 一个z-index值,用于设置没有网络这个组件的层次,因为页面可能会有其他定位的元素层级过高,导致此组件被覆盖
 			zIndex: {
 				type: [Number, String],
 				default: ''
@@ -111,7 +111,7 @@
 				this.gotoAppSetting();
 			},
 			openSystemSettings() {
-				// 以下方法来自5+范畴，如需深究，请自行查阅相关文档
+				// 以下方法来自5+范畴,如需深究,请自行查阅相关文档
 				// https://ask.dcloud.net.cn/docs/
 				if (this.isIOS) {
 					this.gotoiOSSetting();

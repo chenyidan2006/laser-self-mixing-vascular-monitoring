@@ -1,4 +1,4 @@
-// common/util.js
+// D:/code/app/appprogram/common/util.js
 export const saveLog = (message) => {
   console.log('[LOG]', message);
   

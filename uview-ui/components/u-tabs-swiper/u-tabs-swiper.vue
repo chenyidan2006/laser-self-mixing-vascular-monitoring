@@ -24,34 +24,34 @@
 
 	/**
 	 * tabsSwiper 全屏选项卡
-	 * @description 该组件内部实现主要依托于uniapp的scroll-view和swiper组件，主要特色是切换过程中，tabsSwiper文字的颜色可以渐变，底部滑块可以 跟随式滑动，活动tab滚动居中等。应用场景可以用于需要左右切换页面，比如商城的订单中心(待收货-待付款-待评价-已退货)等应用场景。
+	 * @description 该组件内部实现主要依托于uniapp的scroll-view和swiper组件,主要特色是切换过程中,tabsSwiper文字的颜色可以渐变,底部滑块可以 跟随式滑动,活动tab滚动居中等.应用场景可以用于需要左右切换页面,比如商城的订单中心(待收货-待付款-待评价-已退货)等应用场景.
 	 * @tutorial https://www.uviewui.com/components/tabsSwiper.html
-	 * @property {Boolean} is-scroll tabs是否可以左右拖动（默认true）
-	 * @property {Array} list 标签数组，元素为对象，如[{name: '推荐'}]
-	 * @property {String Number} current 指定哪个tab为激活状态（默认0）
-	 * @property {String Number} height 导航栏的高度，单位rpx（默认80）
-	 * @property {String Number} font-size tab文字大小，单位rpx（默认30）
-	 * @property {String Number} swiper-width tabs组件外部swiper的宽度，默认为屏幕宽度，单位rpx（默认750）
-	 * @property {String} active-color 滑块和激活tab文字的颜色（默认#2979ff）
-	 * @property {String} inactive-color tabs文字颜色（默认#303133）
-	 * @property {String Number} bar-width 滑块宽度，单位rpx（默认40）
-	 * @property {String Number} bar-height 滑块高度，单位rpx（默认6）
-	 * @property {Object} bar-style 底部滑块的样式，对象形式
-	 * @property {Object} active-item-style 活动tabs item的样式，对象形式
-	 * @property {Boolean} show-bar 是否显示底部的滑块（默认true）
-	 * @property {String Number} gutter 单个tab标签的左右内边距之和，单位rpx（默认40）
-	 * @property {String} bg-color tabs导航栏的背景颜色（默认#ffffff）
-	 * @property {String} name 组件内部读取的list参数中的属性名，见官网说明（默认name）
-	 * @property {String} count 组件内部读取的list参数中的属性名（badge徽标数），同name属性的使用，见官网说明（默认count）
-	 * @property {Array} offset 设置badge徽标数的位置偏移，格式为 [x, y]，也即设置的为top和right的值，单位rpx（默认[5, 20]）
-	 * @property {Boolean} bold 激活选项的字体是否加粗（默认true）
+	 * @property {Boolean} is-scroll tabs是否可以左右拖动(默认true)
+	 * @property {Array} list 标签数组,元素为对象,如[{name: '推荐'}]
+	 * @property {String Number} current 指定哪个tab为激活状态(默认0)
+	 * @property {String Number} height 导航栏的高度,单位rpx(默认80)
+	 * @property {String Number} font-size tab文字大小,单位rpx(默认30)
+	 * @property {String Number} swiper-width tabs组件外部swiper的宽度,默认为屏幕宽度,单位rpx(默认750)
+	 * @property {String} active-color 滑块和激活tab文字的颜色(默认#2979ff)
+	 * @property {String} inactive-color tabs文字颜色(默认#303133)
+	 * @property {String Number} bar-width 滑块宽度,单位rpx(默认40)
+	 * @property {String Number} bar-height 滑块高度,单位rpx(默认6)
+	 * @property {Object} bar-style 底部滑块的样式,对象形式
+	 * @property {Object} active-item-style 活动tabs item的样式,对象形式
+	 * @property {Boolean} show-bar 是否显示底部的滑块(默认true)
+	 * @property {String Number} gutter 单个tab标签的左右内边距之和,单位rpx(默认40)
+	 * @property {String} bg-color tabs导航栏的背景颜色(默认#ffffff)
+	 * @property {String} name 组件内部读取的list参数中的属性名,见官网说明(默认name)
+	 * @property {String} count 组件内部读取的list参数中的属性名(badge徽标数),同name属性的使用,见官网说明(默认count)
+	 * @property {Array} offset 设置badge徽标数的位置偏移,格式为 [x, y],也即设置的为top和right的值,单位rpx(默认[5, 20])
+	 * @property {Boolean} bold 激活选项的字体是否加粗(默认true)
 	 * @event {Function} change 点击标签时触发
 	 * @example <u-tabs-swiper ref="tabs" :list="list" :is-scroll="false"></u-tabs-swiper>
 	 */
 	export default {
 		name: "u-tabs-swiper",
 		props: {
-			// 导航菜单是否需要滚动，如只有2或者3个的时候，就不需要滚动了，此时使用flex平分tab的宽度
+			// 导航菜单是否需要滚动,如只有2或者3个的时候,就不需要滚动了,此时使用flex平分tab的宽度
 			isScroll: {
 				type: Boolean,
 				default: true
@@ -68,12 +68,12 @@
 				type: [Number, String],
 				default: 0
 			},
-			// 导航栏的高度和行高，单位rpx
+			// 导航栏的高度和行高,单位rpx
 			height: {
 				type: [Number, String],
 				default: 80
 			},
-			// 字体大小，单位rpx
+			// 字体大小,单位rpx
 			fontSize: {
 				type: [Number, String],
 				default: 30
@@ -98,7 +98,7 @@
 				type: String,
 				default: '#303133'
 			},
-			// 菜单底部移动的bar的宽度，单位rpx
+			// 菜单底部移动的bar的宽度,单位rpx
 			barWidth: {
 				type: [Number, String],
 				default: 40
@@ -108,12 +108,12 @@
 				type: [Number, String],
 				default: 6
 			},
-			// 单个tab的左或右内边距（各占一半），单位rpx
+			// 单个tab的左或右内边距(各占一半),单位rpx
 			gutter: {
 				type: [Number, String],
 				default: 40
 			},
-			// 如果是绝对定位，添加z-index值
+			// 如果是绝对定位,添加z-index值
 			zIndex: {
 				type: [Number, String],
 				default: 1
@@ -174,7 +174,7 @@
 			return {
 				scrollLeft: 0, // 滚动scroll-view的左边滚动距离
 				tabQueryInfo: [], // 存放对tab菜单查询后的节点信息
-				windowWidth: 0, // 屏幕宽度，单位为px
+				windowWidth: 0, // 屏幕宽度,单位为px
 				//scrollBarLeft: 0, // 移动bar需要通过translateX()移动的距离
 				animationFinishCurrent: this.current,
 				componentsWidth: 0,
@@ -286,14 +286,14 @@
 					});
 				})
 			},
-			// 当swiper滑动结束，计算滑块最终要停留的位置
+			// 当swiper滑动结束,计算滑块最终要停留的位置
 			countLine3Dx() {
 				const tab = this.tabsInfo[this.animationFinishCurrent];
 				// 让滑块中心点和当前tab中心重合
 				if (tab) this.line3Dx = tab.left + tab.width / 2 - this.barWidthPx / 2 - this.tabsInfo[0].left;
 			},
 			countPx() {
-				// swiper宽度由rpx转为px单位，因为dx等，都是px单位
+				// swiper宽度由rpx转为px单位,因为dx等,都是px单位
 				this.sW = uni.upx2px(Number(this.swiperWidth));
 			},
 			emit(index) {
@@ -328,7 +328,7 @@
 				if (tab) {
 					let tabCenter = tab.left + tab.width / 2;
 					let fatherWidth;
-					// 活动tab移动到中心时，以屏幕还是tab组件为宽度为基准
+					// 活动tab移动到中心时,以屏幕还是tab组件为宽度为基准
 					if (this.autoCenterMode === 'window') {
 						fatherWidth = windowWidth;
 					} else {
@@ -349,7 +349,7 @@
 				// 下一个tab
 				let nextTab = this.tabsInfo[nextTabIndex];
 				let nextTabX = nextTab.left + nextTab.width / 2;
-				// 两个tab之间的距离，因为下一个tab可能在当前tab的左边或者右边，取绝对值即可
+				// 两个tab之间的距离,因为下一个tab可能在当前tab的左边或者右边,取绝对值即可
 				let distanceX = Math.abs(nextTabX - nowTabX);
 				this.line3AddDx = (dx / this.sW) * distanceX;
 				this.setTabColor(this.animationFinishCurrent, nextTabIndex, dx);
@@ -367,7 +367,7 @@
 			},
 			// swiper结束滑动
 			setFinishCurrent(current) {
-				// 如果滑动的索引不一致，修改tab颜色变化，因为可能会有直接点击tab的情况
+				// 如果滑动的索引不一致,修改tab颜色变化,因为可能会有直接点击tab的情况
 				this.tabsInfo.map((val, index) => {
 					if (current == index) val.color = this.activeColor;
 					else val.color = this.inactiveColor;
@@ -407,7 +407,7 @@
 	/* #endif */
 
 	/* #ifdef H5 */
-	// 通过样式穿透，隐藏H5下，scroll-view下的滚动条
+	// 通过样式穿透,隐藏H5下,scroll-view下的滚动条
 	scroll-view ::v-deep ::-webkit-scrollbar {
 		display: none;
 		width: 0 !important;

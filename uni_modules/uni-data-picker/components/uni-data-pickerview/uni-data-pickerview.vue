@@ -41,14 +41,14 @@
    * DataPickerview
    * @description uni-data-pickerview
    * @tutorial https://ext.dcloud.net.cn/plugin?id=3796
-   * @property {Array} localdata 本地数据，参考
+   * @property {Array} localdata 本地数据,参考
    * @property {Boolean} step-searh = [true|false] 是否分布查询
-   * @value true 启用分布查询，仅查询当前选中节点
-   * @value false 关闭分布查询，一次查询出所有数据
+   * @value true 启用分布查询,仅查询当前选中节点
+   * @value false 关闭分布查询,一次查询出所有数据
    * @property {String|DBFieldString} self-field 分布查询当前字段名称
    * @property {String|DBFieldString} parent-field 分布查询父字段名称
    * @property {String|DBCollectionString} collection 表名
-   * @property {String|DBFieldString} field 查询字段，多个字段用 `,` 分割
+   * @property {String|DBFieldString} field 查询字段,多个字段用 `,` 分割
    * @property {String} orderby 排序字段及正序倒叙设置
    * @property {String|JQLString} where 查询条件
    */

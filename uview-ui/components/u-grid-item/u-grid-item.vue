@@ -13,11 +13,11 @@
 <script>
 	/**
 	 * gridItem 提示
-	 * @description 宫格组件一般用于同时展示多个同类项目的场景，可以给宫格的项目设置徽标组件(badge)，或者图标等，也可以扩展为左右滑动的轮播形式。搭配u-grid使用
+	 * @description 宫格组件一般用于同时展示多个同类项目的场景,可以给宫格的项目设置徽标组件(badge),或者图标等,也可以扩展为左右滑动的轮播形式.搭配u-grid使用
 	 * @tutorial https://www.uviewui.com/components/grid.html
-	 * @property {String} bg-color 宫格的背景颜色（默认#ffffff）
-	 * @property {String Number} index 点击宫格时，返回的值
-	 * @property {Object} custom-style 自定义样式，对象形式
+	 * @property {String} bg-color 宫格的背景颜色(默认#ffffff)
+	 * @property {String Number} index 点击宫格时,返回的值
+	 * @property {Object} custom-style 自定义样式,对象形式
 	 * @event {Function} click 点击宫格触发
 	 * @example <u-grid-item></u-grid-item>
 	 */
@@ -34,7 +34,7 @@
 				type: [Number, String],
 				default: ''
 			},
-			// 自定义样式，对象形式
+			// 自定义样式,对象形式
 			customStyle: {
 				type: Object,
 				default() {
@@ -47,9 +47,9 @@
 		data() {
 			return {
 				parentData: {
-					hoverClass: '', // 按下去的时候，是否显示背景灰色
+					hoverClass: '', // 按下去的时候,是否显示背景灰色
 					col: 3, // 父组件划分的宫格数
-					border: true, // 是否显示边框，根据父组件决定
+					border: true, // 是否显示边框,根据父组件决定
 				}
 			};
 		},

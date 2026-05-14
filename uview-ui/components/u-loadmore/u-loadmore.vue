@@ -11,7 +11,7 @@
 			<view class="u-loadmore-icon-wrap">
 				<u-loading class="u-loadmore-icon" :color="iconColor" :mode="iconType == 'circle' ? 'circle' : 'flower'" :show="status == 'loading' && icon"></u-loading>
 			</view>
-			<!-- 如果没有更多的状态下，显示内容为dot（粗点），加载特定样式 -->
+			<!-- 如果没有更多的状态下,显示内容为dot(粗点),加载特定样式 -->
 			<view class="u-line-1" :style="[loadTextStyle]" :class="[(status == 'nomore' && isDot == true) ? 'u-dot-text' : 'u-more-text']" @tap="loadMore">
 				{{ showText }}
 			</view>
@@ -23,19 +23,19 @@
 <script>
 	/**
 	 * loadmore 加载更多
-	 * @description 此组件一般用于标识页面底部加载数据时的状态。
+	 * @description 此组件一般用于标识页面底部加载数据时的状态.
 	 * @tutorial https://www.uviewui.com/components/loadMore.html
-	 * @property {String} status 组件状态（默认loadmore）
-	 * @property {String} bg-color 组件背景颜色，在页面是非白色时会用到（默认#ffffff）
-	 * @property {Boolean} icon 加载中时是否显示图标（默认true）
-	 * @property {String} icon-type 加载中时的图标类型（默认circle）
-	 * @property {String} icon-color icon-type为circle时有效，加载中的动画图标的颜色（默认#b7b7b7）
-	 * @property {Boolean} is-dot status为nomore时，内容显示为一个"●"（默认false）
-	 * @property {String} color 字体颜色（默认#606266）
+	 * @property {String} status 组件状态(默认loadmore)
+	 * @property {String} bg-color 组件背景颜色,在页面是非白色时会用到(默认#ffffff)
+	 * @property {Boolean} icon 加载中时是否显示图标(默认true)
+	 * @property {String} icon-type 加载中时的图标类型(默认circle)
+	 * @property {String} icon-color icon-type为circle时有效,加载中的动画图标的颜色(默认#b7b7b7)
+	 * @property {Boolean} is-dot status为nomore时,内容显示为一个"●"(默认false)
+	 * @property {String} color 字体颜色(默认#606266)
 	 * @property {String Number} margin-top 到上一个相邻元素的距离
 	 * @property {String Number} margin-bottom 到下一个相邻元素的距离
-	 * @property {Object} load-text 自定义显示的文字，见上方说明示例
-	 * @event {Function} loadmore status为loadmore时，点击组件会发出此事件
+	 * @property {Object} load-text 自定义显示的文字,见上方说明示例
+	 * @event {Function} loadmore status为loadmore时,点击组件会发出此事件
 	 * @example <u-loadmore :status="status" icon-type="iconType" load-text="loadText" />
 	 */
 	export default {
@@ -61,12 +61,12 @@
 				type: String, 
 				default: '#606266'
 			},
-			// 组件状态，loadmore-加载前的状态，loading-加载中的状态，nomore-没有更多的状态
+			// 组件状态,loadmore-加载前的状态,loading-加载中的状态,nomore-没有更多的状态
 			status: {
 				type: String,
 				default: 'loadmore'
 			},
-			// 加载中状态的图标，flower-花朵状图标，circle-圆圈状图标
+			// 加载中状态的图标,flower-花朵状图标,circle-圆圈状图标
 			iconType: {
 				type: String,
 				default: 'circle'
@@ -82,12 +82,12 @@
 					}
 				}
 			},
-			// 在“没有更多”状态下，是否显示粗点
+			// 在"没有更多"状态下,是否显示粗点
 			isDot: {
 				type: Boolean,
 				default: false
 			},
-			// 加载中显示圆圈动画时，动画的颜色
+			// 加载中显示圆圈动画时,动画的颜色
 			iconColor: {
 				type: String,
 				default: '#b7b7b7'
@@ -102,7 +102,7 @@
 				type: [String, Number],
 				default: 0
 			},
-			// 高度，单位rpx
+			// 高度,单位rpx
 			height: {
 				type: [String, Number],
 				default: 'auto'
@@ -123,7 +123,7 @@
 					position: 'relative',
 					zIndex: 1,
 					backgroundColor: this.bgColor,
-					// 如果是加载中状态，动画和文字需要距离近一点
+					// 如果是加载中状态,动画和文字需要距离近一点
 				}
 			},
 			// 加载中圆圈动画的样式
@@ -133,7 +133,7 @@
 				}
 			},
 			// 加载中花朵动画形式
-			// 动画由base64图片生成，暂不支持修改
+			// 动画由base64图片生成,暂不支持修改
 			flowerStyle() {
 				return {
 				}
@@ -150,7 +150,7 @@
 		},
 		methods: {
 			loadMore() {
-				// 只有在“加载更多”的状态下才发送点击事件，内容不满一屏时无法触发底部上拉事件，所以需要点击来触发
+				// 只有在"加载更多"的状态下才发送点击事件,内容不满一屏时无法触发底部上拉事件,所以需要点击来触发
 				if(this.status == 'loadmore') this.$emit('loadmore');
 			}
 		}
@@ -161,8 +161,8 @@
 	@import "../../libs/css/style.components.scss";
 	
 	/* #ifdef MP */
-	// 在mp.scss中，赋予了u-line为flex: 1，这里需要一个明确的长度，所以重置掉它
-	// 在组件内部，把组件名(u-line)当做选择器，在微信开发工具会提示不合法，但不影响使用
+	// 在mp.scss中,赋予了u-line为flex: 1,这里需要一个明确的长度,所以重置掉它
+	// 在组件内部,把组件名(u-line)当做选择器,在微信开发工具会提示不合法,但不影响使用
 	u-line {
 		flex: none;
 	}

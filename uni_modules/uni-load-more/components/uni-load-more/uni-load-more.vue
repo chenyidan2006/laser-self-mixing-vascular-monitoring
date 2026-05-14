@@ -55,7 +55,7 @@
 
 	/**
 	 * LoadMore 加载更多
-	 * @description 用于列表中，做滚动加载使用，展示 loading 的各种状态
+	 * @description 用于列表中,做滚动加载使用,展示 loading 的各种状态
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=29
 	 * @property {String} status = [more|loading|noMore] loading 的状态
 	 * 	@value more loading前
@@ -68,7 +68,7 @@
 	 * 	@value circle 安卓唤醒加载样式
 	 * 	@value auto 根据平台自动选择加载样式
 	 * @property {String} color 图标和文字颜色
-	 * @property {Object} contentText 各状态文字说明，值为：{contentdown: "上拉显示更多",contentrefresh: "正在加载...",contentnomore: "没有更多数据了"}
+	 * @property {Object} contentText 各状态文字说明,值为:{contentdown: "上拉显示更多",contentrefresh: "正在加载...",contentnomore: "没有更多数据了"}
 	 * @event {Function} clickLoadMore 点击加载更多时触发
 	 */
 	export default {
@@ -76,7 +76,7 @@
 		emits: ['clickLoadMore'],
 		props: {
 			status: {
-				// 上拉的状态：more-loading前；loading-loading中；noMore-没有更多了
+				// 上拉的状态:more-loading前;loading-loading中;noMore-没有更多了
 				type: String,
 				default: 'more'
 			},

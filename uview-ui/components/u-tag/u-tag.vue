@@ -19,26 +19,26 @@
 	 * tag 提示
 	 * @description 该组件一般用于标记和选择
 	 * @tutorial https://www.uviewui.com/components/tag.html
-	 * @property {String} type 主题类型（默认primary）
-	 * @property {String} size 标签大小（默认default）
-	 * @property {String} shape 标签形状（默认square）
+	 * @property {String} type 主题类型(默认primary)
+	 * @property {String} size 标签大小(默认default)
+	 * @property {String} shape 标签形状(默认square)
 	 * @property {String} text 标签的文字内容
 	 * @property {String} bg-color 自定义标签的背景颜色
 	 * @property {String} border-color 标签的边框颜色
 	 * @property {String} close-color 关闭按钮的颜色
-	 * @property {String Number} index 点击标签时，会通过click事件返回该值
-	 * @property {String} mode 模式选择，见官网说明（默认light）
-	 * @property {Boolean} closeable 是否可关闭，设置为true，文字右边会出现一个关闭图标（默认false）
-	 * @property {Boolean} show 标签显示与否（默认true）
+	 * @property {String Number} index 点击标签时,会通过click事件返回该值
+	 * @property {String} mode 模式选择,见官网说明(默认light)
+	 * @property {Boolean} closeable 是否可关闭,设置为true,文字右边会出现一个关闭图标(默认false)
+	 * @property {Boolean} show 标签显示与否(默认true)
 	 * @event {Function} click 点击标签触发
-	 * @event {Function} close closeable为true时，点击标签关闭按钮触发
+	 * @event {Function} close closeable为true时,点击标签关闭按钮触发
 	 * @example <u-tag text="雪月夜" type="success" />
 	 */
 	export default {
 		name: 'u-tag',
-		// 是否禁用这个标签，禁用的话，会屏蔽点击事件
+		// 是否禁用这个标签,禁用的话,会屏蔽点击事件
 		props: {
-			// 标签类型info、primary、success、warning、error
+			// 标签类型info,primary,success,warning,error
 			type: {
 				type: String,
 				default: 'primary'
@@ -47,12 +47,12 @@
 				type: [Boolean, String],
 				default: false
 			},
-			// 标签的大小，分为default（默认），mini（较小）
+			// 标签的大小,分为default(默认),mini(较小)
 			size: {
 				type: String,
 				default: 'default'
 			},
-			// tag的形状，circle（两边半圆形）, square（方形，带圆角），circleLeft（左边是半圆），circleRight（右边是半圆）
+			// tag的形状,circle(两边半圆形), square(方形,带圆角),circleLeft(左边是半圆),circleRight(右边是半圆)
 			shape: {
 				type: String,
 				default: 'square'
@@ -62,12 +62,12 @@
 				type: [String, Number],
 				default: ''
 			},
-			// 背景颜色，默认为空字符串，即不处理
+			// 背景颜色,默认为空字符串,即不处理
 			bgColor: {
 				type: String,
 				default: ''
 			},
-			// 标签字体颜色，默认为空字符串，即不处理
+			// 标签字体颜色,默认为空字符串,即不处理
 			color: {
 				type: String,
 				default: ''
@@ -82,12 +82,12 @@
 				type: String,
 				default: ''
 			},
-			// 点击时返回的索引值，用于区分例遍的数组哪个元素被点击了
+			// 点击时返回的索引值,用于区分例遍的数组哪个元素被点击了
 			index: {
 				type: [Number, String],
 				default: ''
 			},
-			// 模式选择，dark|light|plain
+			// 模式选择,dark|light|plain
 			mode: {
 				type: String,
 				default: 'light'
@@ -111,11 +111,11 @@
 		computed: {
 			customStyle() {
 				let style = {};
-				// 文字颜色（如果有此值，会覆盖type值的颜色）
+				// 文字颜色(如果有此值,会覆盖type值的颜色)
 				if(this.color) style.color = this.color;
-				// tag的背景颜色（如果有此值，会覆盖type值的颜色）
+				// tag的背景颜色(如果有此值,会覆盖type值的颜色)
 				if(this.bgColor) style.backgroundColor = this.bgColor;
-				// 如果是镂空型tag，没有传递边框颜色（borderColor）的话，使用文字的颜色（color属性）
+				// 如果是镂空型tag,没有传递边框颜色(borderColor)的话,使用文字的颜色(color属性)
 				if(this.mode == 'plain' && this.color && !this.borderColor) style.borderColor = this.color;
 				else style.borderColor = this.borderColor;
 				return style;
@@ -132,9 +132,9 @@
 			},
 			// 关闭图标的颜色
 			closeIconColor() {
-				// 如果定义了关闭图标的颜色，就用此值，否则用字体颜色的值
-				// 如果上面的二者都没有，如果是dark深色模式，图标就为白色
-				// 最后如果上面的三者都不合适，就返回type值给图标获取颜色
+				// 如果定义了关闭图标的颜色,就用此值,否则用字体颜色的值
+				// 如果上面的二者都没有,如果是dark深色模式,图标就为白色
+				// 最后如果上面的三者都不合适,就返回type值给图标获取颜色
 				let color = '';
 				if(this.closeColor) return this.closeColor;
 				else if(this.color) return this.color;
@@ -145,7 +145,7 @@
 		methods: {
 			// 标签被点击
 			clickTag() {
-				// 如果是disabled状态，不发送点击事件
+				// 如果是disabled状态,不发送点击事件
 				if(this.disabled) return ;
 				this.$emit('click', this.index);
 			},

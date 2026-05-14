@@ -14,36 +14,36 @@
 <script>
 /**
  * countTo 数字滚动
- * @description 该组件一般用于需要滚动数字到某一个值的场景，目标要求是一个递增的值。
+ * @description 该组件一般用于需要滚动数字到某一个值的场景,目标要求是一个递增的值.
  * @tutorial https://www.uviewui.com/components/countTo.html
  * @property {String Number} start-val 开始值
  * @property {String Number} end-val 结束值
- * @property {String Number} duration 滚动过程所需的时间，单位ms（默认2000）
- * @property {Boolean} autoplay 是否自动开始滚动（默认true）
- * @property {String Number} decimals 要显示的小数位数，见官网说明（默认0）
- * @property {Boolean} use-easing 滚动结束时，是否缓动结尾，见官网说明（默认true）
- * @property {String} separator 千位分隔符，见官网说明
- * @property {String} color 字体颜色（默认#303133）
- * @property {String Number} font-size 字体大小，单位rpx（默认50）
- * @property {Boolean} bold 字体是否加粗（默认false）
+ * @property {String Number} duration 滚动过程所需的时间,单位ms(默认2000)
+ * @property {Boolean} autoplay 是否自动开始滚动(默认true)
+ * @property {String Number} decimals 要显示的小数位数,见官网说明(默认0)
+ * @property {Boolean} use-easing 滚动结束时,是否缓动结尾,见官网说明(默认true)
+ * @property {String} separator 千位分隔符,见官网说明
+ * @property {String} color 字体颜色(默认#303133)
+ * @property {String Number} font-size 字体大小,单位rpx(默认50)
+ * @property {Boolean} bold 字体是否加粗(默认false)
  * @event {Function} end 数值滚动到目标值时触发
  * @example <u-count-to ref="uCountTo" :end-val="endVal" :autoplay="autoplay"></u-count-to>
  */
 export default {
 	name: 'u-count-to',
 	props: {
-		// 开始的数值，默认从0增长到某一个数
+		// 开始的数值,默认从0增长到某一个数
 		startVal: {
 			type: [Number, String],
 			default: 0
 		},
-		// 要滚动的目标数值，必须
+		// 要滚动的目标数值,必须
 		endVal: {
 			type: [Number, String],
 			default: 0,
 			required: true
 		},
-		// 滚动到目标数值的动画持续时间，单位为毫秒（ms）
+		// 滚动到目标数值的动画持续时间,单位为毫秒(ms)
 		duration: {
 			type: [Number, String],
 			default: 2000
@@ -58,7 +58,7 @@ export default {
 			type: [Number, String],
 			default: 0
 		},
-		// 是否在即将到达目标数值的时候，使用缓慢滚动的效果
+		// 是否在即将到达目标数值的时候,使用缓慢滚动的效果
 		useEasing: {
 			type: Boolean,
 			default: true
@@ -83,7 +83,7 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		// 千位分隔符，类似金额的分割(￥23,321.05中的",")
+		// 千位分隔符,类似金额的分割(￥23,321.05中的",")
 		separator: {
 			type: String,
 			default: ''
@@ -145,7 +145,7 @@ export default {
 			this.paused = false;
 			this.rAF = this.requestAnimationFrame(this.count);
 		},
-		// 暂定状态，重新再开始滚动；或者滚动状态下，暂停
+		// 暂定状态,重新再开始滚动;或者滚动状态下,暂停
 		reStart() {
 			if (this.paused) {
 				this.resume();
@@ -207,7 +207,7 @@ export default {
 			return !isNaN(parseFloat(val));
 		},
 		formatNumber(num) {
-			// 将num转为Number类型，因为其值可能为字符串数值，调用toFixed会报错
+			// 将num转为Number类型,因为其值可能为字符串数值,调用toFixed会报错
 			num = Number(num);
 			num = num.toFixed(Number(this.decimals));
 			num += '';

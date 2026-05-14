@@ -27,16 +27,16 @@
 <script>
 	/**
 	 * actionSheet 操作菜单
-	 * @description 本组件用于从底部弹出一个操作菜单，供用户选择并返回结果。本组件功能类似于uni的uni.showActionSheetAPI，配置更加灵活，所有平台都表现一致。
+	 * @description 本组件用于从底部弹出一个操作菜单,供用户选择并返回结果.本组件功能类似于uni的uni.showActionSheetAPI,配置更加灵活,所有平台都表现一致.
 	 * @tutorial https://www.uviewui.com/components/actionSheet.html
-	 * @property {Array<Object>} list 按钮的文字数组，见官方文档示例
-	 * @property {Object} tips 顶部的提示文字，见官方文档示例
+	 * @property {Array<Object>} list 按钮的文字数组,见官方文档示例
+	 * @property {Object} tips 顶部的提示文字,见官方文档示例
 	 * @property {String} cancel-text 取消按钮的提示文字
-	 * @property {Boolean} cancel-btn 是否显示底部的取消按钮（默认true）
-	 * @property {Number String} border-radius 弹出部分顶部左右的圆角值，单位rpx（默认0）
-	 * @property {Boolean} mask-close-able 点击遮罩是否可以关闭（默认true）
-	 * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配（默认false）
-	 * @property {Number String} z-index z-index值（默认1075）
+	 * @property {Boolean} cancel-btn 是否显示底部的取消按钮(默认true)
+	 * @property {Number String} border-radius 弹出部分顶部左右的圆角值,单位rpx(默认0)
+	 * @property {Boolean} mask-close-able 点击遮罩是否可以关闭(默认true)
+	 * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配(默认false)
+	 * @property {Number String} z-index z-index值(默认1075)
 	 * @property {String} cancel-text 取消按钮的提示文字
 	 * @event {Function} click 点击ActionSheet列表项时触发
 	 * @event {Function} close 点击取消按钮时触发
@@ -50,7 +50,7 @@
 				type: Boolean,
 				default: true
 			},
-			// 按钮的文字数组，可以自定义颜色和字体大小，字体单位为rpx
+			// 按钮的文字数组,可以自定义颜色和字体大小,字体单位为rpx
 			list: {
 				type: Array,
 				default () {
@@ -79,7 +79,7 @@
 				type: Boolean,
 				default: true
 			},
-			// 是否开启底部安全区适配，开启的话，会在iPhoneX机型底部添加一定的内边距
+			// 是否开启底部安全区适配,开启的话,会在iPhoneX机型底部添加一定的内边距
 			safeAreaInsetBottom: {
 				type: Boolean,
 				default: false
@@ -125,14 +125,14 @@
 				}
 			},
 			uZIndex() {
-				// 如果用户有传递z-index值，优先使用
+				// 如果用户有传递z-index值,优先使用
 				return this.zIndex ? this.zIndex : this.$u.zIndex.popup;
 			}
 		},
 		methods: {
 			// 点击取消按钮
 			close() {
-				// 发送input事件，并不会作用于父组件，而是要设置组件内部通过props传递的value参数
+				// 发送input事件,并不会作用于父组件,而是要设置组件内部通过props传递的value参数
 				// 这是一个vue发送事件的特殊用法
 				this.popupClose();
 				this.$emit('close');

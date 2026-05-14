@@ -73,30 +73,30 @@
 <script>
 /**
  * card 卡片
- * @description 卡片组件一般用于多个列表条目，且风格统一的场景
+ * @description 卡片组件一般用于多个列表条目,且风格统一的场景
  * @tutorial https://www.uviewui.com/components/card.html
- * @property {Boolean} full 卡片与屏幕两侧是否留空隙（默认false）
+ * @property {Boolean} full 卡片与屏幕两侧是否留空隙(默认false)
  * @property {String} title 头部左边的标题
- * @property {String} title-color 标题颜色（默认#303133）
- * @property {String | Number} title-size 标题字体大小，单位rpx（默认30）
+ * @property {String} title-color 标题颜色(默认#303133)
+ * @property {String | Number} title-size 标题字体大小,单位rpx(默认30)
  * @property {String} sub-title 头部右边的副标题
- * @property {String} sub-title-color 副标题颜色（默认#909399）
- * @property {String | Number} sub-title-size 副标题字体大小（默认26）
- * @property {Boolean} border 是否显示边框（默认true）
+ * @property {String} sub-title-color 副标题颜色(默认#909399)
+ * @property {String | Number} sub-title-size 副标题字体大小(默认26)
+ * @property {Boolean} border 是否显示边框(默认true)
  * @property {String | Number} index 用于标识点击了第几个卡片
- * @property {String} box-shadow 卡片外围阴影，字符串形式（默认none）
- * @property {String} margin 卡片与屏幕两边和上下元素的间距，需带单位，如"30rpx 20rpx"（默认30rpx）
- * @property {String | Number} border-radius 卡片整体的圆角值，单位rpx（默认16）
- * @property {Object} head-style 头部自定义样式，对象形式
- * @property {Object} body-style 中部自定义样式，对象形式
- * @property {Object} foot-style 底部自定义样式，对象形式
- * @property {Boolean} head-border-bottom 是否显示头部的下边框（默认true）
- * @property {Boolean} foot-border-top 是否显示底部的上边框（默认true）
- * @property {Boolean} show-head 是否显示头部（默认true）
- * @property {Boolean} show-head 是否显示尾部（默认true）
- * @property {String} thumb 缩略图路径，如设置将显示在标题的左边，不建议使用相对路径
- * @property {String | Number} thumb-width 缩略图的宽度，高等于宽，单位rpx（默认60）
- * @property {Boolean} thumb-circle 缩略图是否为圆形（默认false）
+ * @property {String} box-shadow 卡片外围阴影,字符串形式(默认none)
+ * @property {String} margin 卡片与屏幕两边和上下元素的间距,需带单位,如"30rpx 20rpx"(默认30rpx)
+ * @property {String | Number} border-radius 卡片整体的圆角值,单位rpx(默认16)
+ * @property {Object} head-style 头部自定义样式,对象形式
+ * @property {Object} body-style 中部自定义样式,对象形式
+ * @property {Object} foot-style 底部自定义样式,对象形式
+ * @property {Boolean} head-border-bottom 是否显示头部的下边框(默认true)
+ * @property {Boolean} foot-border-top 是否显示底部的上边框(默认true)
+ * @property {Boolean} show-head 是否显示头部(默认true)
+ * @property {Boolean} show-head 是否显示尾部(默认true)
+ * @property {String} thumb 缩略图路径,如设置将显示在标题的左边,不建议使用相对路径
+ * @property {String | Number} thumb-width 缩略图的宽度,高等于宽,单位rpx(默认60)
+ * @property {Boolean} thumb-circle 缩略图是否为圆形(默认false)
  * @event {Function} click 整个卡片任意位置被点击时触发
  * @event {Function} head-click 卡片头部被点击时触发
  * @event {Function} body-click 卡片主体部分被点击时触发
@@ -121,7 +121,7 @@ export default {
 			type: String,
 			default: '#303133'
 		},
-		// 标题字体大小，单位rpx
+		// 标题字体大小,单位rpx
 		titleSize: {
 			type: [Number, String],
 			default: '30'
@@ -136,12 +136,12 @@ export default {
 			type: String,
 			default: '#909399'
 		},
-		// 副标题字体大小，单位rpx
+		// 副标题字体大小,单位rpx
 		subTitleSize: {
 			type: [Number, String],
 			default: '26'
 		},
-		// 是否显示外部边框，只对full=false时有效(卡片与边框有空隙时)
+		// 是否显示外部边框,只对full=false时有效(卡片与边框有空隙时)
 		border: {
 			type: Boolean,
 			default: true
@@ -151,7 +151,7 @@ export default {
 			type: [Number, String, Object],
 			default: ''
 		},
-		// 用于隔开上下左右的边距，带单位的写法，如："30rpx 30rpx"，"20rpx 20rpx 30rpx 30rpx"
+		// 用于隔开上下左右的边距,带单位的写法,如:"30rpx 30rpx","20rpx 20rpx 30rpx 30rpx"
 		margin: {
 			type: String,
 			default: '30rpx'
@@ -161,21 +161,21 @@ export default {
 			type: [Number, String],
 			default: '16'
 		},
-		// 头部自定义样式，对象形式
+		// 头部自定义样式,对象形式
 		headStyle: {
 			type: Object,
 			default() {
 				return {};
 			}
 		},
-		// 主体自定义样式，对象形式
+		// 主体自定义样式,对象形式
 		bodyStyle: {
 			type: Object,
 			default() {
 				return {};
 			}
 		},
-		// 底部自定义样式，对象形式
+		// 底部自定义样式,对象形式
 		footStyle: {
 			type: Object,
 			default() {
@@ -197,7 +197,7 @@ export default {
 			type: String,
 			default: ''
 		},
-		// 缩略图宽高，单位rpx
+		// 缩略图宽高,单位rpx
 		thumbWidth: {
 			type: [String, Number],
 			default: '60'
@@ -207,7 +207,7 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		// 给head，body，foot的内边距
+		// 给head,body,foot的内边距
 		padding: {
 			type: [String, Number],
 			default: '30'
@@ -222,7 +222,7 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		// 卡片外围阴影，字符串形式
+		// 卡片外围阴影,字符串形式
 		boxShadow: {
 			type: String,
 			default: 'none'
@@ -259,7 +259,7 @@ export default {
 	box-sizing: border-box;
 	
 	&-full {
-		// 如果是与屏幕之间不留空隙，应该设置左右边距为0
+		// 如果是与屏幕之间不留空隙,应该设置左右边距为0
 		margin-left: 0 !important;
 		margin-right: 0 !important;
 		width: 100%;

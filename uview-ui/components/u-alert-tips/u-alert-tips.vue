@@ -33,16 +33,16 @@
 <script>
 	/**
 	 * alertTips 警告提示
-	 * @description 警告提示，展现需要关注的信息
+	 * @description 警告提示,展现需要关注的信息
 	 * @tutorial https://uviewui.com/components/alertTips.html
 	 * @property {String} title 显示的标题文字
-	 * @property {String} description 辅助性文字，颜色比title浅一点，字号也小一点，可选
+	 * @property {String} description 辅助性文字,颜色比title浅一点,字号也小一点,可选
 	 * @property {String} type 关闭按钮(默认为叉号icon图标)
 	 * @property {String} icon 图标名称
-	 * @property {Object} icon-style 图标的样式，对象形式
-	 * @property {Object} title-style 标题的样式，对象形式
-	 * @property {Object} desc-style 描述的样式，对象形式
-	 * @property {String} close-able 用文字替代关闭图标，close-able为true时有效
+	 * @property {Object} icon-style 图标的样式,对象形式
+	 * @property {Object} title-style 标题的样式,对象形式
+	 * @property {Object} desc-style 描述的样式,对象形式
+	 * @property {String} close-able 用文字替代关闭图标,close-able为true时有效
 	 * @property {Boolean} show-icon 是否显示左边的辅助图标
 	 * @property {Boolean} show 显示或隐藏组件
 	 * @event {Function} click 点击组件时触发
@@ -56,7 +56,7 @@
 				type: String,
 				default: ''
 			},
-			// 主题，success/warning/info/error
+			// 主题,success/warning/info/error
 			type: {
 				type: String,
 				default: 'warning'
@@ -81,7 +81,7 @@
 				type: Boolean,
 				default: false
 			},
-			// 文字颜色，如果定义了color值，icon会失效
+			// 文字颜色,如果定义了color值,icon会失效
 			color: {
 				type: String,
 				default: ''
@@ -135,17 +135,17 @@
 		computed: {
 			uTitleStyle() {
 				let style = {};
-				// 如果有描述文字的话，标题进行加粗
+				// 如果有描述文字的话,标题进行加粗
 				style.fontWeight = this.description ? 500 : 'normal';
-				// 将用户传入样式对象和style合并，传入的优先级比style高，同属性会被覆盖
+				// 将用户传入样式对象和style合并,传入的优先级比style高,同属性会被覆盖
 				return this.$u.deepMerge(style, this.titleStyle);
 			},
 			uIcon() {
-				// 如果有设置icon名称就使用，否则根据type主题，推定一个默认的图标
+				// 如果有设置icon名称就使用,否则根据type主题,推定一个默认的图标
 				return this.icon ? this.icon : this.$u.type2icon(this.type);
 			},
 			uIconType() {
-				// 如果有设置图标的样式，优先使用，没有的话，则用type的样式
+				// 如果有设置图标的样式,优先使用,没有的话,则用type的样式
 				return Object.keys(this.iconStyle).length ? '' : this.type;
 			}
 		},

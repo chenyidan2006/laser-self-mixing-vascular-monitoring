@@ -34,7 +34,7 @@
 
 	/**
 	 * SearchBar 搜索栏
-	 * @description 搜索栏组件，通常用于搜索商品、文章等
+	 * @description 搜索栏组件,通常用于搜索商品,文章等
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=866
 	 * @property {Number} radius 搜索栏圆角
 	 * @property {Number} maxlength 输入最大长度
@@ -51,12 +51,12 @@
 	 * @property {String} bgColor 输入框背景颜色
 	 * @property {String} textColor 输入文字颜色
 	 * @property {Boolean} focus 是否自动聚焦
-	 * @property {Boolean} readonly 组件只读，不能有任何操作，只做展示
-	 * @event {Function} confirm uniSearchBar 的输入框 confirm 事件，返回参数为uniSearchBar的value，e={value:Number}
-	 * @event {Function} input uniSearchBar 的 value 改变时触发事件，返回参数为uniSearchBar的value，e=value
-	 * @event {Function} cancel 点击取消按钮时触发事件，返回参数为uniSearchBar的value，e={value:Number}
-	 * @event {Function} clear 点击清除按钮时触发事件，返回参数为uniSearchBar的value，e={value:Number}
-	 * @event {Function} blur input失去焦点时触发事件，返回参数为uniSearchBar的value，e={value:Number}
+	 * @property {Boolean} readonly 组件只读,不能有任何操作,只做展示
+	 * @event {Function} confirm uniSearchBar 的输入框 confirm 事件,返回参数为uniSearchBar的value,e={value:Number}
+	 * @event {Function} input uniSearchBar 的 value 改变时触发事件,返回参数为uniSearchBar的value,e=value
+	 * @event {Function} cancel 点击取消按钮时触发事件,返回参数为uniSearchBar的value,e={value:Number}
+	 * @event {Function} clear 点击清除按钮时触发事件,返回参数为uniSearchBar的value,e={value:Number}
+	 * @event {Function} blur input失去焦点时触发事件,返回参数为uniSearchBar的value,e={value:Number}
 	 */
 
 	export default {

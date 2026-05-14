@@ -42,7 +42,7 @@
 	 * 	@value row 横向
 	 * 	@value column 纵向
 	 * @property {String} activeColor 选中状态的颜色
-	 * @property {Array} options 数据源，格式为：[{title:'xxx',desc:'xxx'},{title:'xxx',desc:'xxx'}]
+	 * @property {Array} options 数据源,格式为:[{title:'xxx',desc:'xxx'},{title:'xxx',desc:'xxx'}]
 	 */
 
 	export default {
@@ -89,7 +89,7 @@
 			//根据内容设置步骤条的长度
 			if (this.direction === 'column') {
 				let that = this;
-				//只能用类选择器，用id选择器所获取的元素信息不准确
+				//只能用类选择器,用id选择器所获取的元素信息不准确
 				uni.createSelectorQuery().in(this).selectAll('.uni-steps__column-text').boundingClientRect(data => {
 					that.heightArr = data.map(item => item.height + 1);
 				}).exec()

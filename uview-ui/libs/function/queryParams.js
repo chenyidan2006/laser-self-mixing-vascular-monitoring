@@ -13,7 +13,7 @@ function queryParams(data = {}, isPrefix = true, arrayFormat = 'brackets') {
 		if (['', undefined, null].indexOf(value) >= 0) {
 			continue;
 		}
-		// 如果值为数组，另行处理
+		// 如果值为数组,另行处理
 		if (value.constructor === Array) {
 			// e.g. {ids: [1, 2, 3]}
 			switch (arrayFormat) {

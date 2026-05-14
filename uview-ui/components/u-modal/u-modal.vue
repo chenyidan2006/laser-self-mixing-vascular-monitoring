@@ -34,29 +34,29 @@
 <script>
 	/**
 	 * modal 模态框
-	 * @description 弹出模态框，常用于消息提示、消息确认、在当前页面内完成特定的交互操作
+	 * @description 弹出模态框,常用于消息提示,消息确认,在当前页面内完成特定的交互操作
 	 * @tutorial https://www.uviewui.com/components/modal.html
 	 * @property {Boolean} value 是否显示模态框
 	 * @property {String | Number} z-index 层级
-	 * @property {String} title 模态框标题（默认"提示"）
-	 * @property {String | Number} width 模态框宽度（默认600）
-	 * @property {String} content 模态框内容（默认"内容"）
-	 * @property {Boolean} show-title 是否显示标题（默认true）
-	 * @property {Boolean} async-close 是否异步关闭，只对确定按钮有效（默认false）
-	 * @property {Boolean} show-confirm-button 是否显示确认按钮（默认true）
+	 * @property {String} title 模态框标题(默认"提示")
+	 * @property {String | Number} width 模态框宽度(默认600)
+	 * @property {String} content 模态框内容(默认"内容")
+	 * @property {Boolean} show-title 是否显示标题(默认true)
+	 * @property {Boolean} async-close 是否异步关闭,只对确定按钮有效(默认false)
+	 * @property {Boolean} show-confirm-button 是否显示确认按钮(默认true)
 	 * @property {String | Number} negative-top modal往上偏移的值
-	 * @property {Boolean} show-cancel-button 是否显示取消按钮（默认false）
-	 * @property {Boolean} mask-close-able 是否允许点击遮罩关闭modal（默认false）
-	 * @property {String} confirm-text 确认按钮的文字内容（默认"确认"）
-	 * @property {String} cancel-text 取消按钮的文字内容（默认"取消"）
-	 * @property {String} cancel-color 取消按钮的颜色（默认"#606266"）
-	 * @property {String} confirm-color 确认按钮的文字内容（默认"#2979ff"）
-	 * @property {String | Number} border-radius 模态框圆角值，单位rpx（默认16）
-	 * @property {Object} title-style 自定义标题样式，对象形式
-	 * @property {Object} content-style 自定义内容样式，对象形式
-	 * @property {Object} cancel-style 自定义取消按钮样式，对象形式
-	 * @property {Object} confirm-style 自定义确认按钮样式，对象形式
-	 * @property {Boolean} zoom 是否开启缩放模式（默认true）
+	 * @property {Boolean} show-cancel-button 是否显示取消按钮(默认false)
+	 * @property {Boolean} mask-close-able 是否允许点击遮罩关闭modal(默认false)
+	 * @property {String} confirm-text 确认按钮的文字内容(默认"确认")
+	 * @property {String} cancel-text 取消按钮的文字内容(默认"取消")
+	 * @property {String} cancel-color 取消按钮的颜色(默认"#606266")
+	 * @property {String} confirm-color 确认按钮的文字内容(默认"#2979ff")
+	 * @property {String | Number} border-radius 模态框圆角值,单位rpx(默认16)
+	 * @property {Object} title-style 自定义标题样式,对象形式
+	 * @property {Object} content-style 自定义内容样式,对象形式
+	 * @property {Object} cancel-style 自定义取消按钮样式,对象形式
+	 * @property {Object} confirm-style 自定义确认按钮样式,对象形式
+	 * @property {Boolean} zoom 是否开启缩放模式(默认true)
 	 * @event {Function} confirm 确认按钮被点击
 	 * @event {Function} cancel 取消按钮被点击
 	 * @example <u-modal :src="title" :content="content"></u-modal>
@@ -79,7 +79,7 @@
 				type: [String],
 				default: '提示'
 			},
-			// 弹窗宽度，可以是数值(rpx)，百分比，auto等
+			// 弹窗宽度,可以是数值(rpx),百分比,auto等
 			width: {
 				type: [Number, String],
 				default: 600
@@ -162,7 +162,7 @@
 				type: Boolean,
 				default: true
 			},
-			// 是否异步关闭，只对确定按钮有效
+			// 是否异步关闭,只对确定按钮有效
 			asyncClose: {
 				type: Boolean,
 				default: false
@@ -172,7 +172,7 @@
 				type: Boolean,
 				default: false
 			},
-			// 给一个负的margin-top，往上偏移，避免和键盘重合的情况
+			// 给一个负的margin-top,往上偏移,避免和键盘重合的情况
 			negativeTop: {
 				type: [String, Number],
 				default: 0
@@ -199,8 +199,8 @@
 			}
 		},
 		watch: {
-			// 如果是异步关闭时，外部修改v-model的值为false时，重置内部的loading状态
-			// 避免下次打开的时候，状态混乱
+			// 如果是异步关闭时,外部修改v-model的值为false时,重置内部的loading状态
+			// 避免下次打开的时候,状态混乱
 			value(n) {
 				if (n === true) this.loading = false;
 			}
@@ -218,13 +218,13 @@
 			cancel() {
 				this.$emit('cancel');
 				this.$emit('input', false);
-				// 目前popup弹窗关闭有一个延时操作，此处做一个延时
-				// 避免确认按钮文字变成了"确定"字样，modal还没消失，造成视觉不好的效果
+				// 目前popup弹窗关闭有一个延时操作,此处做一个延时
+				// 避免确认按钮文字变成了"确定"字样,modal还没消失,造成视觉不好的效果
 				setTimeout(() => {
 					this.loading = false;
 				}, 300);
 			},
-			// 点击遮罩关闭modal，设置v-model的值为false，否则无法第二次弹起modal
+			// 点击遮罩关闭modal,设置v-model的值为false,否则无法第二次弹起modal
 			popupClose() {
 				this.$emit('input', false);
 			},

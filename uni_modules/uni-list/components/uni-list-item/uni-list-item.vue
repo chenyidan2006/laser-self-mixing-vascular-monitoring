@@ -51,13 +51,13 @@
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=24
 	 * @property {String} 	title 							标题
 	 * @property {String} 	note 							描述
-	 * @property {String} 	thumb 							左侧缩略图，若thumb有值，则不会显示扩展图标
+	 * @property {String} 	thumb 							左侧缩略图,若thumb有值,则不会显示扩展图标
 	 * @property {String}  	thumbSize = [lg|base|sm]		略缩图大小
 	 * 	@value 	 lg			大图
 	 * 	@value 	 base		一般
 	 * 	@value 	 sm			小图
 	 * @property {String} 	badgeText						数字角标内容
-	 * @property {String} 	badgeType 						数字角标类型，参考[uni-icons](https://ext.dcloud.net.cn/plugin?id=21)
+	 * @property {String} 	badgeType 						数字角标类型,参考[uni-icons](https://ext.dcloud.net.cn/plugin?id=21)
 	 * @property {Object}   badgeStyle           数字角标样式
 	 * @property {String} 	rightText 						右侧文字内容
 	 * @property {Boolean} 	disabled = [true|false]			是否禁用
@@ -72,7 +72,7 @@
 	 * @property {Boolean} 	showSwitch = [true|false] 		是否显示Switch
 	 * @property {Boolean} 	switchChecked = [true|false] 	Switch是否被选中
 	 * @property {Boolean} 	showExtraIcon = [true|false] 	左侧是否显示扩展图标
-	 * @property {Object} 	extraIcon 						扩展图标参数，格式为 {color: '#4cd964',size: '22',type: 'spinner'}
+	 * @property {Object} 	extraIcon 						扩展图标参数,格式为 {color: '#4cd964',size: '22',type: 'spinner'}
 	 * @property {String} 	direction = [row|column]		排版方向
 	 * @value row 			水平排列
 	 * @value column 		垂直排列

@@ -4,7 +4,7 @@ let otherMixins = {}
 const MIN_DISTANCE = 10;
 otherMixins = {
 	data() {
-		// TODO 随机生生元素ID，解决百度小程序获取同一个元素位置信息的bug
+		// TODO 随机生生元素ID,解决百度小程序获取同一个元素位置信息的bug
 		const elClass = `Uni_${Math.ceil(Math.random() * 10e5).toString(36)}`
 		return {
 			uniShow: false,
@@ -68,7 +68,7 @@ otherMixins = {
 			const {
 				clientX
 			} = e.changedTouches[0]
-			// fixed by xxxx 模拟点击事件，解决 ios 13 点击区域错位的问题
+			// fixed by xxxx 模拟点击事件,解决 ios 13 点击区域错位的问题
 			let diff = Math.abs(this.clientX - clientX)
 			let time = (new Date().getTime()) - this.timestamp
 			if (diff < 40 && time < 300) {
@@ -183,7 +183,7 @@ otherMixins = {
 			this.$nextTick(() => {
 				this.move(left)
 			})
-			// 设置最终移动位置,理论上只要进入到这个函数，肯定是要打开的
+			// 设置最终移动位置,理论上只要进入到这个函数,肯定是要打开的
 		},
 		close() {
 			this.openState('none')
@@ -222,7 +222,7 @@ otherMixins = {
 		},
 
 		/**
-		 * 滑动中，是否禁止打开
+		 * 滑动中,是否禁止打开
 		 * @param {Object} event
 		 */
 		stopTouchMove(event) {

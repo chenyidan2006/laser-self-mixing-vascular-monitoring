@@ -1,6 +1,7 @@
+//D:/code/app/appprogram/common/global.js
 // 全局状态管理
 export default {
-  // 蓝牙相关全局数据
+/*  // 蓝牙相关全局数据
   ble: {
     deviceId: '',
     characteristicId: '',
@@ -8,7 +9,7 @@ export default {
     bleBufLen: 0,
     isBatchReceiving: false, // 标记是否批量接收
     expectedBatchLen: 750 * 1024 // 预期批量数据长度（750KB）
-  },
+  },*/
   
   // 应用状态
   app: {
@@ -108,7 +109,7 @@ export default {
     return log
   },
   
-  // 获取蓝牙缓冲区
+  /*// 获取蓝牙缓冲区
   getBleBuffer() {
     return this.ble.bleBuffer.slice(0, this.ble.bleBufLen)
   },
@@ -133,7 +134,7 @@ export default {
     this.ble.characteristicId = ''
     this.resetBleBuffer()
     console.log('蓝牙设备已清除')
-  },
+  },*/
   
   // 切换主题
   toggleTheme() {

@@ -23,7 +23,7 @@
 	 * @property {Boolean} mode = [left | right] Drawer 滑出位置
 	 * 	@value left 从左侧滑出
 	 * 	@value right 从右侧侧滑出
-	 * @property {Number} width 抽屉的宽度 ，仅 vue 页面生效
+	 * @property {Number} width 抽屉的宽度 ,仅 vue 页面生效
 	 * @event {Function} close 组件关闭时触发事件
 	 */
 	export default {
@@ -36,7 +36,7 @@
 		emits:['change'],
 		props: {
 			/**
-			 * 显示模式（左、右），只在初始化生效
+			 * 显示模式(左,右),只在初始化生效
 			 */
 			mode: {
 				type: String,

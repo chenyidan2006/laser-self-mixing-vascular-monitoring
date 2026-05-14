@@ -20,7 +20,7 @@
 	 * @property {Boolean} showBorder 是否显示边框
 	 * @property {Boolean} square 是否方形显示
 	 * @property {Boolean} Boolean 点击背景是否高亮
-	 * @event {Function} change 点击 grid 触发，e={detail:{index:0}}，index 为当前点击 gird 下标
+	 * @event {Function} change 点击 grid 触发,e={detail:{index:0}},index 为当前点击 gird 下标
 	 */
 	export default {
 		name: 'UniGrid',

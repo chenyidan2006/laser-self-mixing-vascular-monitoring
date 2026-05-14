@@ -10,15 +10,15 @@
 <script>
 	/**
 	 * mask 遮罩
-	 * @description 创建一个遮罩层，用于强调特定的页面元素，并阻止用户对遮罩下层的内容进行操作，一般用于弹窗场景
+	 * @description 创建一个遮罩层,用于强调特定的页面元素,并阻止用户对遮罩下层的内容进行操作,一般用于弹窗场景
 	 * @tutorial https://www.uviewui.com/components/mask.html
-	 * @property {Boolean} show 是否显示遮罩（默认false）
-	 * @property {String Number} z-index z-index 层级（默认1070）
-	 * @property {Object} custom-style 自定义样式对象，见上方说明
-	 * @property {String Number} duration 动画时长，单位毫秒（默认300）
-	 * @property {Boolean} zoom 是否使用scale对遮罩进行缩放（默认true）
-	 * @property {Boolean} mask-click-able 遮罩是否可点击，为false时点击不会发送click事件（默认true）
-	 * @event {Function} click mask-click-able为true时，点击遮罩发送此事件
+	 * @property {Boolean} show 是否显示遮罩(默认false)
+	 * @property {String Number} z-index z-index 层级(默认1070)
+	 * @property {Object} custom-style 自定义样式对象,见上方说明
+	 * @property {String Number} duration 动画时长,单位毫秒(默认300)
+	 * @property {Boolean} zoom 是否使用scale对遮罩进行缩放(默认true)
+	 * @property {Boolean} mask-click-able 遮罩是否可点击,为false时点击不会发送click事件(默认true)
+	 * @event {Function} click mask-click-able为true时,点击遮罩发送此事件
 	 * @example <u-mask :show="show" @click="show = false"></u-mask>
 	 */
 	export default {
@@ -41,12 +41,12 @@
 					return {}
 				}
 			},
-			// 遮罩的动画样式， 是否使用使用zoom进行scale进行缩放
+			// 遮罩的动画样式, 是否使用使用zoom进行scale进行缩放
 			zoom: {
 				type: Boolean,
 				default: true
 			},
-			// 遮罩的过渡时间，单位为ms
+			// 遮罩的过渡时间,单位为ms
 			duration: {
 				type: [Number, String],
 				default: 300
@@ -68,10 +68,10 @@
 		watch: {
 			show(n) {
 				if(n && this.zoom) {
-					// 当展示遮罩的时候，设置scale为1，达到缩小(原来为1.2)的效果
+					// 当展示遮罩的时候,设置scale为1,达到缩小(原来为1.2)的效果
 					this.zoomStyle.transform = 'scale(1, 1)';
 				} else if(!n && this.zoom) {
-					// 当隐藏遮罩的时候，设置scale为1.2，达到放大(因为显示遮罩时已重置为1)的效果
+					// 当隐藏遮罩的时候,设置scale为1.2,达到放大(因为显示遮罩时已重置为1)的效果
 					this.zoomStyle.transform = this.scale;
 				}
 			}
@@ -83,7 +83,7 @@
 				if(this.show) style.zIndex = this.zIndex ? this.zIndex : this.$u.zIndex.mask;
 				else style.zIndex = -1;
 				style.transition = `all ${this.duration / 1000}s ease-in-out`;
-				// 判断用户传递的对象是否为空，不为空就进行合并
+				// 判断用户传递的对象是否为空,不为空就进行合并
 				if (Object.keys(this.customStyle).length) style = { 
 					...style,
 					...this.customStyle

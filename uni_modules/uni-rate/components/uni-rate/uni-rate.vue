@@ -30,26 +30,26 @@
 	 * Rate 评分
 	 * @description 评分组件
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=33
-	 * @property {Boolean} 	isFill = [true|false] 		星星的类型，是否为实心类型, 默认为实心
-	 * @property {String} 	color 						未选中状态的星星颜色，默认为 "#ececec"
-	 * @property {String} 	activeColor 				选中状态的星星颜色，默认为 "#ffca3e"
-	 * @property {String} 	disabledColor 				禁用状态的星星颜色，默认为 "#c0c0c0"
+	 * @property {Boolean} 	isFill = [true|false] 		星星的类型,是否为实心类型, 默认为实心
+	 * @property {String} 	color 						未选中状态的星星颜色,默认为 "#ececec"
+	 * @property {String} 	activeColor 				选中状态的星星颜色,默认为 "#ffca3e"
+	 * @property {String} 	disabledColor 				禁用状态的星星颜色,默认为 "#c0c0c0"
 	 * @property {Number} 	size 						星星的大小
 	 * @property {Number} 	value/v-model 				当前评分
-	 * @property {Number} 	max 						最大评分评分数量，目前一分一颗星
-	 * @property {Number} 	margin 						星星的间距，单位 px
-	 * @property {Boolean} 	disabled = [true|false] 	是否为禁用状态，默认为 false
-	 * @property {Boolean} 	readonly = [true|false] 	是否为只读状态，默认为 false
-	 * @property {Boolean} 	allowHalf = [true|false] 	是否实现半星，默认为 false
-	 * @property {Boolean} 	touchable = [true|false] 	是否支持滑动手势，默认为 true
-	 * @event {Function} change 						uniRate 的 value 改变时触发事件，e={value:Number}
+	 * @property {Number} 	max 						最大评分评分数量,目前一分一颗星
+	 * @property {Number} 	margin 						星星的间距,单位 px
+	 * @property {Boolean} 	disabled = [true|false] 	是否为禁用状态,默认为 false
+	 * @property {Boolean} 	readonly = [true|false] 	是否为只读状态,默认为 false
+	 * @property {Boolean} 	allowHalf = [true|false] 	是否实现半星,默认为 false
+	 * @property {Boolean} 	touchable = [true|false] 	是否支持滑动手势,默认为 true
+	 * @event {Function} change 						uniRate 的 value 改变时触发事件,e={value:Number}
 	 */
 
 	export default {
 		name: "UniRate",
 		props: {
 			isFill: {
-				// 星星的类型，是否镂空
+				// 星星的类型,是否镂空
 				type: [Boolean, String],
 				default: true
 			},
@@ -181,7 +181,7 @@
 					clientX,
 					screenX
 				} = e.changedTouches[0]
-				// TODO 做一下兼容，只有 Nvue 下才有 screenX，其他平台式 clientX
+				// TODO 做一下兼容,只有 Nvue 下才有 screenX,其他平台式 clientX
 				this._getRateCount(clientX || screenX)
 			},
 			touchmove(e) {

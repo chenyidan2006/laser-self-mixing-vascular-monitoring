@@ -5,7 +5,7 @@
 <script>
 	/**
 	 * Tag 标签
-	 * @description 用于展示1个或多个文字标签，可点击切换选中、不选中的状态
+	 * @description 用于展示1个或多个文字标签,可点击切换选中,不选中的状态
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=35
 	 * @property {String} text 标签内容
 	 * @property {String} size = [default|small|mini] 大小尺寸
@@ -19,7 +19,7 @@
 	 * 	@value warning 黄色
 	 * 	@value error 红色
 	 * @property {Boolean} disabled = [true|false] 是否为禁用状态
-	 * @property {Boolean} inverted = [true|false] 是否无需背景颜色（空心标签）
+	 * @property {Boolean} inverted = [true|false] 是否无需背景颜色(空心标签)
 	 * @property {Boolean} circle = [true|false] 是否为圆角
 	 * @event {Function} click 点击 Tag 触发事件
 	 */
@@ -29,7 +29,7 @@
 		emits: ['click'],
 		props: {
 			type: {
-				// 标签类型default、primary、success、warning、error、royal
+				// 标签类型default,primary,success,warning,error,royal
 				type: String,
 				default: "default"
 			},
@@ -93,7 +93,7 @@
 					isTrue(inverted) ? 'uni-tag--inverted uni-tag-text--' + type : '',
 					size === 'small' ? 'uni-tag-text--small' : ''
 				]
-				// 返回类的字符串，兼容字节小程序
+				// 返回类的字符串,兼容字节小程序
 				return classArr.join(' ')
 			}
 		},
