@@ -10,7 +10,7 @@
 
     <!-- Password login -->
     <view v-if="currentTab === 'password'" class="form">
-      <input type="text" v-model="username" placeholder="Phone Number" />
+      <input type="text" v-model="phone" placeholder="Phone Number" />
       <input type="password" v-model="password" placeholder="Password" />
       <button @click="handlePasswordLogin" :loading="logining">Login</button>
     </view>
@@ -45,7 +45,10 @@
     <!-- Footer -->
     <view class="footer">
       <text @click="goGuest">Guest Access</text>
-      <text @click="goRegister">No account? Register</text>
+      <view class="footer-links">
+        <text @click="goResetPassword">Forgot Password?</text>
+        <text @click="goRegister">Register</text>
+      </view>
     </view>
   </view>
 </template>
@@ -57,7 +60,6 @@ export default {
   data() {
     return {
       currentTab: 'password', // 'password' or 'sms'
-      username: '',
       password: '',
       phone: '',
       smsCode: '',
@@ -84,7 +86,7 @@ export default {
   methods: {
     // 密码登录
     handlePasswordLogin() {
-      if (!this.username || !this.password) {
+      if (!this.phone || !this.password) {
         uni.showToast({ title: 'Please fill in all fields', icon: 'none' });
         return;
       }
@@ -92,7 +94,7 @@ export default {
       uni.request({
         url: getAuthUrl('login'),
         method: 'POST',
-        data: { username: this.username, password: this.password },
+        data: { phone: this.phone, password: this.password },
         success: (res) => {
           if (res.data.errcode === 0) {
             this.loginSuccess(res.data.data);
@@ -231,6 +233,9 @@ export default {
     },
     goRegister() {
       uni.navigateTo({ url: '/pages/register/register' });
+    },
+    goResetPassword() {
+      uni.navigateTo({ url: '/pages/reset-password/reset-password' });
     }
   }
 };
@@ -339,8 +344,15 @@ button {
 .footer {
   margin-top: 60rpx;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
   color: #2b85e4;
   font-size: 28rpx;
+}
+
+.footer-links {
+  display: flex;
+  gap: 40rpx;
 }
 </style>

@@ -9,8 +9,9 @@
 3. [硬件技术文档](#3-硬件技术文档)
 4. [App使用指南](#4-app使用指南)
 5. [硬件使用指南](#5-硬件使用指南)
-6. [服务器部署指南](#6-服务器部署指南)
-7. [Debug调试文档](#7-debug调试文档)
+6. [算法集成指南](#6-算法集成指南)
+7. [服务器部署指南](#7-服务器部署指南)
+8. [Debug调试文档](#8-debug调试文档)
 
 ---
 
@@ -69,30 +70,75 @@ src/
 │   ├── index/               # 首页（健康数据展示）
 │   ├── device/              # 设备管理页
 │   ├── profile/             # 个人中心页
-│   └── history/             # 历史数据页
+│   ├── health/              # 健康输入/趋势页
+│   ├── goal-settings/       # 目标设置页
+│   ├── reset-password/      # 重置密码页
+│   ├── login/               # 登录页
+│   └── register/            # 注册页
 ├── components/              # 组件目录
-│   ├── HealthCard.vue       # 健康数据卡片
-│   ├── AIAdvice.vue         # AI建议组件
-│   └── DeviceItem.vue       # 设备列表项
-├── utils/                   # 工具函数
-│   ├── api.js               # API接口配置
-│   ├── request.js           # 请求封装
-│   └── auth.js              # 认证工具
+├── static/                  # 静态资源
 ├── config/                  # 配置文件
-│   └── index.js             # 全局配置
-└── App.vue                  # 根组件
+│   └── api.js               # API接口配置
+└── utils/                   # 工具函数
+    └── i18n.js              # 国际化
+```
+
+**后端项目结构 (health-backend/)**
+
+```
+health-backend/
+├── app.js                   # 数据服务入口
+├── auth-server.js           # 认证服务入口
+├── routes/                  # 路由层
+│   ├── auth.js              # 认证路由
+│   ├── data.js              # 数据路由
+│   └── ai.js                # AI路由
+├── controllers/             # 控制器层
+│   ├── authController.js    # 认证控制器
+│   ├── dataController.js    # 数据控制器
+│   └── userController.js    # 用户控制器
+├── middleware/              # 中间件层
+│   └── auth.js              # JWT认证中间件
+├── services/                # 服务层
+│   └── algorithmService.js  # 算法服务
+├── models/                  # 数据模型
+├── config/                  # 配置文件
+│   └── db.js                # 数据库连接
+└── utils/                   # 工具函数
+    ├── sms.js               # 短信工具
+    └── jwt.js               # JWT工具
 ```
 
 ### 2.2 核心API接口
 
+**认证服务 API (端口3001)**
+
 | 接口 | 方法 | 路径 | 说明 |
 |------|------|------|------|
-| 用户登录 | POST | `/api/auth/login` | 用户登录 |
-| 用户注册 | POST | `/api/auth/register` | 用户注册 |
-| 获取健康数据 | GET | `/api/data/health` | 获取用户健康数据 |
-| 上传原始数据 | POST | `/api/upload/raw` | 上传原始脉搏波数据 |
+| 用户登录 | POST | `/api/user/login` | 密码登录 |
+| 用户注册 | POST | `/api/user/register` | 用户注册 |
+| 发送验证码 | POST | `/api/user/sendSms` | 发送手机验证码 |
+| 验证码登录 | POST | `/api/user/loginBySms` | 手机号+验证码登录 |
+| 重置密码 | POST | `/api/user/resetPassword` | 忘记密码重置 |
+| 游客登录 | POST | `/api/user/guestLogin` | 游客访问 |
+| 获取用户资料 | GET | `/api/user/profile` | 获取个人资料 |
+| 更新用户资料 | PUT | `/api/user/profile` | 更新个人资料 |
+| 获取设备列表 | GET | `/api/user/devices` | 获取已绑定设备 |
+| 绑定设备 | POST | `/api/user/devices/bind` | 绑定新设备 |
+| 搜索设备 | GET | `/api/user/devices/search` | 搜索可用设备 |
+| 解绑设备 | DELETE | `/api/user/devices/:deviceId` | 解绑设备 |
+
+**数据服务 API (端口3002)**
+
+| 接口 | 方法 | 路径 | 说明 |
+|------|------|------|------|
+| 获取实时数据 | GET | `/api/data/realtime` | 获取实时健康数据 |
+| 获取历史趋势 | GET | `/api/data/historyTrend` | 获取历史趋势数据 |
+| 获取范围记录 | GET | `/api/data/rangeRecords` | 获取指定范围记录 |
+| 上传健康数据 | POST | `/api/data/upload/health` | 上传健康数据 |
+| 处理原始数据 | POST | `/api/data/process/raw` | 调用算法处理原始数据 |
+| 获取设备状态 | GET | `/api/device/status` | 获取设备在线状态 |
 | 获取AI建议 | POST | `/api/ai/health-advice` | 获取AI健康建议 |
-| 设备绑定 | POST | `/api/user/devices/bind` | 绑定设备 |
 
 ### 2.3 数据结构
 
@@ -471,9 +517,82 @@ ESP32 ─────────────────► 四层主控板
 
 ---
 
-## 6. 服务器部署指南
+## 6. 算法集成指南
 
-### 6.1 环境要求
+### 6.1 算法模块位置
+
+算法模块位于项目根目录下的 `prodict_algorithm_infuwuqi/` 文件夹：
+
+```
+prodict_algorithm_infuwuqi/
+├── callPredictFixed.exe    # Python/Matlab封装的可执行文件
+├── callPredictFixed.ctf    # 配套文件
+├── libBP.dll               # 血压计算库
+├── libBP.lib               # 库文件
+└── libBP.h                 # 头文件
+```
+
+### 6.2 算法调用流程
+
+```
+前端上传原始数据 ──► /api/data/process/raw ──► algorithmService.js ──► callPredictFixed.exe
+                                                          │
+                                                          ▼
+                                                   计算健康指标
+                                                          │
+                                                          ▼
+                                                   返回心率/血压/血氧
+```
+
+### 6.3 输入输出格式
+
+**输入**（原始电压数据）：
+```json
+{
+  "deviceId": "ESP32_001",
+  "rawVoltage": [0.35, 0.50, 0.37, 0.36, 0.48, 0.69],
+  "sampleRate": 100
+}
+```
+
+**输出**（计算结果）：
+```json
+{
+  "errcode": 0,
+  "msg": "success",
+  "data": {
+    "heartRate": 74,
+    "systolicBp": 139,
+    "diastolicBp": 73,
+    "spo2": 98
+  }
+}
+```
+
+### 6.4 API调用示例
+
+```bash
+curl -X POST http://localhost:3002/api/data/process/raw \
+  -H "Content-Type: application/json" \
+  -d '{"deviceId":"ESP32_001","rawVoltage":[0.35,0.50,0.37,0.36],"sampleRate":100}'
+```
+
+### 6.5 算法服务配置
+
+算法服务位于 `health-backend/services/algorithmService.js`：
+
+| 配置项 | 默认值 | 说明 |
+|--------|--------|------|
+| algorithmDir | `D:\code\app\prodict_algorithm_infuwuqi` | 算法目录 |
+| inputFile | `input_signal.txt` | 输入文件名 |
+| outputFile | `output_result.txt` | 输出文件名 |
+| exePath | `callPredictFixed.exe` | 可执行文件名 |
+
+---
+
+## 7. 服务器部署指南
+
+### 7.1 环境要求
 
 | 组件 | 版本 | 说明 |
 |------|------|------|
@@ -482,7 +601,7 @@ ESP32 ─────────────────► 四层主控板
 | Redis | 7.0+ | 缓存（可选） |
 | Nginx | 1.20+ | 反向代理（可选） |
 
-### 6.2 安装步骤
+### 7.2 安装步骤
 
 **步骤1：安装依赖**
 
@@ -537,32 +656,37 @@ npm run dev
 # 生产模式
 npm run start
 
-# 使用PM2管理
-pm2 start data-server.js --name health-server
+# 使用PM2管理（推荐使用app.js）
+pm2 start app.js --name data-server
+pm2 start auth-server.js --name auth-server
 ```
 
-### 6.3 服务管理
+### 7.3 服务管理
 
 **使用PM2管理进程**：
 
 ```bash
 # 启动服务
-pm2 start data-server.js --name health-server
+pm2 start app.js --name data-server
+pm2 start auth-server.js --name auth-server
 
 # 查看状态
 pm2 status
 
 # 查看日志
-pm2 logs health-server
+pm2 logs data-server
+pm2 logs auth-server
 
 # 重启服务
-pm2 restart health-server
+pm2 restart data-server
+pm2 restart auth-server
 
 # 停止服务
-pm2 stop health-server
+pm2 stop data-server
+pm2 stop auth-server
 ```
 
-### 6.4 Nginx配置（可选）
+### 7.4 Nginx配置（可选）
 
 ```nginx
 server {
@@ -570,21 +694,28 @@ server {
   server_name your-domain.com;
 
   location / {
-    proxy_pass http://localhost:3002;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    root /path/to/dist/build/h5;
+    index index.html;
+    try_files $uri $uri/ /index.html;
+  }
+
+  location /api/user/ {
+    proxy_pass http://localhost:3001/api/user/;
+  }
+
+  location /api/data/ {
+    proxy_pass http://localhost:3002/api/data/;
   }
 }
 ```
 
 ---
 
-## 7. Debug调试文档
+## 8. Debug调试文档
 
-### 7.1 常见问题排查
+### 8.1 常见问题排查
 
-#### 7.1.1 设备绑定失败
+#### 8.1.1 设备绑定失败
 
 | 现象 | 可能原因 | 解决方案 |
 |------|----------|----------|
@@ -599,10 +730,10 @@ server {
 ping 192.168.1.100
 
 # 检查API接口
-curl http://localhost:3002/api/user/devices/search
+curl http://localhost:3001/api/user/devices/search
 ```
 
-#### 7.1.2 数据上传失败
+#### 8.1.2 数据上传失败
 
 | 现象 | 可能原因 | 解决方案 |
 |------|----------|----------|
@@ -614,15 +745,15 @@ curl http://localhost:3002/api/user/devices/search
 
 ```bash
 # 查看服务器日志
-pm2 logs health-server
+pm2 logs data-server
 
 # 测试上传接口
-curl -X POST http://localhost:3002/api/upload/raw \
+curl -X POST http://localhost:3002/api/data/upload/raw \
   -H "Content-Type: application/json" \
   -d '{"deviceId":"test","rawVoltage":[128,130,125]}'
 ```
 
-#### 7.1.3 硬件通信问题
+#### 8.1.3 硬件通信问题
 
 | 现象 | 可能原因 | 解决方案 |
 |------|----------|----------|

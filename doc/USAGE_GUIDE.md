@@ -123,14 +123,37 @@ mysql -u root -p health_monitor < database/init.sql
 
 ## 五、后端服务部署
 
-### 5.1 安装依赖
+### 5.1 项目架构
+
+后端采用分层架构设计：
+
+```
+health-backend/
+├── app.js                    # 主入口（数据服务，端口3002）
+├── auth-server.js            # 认证服务（端口3001）
+├── routes/                   # 路由层
+│   ├── data.js               # 数据路由
+│   ├── user.js               # 用户路由
+│   └── ai.js                 # AI路由
+├── controllers/              # 控制器层
+│   ├── dataController.js     # 数据控制器
+│   └── userController.js     # 用户控制器
+├── services/                 # 服务层
+│   └── algorithmService.js   # 算法调用服务
+├── models/                   # 数据模型
+│   └── HealthDataModel.js    # 健康数据模型
+└── utils/                    # 工具函数
+    └── db.js                 # 数据库连接
+```
+
+### 5.2 安装依赖
 
 ```bash
 cd health-backend
 npm install
 ```
 
-### 5.2 启动认证服务（端口3001）
+### 5.3 启动认证服务（端口3001）
 
 **方式一：直接启动**
 ```bash
@@ -147,15 +170,21 @@ node auth-server.js
    - POST /api/user/loginBySms (验证码登录)
    - POST /api/user/login (密码登录)
    - POST /api/user/register (用户注册)
+   - POST /api/user/resetPassword (重置密码)
    - POST /api/user/guestLogin (游客登录)
+   - GET  /api/user/profile (获取资料)
+   - PUT  /api/user/profile (更新资料)
+   - GET  /api/user/devices (设备列表)
+   - POST /api/user/devices/bind (绑定设备)
+   - DELETE /api/user/devices/:id (解绑设备)
 ```
 
-### 5.3 启动数据服务（端口3002）
+### 5.4 启动数据服务（端口3002）
 
-**方式一：直接启动**
+**方式一：直接启动（推荐）**
 ```bash
 cd health-backend
-node data-server.js
+node app.js
 ```
 
 **预期输出：**
@@ -163,15 +192,20 @@ node data-server.js
 ✅ MySQL数据库连接成功
 🚀 健康数据服务已启动
 📍 服务地址: http://localhost:3002
-📊 数据库模式: MySQL
-📋 支持的接口:
-   - GET /api/data/realtime (实时数据)
-   - GET /api/data/historyTrend (历史趋势)
-   - GET /api/data/rangeRecords (范围记录)
-   - GET /api/device/status (设备状态)
+📍 外部访问: http://192.144.185.64:3002
+📊 支持的接口:
+   - GET  /api/data/realtime (实时数据)
+   - GET  /api/data/mock/realtime (模拟实时数据)
+   - GET  /api/data/historyTrend (历史趋势)
+   - GET  /api/data/rangeRecords (范围记录)
+   - GET  /api/data/txt?filename=xxx (读取txt/CSV文件)
+   - GET  /api/data/files (列出数据文件列表)
+   - POST /api/data/upload/health (上传健康数据)
+   - POST /api/data/upload/raw (上传原始电压数据)
+   - POST /api/data/process/raw (处理原始数据不保存)
 ```
 
-### 5.4 使用PM2管理（生产环境）
+### 5.5 使用PM2管理（生产环境）
 
 ```bash
 # 安装PM2
@@ -179,7 +213,7 @@ npm install -g pm2
 
 # 启动服务
 pm2 start auth-server.js --name auth-server
-pm2 start data-server.js --name data-server
+pm2 start app.js --name data-server
 
 # 查看状态
 pm2 status

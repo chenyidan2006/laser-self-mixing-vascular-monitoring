@@ -130,11 +130,14 @@
         <view class="mini-chart">
           <view class="chart-items">
             <view
-              v-for="(item, index) in miniChartData"
-              :key="index"
-              class="chart-bar"
-              :style="{ height: item.heart_rate ? (item.heart_rate / 120 * 100) + '%' : '10%' }"
-            ></view>
+            v-for="(item, index) in miniChartData"
+            :key="index"
+            class="chart-bar"
+            :style="{ 
+              height: getMiniChartBarHeight(item.heart_rate) + '%',
+              background: metricConfig.heart_rate.gradient
+            }"
+          ></view>
           </view>
           <view class="chart-labels">
             <text>-60m</text>
@@ -144,94 +147,72 @@
         </view>
       </view>
 
-      <view class="ai-advice-section" v-if="aiAdvice">
+      <view class="health-tips-section">
         <view class="section-header">
-          <text class="section-title">🤖 AI Health Advice</text>
-          <text class="advice-date" v-if="aiAdviceDate">{{ aiAdviceDate }}</text>
+          <text class="section-title">💡 Health Tips</text>
         </view>
-        
-        <view v-if="aiAdvice.physiologicalAge" class="age-card">
-          <view class="age-header">
-            <text class="age-icon">🧬</text>
-            <text class="age-title">Physiological Age</text>
+        <view class="tips-card">
+          <view class="tips-header">
+            <text class="tips-icon">{{ currentTip.icon }}</text>
+            <text class="tips-category">{{ currentTip.category }}</text>
           </view>
-          <view class="age-content">
-            <view class="age-comparison">
-              <view class="age-item">
-                <text class="age-label">Actual Age</text>
-                <text class="age-value">{{ aiAdvice.physiologicalAge.actualAge }}</text>
-              </view>
-              <view class="age-arrow">→</view>
-              <view class="age-item">
-                <text class="age-label">Body Age</text>
-                <text class="age-value" :class="aiAdvice.physiologicalAge.status">
-                  {{ aiAdvice.physiologicalAge.physiologicalAge }}
-                </text>
-              </view>
+          <text class="tips-content">{{ currentTip.content }}</text>
+          <view class="tips-footer">
+            <text class="tips-date">{{ currentTip.date }}</text>
+            <view class="tips-action" @click="refreshTip">
+              <text>换一个</text>
+              <text class="refresh-icon">🔄</text>
             </view>
-            <view class="age-difference" :class="aiAdvice.physiologicalAge.status">
-              <text class="diff-badge">{{ aiAdvice.physiologicalAge.difference }}</text>
-              <text class="diff-text">{{ getAgeDiffText(aiAdvice.physiologicalAge.status) }}</text>
-            </view>
-            <text class="age-explanation">{{ aiAdvice.physiologicalAge.explanation }}</text>
           </view>
         </view>
+      </view>
 
-        <view class="ai-summary-card">
-          <text class="ai-summary-text">{{ aiAdvice.summary || aiAdvice.content }}</text>
+      <view class="quick-actions-section">
+        <view class="section-header">
+          <text class="section-title">⚡ Quick Actions</text>
         </view>
-
-        <view v-if="aiAdvice.indicators && aiAdvice.indicators.length" class="indicators-grid">
-          <view
-            v-for="(indicator, idx) in aiAdvice.indicators"
-            :key="idx"
-            class="indicator-card"
-            :class="indicator.status"
-          >
-            <view class="indicator-header">
-              <text class="indicator-icon">{{ indicator.icon }}</text>
-              <view class="indicator-info">
-                <text class="indicator-name">{{ indicator.name }}</text>
-                <text class="indicator-value">{{ indicator.value }}</text>
-              </view>
-              <view class="indicator-badge" :class="indicator.status">
-                <text class="badge-text">{{ indicator.statusText }}</text>
-              </view>
-            </view>
-            <text class="indicator-advice">{{ indicator.advice }}</text>
+        <view class="actions-grid">
+          <view class="action-card" @click="goToGoalSettings">
+            <view class="action-icon-wrapper">🎯</view>
+            <text class="action-name">Goals</text>
+            <text class="action-desc">Set daily goals</text>
+          </view>
+          <view class="action-card" @click="goToDeviceManage">
+            <view class="action-icon-wrapper">📱</view>
+            <text class="action-name">Devices</text>
+            <text class="action-desc">Manage devices</text>
           </view>
         </view>
+      </view>
 
-        <view v-if="aiAdvice.lifestyle && aiAdvice.lifestyle.length" class="lifestyle-section">
-          <text class="lifestyle-title">💡 Lifestyle Tips</text>
-          <view
-            v-for="(life, idx) in aiAdvice.lifestyle"
-            :key="idx"
-            class="lifestyle-card"
-          >
-            <view class="lifestyle-header">
-              <text class="lifestyle-icon">{{ life.icon }}</text>
-              <text class="lifestyle-category">{{ life.category }}</text>
-            </view>
-            <view class="lifestyle-tips">
-              <view
-                v-for="(tip, tipIdx) in life.tips"
-                :key="tipIdx"
-                class="tip-item"
-              >
-                <view class="tip-dot"></view>
-                <text class="tip-text">{{ tip }}</text>
-              </view>
-            </view>
-          </view>
+      <view class="daily-goal-section">
+        <view class="section-header">
+          <text class="section-title">🎯 Today's Goal</text>
+          <text class="goal-progress">{{ dailyGoal.progress }}%</text>
         </view>
-
-        <view v-if="aiAdvice.overallAdvice" class="overall-advice-card">
-          <view class="overall-header">
-            <text class="overall-icon">🎯</text>
-            <text class="overall-title">Overall Advice</text>
+        <view class="goal-card">
+          <view class="goal-item">
+            <view class="goal-icon">💓</view>
+            <view class="goal-info">
+              <text class="goal-label">Heart Rate Check</text>
+              <text class="goal-status">
+                {{ dailyGoal.heartRateChecked }}/{{ dailyGoal.heartRateTarget }} times
+              </text>
+            </view>
+            <view class="goal-bar-container">
+              <view class="goal-bar" :style="{ width: dailyGoal.heartRateProgress + '%' }"></view>
+            </view>
           </view>
-          <text class="overall-text">{{ aiAdvice.overallAdvice }}</text>
+          <view class="goal-item">
+            <view class="goal-icon">🚶</view>
+            <view class="goal-info">
+              <text class="goal-label">Daily Steps</text>
+              <text class="goal-status">{{ dailyGoal.steps }}/{{ dailyGoal.stepsTarget }} steps</text>
+            </view>
+            <view class="goal-bar-container">
+              <view class="goal-bar" :style="{ width: dailyGoal.stepsProgress + '%' }"></view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -316,11 +297,53 @@ export default {
         diastolic_bp: null,
         spo2: null
       },
+      metricConfig: {
+        heart_rate: {
+          name: 'Heart Rate',
+          unit: 'bpm',
+          color: '#ef4444',
+          gradient: 'linear-gradient(180deg, #ef4444 0%, #f87171 100%)',
+          min: 40,
+          max: 120
+        },
+        systolic_bp: {
+          name: 'Systolic BP',
+          unit: 'mmHg',
+          color: '#22c55e',
+          gradient: 'linear-gradient(180deg, #22c55e 0%, #4ade80 100%)',
+          min: 90,
+          max: 160
+        },
+        diastolic_bp: {
+          name: 'Diastolic BP',
+          unit: 'mmHg',
+          color: '#14b8a6',
+          gradient: 'linear-gradient(180deg, #14b8a6 0%, #2dd4bf 100%)',
+          min: 50,
+          max: 100
+        },
+        spo2: {
+          name: 'SpO2',
+          unit: '%',
+          color: '#06b6d4',
+          gradient: 'linear-gradient(180deg, #06b6d4 0%, #22d3ee 100%)',
+          min: 94,
+          max: 100
+        }
+      },
       miniChartData: [],
       notificationCount: 0,
       healthTips: [],
-      aiAdvice: null,
-      aiAdviceDate: '',
+      currentTip: null,
+      dailyGoal: {
+        progress: 65,
+        heartRateChecked: 3,
+        heartRateTarget: 5,
+        heartRateProgress: 60,
+        steps: 4500,
+        stepsTarget: 10000,
+        stepsProgress: 45
+      },
       timer: null,
       statusTimer: null,
       dataFetchCount: 0,
@@ -363,6 +386,7 @@ export default {
     this.loadSelectedDevice();
     this.startRealtimeUpdate();
     this.startDeviceStatusCheck();
+    this.initDailyGoal();
     
     if (this.isSimulationMode) {
       this.isConnected = true;
@@ -376,14 +400,11 @@ export default {
       };
       
       this.generateMockTrendData();
-      this.generateMockAIAdvice();
       
       setTimeout(() => {
         this.startDemo();
       }, 500);
     }
-    
-    this.fetchAIAdvice();
   },
   onUnload() {
     if (this.timer) {
@@ -406,6 +427,12 @@ export default {
     t(key) {
       return translate(key);
     },
+    getMiniChartBarHeight(value) {
+      if (!value || value <= 0) return 5;
+      const config = this.metricConfig.heart_rate;
+      const range = config.max - config.min;
+      return Math.min(100, Math.max(5, ((value - config.min) / range) * 100));
+    },
     initWaveData() {
       this.waveData = [];
       for (let i = 0; i < 100; i++) {
@@ -416,9 +443,22 @@ export default {
     switchMode(mode) {
       this.isSimulationMode = mode === 'simulation';
       uni.setStorageSync('isSimulationMode', this.isSimulationMode.toString());
+      
+      if (this.waveTimer) {
+        clearInterval(this.waveTimer);
+        this.waveTimer = null;
+      }
+      
       if (this.isSimulationMode) {
         this.generateMockTrendData();
-        this.generateMockAIAdvice();
+        setTimeout(() => {
+          this.startDemo();
+        }, 300);
+      } else {
+        this.hasData = false;
+        this.isConnected = false;
+        this.fetchRealtimeData();
+        this.startRealModeWaveUpdate();
       }
       uni.showToast({ 
         title: this.isSimulationMode ? '已切换到模拟模式' : '已切换到真实模式', 
@@ -429,22 +469,36 @@ export default {
       uni.showLoading({ title: '读取服务器数据...' });
       try {
         const serverUrl = 'http://192.144.185.64:3002/api/data/txt';
+        console.log('正在请求:', serverUrl);
         
-        const res = await uni.request({
+        uni.request({
           url: serverUrl,
           method: 'GET',
-          responseType: 'text'
+          responseType: 'text',
+          timeout: 10000,
+          success: (res) => {
+            console.log('响应状态码:', res.statusCode);
+            console.log('响应数据:', res.data ? res.data.substring(0, 100) : '空');
+            
+            if (res.statusCode === 200 && res.data) {
+              this.parseServerData(res.data);
+              uni.showToast({ title: '数据读取成功', icon: 'success' });
+            } else {
+              console.error('读取失败，状态码:', res.statusCode);
+              uni.showToast({ title: `读取失败: ${res.statusCode}`, icon: 'none' });
+            }
+          },
+          fail: (err) => {
+            console.error('网络错误:', err);
+            uni.showToast({ title: `网络错误: ${err.errMsg || '未知错误'}`, icon: 'none' });
+          },
+          complete: () => {
+            uni.hideLoading();
+          }
         });
-        
-        if (res.statusCode === 200) {
-          this.parseServerData(res.data);
-          uni.showToast({ title: '数据读取成功', icon: 'success' });
-        } else {
-          uni.showToast({ title: '读取失败', icon: 'none' });
-        }
       } catch (err) {
-        uni.showToast({ title: '网络错误', icon: 'none' });
-      } finally {
+        console.error('异常错误:', err);
+        uni.showToast({ title: `异常: ${err.message || '未知错误'}`, icon: 'none' });
         uni.hideLoading();
       }
     },
@@ -494,6 +548,47 @@ export default {
         
         this.startServerWavePlayback();
       }
+    },
+    // 处理原始数据（不保存原始数据到服务器）
+    processRawData(rawData) {
+      if (!rawData || !Array.isArray(rawData) || rawData.length === 0) {
+        return;
+      }
+      
+      // 直接更新波形显示
+      rawData.forEach(value => {
+        this.waveData.push(value);
+        if (this.waveData.length > 100) {
+          this.waveData.shift();
+        }
+      });
+      
+      // 发送到服务器进行算法计算（不保存原始数据）
+      uni.request({
+        url: 'http://192.144.185.64:3002/api/data/process/raw',
+        method: 'POST',
+        data: {
+          deviceId: this.selectedDeviceId,
+          rawVoltage: rawData,
+          sampleRate: 100
+        },
+        success: (res) => {
+          if (res.data && res.data.errcode === 0 && res.data.data) {
+            this.realtimeData = {
+              heart_rate: res.data.data.heartRate,
+              systolic_bp: res.data.data.systolicBp,
+              diastolic_bp: res.data.data.diastolicBp,
+              spo2: res.data.data.spo2
+            };
+            this.hasData = true;
+            this.isConnected = true;
+            uni.showToast({ title: '数据处理成功', icon: 'success' });
+          }
+        },
+        fail: () => {
+          uni.showToast({ title: '数据处理失败', icon: 'none' });
+        }
+      });
     },
     startServerWavePlayback() {
       if (this.serverWaveTimer) {
@@ -545,53 +640,7 @@ export default {
       
       uni.setStorageSync('mockTrendData', JSON.stringify(mockData));
     },
-    generateMockAIAdvice() {
-      const hr = this.realtimeData.heart_rate || 75;
-      const sys = this.realtimeData.systolic_bp || 120;
-      const dia = this.realtimeData.diastolic_bp || 80;
-      const spo2 = this.realtimeData.spo2 || 98;
-      
-      let physiologicalAge = Math.floor(25 + Math.random() * 10);
-      let actualAge = Math.floor(28 + Math.random() * 5);
-      let difference = physiologicalAge - actualAge;
-      
-      this.aiAdvice = {
-        physiologicalAge: {
-          actualAge: actualAge,
-          physiologicalAge: physiologicalAge,
-          status: difference < 0 ? 'good' : difference > 3 ? 'warning' : 'normal',
-          difference: difference > 0 ? `+${difference}` : difference.toString(),
-          explanation: difference < 0 
-            ? 'Your physiological age is younger than your actual age. Keep up the good work!'
-            : difference > 3 
-              ? 'Your physiological age is older than your actual age. Consider improving your lifestyle.'
-              : 'Your physiological age matches your actual age.'
-        },
-        summary: this.getMockSummary(hr, sys, dia, spo2),
-        indicators: [
-          { name: 'Heart Rate', value: hr, status: hr < 60 ? 'low' : hr > 100 ? 'high' : 'normal', advice: hr < 60 ? 'Consider light exercise' : hr > 100 ? 'Try to relax and reduce stress' : 'Heart rate is within normal range' },
-          { name: 'Systolic BP', value: sys, status: sys < 90 ? 'low' : sys > 140 ? 'high' : 'normal', advice: sys > 140 ? 'Reduce salt intake and exercise regularly' : 'Blood pressure is normal' },
-          { name: 'Diastolic BP', value: dia, status: dia < 60 ? 'low' : dia > 90 ? 'high' : 'normal', advice: dia > 90 ? 'Consider consulting a doctor' : 'Diastolic pressure is normal' },
-          { name: 'SpO2', value: spo2, status: spo2 < 95 ? 'low' : 'normal', advice: spo2 < 95 ? 'Ensure proper ventilation' : 'Oxygen level is excellent' }
-        ],
-        lifestyle: [
-          { title: 'Exercise', advice: 'Aim for 30 minutes of moderate exercise daily', icon: '🏃' },
-          { title: 'Sleep', advice: 'Get 7-8 hours of quality sleep each night', icon: '😴' },
-          { title: 'Diet', advice: 'Maintain a balanced diet with plenty of fruits and vegetables', icon: '🥗' },
-          { title: 'Hydration', advice: 'Drink at least 1.5 liters of water daily', icon: '💧' }
-        ],
-        overallAdvice: 'Overall, your health indicators are within normal range. Continue maintaining healthy habits including regular exercise, balanced nutrition, and sufficient sleep.'
-      };
-      this.aiAdviceDate = new Date().toLocaleDateString();
-    },
-    getMockSummary(hr, sys, dia, spo2) {
-      const messages = [];
-      if (hr >= 60 && hr <= 100) messages.push('Your heart rate is in good condition');
-      if (sys < 130 && dia < 85) messages.push('Blood pressure is well controlled');
-      if (spo2 >= 95) messages.push('Oxygen saturation is excellent');
-      if (messages.length === 0) messages.push('Your vital signs show good health');
-      return messages.join('. ') + '.';
-    },
+
     toggleConnection() {
       this.isConnected = !this.isConnected;
       if (this.isConnected) {
@@ -626,6 +675,22 @@ export default {
       this.waveTimer = waveInterval;
       
       uni.showToast({ title: '开始测量', icon: 'success' });
+    },
+    startRealModeWaveUpdate() {
+      if (this.waveTimer) {
+        clearInterval(this.waveTimer);
+        this.waveTimer = null;
+      }
+      
+      this.waveOffset = 0;
+      
+      const waveInterval = setInterval(() => {
+        this.waveOffset += 0.15;
+        this.updateWaveData();
+        this.drawWaveform();
+      }, 50);
+
+      this.waveTimer = waveInterval;
     },
     refreshDemoData() {
       if (!this.isDemoRunning || this.isRefreshing) return;
@@ -735,11 +800,81 @@ export default {
     },
     initHealthTips() {
       this.healthTips = [
-        { icon: '💧', text: this.t('healthTip1') },
-        { icon: '🏃', text: this.t('healthTip2') },
-        { icon: '😴', text: this.t('healthTip3') },
-        { icon: '🥗', text: this.t('healthTip4') }
+        { icon: '💧', category: 'Hydration', content: 'Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism.', date: 'Today' },
+        { icon: '🏃', category: 'Exercise', content: 'Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling.', date: 'Today' },
+        { icon: '😴', category: 'Sleep', content: 'Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate.', date: 'Today' },
+        { icon: '🥗', category: 'Diet', content: 'Maintain a balanced diet rich in fruits, vegetables, whole grains, and lean proteins.', date: 'Today' },
+        { icon: '🧘', category: 'Relaxation', content: 'Practice mindfulness or meditation for 10-15 minutes daily to reduce stress levels.', date: 'Today' },
+        { icon: '❤️', category: 'Heart Health', content: 'Regular heart rate monitoring helps detect potential cardiovascular issues early.', date: 'Today' },
+        { icon: '🌬️', category: 'Breathing', content: 'Practice deep breathing exercises to improve lung function and reduce anxiety.', date: 'Today' },
+        { icon: '🧪', category: 'Check-ups', content: 'Schedule regular health check-ups to stay proactive about your well-being.', date: 'Today' }
       ];
+      this.currentTip = this.healthTips[Math.floor(Math.random() * this.healthTips.length)];
+    },
+    initDailyGoal() {
+      const today = new Date().toDateString();
+      const storedDailyGoal = uni.getStorageSync('dailyGoal_' + today);
+      const goalSettings = uni.getStorageSync('goalSettings');
+      
+      const defaultSettings = {
+        heartRateTarget: 5,
+        stepsTarget: 10000,
+        waterTarget: 8,
+        sleepTarget: 8
+      };
+      
+      const userSettings = goalSettings ? JSON.parse(goalSettings) : defaultSettings;
+      
+      if (storedDailyGoal) {
+        const saved = JSON.parse(storedDailyGoal);
+        this.dailyGoal = {
+          ...saved,
+          heartRateTarget: userSettings.heartRateTarget,
+          stepsTarget: userSettings.stepsTarget
+        };
+      } else {
+        this.dailyGoal = {
+          progress: 65,
+          heartRateChecked: Math.floor(Math.random() * 3) + 1,
+          heartRateTarget: userSettings.heartRateTarget,
+          heartRateProgress: 40,
+          steps: Math.floor(Math.random() * 5000) + 3000,
+          stepsTarget: userSettings.stepsTarget,
+          stepsProgress: 45,
+          waterDrank: Math.floor(Math.random() * 4) + 2,
+          waterTarget: userSettings.waterTarget,
+          sleepHours: Math.floor(Math.random() * 3) + 5,
+          sleepTarget: userSettings.sleepTarget
+        };
+      }
+      
+      this.updateDailyGoalProgress();
+    },
+    updateDailyGoalProgress() {
+      const hrProgress = Math.min(100, Math.round((this.dailyGoal.heartRateChecked / this.dailyGoal.heartRateTarget) * 100));
+      const stepsProgress = Math.min(100, Math.round((this.dailyGoal.steps / this.dailyGoal.stepsTarget) * 100));
+      const avgProgress = Math.round((hrProgress + stepsProgress) / 2);
+      
+      this.dailyGoal.heartRateProgress = hrProgress;
+      this.dailyGoal.stepsProgress = stepsProgress;
+      this.dailyGoal.progress = avgProgress;
+      
+      const today = new Date().toDateString();
+      uni.setStorageSync('dailyGoal_' + today, JSON.stringify(this.dailyGoal));
+    },
+    refreshTip() {
+      const currentIndex = this.healthTips.findIndex(tip => tip.content === this.currentTip.content);
+      let newIndex = currentIndex;
+      while (newIndex === currentIndex) {
+        newIndex = Math.floor(Math.random() * this.healthTips.length);
+      }
+      this.currentTip = this.healthTips[newIndex];
+    },
+    goToGoalSettings() {
+      uni.navigateTo({ url: '/pages/goal-settings/goal-settings' });
+    },
+    goToDeviceManage() {
+      uni.navigateTo({ url: '/pages/device/manage' });
     },
     loadUserInfo() {
       const storedUser = uni.getStorageSync('user');
@@ -753,6 +888,11 @@ export default {
       const storedDeviceId = uni.getStorageSync('selectedDeviceId');
       if (storedDeviceId) {
         this.selectedDeviceId = storedDeviceId;
+        this.fetchRealtimeData();
+      } else {
+        // 如果没有存储的设备ID，使用默认设备ID
+        this.selectedDeviceId = 'ESP32_001';
+        uni.setStorageSync('selectedDeviceId', 'ESP32_001');
         this.fetchRealtimeData();
       }
       uni.request({
@@ -770,7 +910,12 @@ export default {
           }
         },
         fail: () => {
-          // ignore, keep stored device id if available
+          // 如果请求失败，使用默认设备ID
+          if (!this.selectedDeviceId) {
+            this.selectedDeviceId = 'ESP32_001';
+            uni.setStorageSync('selectedDeviceId', 'ESP32_001');
+            this.fetchRealtimeData();
+          }
         }
       });
     },
@@ -859,42 +1004,7 @@ export default {
         }
       });
     },
-    async fetchAIAdvice() {
-      if (this.isSimulationMode) {
-        this.generateMockAIAdvice();
-        return;
-      }
-      
-      if (!this.selectedDeviceId) return;
-      
-      try {
-        const today = new Date().toISOString().split('T')[0];
-        const res = await new Promise((resolve, reject) => {
-          uni.request({
-            url: getDataUrl('aiHealthAdvice'),
-            method: 'POST',
-            header: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + uni.getStorageSync('token')
-            },
-            data: {
-              deviceId: this.selectedDeviceId,
-              date: today
-            },
-            success: resolve,
-            fail: reject
-          });
-        });
 
-        if (res.data.errcode === 0 && res.data.data) {
-          this.aiAdvice = res.data.data.advice;
-          this.aiAdviceDate = res.data.data.date;
-        }
-      } catch (err) {
-        console.error('Failed to fetch AI advice:', err);
-        this.generateMockAIAdvice();
-      }
-    },
     getHeartRateStatus(hr) {
       if (!hr) return 'unknown';
       if (hr < 60) return 'low';
@@ -1289,7 +1399,7 @@ export default {
   color: #94a3b8;
 }
 
-.ai-advice-section {
+.health-tips-section {
   background: white;
   border-radius: 24rpx;
   padding: 28rpx;
@@ -1297,16 +1407,167 @@ export default {
   box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
 }
 
-.ai-advice-card {
-  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+.tips-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   border-radius: 16rpx;
   padding: 24rpx;
 }
 
-.ai-advice-text {
-  font-size: 26rpx;
+.tips-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.tips-icon {
+  font-size: 36rpx;
+}
+
+.tips-category {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.tips-content {
+  font-size: 28rpx;
   color: #475569;
   line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.tips-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tips-date {
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.tips-action {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: #6366f1;
+  font-weight: 500;
+}
+
+.refresh-icon {
+  font-size: 24rpx;
+}
+
+.quick-actions-section {
+  background: white;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  padding: 24rpx 16rpx;
+  background: #f8fafc;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.action-card:active {
+  transform: scale(0.95);
+  background: #f1f5f9;
+}
+
+.action-icon-wrapper {
+  font-size: 48rpx;
+}
+
+.action-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.action-desc {
+  font-size: 20rpx;
+  color: #94a3b8;
+}
+
+.daily-goal-section {
+  background: white;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.goal-progress {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.goal-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.goal-icon {
+  font-size: 32rpx;
+}
+
+.goal-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goal-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.goal-status {
+  font-size: 24rpx;
+  color: #64748b;
+}
+
+.goal-bar-container {
+  height: 12rpx;
+  background: #e2e8f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.goal-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 6rpx;
+  transition: width 0.5s ease;
 }
 
 .empty-state {

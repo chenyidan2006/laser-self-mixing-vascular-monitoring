@@ -6,6 +6,7 @@ export const API_CONFIG = {
     login: '/api/user/login',
     sendSms: '/api/user/sendSms',
     loginBySms: '/api/user/loginBySms',
+    resetPassword: '/api/user/resetPassword',
     guestLogin: '/api/user/guestLogin',
     wechatLogin: '/api/user/wechatLogin',
     profile: '/api/user/profile',

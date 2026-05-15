@@ -67,6 +67,20 @@
       "style": {
         "navigationBarTitleText": "关于我们"
       }
+    },
+    {
+      "path": "pages/goal-settings/goal-settings",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Daily Goals"
+      }
+    },
+    {
+      "path": "pages/reset-password/reset-password",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Reset Password"
+      }
     }
   ],
   "globalStyle": {

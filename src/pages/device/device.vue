@@ -137,13 +137,9 @@ export default {
       });
     },
     searchDevices() {
-      if (!this.searchKeyword.trim()) {
-        uni.showToast({ title: 'Enter device ID', icon: 'none' });
-        return;
-      }
       this.searching = true;
       uni.request({
-        url: getAuthUrl('devicesSearch'),
+        url: getAuthUrl('devicesSearch') + '?keyword=' + encodeURIComponent(this.searchKeyword.trim()),
         header: { Authorization: 'Bearer ' + uni.getStorageSync('token') },
         success: (res) => {
           if (res.data.errcode === 0) {

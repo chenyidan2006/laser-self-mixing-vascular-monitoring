@@ -15,6 +15,9 @@
 | 7 | API接口404 (data-server缺少接口) | ✅ 已修复 | 2026-05-07 |
 | 8 | 模拟器间隔NaN错误 | ✅ 已修复 | 2026-05-07 |
 | 9 | simulate_device_raw.js默认端口错误 | ✅ 已修复 | 2026-05-07 |
+| 10 | auth-server.js 分层架构重构 | ✅ 已完成 | 2026-05-14 |
+| 11 | 登录字段不匹配 (username vs phone) | ✅ 已修复 | 2026-05-14 |
+| 12 | 设备查询字段不匹配 (is_online vs status) | ✅ 已修复 | 2026-05-14 |
 
 ---
 
@@ -174,15 +177,16 @@ node simulate_device.js -s http://localhost:3002
 **发生时间**：2026-05-07
 
 **解决方案**：
-在 `data-server.js` 中补充所有缺失的接口
+确保使用新的分层架构文件 `app.js` 启动服务，并检查路由配置。
 
 **必须包含的接口**：
 | 接口 | 方法 | 功能 |
 |------|------|------|
-| `/api/upload/health` | POST | 上传健康数据 |
-| `/api/upload/raw` | POST | 上传原始电压数据 |
+| `/api/data/upload/health` | POST | 上传健康数据 |
+| `/api/data/upload/raw` | POST | 上传原始电压数据 |
+| `/api/data/process/raw` | POST | 处理原始数据（不保存） |
 | `/api/data/realtime` | GET | 获取实时数据 |
-| `/api/device/status` | GET | 获取设备状态 |
+| `/api/data/device/status` | GET | 获取设备状态 |
 
 ---
 
@@ -387,5 +391,103 @@ export const API_CONFIG = {
 | 数据服务 (data-server.js) | 3002 | 健康数据、设备模拟器上传 |
 | 设备模拟器 | 客户端 | 通过--server指定服务器地址 |
 
-**最后更新**：2026-05-07
-**版本**：v1.2
+---
+
+### 问题12：auth-server.js 分层架构重构
+
+**问题描述**：
+auth-server.js 代码全部写在一个文件中，违反分层架构原则
+
+**发生时间**：2026-05-14
+
+**解决方案**：
+将 auth-server.js 重构为标准分层架构：
+
+```
+health-backend/
+├── auth-server.js           # 入口文件（简化后约55行）
+├── routes/
+│   └── auth.js             # 路由定义
+├── controllers/
+│   └── authController.js   # 所有业务逻辑
+├── middleware/
+│   └── auth.js            # JWT认证中间件
+└── config/
+    └── db.js              # 数据库配置（复用）
+```
+
+**重构后的 auth-server.js**：
+- 只包含 Express 基础配置
+- CORS 中间件
+- 路由挂载
+- 服务启动日志
+
+**路由层 (routes/auth.js)**：
+```javascript
+const authController = require('../controllers/authController');
+const authMiddleware = require('../middleware/auth');
+
+router.post('/sendSms', authController.sendSms);
+router.post('/loginBySms', authController.loginBySms);
+router.post('/resetPassword', authController.resetPassword);
+router.post('/login', authController.login);
+// ... 其他路由
+```
+
+**控制器层 (controllers/authController.js)**：
+- 所有业务逻辑独立
+- 数据库操作集中管理
+- 错误处理统一
+
+**中间件层 (middleware/auth.js)**：
+- JWT 验证逻辑独立
+- 可被多个路由复用
+
+---
+
+### 问题13：登录字段不匹配 (username vs phone)
+
+**错误信息**：
+```
+login error: Bind parameters must not contain undefined
+```
+
+**发生时间**：2026-05-14
+
+**根本原因**：
+- 前端登录发送：`{ username: "xxx", password: "xxx" }`
+- 后端期望：`{ phone: "xxx", password: "xxx" }`
+
+**解决方案**：
+修改 `src/pages/login/login.vue`：
+1. 将输入框绑定的变量从 `username` 改为 `phone`
+2. 修改 `handlePasswordLogin` 方法，发送 `{ phone, password }`
+3. 移除不再使用的 `username` 变量
+
+---
+
+### 问题14：设备查询字段不匹配 (is_online vs status)
+
+**错误信息**：
+设备列表返回为空或字段 undefined
+
+**发生时间**：2026-05-14
+
+**根本原因**：
+- 数据库表 `devices` 使用 `status` 字段表示在线状态
+- 后端 Controller 查询使用 `is_online` 字段（不存在）
+
+**解决方案**：
+修改 `controllers/authController.js` 中的 SQL 查询：
+```javascript
+// 修改前
+SELECT d.device_id, d.device_name, d.is_online, d.last_active
+
+// 修改后
+SELECT d.device_id, d.device_name, d.status as is_online, d.last_active, ud.bind_time
+```
+
+---
+
+**最后更新**：2026-05-14
+**版本**：v1.3

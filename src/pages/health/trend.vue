@@ -274,10 +274,8 @@ export default {
     },
     switchMetric(metric) {
       this.currentMetric = metric;
-      this.updateStats();
-      if (this.currentRange !== 'month') {
-        this.drawChart();
-      }
+      // 重新加载数据以获取当前指标的数据
+      this.loadData();
     },
     getHeatmapColor(value) {
       const range = this.metricMax - this.metricMin;
@@ -438,8 +436,44 @@ export default {
         }
 
         const trendRes = await this.requestTrendData(startDate, endDate);
-        this.chartData = this.filterDataByMetric(trendRes);
-        this.aggregatedData = this.aggregateData(trendRes);
+        
+        console.log('趋势数据:', trendRes);
+        console.log('当前指标:', this.currentMetric);
+        
+        // 处理数据
+        if (trendRes && trendRes.length > 0) {
+          // 检查数据格式
+          const hasValueField = trendRes[0].value !== undefined;
+          const hasMetricField = trendRes[0][this.currentMetric] !== undefined;
+          
+          console.log('hasValueField:', hasValueField, 'hasMetricField:', hasMetricField);
+          
+          if (hasValueField) {
+            // 数据库格式: { date, value }
+            this.chartData = trendRes.map(item => ({
+              date: item.date,
+              value: item.value
+            }));
+            this.aggregatedData = trendRes.map(item => ({
+              date: item.date.includes(':') ? item.date : `${item.date} 12:00:00`,
+              value: item.value
+            }));
+          } else if (hasMetricField) {
+            // 模拟数据格式: { date, heart_rate: value }
+            this.chartData = this.filterDataByMetric(trendRes);
+            this.aggregatedData = this.aggregateData(trendRes);
+          } else {
+            this.chartData = [];
+            this.aggregatedData = [];
+          }
+        } else {
+          this.chartData = [];
+          this.aggregatedData = [];
+        }
+        
+        console.log('chartData:', this.chartData);
+        console.log('aggregatedData:', this.aggregatedData);
+        
         this.updateStats();
 
         if (this.currentRange === 'month') {
@@ -456,29 +490,40 @@ export default {
       }
     },
     filterDataByMetric(data) {
-      return data.map(item => ({
-        date: item.date || (item.measure_time ? item.measure_time.split('T')[0] : ''),
-        value: item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value
-      })).filter(item => item.value !== undefined && item.value !== null && item.value !== '');
+      return data.map(item => {
+        let dateStr = item.date || item.measure_time || '';
+        if (dateStr && !dateStr.includes(':') && dateStr.includes('-')) {
+          dateStr = dateStr + ' ' + String(Math.floor(Math.random() * 24)).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + ':00';
+        }
+        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
+        return {
+          date: dateStr,
+          value: metricValue
+        };
+      }).filter(item => item.value !== undefined && item.value !== null && item.value !== '');
     },
     aggregateData(data) {
       if (!data.length) return [];
 
       const grouped = {};
       data.forEach(item => {
-        const dateKey = item.date || (item.measure_time ? item.measure_time.split('T')[0] : new Date().toISOString().split('T')[0]);
+        const rawDate = item.date || item.measure_time || new Date().toISOString();
+        const dateKey = rawDate.split(' ')[0] || rawDate.split('T')[0];
         if (!grouped[dateKey]) {
           grouped[dateKey] = [];
         }
-        const value = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
-        if (value !== undefined && value !== null) {
-          grouped[dateKey].push(Number(value));
+        // 优先使用当前指标的值，如果没有则使用 value 字段
+        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
+        if (metricValue !== undefined && metricValue !== null) {
+          grouped[dateKey].push(Number(metricValue));
         }
       });
 
-      return Object.keys(grouped).map(date => ({
-        date,
-        value: grouped[date].reduce((a, b) => a + b, 0) / grouped[date].length
+      console.log('分组数据:', grouped);
+
+      return Object.keys(grouped).map(dateKey => ({
+        date: `${dateKey} 12:00:00`,
+        value: grouped[dateKey].reduce((a, b) => a + b, 0) / grouped[dateKey].length
       })).sort((a, b) => new Date(a.date) - new Date(b.date));
     },
     updateStats() {
@@ -497,17 +542,31 @@ export default {
     async requestTrendData(startDate, endDate) {
       const isSimulationMode = uni.getStorageSync('isSimulationMode') === 'true' || false;
       
+      console.log('请求趋势数据 - 日期范围:', startDate, '到', endDate, '模拟模式:', isSimulationMode);
+      
       if (isSimulationMode) {
-        const mockDataStr = uni.getStorageSync('mockTrendData');
+        let mockDataStr = uni.getStorageSync('mockTrendData');
+        
+        // 如果没有模拟数据，生成新的
+        if (!mockDataStr) {
+          console.log('没有模拟数据，生成新的...');
+          this.generateMockTrendData();
+          mockDataStr = uni.getStorageSync('mockTrendData');
+        }
+        
         if (mockDataStr) {
           try {
             const allData = JSON.parse(mockDataStr);
+            console.log('模拟数据总数:', allData.length, '条');
+            
             const filtered = allData.filter(item => {
               const itemDate = item.date || (item.measure_time ? item.measure_time.split(' ')[0] : '');
               return itemDate >= startDate && itemDate <= endDate;
             });
+            console.log('模拟数据过滤后:', filtered.length, '条');
             return Promise.resolve(filtered);
           } catch (e) {
+            console.error('解析模拟数据失败:', e);
             return Promise.resolve([]);
           }
         }
@@ -525,6 +584,7 @@ export default {
             metric: this.currentMetric
           },
           success: (res) => {
+            console.log('后端返回数据:', res.data);
             if (res.data.errcode === 0) {
               resolve(res.data.data || []);
             } else {
@@ -534,6 +594,37 @@ export default {
           fail: reject
         });
       });
+    },
+    generateMockTrendData() {
+      const mockData = [];
+      const now = new Date();
+      
+      for (let i = 29; i >= 0; i--) {
+        const date = new Date(now);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        
+        const baseHr = Math.floor(65 + Math.random() * 15);
+        const baseSys = Math.floor(105 + Math.random() * 15);
+        const baseDia = Math.floor(65 + Math.random() * 15);
+        const baseSpo2 = Math.floor(95 + Math.random() * 3);
+        
+        const recordCount = i === 0 ? Math.floor(5 + Math.random() * 5) : Math.floor(2 + Math.random() * 4);
+        
+        for (let j = 0; j < recordCount; j++) {
+          mockData.push({
+            date: dateStr,
+            heart_rate: Math.floor(baseHr + (Math.random() - 0.5) * 10),
+            systolic_bp: Math.floor(baseSys + (Math.random() - 0.5) * 8),
+            diastolic_bp: Math.floor(baseDia + (Math.random() - 0.5) * 6),
+            spo2: Math.max(94, Math.min(100, baseSpo2 + Math.floor((Math.random() - 0.5) * 3))),
+            measure_time: dateStr + ' ' + String(Math.floor(6 + Math.random() * 14)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0')
+          });
+        }
+      }
+      
+      console.log('生成模拟数据:', mockData.length, '条');
+      uni.setStorageSync('mockTrendData', JSON.stringify(mockData));
     },
     async requestRecordsList(startDate, endDate) {
       const isSimulationMode = uni.getStorageSync('isSimulationMode') === 'true' || false;
