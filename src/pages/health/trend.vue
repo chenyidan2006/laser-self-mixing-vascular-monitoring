@@ -136,7 +136,7 @@
       <scroll-view scroll-x class="bar-chart-scroll">
         <view class="bar-chart">
           <view
-            v-for="(item, index) in aggregatedData"
+            v-for="(item, index) in displayChartData"
             :key="index"
             class="bar-item"
           >
@@ -253,6 +253,13 @@ export default {
     },
     metricMax() {
       return this.metricConfig[this.currentMetric]?.max || 100;
+    },
+    displayChartData() {
+      // 趋势图和柱状图使用相同的数据
+      if (this.currentRange === 'day') {
+        return this.aggregateDataByHour(this.chartData);
+      }
+      return this.aggregatedData;
     }
   },
   onLoad() {
@@ -490,11 +497,10 @@ export default {
       }
     },
     filterDataByMetric(data) {
+      // 优先使用 measure_time 字段，因为它包含完整的时间信息
       return data.map(item => {
-        let dateStr = item.date || item.measure_time || '';
-        if (dateStr && !dateStr.includes(':') && dateStr.includes('-')) {
-          dateStr = dateStr + ' ' + String(Math.floor(Math.random() * 24)).padStart(2, '0') + ':' + String(Math.floor(Math.random() * 60)).padStart(2, '0') + ':00';
-        }
+        // 优先使用 measure_time，因为它包含时间信息
+        let dateStr = item.measure_time || item.date || '';
         const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
         return {
           date: dateStr,
@@ -524,6 +530,35 @@ export default {
       return Object.keys(grouped).map(dateKey => ({
         date: `${dateKey} 12:00:00`,
         value: grouped[dateKey].reduce((a, b) => a + b, 0) / grouped[dateKey].length
+      })).sort((a, b) => new Date(a.date) - new Date(b.date));
+    },
+    aggregateDataByHour(data) {
+      if (!data.length) return [];
+
+      const grouped = {};
+      data.forEach(item => {
+        const rawDate = item.date || item.measure_time || new Date().toISOString();
+        console.log('原始时间:', rawDate, '当前指标:', this.currentMetric, '值:', item[this.currentMetric]);
+        const parts = rawDate.split(' ');
+        const datePart = parts[0] || '';
+        const timePart = parts[1] || '00:00:00';
+        const hourKey = datePart + ' ' + timePart.substring(0, 2) + ':00:00';
+        
+        if (!grouped[hourKey]) {
+          grouped[hourKey] = [];
+        }
+        // 优先使用当前指标的值，如果没有则使用 value 字段
+        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
+        if (metricValue !== undefined && metricValue !== null) {
+          grouped[hourKey].push(Number(metricValue));
+        }
+      });
+
+      console.log('按小时分组数据:', grouped);
+
+      return Object.keys(grouped).map(hourKey => ({
+        date: hourKey,
+        value: grouped[hourKey].reduce((a, b) => a + b, 0) / grouped[hourKey].length
       })).sort((a, b) => new Date(a.date) - new Date(b.date));
     },
     updateStats() {
@@ -697,9 +732,7 @@ export default {
         const height = res[0].height;
 
         const config = this.metricConfig[this.currentMetric];
-        const displayData = this.currentRange === 'day'
-          ? this.chartData.slice(-12)
-          : this.aggregatedData;
+        const displayData = this.displayChartData;
 
         if (!displayData || !displayData.length) {
           return;
