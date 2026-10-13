@@ -1,7 +1,7 @@
 {
-  "name": "esp32-ble-receiver",
+  "name": "smi-vascular-monitoring-app",
   "version": "1.0.0",
-  "description": "ESP32蓝牙数据接收器应用",
+  "description": "激光自混合干涉血管参数测量系统移动端",
   "main": "main.js",
   "scripts": {
     "dev": "uni -p h5",
