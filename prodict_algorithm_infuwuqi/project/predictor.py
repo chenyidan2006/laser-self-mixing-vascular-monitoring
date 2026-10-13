@@ -107,7 +107,7 @@ def predict_blood_pressure(signal_raw, fs, client_port=None):
         # temp_signal.dat data and prevents concurrent jobs sharing one input.
         with tempfile.NamedTemporaryFile(
             mode="wb",
-            prefix="ppg_legacy_",
+            prefix="smi_legacy_",
             suffix=".dat",
             dir=exe_path.parent,
             delete=False,

@@ -49,7 +49,7 @@ STM32 / ADS8688
 | `project/callPredictFixed.exe` | 现役算法二进制 | MATLAB Compiler 产物 |
 | `project/main.py` | 废弃/不可独立运行 | 旧 WebSocket/TCP 方案，依赖已不存在的 `config.py`、`db_writer.py` |
 | `project/replay_old_frame_no_upload.py` | 调试工具 | 离线重放一帧，不写数据库 |
-| `project/ppg_legacy_*.dat` | 临时残留 | `predictor.py` 的临时输入/结果文件；无进程运行时可删除 |
+| `project/smi_legacy_*.dat` | 临时残留 | `predictor.py` 的临时输入/结果文件；无进程运行时可删除 |
 | `project/.deploy_lock` | 部署辅助文件 | 空锁文件，不是算法 |
 | `project/__pycache__/` | Python 缓存 | 可再生，不是源代码 |
 
@@ -68,5 +68,5 @@ $env:ENABLE_FAILURE_FALLBACK = "0"
 1. 改 Python 解析或上传逻辑：修改 `project/frame_pipeline.py` / `project/predictor.py`。
 2. 改特征提取或神经网络：修改 MATLAB 源码与模型后重新编译 `callPredictFixed.exe`。
 3. 不要直接编辑 `_mcr` 内文件；它们可能在下一次运行时被重新生成。
-4. 不要把 `ppg_legacy_*.dat`、`.deploy_lock`、`__pycache__` 当成算法版本。
+4. 不要把 `smi_legacy_*.dat`、`.deploy_lock`、`__pycache__` 当成算法版本。
 5. 固件帧契约改变时，必须同步修改 [FRAME_PROTOCOL.md](FRAME_PROTOCOL.md)、`raw-receiver/server.js` 和 `project/frame_pipeline.py`。

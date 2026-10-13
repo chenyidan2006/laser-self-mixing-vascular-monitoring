@@ -29,7 +29,7 @@ python .\prodict_algorithm_infuwuqi\project\replay_old_frame_no_upload.py <raw-f
 | `callPredictFixed_mcr/` | EXE 展开的 MATLAB Runtime 资源/cache | 运行依赖缓存，不是入口 |
 | `replay_old_frame_no_upload.py` | 对历史帧离线运行真实预测，明确跳过数据库上传 | 保留的调试工具 |
 | `main.py` | 早期 TCP + WebSocket 方案 | 已废弃；缺少 `config.py` 与 `db_writer.py`，干净环境不能运行 |
-| `ppg_legacy_*.dat` | 异常中断后遗留的临时输入或结果 | 非源码，可清理 |
+| `smi_legacy_*.dat` | 异常中断后遗留的临时输入或结果 | 非源码，可清理 |
 | `.deploy_lock` | 部署过程锁文件 | 非源码 |
 | `__pycache__/` | Python 字节码缓存 | 非源码，可再生 |
 

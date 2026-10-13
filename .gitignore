@@ -1,6 +1,8 @@
 node_modules/
 dist/
 unpackage/
+data/
+apk-handoff/
 *.log
 .env
 .env.*
@@ -11,8 +13,12 @@ unpackage/
 
 # 服务器运行时锁和临时输入保留在本机部署包，不作为版本源文件
 prodict_algorithm_infuwuqi/project/.deploy_lock
-prodict_algorithm_infuwuqi/project/ppg_legacy_*.dat
+prodict_algorithm_infuwuqi/project/smi_legacy_*.dat
 raw-receiver/received/
 
 # 独立维护并推送到 health-backend 仓库
 health-backend/
+
+# Keil/MDK 构建输出和每台电脑独有的界面配置
+硬件/**/MDK-ARM/*/
+硬件/**/*.uvguix.*

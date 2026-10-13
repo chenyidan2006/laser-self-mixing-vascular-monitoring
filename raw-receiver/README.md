@@ -1,6 +1,6 @@
 # raw-receiver
 
-这是最终服务器包中原始 PPG 波形接收服务的版本化快照。现役部署目录为 `D:\project\PPG\算法\服务器部署\raw-receiver`。
+这是最终服务器包中原始激光自混合干涉（SMI）信号接收服务的版本化快照。
 
 它监听 `3000` 端口，校验并保存 ESP32 上传的 ADS8688 二进制帧，然后串行调用相邻 `prodict_algorithm_infuwuqi/project/frame_pipeline.py`。启动方法：
 
