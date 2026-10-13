@@ -7,6 +7,8 @@
 - App 源码：`src/`
 - 后端独立仓库：`health-backend/`（GitHub：`chenyidan2006/health-backend`）
 - 服务器算法版本化快照：`prodict_algorithm_infuwuqi/`
+- 原始波形接收服务快照：`raw-receiver/`
+- 非生产串口/Flask 调试脚本：`server-tools/`
 - 本机实际服务器部署目录：`D:\project\PPG\算法\服务器部署\`
 
 详细状态、版本关系和已知问题见 [`docs/PROJECT_AUDIT_2026-10-13.md`](docs/PROJECT_AUDIT_2026-10-13.md)。
