@@ -1,0 +1,3470 @@
+{
+  "Back": {
+    "zh": "返回",
+    "en": "Back"
+  },
+  "Health Monitor": {
+    "zh": "健康监测",
+    "en": "Health Monitor"
+  },
+  "Password": {
+    "zh": "密码",
+    "en": "Password"
+  },
+  "SMS Code": {
+    "zh": "验证码",
+    "en": "SMS Code"
+  },
+  "Phone Number": {
+    "zh": "手机号",
+    "en": "Phone Number"
+  },
+  "Verification Code": {
+    "zh": "验证码",
+    "en": "Verification Code"
+  },
+  "Get Code": {
+    "zh": "获取验证码",
+    "en": "Get Code"
+  },
+  "Login": {
+    "zh": "登录",
+    "en": "Login"
+  },
+  "Register": {
+    "zh": "注册",
+    "en": "Register"
+  },
+  "Other Login Methods": {
+    "zh": "其他登录方式",
+    "en": "Other Login Methods"
+  },
+  "WeChat": {
+    "zh": "微信",
+    "en": "WeChat"
+  },
+  "QQ": {
+    "zh": "企鹅账号",
+    "en": "QQ"
+  },
+  "Guest Access": {
+    "zh": "游客访问",
+    "en": "Guest Access"
+  },
+  "Forgot Password?": {
+    "zh": "忘记密码？",
+    "en": "Forgot Password?"
+  },
+  "Please fill in all fields": {
+    "zh": "请填写所有字段",
+    "en": "Please fill in all fields"
+  },
+  "Please fill all fields": {
+    "zh": "请填写所有字段",
+    "en": "Please fill all fields"
+  },
+  "Please enter phone number": {
+    "zh": "请输入手机号",
+    "en": "Please enter phone number"
+  },
+  "Network error": {
+    "zh": "网络错误",
+    "en": "Network error"
+  },
+  "Verification code sent": {
+    "zh": "验证码已发送",
+    "en": "Verification code sent"
+  },
+  "QQ login not implemented": {
+    "zh": "企鹅账号登录尚未开放",
+    "en": "QQ login not implemented"
+  },
+  "History Trends": {
+    "zh": "历史趋势",
+    "en": "History Trends"
+  },
+  "Day": {
+    "zh": "日",
+    "en": "Day"
+  },
+  "Week": {
+    "zh": "周",
+    "en": "Week"
+  },
+  "Month": {
+    "zh": "月",
+    "en": "Month"
+  },
+  "HR": {
+    "zh": "心率",
+    "en": "HR"
+  },
+  "BP": {
+    "zh": "血压",
+    "en": "BP"
+  },
+  "SpO2": {
+    "zh": "血氧",
+    "en": "SpO2"
+  },
+  "Min": {
+    "zh": "最低值",
+    "en": "Min"
+  },
+  "Avg": {
+    "zh": "平均值",
+    "en": "Avg"
+  },
+  "Max": {
+    "zh": "最高值",
+    "en": "Max"
+  },
+  "SYS / DIA": {
+    "zh": "收缩压／舒张压",
+    "en": "SYS / DIA"
+  },
+  "Heart Rate": {
+    "zh": "心率",
+    "en": "Heart Rate"
+  },
+  "Blood Pressure": {
+    "zh": "血压",
+    "en": "Blood Pressure"
+  },
+  "Systolic BP": {
+    "zh": "收缩压",
+    "en": "Systolic BP"
+  },
+  "Diastolic BP": {
+    "zh": "舒张压",
+    "en": "Diastolic BP"
+  },
+  "Systolic": {
+    "zh": "收缩压",
+    "en": "Systolic"
+  },
+  "Diastolic": {
+    "zh": "舒张压",
+    "en": "Diastolic"
+  },
+  "bpm": {
+    "zh": "bpm",
+    "en": "bpm"
+  },
+  "mmHg": {
+    "zh": "mmHg",
+    "en": "mmHg"
+  },
+  "No data available": {
+    "zh": "暂无数据",
+    "en": "No data available"
+  },
+  "Daily Averages": {
+    "zh": "每日平均值",
+    "en": "Daily Averages"
+  },
+  "Daily Averages -": {
+    "zh": "每日平均值：",
+    "en": "Daily Averages -"
+  },
+  "Low": {
+    "zh": "低值",
+    "en": "Low"
+  },
+  "High": {
+    "zh": "高值",
+    "en": "High"
+  },
+  "Recent Records": {
+    "zh": "最近记录",
+    "en": "Recent Records"
+  },
+  "No recent records": {
+    "zh": "暂无测量记录",
+    "en": "No recent records"
+  },
+  "Load failed": {
+    "zh": "加载失败",
+    "en": "Load failed"
+  },
+  "Metric": {
+    "zh": "指标",
+    "en": "Metric"
+  },
+  "Trend": {
+    "zh": "趋势",
+    "en": "Trend"
+  },
+  "Sun": {
+    "zh": "周日",
+    "en": "Sun"
+  },
+  "Mon": {
+    "zh": "周一",
+    "en": "Mon"
+  },
+  "Tue": {
+    "zh": "周二",
+    "en": "Tue"
+  },
+  "Wed": {
+    "zh": "周三",
+    "en": "Wed"
+  },
+  "Thu": {
+    "zh": "周四",
+    "en": "Thu"
+  },
+  "Fri": {
+    "zh": "周五",
+    "en": "Fri"
+  },
+  "Sat": {
+    "zh": "周六",
+    "en": "Sat"
+  },
+  "Sunday": {
+    "zh": "星期日",
+    "en": "Sunday"
+  },
+  "Monday": {
+    "zh": "星期一",
+    "en": "Monday"
+  },
+  "Tuesday": {
+    "zh": "星期二",
+    "en": "Tuesday"
+  },
+  "Wednesday": {
+    "zh": "星期三",
+    "en": "Wednesday"
+  },
+  "Thursday": {
+    "zh": "星期四",
+    "en": "Thursday"
+  },
+  "Friday": {
+    "zh": "星期五",
+    "en": "Friday"
+  },
+  "Saturday": {
+    "zh": "星期六",
+    "en": "Saturday"
+  },
+  "💡 Health Tips": {
+    "zh": "💡 健康提示",
+    "en": "💡 Health Tips"
+  },
+  "Hydration": {
+    "zh": "饮水",
+    "en": "Hydration"
+  },
+  "Exercise": {
+    "zh": "运动",
+    "en": "Exercise"
+  },
+  "Sleep": {
+    "zh": "睡眠",
+    "en": "Sleep"
+  },
+  "Diet": {
+    "zh": "饮食",
+    "en": "Diet"
+  },
+  "Relaxation": {
+    "zh": "放松",
+    "en": "Relaxation"
+  },
+  "Heart Health": {
+    "zh": "心脏健康",
+    "en": "Heart Health"
+  },
+  "Breathing": {
+    "zh": "呼吸",
+    "en": "Breathing"
+  },
+  "Check-ups": {
+    "zh": "健康检查",
+    "en": "Check-ups"
+  },
+  "Today": {
+    "zh": "今天",
+    "en": "Today"
+  },
+  "Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism.": {
+    "zh": "适量饮水，保持身体水分。",
+    "en": "Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism."
+  },
+  "Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling.": {
+    "zh": "根据身体情况安排适量活动，例如步行。",
+    "en": "Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling."
+  },
+  "Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate.": {
+    "zh": "保持规律作息，让身体充分休息。",
+    "en": "Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate."
+  },
+  "Maintain a balanced diet rich in fruits, vegetables, whole grains, and lean proteins.": {
+    "zh": "均衡饮食，适量搭配蔬果、全谷物及蛋白质。",
+    "en": "Maintain a balanced diet rich in fruits, vegetables, whole grains, and lean proteins."
+  },
+  "Practice mindfulness or meditation for 10-15 minutes daily to reduce stress levels.": {
+    "zh": "适当放松，缓解日常压力。",
+    "en": "Practice mindfulness or meditation for 10-15 minutes daily to reduce stress levels."
+  },
+  "Regular heart rate monitoring helps detect potential cardiovascular issues early.": {
+    "zh": "规律记录测量结果，便于观察变化。",
+    "en": "Regular heart rate monitoring helps detect potential cardiovascular issues early."
+  },
+  "Practice deep breathing exercises to improve lung function and reduce anxiety.": {
+    "zh": "放慢呼吸，保持平静。",
+    "en": "Practice deep breathing exercises to improve lung function and reduce anxiety."
+  },
+  "Schedule regular health check-ups to stay proactive about your well-being.": {
+    "zh": "根据个人情况安排定期健康检查。",
+    "en": "Schedule regular health check-ups to stay proactive about your well-being."
+  },
+  "Last hour averages": {
+    "zh": "近1小时测量平均值",
+    "en": "Last hour averages"
+  },
+  "measurements": {
+    "zh": "次测量",
+    "en": "measurements"
+  },
+  "Stored readings remain visible when offline; polling does not create readings.": {
+    "zh": "离线后保留已有记录，刷新不会增加测量次数。",
+    "en": "Stored readings remain visible when offline; polling does not create readings."
+  },
+  "Latest measurement waveform": {
+    "zh": "最近1次测量波形",
+    "en": "Latest measurement waveform"
+  },
+  "Daily Goals": {
+    "zh": "每日目标",
+    "en": "Daily Goals"
+  },
+  "Measurements today": {
+    "zh": "今日测量次数",
+    "en": "Measurements today"
+  },
+  "Daily measurement target": {
+    "zh": "每日测量次数目标",
+    "en": "Daily measurement target"
+  },
+  "Only saved measurements count. Steps, water and sleep are not automatically measured by this device.": {
+    "zh": "只统计成功保存的测量结果。本设备不会自动测量步数、饮水或睡眠。",
+    "en": "Only saved measurements count. Steps, water and sleep are not automatically measured by this device."
+  },
+  "Save": {
+    "zh": "保存",
+    "en": "Save"
+  },
+  "Saved": {
+    "zh": "已保存",
+    "en": "Saved"
+  },
+  "User": {
+    "zh": "用户",
+    "en": "User"
+  },
+  "Guest": {
+    "zh": "游客",
+    "en": "Guest"
+  },
+  "Guest Mode": {
+    "zh": "游客模式",
+    "en": "Guest Mode"
+  },
+  "No phone": {
+    "zh": "未设置手机号",
+    "en": "No phone"
+  },
+  "Good morning": {
+    "zh": "早上好",
+    "en": "Good morning"
+  },
+  "Good afternoon": {
+    "zh": "下午好",
+    "en": "Good afternoon"
+  },
+  "Good evening": {
+    "zh": "晚上好",
+    "en": "Good evening"
+  },
+  "Device Management": {
+    "zh": "设备管理",
+    "en": "Device Management"
+  },
+  "Enter the exact device number printed on your device. Automatic discovery is not available yet.": {
+    "zh": "请输入设备上标注的完整编号，目前尚未提供自动搜索。",
+    "en": "Enter the exact device number printed on your device. Automatic discovery is not available yet."
+  },
+  "Device number": {
+    "zh": "设备编号",
+    "en": "Device number"
+  },
+  "Bind Device": {
+    "zh": "绑定设备",
+    "en": "Bind Device"
+  },
+  "My Devices": {
+    "zh": "我的设备",
+    "en": "My Devices"
+  },
+  "No devices bound yet": {
+    "zh": "暂无绑定设备",
+    "en": "No devices bound yet"
+  },
+  "Device": {
+    "zh": "设备",
+    "en": "Device"
+  },
+  "Online": {
+    "zh": "在线",
+    "en": "Online"
+  },
+  "Offline": {
+    "zh": "离线",
+    "en": "Offline"
+  },
+  "Wi-Fi heartbeat": {
+    "zh": "无线网络心跳",
+    "en": "Wi-Fi heartbeat"
+  },
+  "Waiting for device heartbeat": {
+    "zh": "等待设备联网心跳",
+    "en": "Waiting for device heartbeat"
+  },
+  "Selected": {
+    "zh": "当前设备",
+    "en": "Selected"
+  },
+  "Use this device": {
+    "zh": "使用此设备",
+    "en": "Use this device"
+  },
+  "Enter a valid device number": {
+    "zh": "请输入有效的设备编号",
+    "en": "Enter a valid device number"
+  },
+  "Bound": {
+    "zh": "已绑定",
+    "en": "Bound"
+  },
+  "Unbind": {
+    "zh": "解绑",
+    "en": "Unbind"
+  },
+  "Unbind this device? Historical measurements will be kept.": {
+    "zh": "确定解绑此设备吗？历史测量记录会保留。",
+    "en": "Unbind this device? Historical measurements will be kept."
+  },
+  "Change Password": {
+    "zh": "修改密码",
+    "en": "Change Password"
+  },
+  "Current password": {
+    "zh": "当前密码",
+    "en": "Current password"
+  },
+  "New Password": {
+    "zh": "新密码",
+    "en": "New Password"
+  },
+  "Confirm Password": {
+    "zh": "确认密码",
+    "en": "Confirm Password"
+  },
+  "Use at least six characters and matching passwords": {
+    "zh": "密码至少六位，且2次输入需一致",
+    "en": "Use at least six characters and matching passwords"
+  },
+  "About Us": {
+    "zh": "关于我们",
+    "en": "About Us"
+  },
+  "Laser self-mixing interference monitoring prototype": {
+    "zh": "激光自混合干涉监测原型",
+    "en": "Laser self-mixing interference monitoring prototype"
+  },
+  "Version": {
+    "zh": "版本",
+    "en": "Version"
+  },
+  "Shows stored measurements and the latest interference waveform. Prototype results are for research and reference.": {
+    "zh": "展示已保存的测量结果和最近1次干涉信号波形。原型结果仅供研究与参考。",
+    "en": "Shows stored measurements and the latest interference waveform. Prototype results are for research and reference."
+  },
+  "Help & Feedback": {
+    "zh": "帮助与反馈",
+    "en": "Help & Feedback"
+  },
+  "Bind the device by its exact number, connect it to Wi-Fi, and press the physical measurement button.": {
+    "zh": "通过完整编号绑定设备，连接无线网络后按下设备的测量按钮。",
+    "en": "Bind the device by its exact number, connect it to Wi-Fi, and press the physical measurement button."
+  },
+  "Online means a recent Wi-Fi heartbeat. Measurement results and waveform uploads are separate.": {
+    "zh": "在线表示近期收到设备联网心跳，测量结果与波形上传分别更新。",
+    "en": "Online means a recent Wi-Fi heartbeat. Measurement results and waveform uploads are separate."
+  },
+  "Trend charts use every measurement for today and daily averages for week and month.": {
+    "zh": "日趋势显示每次测量，周趋势与月趋势显示每日平均值。",
+    "en": "Trend charts use every measurement for today and daily averages for week and month."
+  },
+  "Feedback": {
+    "zh": "意见反馈",
+    "en": "Feedback"
+  },
+  "Feedback is saved on this phone; no support service is connected.": {
+    "zh": "反馈保存在本机，目前尚未接入客服服务。",
+    "en": "Feedback is saved on this phone; no support service is connected."
+  },
+  "Menu": {
+    "zh": "功能菜单",
+    "en": "Menu"
+  },
+  "Personal Info": {
+    "zh": "个人信息",
+    "en": "Personal Info"
+  },
+  "View and edit profile": {
+    "zh": "查看和编辑资料",
+    "en": "View and edit profile"
+  },
+  "Bind/unbind devices": {
+    "zh": "绑定或解绑设备",
+    "en": "Bind/unbind devices"
+  },
+  "Settings": {
+    "zh": "设置",
+    "en": "Settings"
+  },
+  "Account, language": {
+    "zh": "账号与语言",
+    "en": "Account, language"
+  },
+  "FAQ, feedback": {
+    "zh": "常见问题与意见反馈",
+    "en": "FAQ, feedback"
+  },
+  "Version, privacy policy": {
+    "zh": "版本与应用说明",
+    "en": "Version, privacy policy"
+  },
+  "Logout": {
+    "zh": "退出登录",
+    "en": "Logout"
+  },
+  "Login / Register": {
+    "zh": "登录／注册",
+    "en": "Login / Register"
+  },
+  "Confirm": {
+    "zh": "确认",
+    "en": "Confirm"
+  },
+  "Are you sure you want to logout?": {
+    "zh": "确定退出登录吗？",
+    "en": "Are you sure you want to logout?"
+  },
+  "Refresh": {
+    "zh": "刷新",
+    "en": "Refresh"
+  },
+  "Loading...": {
+    "zh": "加载中……",
+    "en": "Loading..."
+  },
+  "No waveform available": {
+    "zh": "暂无波形，请先完成原始数据上传",
+    "en": "No waveform available"
+  },
+  "Received at": {
+    "zh": "接收时间",
+    "en": "Received at"
+  },
+  "Duration": {
+    "zh": "时长",
+    "en": "Duration"
+  },
+  "seconds": {
+    "zh": "s",
+    "en": "s"
+  },
+  "Sample rate": {
+    "zh": "采样率",
+    "en": "Sample rate"
+  },
+  "Hz": {
+    "zh": "Hz",
+    "en": "Hz"
+  },
+  "mV": {
+    "zh": "mV",
+    "en": "mV"
+  },
+  "Raw and filtered signal": {
+    "zh": "原始与滤波信号",
+    "en": "Raw and filtered signal"
+  },
+  "Raw AC": {
+    "zh": "原始交流信号",
+    "en": "Raw AC"
+  },
+  "Filtered": {
+    "zh": "滤波信号",
+    "en": "Filtered"
+  },
+  "Local zoom": {
+    "zh": "局部放大",
+    "en": "Local zoom"
+  },
+  "Time axis in seconds; display preserves peaks. This is an interference signal, not a blood pressure curve.": {
+    "zh": "横轴单位为秒，展示保留峰值。这是干涉信号，不是血压曲线。",
+    "en": "Time axis in seconds; display preserves peaks. This is an interference signal, not a blood pressure curve."
+  },
+  "Reset Password": {
+    "zh": "重置密码",
+    "en": "Reset Password"
+  },
+  "Verify Your Phone": {
+    "zh": "验证手机号",
+    "en": "Verify Your Phone"
+  },
+  "We'll send a verification code to your phone": {
+    "zh": "请获取并输入手机验证码",
+    "en": "We'll send a verification code to your phone"
+  },
+  "Remember password?": {
+    "zh": "记得密码？",
+    "en": "Remember password?"
+  },
+  "Back to Login": {
+    "zh": "返回登录",
+    "en": "Back to Login"
+  },
+  "Resetting...": {
+    "zh": "重置中……",
+    "en": "Resetting..."
+  },
+  "Code sent": {
+    "zh": "验证码已发送",
+    "en": "Code sent"
+  },
+  "Failed to send": {
+    "zh": "发送失败",
+    "en": "Failed to send"
+  },
+  "Passwords do not match": {
+    "zh": "2次密码不一致",
+    "en": "Passwords do not match"
+  },
+  "Password at least 6 characters": {
+    "zh": "密码至少六位",
+    "en": "Password at least 6 characters"
+  },
+  "Password reset success": {
+    "zh": "密码重置成功",
+    "en": "Password reset success"
+  },
+  "Reset failed": {
+    "zh": "重置失败",
+    "en": "Reset failed"
+  },
+  "Create Account": {
+    "zh": "创建账号",
+    "en": "Create Account"
+  },
+  "Join us to monitor your health": {
+    "zh": "开始记录您的健康数据",
+    "en": "Join us to monitor your health"
+  },
+  "I agree to the": {
+    "zh": "我同意",
+    "en": "I agree to the"
+  },
+  "Terms of Service": {
+    "zh": "服务条款",
+    "en": "Terms of Service"
+  },
+  "and": {
+    "zh": "及",
+    "en": "and"
+  },
+  "Privacy Policy": {
+    "zh": "隐私政策",
+    "en": "Privacy Policy"
+  },
+  "Already have an account?": {
+    "zh": "已有账号？",
+    "en": "Already have an account?"
+  },
+  "Or continue with": {
+    "zh": "或使用其他方式",
+    "en": "Or continue with"
+  },
+  "Please agree to terms first": {
+    "zh": "请先同意服务条款",
+    "en": "Please agree to terms first"
+  },
+  "Register success": {
+    "zh": "注册成功",
+    "en": "Register success"
+  },
+  "Registration failed": {
+    "zh": "注册失败",
+    "en": "Registration failed"
+  },
+  "Nickname": {
+    "zh": "昵称",
+    "en": "Nickname"
+  },
+  "Gender": {
+    "zh": "性别",
+    "en": "Gender"
+  },
+  "Birthday": {
+    "zh": "生日",
+    "en": "Birthday"
+  },
+  "Height (cm)": {
+    "zh": "身高（cm）",
+    "en": "Height (cm)"
+  },
+  "Weight (kg)": {
+    "zh": "体重（kg）",
+    "en": "Weight (kg)"
+  },
+  "Email (optional)": {
+    "zh": "邮箱（选填）",
+    "en": "Email (optional)"
+  },
+  "Tap to change avatar": {
+    "zh": "点击更换头像",
+    "en": "Tap to change avatar"
+  },
+  "Edit Profile": {
+    "zh": "编辑资料",
+    "en": "Edit Profile"
+  },
+  "Male": {
+    "zh": "男",
+    "en": "Male"
+  },
+  "Female": {
+    "zh": "女",
+    "en": "Female"
+  },
+  "Unknown": {
+    "zh": "未设置",
+    "en": "Unknown"
+  },
+  "Cancel": {
+    "zh": "取消",
+    "en": "Cancel"
+  },
+  "Health Input": {
+    "zh": "健康输入",
+    "en": "Health Input"
+  },
+  "Body Metrics": {
+    "zh": "身体指标",
+    "en": "Body Metrics"
+  },
+  "Height": {
+    "zh": "身高",
+    "en": "Height"
+  },
+  "Weight": {
+    "zh": "体重",
+    "en": "Weight"
+  },
+  "BMI": {
+    "zh": "身体质量指数",
+    "en": "BMI"
+  },
+  "Sleep Quality:": {
+    "zh": "睡眠质量：",
+    "en": "Sleep Quality:"
+  },
+  "Sleep Duration (hours)": {
+    "zh": "睡眠时长（h）",
+    "en": "Sleep Duration (hours)"
+  },
+  "Steps Today": {
+    "zh": "今日步数",
+    "en": "Steps Today"
+  },
+  "Water Intake (ml)": {
+    "zh": "饮水量（mL）",
+    "en": "Water Intake (mL)"
+  },
+  "Caffeine Intake": {
+    "zh": "咖啡因摄入",
+    "en": "Caffeine Intake"
+  },
+  "Coffee (cups)": {
+    "zh": "咖啡（杯）",
+    "en": "Coffee (cups)"
+  },
+  "Soda (cups)": {
+    "zh": "汽水（杯）",
+    "en": "Soda (cups)"
+  },
+  "Tea (cups)": {
+    "zh": "茶（杯）",
+    "en": "Tea (cups)"
+  },
+  "☕ ~95mg per cup | 🥤 Soda ~40mg | 🧃 Tea ~30mg": {
+    "zh": "☕ 每杯约95mg，🥤 汽水约40mg，🧃 茶约30mg",
+    "en": "☕ ~95mg per cup | 🥤 Soda ~40mg | 🧃 Tea ~30mg"
+  },
+  "Meals Today": {
+    "zh": "今日饮食",
+    "en": "Meals Today"
+  },
+  "Fruits (servings)": {
+    "zh": "水果（份）",
+    "en": "Fruits (servings)"
+  },
+  "Vegetables (servings)": {
+    "zh": "蔬菜（份）",
+    "en": "Vegetables (servings)"
+  },
+  "Exercise (minutes)": {
+    "zh": "运动（min）",
+    "en": "Exercise (minutes)"
+  },
+  "Get AI Health Advice": {
+    "zh": "获取健康建议",
+    "en": "Get AI Health Advice"
+  },
+  "AI Health Advice": {
+    "zh": "智能健康建议",
+    "en": "AI Health Advice"
+  },
+  "Analyzing...": {
+    "zh": "分析中……",
+    "en": "Analyzing..."
+  },
+  "500ml": {
+    "zh": "500 mL",
+    "en": "500mL"
+  },
+  "250ml": {
+    "zh": "250 mL",
+    "en": "250mL"
+  },
+  "1L": {
+    "zh": "1 L",
+    "en": "1L"
+  },
+  "1.5L": {
+    "zh": "1.5 L",
+    "en": "1.5L"
+  },
+  "5K": {
+    "zh": "5000",
+    "en": "5000"
+  },
+  "8K": {
+    "zh": "8000",
+    "en": "8000"
+  },
+  "10K": {
+    "zh": "10000",
+    "en": "10000"
+  },
+  "OK": {
+    "zh": "确定",
+    "en": "OK"
+  },
+  "Health Tips": {
+    "zh": "健康提示",
+    "en": "Health Tips"
+  },
+  "Switch": {
+    "zh": "切换",
+    "en": "Switch"
+  },
+  "Chinese": {
+    "zh": "中文",
+    "en": "Chinese"
+  },
+  "English": {
+    "zh": "英文",
+    "en": "English"
+  },
+  "EN": {
+    "zh": "英文",
+    "en": "EN"
+  },
+  "cm": {
+    "zh": "cm",
+    "en": "cm"
+  },
+  "kg": {
+    "zh": "kg",
+    "en": "kg"
+  },
+  "Normal": {
+    "zh": "正常",
+    "en": "Normal"
+  },
+  "Poor": {
+    "zh": "较差",
+    "en": "Poor"
+  },
+  "Fair": {
+    "zh": "一般",
+    "en": "Fair"
+  },
+  "Good": {
+    "zh": "良好",
+    "en": "Good"
+  },
+  "Excellent": {
+    "zh": "很好",
+    "en": "Excellent"
+  },
+  "Very good": {
+    "zh": "很好",
+    "en": "Very good"
+  },
+  "No Data": {
+    "zh": "暂无数据",
+    "en": "No Data"
+  },
+  "Share": {
+    "zh": "分享",
+    "en": "Share"
+  },
+  "Failed": {
+    "zh": "失败",
+    "en": "Failed"
+  },
+  "Success": {
+    "zh": "成功",
+    "en": "Success"
+  },
+  "Please enter nickname": {
+    "zh": "请输入昵称",
+    "en": "Please enter nickname"
+  },
+  "Profile updated": {
+    "zh": "资料已更新",
+    "en": "Profile updated"
+  },
+  "Save failed": {
+    "zh": "保存失败",
+    "en": "Save failed"
+  },
+  "条": {
+    "zh": "条",
+    "en": "records"
+  },
+  "应用日志": {
+    "zh": "应用日志",
+    "en": "Application logs"
+  },
+  "清空日志": {
+    "zh": "清空日志",
+    "en": "Clear logs"
+  },
+  "暂无日志": {
+    "zh": "暂无日志",
+    "en": "No logs"
+  },
+  "该日期暂无数据": {
+    "zh": "该日期暂无数据",
+    "en": "No data for this date"
+  },
+  "记录总数": {
+    "zh": "记录总数",
+    "en": "Record count"
+  },
+  "平均心率": {
+    "zh": "平均心率",
+    "en": "Average heart rate"
+  },
+  "收缩压": {
+    "zh": "收缩压",
+    "en": "Systolic"
+  },
+  "舒张压": {
+    "zh": "舒张压",
+    "en": "Diastolic"
+  },
+  "血氧": {
+    "zh": "血氧",
+    "en": "Blood oxygen"
+  },
+  "查看历史趋势": {
+    "zh": "查看历史趋势",
+    "en": "View history trends"
+  },
+  "换一个": {
+    "zh": "换一个",
+    "en": "Another tip"
+  },
+  "💡 建议": {
+    "zh": "💡 建议",
+    "en": "💡 Advice"
+  },
+  "🌟 生活方式建议": {
+    "zh": "🌟 生活方式建议",
+    "en": "🌟 Lifestyle suggestions"
+  },
+  "登录已失效，请重新登录": {
+    "zh": "登录已失效，请重新登录",
+    "en": "Session expired. Please log in again."
+  },
+  "此账号尚未设置密码，请使用验证码登录后设置密码": {
+    "zh": "此账号尚未设置密码，请使用验证码登录后设置密码",
+    "en": "No password is set. Use verification code login and set a password."
+  },
+  "手机号或密码错误": {
+    "zh": "手机号或密码错误",
+    "en": "Incorrect phone number or password"
+  },
+  "手机号已注册": {
+    "zh": "手机号已注册",
+    "en": "Phone number already registered"
+  },
+  "验证码错误或已过期": {
+    "zh": "验证码错误或已过期",
+    "en": "Invalid or expired verification code"
+  },
+  "服务器错误": {
+    "zh": "服务器错误",
+    "en": "Server error"
+  },
+  "原密码错误": {
+    "zh": "原密码错误",
+    "en": "Incorrect current password"
+  },
+  "设备未绑定": {
+    "zh": "设备未绑定",
+    "en": "Device is not bound"
+  },
+  "该设备已绑定到当前账号": {
+    "zh": "该设备已绑定到当前账号",
+    "en": "Device is already bound to this account"
+  },
+  "该设备已被其他用户绑定": {
+    "zh": "该设备已被其他用户绑定",
+    "en": "Device is bound to another account"
+  },
+  "设备编号无效": {
+    "zh": "设备编号无效",
+    "en": "Invalid device number"
+  },
+  "未找到该绑定记录": {
+    "zh": "未找到该绑定记录",
+    "en": "Binding not found"
+  },
+  "用户不存在": {
+    "zh": "用户不存在",
+    "en": "User does not exist"
+  },
+  "密码少于六位": {
+    "zh": "密码少于六位",
+    "en": "Password needs at least six characters"
+  },
+  "微信登录失败": {
+    "zh": "微信登录失败",
+    "en": "WeChat login failed"
+  },
+  "微信登录功能暂未开放": {
+    "zh": "微信登录功能暂未开放",
+    "en": "WeChat login is not available"
+  },
+  "密码重置失败": {
+    "zh": "密码重置失败",
+    "en": "Password reset failed"
+  },
+  "密码修改成功": {
+    "zh": "密码修改成功",
+    "en": "Password changed"
+  },
+  "更新成功": {
+    "zh": "更新成功",
+    "en": "Updated"
+  },
+  "获取成功": {
+    "zh": "获取成功",
+    "en": "Loaded"
+  },
+  "绑定成功": {
+    "zh": "绑定成功",
+    "en": "Device bound"
+  },
+  "解绑成功": {
+    "zh": "解绑成功",
+    "en": "Device unbound"
+  },
+  "手机号和密码不能为空": {
+    "zh": "手机号和密码不能为空",
+    "en": "Phone number and password are required"
+  },
+  "旧密码和新密码不能为空": {
+    "zh": "旧密码和新密码不能为空",
+    "en": "Current and new passwords are required"
+  },
+  "验证码发送失败": {
+    "zh": "验证码发送失败",
+    "en": "Could not send verification code"
+  },
+  "手机号格式错误": {
+    "zh": "手机号格式错误",
+    "en": "Invalid phone number"
+  },
+  "参数不完整": {
+    "zh": "参数不完整",
+    "en": "Missing fields"
+  },
+  "网络错误": {
+    "zh": "网络错误",
+    "en": "Network error"
+  },
+  "手机号登录错误": {
+    "zh": "手机号登录错误",
+    "en": "Phone login failed"
+  },
+  "登录响应中的 token 无效，请重新登录": {
+    "zh": "登录凭证无效，请重新登录",
+    "en": "Invalid login response. Please log in again."
+  },
+  "当前时间范围仅有一个数据点，已在上方统计和下方记录中显示。": {
+    "zh": "当前时间范围仅有一个数据点，已在上方统计和下方记录中显示。",
+    "en": "Only one measurement in this range."
+  },
+  "绑定": {
+    "zh": "绑定",
+    "en": "Bind"
+  },
+  "保存成功": {
+    "zh": "保存成功",
+    "en": "Saved"
+  },
+  "登录成功": {
+    "zh": "登录成功",
+    "en": "Logged in"
+  },
+  "注册成功": {
+    "zh": "注册成功",
+    "en": "Registered"
+  },
+  "请选择日期": {
+    "zh": "请选择日期",
+    "en": "Select a date"
+  },
+  "未设置": {
+    "zh": "未设置",
+    "en": "Not set"
+  },
+  "未填写": {
+    "zh": "未填写",
+    "en": "Not provided"
+  },
+  "未登录": {
+    "zh": "未登录",
+    "en": "Not logged in"
+  },
+  "加载失败": {
+    "zh": "加载失败",
+    "en": "Load failed"
+  },
+  "读取真实数据失败": {
+    "zh": "读取真实数据失败",
+    "en": "Could not load measurements"
+  },
+  "读取设备状态失败": {
+    "zh": "读取设备状态失败",
+    "en": "Could not load device status"
+  },
+  "读取真实记录失败": {
+    "zh": "读取真实记录失败",
+    "en": "Could not load records"
+  },
+  "波形读取失败": {
+    "zh": "波形读取失败",
+    "en": "Could not load waveform"
+  },
+  "密码至少6位": {
+    "zh": "密码至少6位",
+    "en": "Password needs at least six characters"
+  },
+  "密码重置成功": {
+    "zh": "密码重置成功",
+    "en": "Password reset"
+  },
+  "请填写所有字段": {
+    "zh": "请填写所有字段",
+    "en": "Please fill in all fields"
+  },
+  "两次密码输入不一致": {
+    "zh": "2次密码输入不一致",
+    "en": "Passwords do not match"
+  },
+  "请先同意用户协议": {
+    "zh": "请先同意用户协议",
+    "en": "Please agree to the terms first"
+  },
+  "请输入正确的手机号": {
+    "zh": "请输入正确的手机号",
+    "en": "Enter a valid phone number"
+  },
+  "请输入手机号": {
+    "zh": "请输入手机号",
+    "en": "Enter phone number"
+  },
+  "请选择性别": {
+    "zh": "请选择性别",
+    "en": "Choose gender"
+  },
+  "请选择出生日期": {
+    "zh": "请选择出生日期",
+    "en": "Choose birthday"
+  },
+  "请输入昵称": {
+    "zh": "请输入昵称",
+    "en": "Enter nickname"
+  },
+  "男": {
+    "zh": "男",
+    "en": "Male"
+  },
+  "女": {
+    "zh": "女",
+    "en": "Female"
+  },
+  "保密": {
+    "zh": "保密",
+    "en": "Secret"
+  },
+  "手机号码": {
+    "zh": "手机号码",
+    "en": "Phone number"
+  },
+  "时间": {
+    "zh": "时间",
+    "en": "Time"
+  },
+  "暂无数据": {
+    "zh": "暂无数据",
+    "en": "No data"
+  },
+  "分钟": {
+    "zh": "min",
+    "en": "min"
+  },
+  "条记录": {
+    "zh": "条记录",
+    "en": "records"
+  },
+  "秒": {
+    "zh": "s",
+    "en": "s"
+  },
+  "次": {
+    "zh": "次",
+    "en": "times"
+  },
+  "保存失败": {
+    "zh": "保存失败",
+    "en": "Save failed"
+  },
+  "获取资料失败": {
+    "zh": "获取资料失败",
+    "en": "Could not load profile"
+  },
+  "请选择头像": {
+    "zh": "请选择头像",
+    "en": "Choose avatar"
+  },
+  "上传失败": {
+    "zh": "上传失败",
+    "en": "Upload failed"
+  },
+  "文件读取失败": {
+    "zh": "文件读取失败",
+    "en": "Could not read file"
+  },
+  "建议仅供参考": {
+    "zh": "建议仅供参考",
+    "en": "Advice is for reference only"
+  },
+  "获取建议失败": {
+    "zh": "获取建议失败",
+    "en": "Could not load advice"
+  },
+  "请稍后重试": {
+    "zh": "请稍后重试",
+    "en": "Please try again later"
+  },
+  "未绑定设备": {
+    "zh": "未绑定设备",
+    "en": "No device bound"
+  },
+  "设备已联网": {
+    "zh": "设备已联网",
+    "en": "Device is online"
+  },
+  "设备已绑定 · 未收到联网心跳": {
+    "zh": "设备已绑定 · 未收到联网心跳",
+    "en": "Device bound · no recent heartbeat"
+  },
+  "正在接收设备实时数据": {
+    "zh": "正在接收设备实时数据",
+    "en": "Receiving device data"
+  },
+  "请在服务器绑定血压监测设备": {
+    "zh": "请在服务器绑定血压监测设备",
+    "en": "Bind a monitor in device management"
+  },
+  "等待设备上传第一组有效数据": {
+    "zh": "等待设备上传第一组有效数据",
+    "en": "Waiting for the first measurement"
+  },
+  "最近一次测量": {
+    "zh": "最近1次测量",
+    "en": "Latest measurement"
+  },
+  "已绑定设备": {
+    "zh": "已绑定设备",
+    "en": "Bound device"
+  },
+  "离线": {
+    "zh": "离线",
+    "en": "Offline"
+  },
+  "等待设备开始新一次测量": {
+    "zh": "等待设备开始新1次测量",
+    "en": "Waiting for the next measurement"
+  },
+  "设备已绑定到当前账号。联网状态由设备定期上报，测量数据单独更新。": {
+    "zh": "设备已绑定到当前账号。联网状态由设备定期上报，测量数据单独更新。",
+    "en": "Device is bound. Connectivity is reported periodically; measurements update separately."
+  },
+  "暂未绑定监测设备": {
+    "zh": "暂未绑定监测设备",
+    "en": "No monitor is bound"
+  },
+  "请在设备管理中为当前账号绑定监测设备。": {
+    "zh": "请在设备管理中为当前账号绑定监测设备。",
+    "en": "Bind a device in device management."
+  },
+  "可在“设备管理”中输入编号绑定设备。": {
+    "zh": "可在“设备管理”中输入编号绑定设备。",
+    "en": "Enter the device number in device management."
+  },
+  "设备已绑定，等待第一组测量数据": {
+    "zh": "设备已绑定，等待第一组测量数据",
+    "en": "Device bound; waiting for the first measurement"
+  },
+  "设备已绑定，但服务器尚未收到有效测量结果。请启动设备并完成一次上传。": {
+    "zh": "设备已绑定，但服务器尚未收到有效测量结果。请启动设备并完成1次上传。",
+    "en": "Device is bound. Complete a measurement to upload the first result."
+  },
+  "监测设备": {
+    "zh": "监测设备",
+    "en": "Monitor"
+  },
+  "设备状态": {
+    "zh": "设备状态",
+    "en": "Device status"
+  },
+  "厘米": {
+    "zh": "cm",
+    "en": "cm"
+  },
+  "千克": {
+    "zh": "kg",
+    "en": "kg"
+  },
+  "毫升": {
+    "zh": "mL",
+    "en": "mL"
+  },
+  "次／分钟": {
+    "zh": "bpm",
+    "en": "bpm"
+  },
+  "毫米汞柱": {
+    "zh": "mmHg",
+    "en": "mmHg"
+  },
+  "Phone": {
+    "zh": "手机",
+    "en": "Phone"
+  },
+  "Enter phone number": {
+    "zh": "请输入手机号",
+    "en": "Enter phone number"
+  },
+  "Enter code": {
+    "zh": "请输入验证码",
+    "en": "Enter code"
+  },
+  "Enter password": {
+    "zh": "请输入密码",
+    "en": "Enter password"
+  },
+  "Confirm password": {
+    "zh": "请再次输入密码",
+    "en": "Confirm password"
+  },
+  "Please agree to the terms": {
+    "zh": "请先同意服务条款",
+    "en": "Please agree to the terms"
+  },
+  "Registration successful": {
+    "zh": "注册成功",
+    "en": "Registration successful"
+  },
+  "WeChat login not implemented": {
+    "zh": "微信登录尚未开放",
+    "en": "WeChat login not implemented"
+  },
+  "By using this app, you agree to be bound by these terms...": {
+    "zh": "本应用用于记录和查看原型设备测量结果，结果仅供研究与参考。",
+    "en": "By using this app, you agree to be bound by these terms..."
+  },
+  "We collect health data to provide monitoring services...": {
+    "zh": "应用保存账号资料、设备绑定和测量记录，以提供监测展示功能。",
+    "en": "We collect health data to provide monitoring services..."
+  },
+  "Moderate": {
+    "zh": "中等",
+    "en": "Moderate"
+  },
+  "Very High": {
+    "zh": "很高",
+    "en": "Very High"
+  },
+  "Underweight": {
+    "zh": "体重偏低",
+    "en": "Underweight"
+  },
+  "Overweight": {
+    "zh": "体重偏高",
+    "en": "Overweight"
+  },
+  "Obese": {
+    "zh": "肥胖",
+    "en": "Obese"
+  },
+  "Insufficient sleep - may affect health": {
+    "zh": "睡眠不足，注意休息",
+    "en": "Insufficient sleep - may affect health"
+  },
+  "Below recommended - try to get more rest": {
+    "zh": "睡眠时间偏少，适当增加休息",
+    "en": "Below recommended - try to get more rest"
+  },
+  "Good sleep duration": {
+    "zh": "睡眠时间适中",
+    "en": "Good sleep duration"
+  },
+  "Well above recommended - may be excessive": {
+    "zh": "睡眠时间较长",
+    "en": "Well above recommended - may be excessive"
+  },
+  "Consider getting more sleep - adults typically need 7-9 hours.": {
+    "zh": "保持规律作息，根据自身情况安排充分休息。",
+    "en": "Consider getting more sleep - adults typically need 7-9 hours."
+  },
+  "Increase your water intake to at least 1.5L daily.": {
+    "zh": "根据自身情况适量饮水。",
+    "en": "Increase your water intake to at least 1.5L daily."
+  },
+  "Your caffeine intake is high. Consider reducing coffee or soda.": {
+    "zh": "咖啡因摄入较多，可考虑减少含咖啡因饮品。",
+    "en": "Your caffeine intake is high. Consider reducing coffee or soda."
+  },
+  "Your BMI is in the overweight range. Consider more exercise and balanced diet.": {
+    "zh": "身体质量指数偏高，注意均衡饮食及适量活动。",
+    "en": "Your BMI is in the overweight range. Consider more exercise and balanced diet."
+  },
+  "Your BMI is in the underweight range. Consider a more nutritious diet.": {
+    "zh": "身体质量指数偏低，注意均衡营养。",
+    "en": "Your BMI is in the underweight range. Consider a more nutritious diet."
+  },
+  "Try to eat at least 2 servings of vegetables daily.": {
+    "zh": "日常饮食适量搭配蔬菜。",
+    "en": "Try to eat at least 2 servings of vegetables daily."
+  },
+  "Include 2 servings of fruits in your daily diet.": {
+    "zh": "日常饮食适量搭配水果。",
+    "en": "Include 2 servings of fruits in your daily diet."
+  },
+  "Try to walk at least 5,000 steps daily for better health.": {
+    "zh": "根据身体情况安排适量步行。",
+    "en": "Try to walk at least 5,000 steps daily for better health."
+  },
+  "Consider adding at least 30 minutes of exercise daily.": {
+    "zh": "根据身体情况安排适量活动。",
+    "en": "Consider adding at least 30 minutes of exercise daily."
+  },
+  "Great job! Your health habits look good. Keep maintaining this balanced lifestyle.": {
+    "zh": "继续保持规律作息和均衡的生活习惯。",
+    "en": "Great job! Your health habits look good. Keep maintaining this balanced lifestyle."
+  },
+  "Total Caffeine": {
+    "zh": "咖啡因总量",
+    "en": "Total Caffeine"
+  },
+  "mg": {
+    "zh": "mg",
+    "en": "mg"
+  },
+  "hours": {
+    "zh": "h",
+    "en": "h"
+  },
+  "minutes": {
+    "zh": "min",
+    "en": "min"
+  },
+  "Today's Diet Score": {
+    "zh": "今日饮食评分",
+    "en": "Today's Diet Score"
+  },
+  "Uploading": {
+    "zh": "上传中",
+    "en": "Uploading"
+  },
+  "Avatar updated": {
+    "zh": "头像已更新",
+    "en": "Avatar updated"
+  },
+  "Upload failed": {
+    "zh": "上传失败",
+    "en": "Upload failed"
+  },
+  "Saving...": {
+    "zh": "保存中……",
+    "en": "Saving..."
+  },
+  "No records": {
+    "zh": "暂无记录",
+    "en": "No records"
+  },
+  "Please log in first": {
+    "zh": "请先登录",
+    "en": "Please log in first"
+  },
+  "Local suggestions": {
+    "zh": "本机生活记录提示",
+    "en": "Local suggestions"
+  },
+  "Current password (leave empty if not set)": {
+    "zh": "当前密码（未设置可留空）",
+    "en": "Current password (leave empty if not set)"
+  },
+  "Enter a valid phone number and a password of at least six characters": {
+    "zh": "请输入有效手机号及至少六位密码",
+    "en": "Enter a valid phone number and a password of at least six characters"
+  },
+  "请先登录": {
+    "zh": "请先登录",
+    "en": "Please log in first"
+  },
+  "加载数据..": {
+    "zh": "加载数据..",
+    "en": "Loading data…"
+  },
+  "获取建议失败，使用本地分析": {
+    "zh": "获取建议失败，使用本地分析",
+    "en": "Using local suggestions"
+  },
+  "未知错误": {
+    "zh": "未知错误",
+    "en": "Unknown error"
+  },
+  "响应数据为空": {
+    "zh": "响应数据为空",
+    "en": "Empty response"
+  },
+  "返回": {
+    "zh": "返回",
+    "en": "Back"
+  },
+  "健康监测": {
+    "zh": "健康监测",
+    "en": "Health Monitor"
+  },
+  "密码": {
+    "zh": "密码",
+    "en": "Password"
+  },
+  "验证码": {
+    "zh": "验证码",
+    "en": "SMS Code"
+  },
+  "手机号": {
+    "zh": "手机号",
+    "en": "Phone Number"
+  },
+  "获取验证码": {
+    "zh": "获取验证码",
+    "en": "Get Code"
+  },
+  "登录": {
+    "zh": "登录",
+    "en": "Login"
+  },
+  "注册": {
+    "zh": "注册",
+    "en": "Register"
+  },
+  "其他登录方式": {
+    "zh": "其他登录方式",
+    "en": "Other Login Methods"
+  },
+  "微信": {
+    "zh": "微信",
+    "en": "WeChat"
+  },
+  "企鹅账号": {
+    "zh": "企鹅账号",
+    "en": "QQ"
+  },
+  "游客访问": {
+    "zh": "游客访问",
+    "en": "Guest Access"
+  },
+  "忘记密码？": {
+    "zh": "忘记密码？",
+    "en": "Forgot Password?"
+  },
+  "验证码已发送": {
+    "zh": "验证码已发送",
+    "en": "Verification code sent"
+  },
+  "企鹅账号登录尚未开放": {
+    "zh": "企鹅账号登录尚未开放",
+    "en": "QQ login not implemented"
+  },
+  "历史趋势": {
+    "zh": "历史趋势",
+    "en": "History Trends"
+  },
+  "日": {
+    "zh": "日",
+    "en": "Day"
+  },
+  "周": {
+    "zh": "周",
+    "en": "Week"
+  },
+  "月": {
+    "zh": "月",
+    "en": "Month"
+  },
+  "心率": {
+    "zh": "心率",
+    "en": "HR"
+  },
+  "血压": {
+    "zh": "血压",
+    "en": "BP"
+  },
+  "最低值": {
+    "zh": "最低值",
+    "en": "Min"
+  },
+  "平均值": {
+    "zh": "平均值",
+    "en": "Avg"
+  },
+  "最高值": {
+    "zh": "最高值",
+    "en": "Max"
+  },
+  "收缩压／舒张压": {
+    "zh": "收缩压／舒张压",
+    "en": "SYS / DIA"
+  },
+  "每日平均值": {
+    "zh": "每日平均值",
+    "en": "Daily Averages"
+  },
+  "每日平均值：": {
+    "zh": "每日平均值：",
+    "en": "Daily Averages -"
+  },
+  "低值": {
+    "zh": "低值",
+    "en": "Low"
+  },
+  "高值": {
+    "zh": "高值",
+    "en": "High"
+  },
+  "最近记录": {
+    "zh": "最近记录",
+    "en": "Recent Records"
+  },
+  "暂无测量记录": {
+    "zh": "暂无测量记录",
+    "en": "No recent records"
+  },
+  "指标": {
+    "zh": "指标",
+    "en": "Metric"
+  },
+  "趋势": {
+    "zh": "趋势",
+    "en": "Trend"
+  },
+  "周日": {
+    "zh": "周日",
+    "en": "Sun"
+  },
+  "周一": {
+    "zh": "周一",
+    "en": "Mon"
+  },
+  "周二": {
+    "zh": "周二",
+    "en": "Tue"
+  },
+  "周三": {
+    "zh": "周三",
+    "en": "Wed"
+  },
+  "周四": {
+    "zh": "周四",
+    "en": "Thu"
+  },
+  "周五": {
+    "zh": "周五",
+    "en": "Fri"
+  },
+  "周六": {
+    "zh": "周六",
+    "en": "Sat"
+  },
+  "星期日": {
+    "zh": "星期日",
+    "en": "Sunday"
+  },
+  "星期一": {
+    "zh": "星期一",
+    "en": "Monday"
+  },
+  "星期二": {
+    "zh": "星期二",
+    "en": "Tuesday"
+  },
+  "星期三": {
+    "zh": "星期三",
+    "en": "Wednesday"
+  },
+  "星期四": {
+    "zh": "星期四",
+    "en": "Thursday"
+  },
+  "星期五": {
+    "zh": "星期五",
+    "en": "Friday"
+  },
+  "星期六": {
+    "zh": "星期六",
+    "en": "Saturday"
+  },
+  "💡 健康提示": {
+    "zh": "💡 健康提示",
+    "en": "💡 Health Tips"
+  },
+  "饮水": {
+    "zh": "饮水",
+    "en": "Hydration"
+  },
+  "运动": {
+    "zh": "运动",
+    "en": "Exercise"
+  },
+  "睡眠": {
+    "zh": "睡眠",
+    "en": "Sleep"
+  },
+  "饮食": {
+    "zh": "饮食",
+    "en": "Diet"
+  },
+  "放松": {
+    "zh": "放松",
+    "en": "Relaxation"
+  },
+  "心脏健康": {
+    "zh": "心脏健康",
+    "en": "Heart Health"
+  },
+  "呼吸": {
+    "zh": "呼吸",
+    "en": "Breathing"
+  },
+  "健康检查": {
+    "zh": "健康检查",
+    "en": "Check-ups"
+  },
+  "今天": {
+    "zh": "今天",
+    "en": "Today"
+  },
+  "适量饮水，保持身体水分。": {
+    "zh": "适量饮水，保持身体水分。",
+    "en": "Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism."
+  },
+  "根据身体情况安排适量活动，例如步行。": {
+    "zh": "根据身体情况安排适量活动，例如步行。",
+    "en": "Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling."
+  },
+  "保持规律作息，让身体充分休息。": {
+    "zh": "保持规律作息，让身体充分休息。",
+    "en": "Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate."
+  },
+  "均衡饮食，适量搭配蔬果、全谷物及蛋白质。": {
+    "zh": "均衡饮食，适量搭配蔬果、全谷物及蛋白质。",
+    "en": "Maintain a balanced diet rich in fruits, vegetables, whole grains, and lean proteins."
+  },
+  "适当放松，缓解日常压力。": {
+    "zh": "适当放松，缓解日常压力。",
+    "en": "Practice mindfulness or meditation for 10-15 minutes daily to reduce stress levels."
+  },
+  "规律记录测量结果，便于观察变化。": {
+    "zh": "规律记录测量结果，便于观察变化。",
+    "en": "Regular heart rate monitoring helps detect potential cardiovascular issues early."
+  },
+  "放慢呼吸，保持平静。": {
+    "zh": "放慢呼吸，保持平静。",
+    "en": "Practice deep breathing exercises to improve lung function and reduce anxiety."
+  },
+  "根据个人情况安排定期健康检查。": {
+    "zh": "根据个人情况安排定期健康检查。",
+    "en": "Schedule regular health check-ups to stay proactive about your well-being."
+  },
+  "近一小时测量平均值": {
+    "zh": "近1小时测量平均值",
+    "en": "Last hour averages"
+  },
+  "次测量": {
+    "zh": "次测量",
+    "en": "measurements"
+  },
+  "离线后保留已有记录，刷新不会增加测量次数。": {
+    "zh": "离线后保留已有记录，刷新不会增加测量次数。",
+    "en": "Stored readings remain visible when offline; polling does not create readings."
+  },
+  "最近一次测量波形": {
+    "zh": "最近1次测量波形",
+    "en": "Latest measurement waveform"
+  },
+  "每日目标": {
+    "zh": "每日目标",
+    "en": "Daily Goals"
+  },
+  "今日测量次数": {
+    "zh": "今日测量次数",
+    "en": "Measurements today"
+  },
+  "每日测量次数目标": {
+    "zh": "每日测量次数目标",
+    "en": "Daily measurement target"
+  },
+  "只统计成功保存的测量结果。本设备不会自动测量步数、饮水或睡眠。": {
+    "zh": "只统计成功保存的测量结果。本设备不会自动测量步数、饮水或睡眠。",
+    "en": "Only saved measurements count. Steps, water and sleep are not automatically measured by this device."
+  },
+  "保存": {
+    "zh": "保存",
+    "en": "Save"
+  },
+  "已保存": {
+    "zh": "已保存",
+    "en": "Saved"
+  },
+  "用户": {
+    "zh": "用户",
+    "en": "User"
+  },
+  "游客": {
+    "zh": "游客",
+    "en": "Guest"
+  },
+  "游客模式": {
+    "zh": "游客模式",
+    "en": "Guest Mode"
+  },
+  "未设置手机号": {
+    "zh": "未设置手机号",
+    "en": "No phone"
+  },
+  "早上好": {
+    "zh": "早上好",
+    "en": "Good morning"
+  },
+  "下午好": {
+    "zh": "下午好",
+    "en": "Good afternoon"
+  },
+  "晚上好": {
+    "zh": "晚上好",
+    "en": "Good evening"
+  },
+  "设备管理": {
+    "zh": "设备管理",
+    "en": "Device Management"
+  },
+  "请输入设备上标注的完整编号，目前尚未提供自动搜索。": {
+    "zh": "请输入设备上标注的完整编号，目前尚未提供自动搜索。",
+    "en": "Enter the exact device number printed on your device. Automatic discovery is not available yet."
+  },
+  "设备编号": {
+    "zh": "设备编号",
+    "en": "Device number"
+  },
+  "绑定设备": {
+    "zh": "绑定设备",
+    "en": "Bind Device"
+  },
+  "我的设备": {
+    "zh": "我的设备",
+    "en": "My Devices"
+  },
+  "暂无绑定设备": {
+    "zh": "暂无绑定设备",
+    "en": "No devices bound yet"
+  },
+  "设备": {
+    "zh": "设备",
+    "en": "Device"
+  },
+  "在线": {
+    "zh": "在线",
+    "en": "Online"
+  },
+  "无线网络心跳": {
+    "zh": "无线网络心跳",
+    "en": "Wi-Fi heartbeat"
+  },
+  "等待设备联网心跳": {
+    "zh": "等待设备联网心跳",
+    "en": "Waiting for device heartbeat"
+  },
+  "当前设备": {
+    "zh": "当前设备",
+    "en": "Selected"
+  },
+  "使用此设备": {
+    "zh": "使用此设备",
+    "en": "Use this device"
+  },
+  "请输入有效的设备编号": {
+    "zh": "请输入有效的设备编号",
+    "en": "Enter a valid device number"
+  },
+  "已绑定": {
+    "zh": "已绑定",
+    "en": "Bound"
+  },
+  "解绑": {
+    "zh": "解绑",
+    "en": "Unbind"
+  },
+  "确定解绑此设备吗？历史测量记录会保留。": {
+    "zh": "确定解绑此设备吗？历史测量记录会保留。",
+    "en": "Unbind this device? Historical measurements will be kept."
+  },
+  "修改密码": {
+    "zh": "修改密码",
+    "en": "Change Password"
+  },
+  "当前密码": {
+    "zh": "当前密码",
+    "en": "Current password"
+  },
+  "新密码": {
+    "zh": "新密码",
+    "en": "New Password"
+  },
+  "确认密码": {
+    "zh": "确认密码",
+    "en": "Confirm Password"
+  },
+  "密码至少六位，且两次输入需一致": {
+    "zh": "密码至少六位，且2次输入需一致",
+    "en": "Use at least six characters and matching passwords"
+  },
+  "关于我们": {
+    "zh": "关于我们",
+    "en": "About Us"
+  },
+  "激光自混合干涉监测原型": {
+    "zh": "激光自混合干涉监测原型",
+    "en": "Laser self-mixing interference monitoring prototype"
+  },
+  "版本": {
+    "zh": "版本",
+    "en": "Version"
+  },
+  "展示已保存的测量结果和最近一次干涉信号波形。原型结果仅供研究与参考。": {
+    "zh": "展示已保存的测量结果和最近1次干涉信号波形。原型结果仅供研究与参考。",
+    "en": "Shows stored measurements and the latest interference waveform. Prototype results are for research and reference."
+  },
+  "帮助与反馈": {
+    "zh": "帮助与反馈",
+    "en": "Help & Feedback"
+  },
+  "通过完整编号绑定设备，连接无线网络后按下设备的测量按钮。": {
+    "zh": "通过完整编号绑定设备，连接无线网络后按下设备的测量按钮。",
+    "en": "Bind the device by its exact number, connect it to Wi-Fi, and press the physical measurement button."
+  },
+  "在线表示近期收到设备联网心跳，测量结果与波形上传分别更新。": {
+    "zh": "在线表示近期收到设备联网心跳，测量结果与波形上传分别更新。",
+    "en": "Online means a recent Wi-Fi heartbeat. Measurement results and waveform uploads are separate."
+  },
+  "日趋势显示每次测量，周趋势与月趋势显示每日平均值。": {
+    "zh": "日趋势显示每次测量，周趋势与月趋势显示每日平均值。",
+    "en": "Trend charts use every measurement for today and daily averages for week and month."
+  },
+  "意见反馈": {
+    "zh": "意见反馈",
+    "en": "Feedback"
+  },
+  "反馈保存在本机，目前尚未接入客服服务。": {
+    "zh": "反馈保存在本机，目前尚未接入客服服务。",
+    "en": "Feedback is saved on this phone; no support service is connected."
+  },
+  "功能菜单": {
+    "zh": "功能菜单",
+    "en": "Menu"
+  },
+  "个人信息": {
+    "zh": "个人信息",
+    "en": "Personal Info"
+  },
+  "查看和编辑资料": {
+    "zh": "查看和编辑资料",
+    "en": "View and edit profile"
+  },
+  "绑定或解绑设备": {
+    "zh": "绑定或解绑设备",
+    "en": "Bind/unbind devices"
+  },
+  "设置": {
+    "zh": "设置",
+    "en": "Settings"
+  },
+  "账号与语言": {
+    "zh": "账号与语言",
+    "en": "Account, language"
+  },
+  "常见问题与意见反馈": {
+    "zh": "常见问题与意见反馈",
+    "en": "FAQ, feedback"
+  },
+  "版本与应用说明": {
+    "zh": "版本与应用说明",
+    "en": "Version, privacy policy"
+  },
+  "退出登录": {
+    "zh": "退出登录",
+    "en": "Logout"
+  },
+  "登录／注册": {
+    "zh": "登录／注册",
+    "en": "Login / Register"
+  },
+  "确认": {
+    "zh": "确认",
+    "en": "Confirm"
+  },
+  "确定退出登录吗？": {
+    "zh": "确定退出登录吗？",
+    "en": "Are you sure you want to logout?"
+  },
+  "刷新": {
+    "zh": "刷新",
+    "en": "Refresh"
+  },
+  "加载中……": {
+    "zh": "加载中……",
+    "en": "Loading..."
+  },
+  "暂无波形，请先完成原始数据上传": {
+    "zh": "暂无波形，请先完成原始数据上传",
+    "en": "No waveform available"
+  },
+  "接收时间": {
+    "zh": "接收时间",
+    "en": "Received at"
+  },
+  "时长": {
+    "zh": "时长",
+    "en": "Duration"
+  },
+  "采样率": {
+    "zh": "采样率",
+    "en": "Sample rate"
+  },
+  "赫兹": {
+    "zh": "Hz",
+    "en": "Hz"
+  },
+  "毫伏": {
+    "zh": "mV",
+    "en": "mV"
+  },
+  "原始与滤波信号": {
+    "zh": "原始与滤波信号",
+    "en": "Raw and filtered signal"
+  },
+  "原始交流信号": {
+    "zh": "原始交流信号",
+    "en": "Raw AC"
+  },
+  "滤波信号": {
+    "zh": "滤波信号",
+    "en": "Filtered"
+  },
+  "局部放大": {
+    "zh": "局部放大",
+    "en": "Local zoom"
+  },
+  "横轴单位为秒，展示保留峰值。这是干涉信号，不是血压曲线。": {
+    "zh": "横轴单位为秒，展示保留峰值。这是干涉信号，不是血压曲线。",
+    "en": "Time axis in seconds; display preserves peaks. This is an interference signal, not a blood pressure curve."
+  },
+  "重置密码": {
+    "zh": "重置密码",
+    "en": "Reset Password"
+  },
+  "验证手机号": {
+    "zh": "验证手机号",
+    "en": "Verify Your Phone"
+  },
+  "请获取并输入手机验证码": {
+    "zh": "请获取并输入手机验证码",
+    "en": "We'll send a verification code to your phone"
+  },
+  "记得密码？": {
+    "zh": "记得密码？",
+    "en": "Remember password?"
+  },
+  "返回登录": {
+    "zh": "返回登录",
+    "en": "Back to Login"
+  },
+  "重置中……": {
+    "zh": "重置中……",
+    "en": "Resetting..."
+  },
+  "发送失败": {
+    "zh": "发送失败",
+    "en": "Failed to send"
+  },
+  "两次密码不一致": {
+    "zh": "2次密码不一致",
+    "en": "Passwords do not match"
+  },
+  "密码至少六位": {
+    "zh": "密码至少六位",
+    "en": "Password at least 6 characters"
+  },
+  "重置失败": {
+    "zh": "重置失败",
+    "en": "Reset failed"
+  },
+  "创建账号": {
+    "zh": "创建账号",
+    "en": "Create Account"
+  },
+  "开始记录您的健康数据": {
+    "zh": "开始记录您的健康数据",
+    "en": "Join us to monitor your health"
+  },
+  "我同意": {
+    "zh": "我同意",
+    "en": "I agree to the"
+  },
+  "服务条款": {
+    "zh": "服务条款",
+    "en": "Terms of Service"
+  },
+  "及": {
+    "zh": "及",
+    "en": "and"
+  },
+  "隐私政策": {
+    "zh": "隐私政策",
+    "en": "Privacy Policy"
+  },
+  "已有账号？": {
+    "zh": "已有账号？",
+    "en": "Already have an account?"
+  },
+  "或使用其他方式": {
+    "zh": "或使用其他方式",
+    "en": "Or continue with"
+  },
+  "请先同意服务条款": {
+    "zh": "请先同意服务条款",
+    "en": "Please agree to terms first"
+  },
+  "注册失败": {
+    "zh": "注册失败",
+    "en": "Registration failed"
+  },
+  "昵称": {
+    "zh": "昵称",
+    "en": "Nickname"
+  },
+  "性别": {
+    "zh": "性别",
+    "en": "Gender"
+  },
+  "生日": {
+    "zh": "生日",
+    "en": "Birthday"
+  },
+  "身高（厘米）": {
+    "zh": "身高（cm）",
+    "en": "Height (cm)"
+  },
+  "体重（千克）": {
+    "zh": "体重（kg）",
+    "en": "Weight (kg)"
+  },
+  "邮箱（选填）": {
+    "zh": "邮箱（选填）",
+    "en": "Email (optional)"
+  },
+  "点击更换头像": {
+    "zh": "点击更换头像",
+    "en": "Tap to change avatar"
+  },
+  "编辑资料": {
+    "zh": "编辑资料",
+    "en": "Edit Profile"
+  },
+  "取消": {
+    "zh": "取消",
+    "en": "Cancel"
+  },
+  "健康输入": {
+    "zh": "健康输入",
+    "en": "Health Input"
+  },
+  "身体指标": {
+    "zh": "身体指标",
+    "en": "Body Metrics"
+  },
+  "身高": {
+    "zh": "身高",
+    "en": "Height"
+  },
+  "体重": {
+    "zh": "体重",
+    "en": "Weight"
+  },
+  "身体质量指数": {
+    "zh": "身体质量指数",
+    "en": "BMI"
+  },
+  "睡眠质量：": {
+    "zh": "睡眠质量：",
+    "en": "Sleep Quality:"
+  },
+  "睡眠时长（小时）": {
+    "zh": "睡眠时长（h）",
+    "en": "Sleep Duration (hours)"
+  },
+  "今日步数": {
+    "zh": "今日步数",
+    "en": "Steps Today"
+  },
+  "饮水量（毫升）": {
+    "zh": "饮水量（mL）",
+    "en": "Water Intake (mL)"
+  },
+  "咖啡因摄入": {
+    "zh": "咖啡因摄入",
+    "en": "Caffeine Intake"
+  },
+  "咖啡（杯）": {
+    "zh": "咖啡（杯）",
+    "en": "Coffee (cups)"
+  },
+  "汽水（杯）": {
+    "zh": "汽水（杯）",
+    "en": "Soda (cups)"
+  },
+  "茶（杯）": {
+    "zh": "茶（杯）",
+    "en": "Tea (cups)"
+  },
+  "☕ 每杯约九十五毫克，🥤 汽水约四十毫克，🧃 茶约三十毫克": {
+    "zh": "☕ 每杯约95mg，🥤 汽水约40mg，🧃 茶约30mg",
+    "en": "☕ ~95mg per cup | 🥤 Soda ~40mg | 🧃 Tea ~30mg"
+  },
+  "今日饮食": {
+    "zh": "今日饮食",
+    "en": "Meals Today"
+  },
+  "水果（份）": {
+    "zh": "水果（份）",
+    "en": "Fruits (servings)"
+  },
+  "蔬菜（份）": {
+    "zh": "蔬菜（份）",
+    "en": "Vegetables (servings)"
+  },
+  "运动（分钟）": {
+    "zh": "运动（min）",
+    "en": "Exercise (minutes)"
+  },
+  "获取健康建议": {
+    "zh": "获取健康建议",
+    "en": "Get AI Health Advice"
+  },
+  "智能健康建议": {
+    "zh": "智能健康建议",
+    "en": "AI Health Advice"
+  },
+  "分析中……": {
+    "zh": "分析中……",
+    "en": "Analyzing..."
+  },
+  "五百毫升": {
+    "zh": "500 mL",
+    "en": "500mL"
+  },
+  "二百五十毫升": {
+    "zh": "250 mL",
+    "en": "250mL"
+  },
+  "一升": {
+    "zh": "1 L",
+    "en": "1L"
+  },
+  "一点五升": {
+    "zh": "1.5 L",
+    "en": "1.5L"
+  },
+  "五千": {
+    "zh": "5000",
+    "en": "5000"
+  },
+  "八千": {
+    "zh": "8000",
+    "en": "8000"
+  },
+  "一万": {
+    "zh": "10000",
+    "en": "10000"
+  },
+  "确定": {
+    "zh": "确定",
+    "en": "OK"
+  },
+  "健康提示": {
+    "zh": "健康提示",
+    "en": "Health Tips"
+  },
+  "切换": {
+    "zh": "切换",
+    "en": "Switch"
+  },
+  "中文": {
+    "zh": "中文",
+    "en": "Chinese"
+  },
+  "英文": {
+    "zh": "英文",
+    "en": "English"
+  },
+  "正常": {
+    "zh": "正常",
+    "en": "Normal"
+  },
+  "较差": {
+    "zh": "较差",
+    "en": "Poor"
+  },
+  "一般": {
+    "zh": "一般",
+    "en": "Fair"
+  },
+  "良好": {
+    "zh": "良好",
+    "en": "Good"
+  },
+  "很好": {
+    "zh": "很好",
+    "en": "Excellent"
+  },
+  "分享": {
+    "zh": "分享",
+    "en": "Share"
+  },
+  "失败": {
+    "zh": "失败",
+    "en": "Failed"
+  },
+  "成功": {
+    "zh": "成功",
+    "en": "Success"
+  },
+  "资料已更新": {
+    "zh": "资料已更新",
+    "en": "Profile updated"
+  },
+  "records": {
+    "zh": "条",
+    "en": "records"
+  },
+  "Application logs": {
+    "zh": "应用日志",
+    "en": "Application logs"
+  },
+  "Clear logs": {
+    "zh": "清空日志",
+    "en": "Clear logs"
+  },
+  "No logs": {
+    "zh": "暂无日志",
+    "en": "No logs"
+  },
+  "No data for this date": {
+    "zh": "该日期暂无数据",
+    "en": "No data for this date"
+  },
+  "Record count": {
+    "zh": "记录总数",
+    "en": "Record count"
+  },
+  "Average heart rate": {
+    "zh": "平均心率",
+    "en": "Average heart rate"
+  },
+  "Blood oxygen": {
+    "zh": "血氧",
+    "en": "Blood oxygen"
+  },
+  "View history trends": {
+    "zh": "查看历史趋势",
+    "en": "View history trends"
+  },
+  "Another tip": {
+    "zh": "换一个",
+    "en": "Another tip"
+  },
+  "💡 Advice": {
+    "zh": "💡 建议",
+    "en": "💡 Advice"
+  },
+  "🌟 Lifestyle suggestions": {
+    "zh": "🌟 生活方式建议",
+    "en": "🌟 Lifestyle suggestions"
+  },
+  "Session expired. Please log in again.": {
+    "zh": "登录已失效，请重新登录",
+    "en": "Session expired. Please log in again."
+  },
+  "No password is set. Use verification code login and set a password.": {
+    "zh": "此账号尚未设置密码，请使用验证码登录后设置密码",
+    "en": "No password is set. Use verification code login and set a password."
+  },
+  "Incorrect phone number or password": {
+    "zh": "手机号或密码错误",
+    "en": "Incorrect phone number or password"
+  },
+  "Phone number already registered": {
+    "zh": "手机号已注册",
+    "en": "Phone number already registered"
+  },
+  "Invalid or expired verification code": {
+    "zh": "验证码错误或已过期",
+    "en": "Invalid or expired verification code"
+  },
+  "Server error": {
+    "zh": "服务器错误",
+    "en": "Server error"
+  },
+  "Incorrect current password": {
+    "zh": "原密码错误",
+    "en": "Incorrect current password"
+  },
+  "Device is not bound": {
+    "zh": "设备未绑定",
+    "en": "Device is not bound"
+  },
+  "Device is already bound to this account": {
+    "zh": "该设备已绑定到当前账号",
+    "en": "Device is already bound to this account"
+  },
+  "Device is bound to another account": {
+    "zh": "该设备已被其他用户绑定",
+    "en": "Device is bound to another account"
+  },
+  "Invalid device number": {
+    "zh": "设备编号无效",
+    "en": "Invalid device number"
+  },
+  "Binding not found": {
+    "zh": "未找到该绑定记录",
+    "en": "Binding not found"
+  },
+  "User does not exist": {
+    "zh": "用户不存在",
+    "en": "User does not exist"
+  },
+  "Password needs at least six characters": {
+    "zh": "密码少于六位",
+    "en": "Password needs at least six characters"
+  },
+  "WeChat login failed": {
+    "zh": "微信登录失败",
+    "en": "WeChat login failed"
+  },
+  "WeChat login is not available": {
+    "zh": "微信登录功能暂未开放",
+    "en": "WeChat login is not available"
+  },
+  "Password reset failed": {
+    "zh": "密码重置失败",
+    "en": "Password reset failed"
+  },
+  "Password changed": {
+    "zh": "密码修改成功",
+    "en": "Password changed"
+  },
+  "Updated": {
+    "zh": "更新成功",
+    "en": "Updated"
+  },
+  "Loaded": {
+    "zh": "获取成功",
+    "en": "Loaded"
+  },
+  "Device bound": {
+    "zh": "绑定成功",
+    "en": "Device bound"
+  },
+  "Device unbound": {
+    "zh": "解绑成功",
+    "en": "Device unbound"
+  },
+  "Phone number and password are required": {
+    "zh": "手机号和密码不能为空",
+    "en": "Phone number and password are required"
+  },
+  "Current and new passwords are required": {
+    "zh": "旧密码和新密码不能为空",
+    "en": "Current and new passwords are required"
+  },
+  "Could not send verification code": {
+    "zh": "验证码发送失败",
+    "en": "Could not send verification code"
+  },
+  "Invalid phone number": {
+    "zh": "手机号格式错误",
+    "en": "Invalid phone number"
+  },
+  "Missing fields": {
+    "zh": "参数不完整",
+    "en": "Missing fields"
+  },
+  "Phone login failed": {
+    "zh": "手机号登录错误",
+    "en": "Phone login failed"
+  },
+  "Invalid login response. Please log in again.": {
+    "zh": "登录响应中的 凭证 无效，请重新登录",
+    "en": "Invalid login response. Please log in again."
+  },
+  "Only one measurement in this range.": {
+    "zh": "当前时间范围仅有一个数据点，已在上方统计和下方记录中显示。",
+    "en": "Only one measurement in this range."
+  },
+  "Bind": {
+    "zh": "绑定",
+    "en": "Bind"
+  },
+  "Logged in": {
+    "zh": "登录成功",
+    "en": "Logged in"
+  },
+  "Registered": {
+    "zh": "注册成功",
+    "en": "Registered"
+  },
+  "Select a date": {
+    "zh": "请选择日期",
+    "en": "Select a date"
+  },
+  "Not set": {
+    "zh": "未填写",
+    "en": "Not set"
+  },
+  "Not provided": {
+    "zh": "未填写",
+    "en": "Not provided"
+  },
+  "Not logged in": {
+    "zh": "未登录",
+    "en": "Not logged in"
+  },
+  "Could not load measurements": {
+    "zh": "读取真实数据失败",
+    "en": "Could not load measurements"
+  },
+  "Could not load device status": {
+    "zh": "读取设备状态失败",
+    "en": "Could not load device status"
+  },
+  "Could not load records": {
+    "zh": "读取真实记录失败",
+    "en": "Could not load records"
+  },
+  "Could not load waveform": {
+    "zh": "波形读取失败",
+    "en": "Could not load waveform"
+  },
+  "Password reset": {
+    "zh": "密码重置成功",
+    "en": "Password reset"
+  },
+  "Please agree to the terms first": {
+    "zh": "请先同意用户协议",
+    "en": "Please agree to the terms first"
+  },
+  "Enter a valid phone number": {
+    "zh": "请输入正确的手机号",
+    "en": "Enter a valid phone number"
+  },
+  "Choose gender": {
+    "zh": "请选择性别",
+    "en": "Choose gender"
+  },
+  "Choose birthday": {
+    "zh": "请选择出生日期",
+    "en": "Choose birthday"
+  },
+  "Enter nickname": {
+    "zh": "请输入昵称",
+    "en": "Enter nickname"
+  },
+  "Prefer not to say": {
+    "zh": "保密",
+    "en": "Prefer not to say"
+  },
+  "Phone number": {
+    "zh": "手机号码",
+    "en": "Phone number"
+  },
+  "Time": {
+    "zh": "时间",
+    "en": "Time"
+  },
+  "No data": {
+    "zh": "暂无数据",
+    "en": "No data"
+  },
+  "times": {
+    "zh": "次",
+    "en": "times"
+  },
+  "Could not load profile": {
+    "zh": "获取资料失败",
+    "en": "Could not load profile"
+  },
+  "Choose avatar": {
+    "zh": "请选择头像",
+    "en": "Choose avatar"
+  },
+  "Could not read file": {
+    "zh": "文件读取失败",
+    "en": "Could not read file"
+  },
+  "Advice is for reference only": {
+    "zh": "建议仅供参考",
+    "en": "Advice is for reference only"
+  },
+  "Could not load advice": {
+    "zh": "获取建议失败",
+    "en": "Could not load advice"
+  },
+  "Please try again later": {
+    "zh": "请稍后重试",
+    "en": "Please try again later"
+  },
+  "No device bound": {
+    "zh": "未绑定设备",
+    "en": "No device bound"
+  },
+  "Device is online": {
+    "zh": "设备已联网",
+    "en": "Device is online"
+  },
+  "Device bound · no recent heartbeat": {
+    "zh": "设备已绑定 · 未收到联网心跳",
+    "en": "Device bound · no recent heartbeat"
+  },
+  "Receiving device data": {
+    "zh": "正在接收设备实时数据",
+    "en": "Receiving device data"
+  },
+  "Bind a monitor in device management": {
+    "zh": "请在服务器绑定血压监测设备",
+    "en": "Bind a monitor in device management"
+  },
+  "Waiting for the first measurement": {
+    "zh": "等待首次测量",
+    "en": "Waiting for the first measurement"
+  },
+  "Latest measurement": {
+    "zh": "最近1次测量",
+    "en": "Latest measurement"
+  },
+  "Bound device": {
+    "zh": "已绑定设备",
+    "en": "Bound device"
+  },
+  "Waiting for the next measurement": {
+    "zh": "等待设备开始新1次测量",
+    "en": "Waiting for the next measurement"
+  },
+  "Device is bound. Connectivity is reported periodically; measurements update separately.": {
+    "zh": "设备已绑定到当前账号。联网状态由设备定期上报，测量数据单独更新。",
+    "en": "Device is bound. Connectivity is reported periodically; measurements update separately."
+  },
+  "No monitor is bound": {
+    "zh": "暂未绑定监测设备",
+    "en": "No monitor is bound"
+  },
+  "Bind a device in device management.": {
+    "zh": "请在设备管理中为当前账号绑定监测设备。",
+    "en": "Bind a device in device management."
+  },
+  "Enter the device number in device management.": {
+    "zh": "可在“设备管理”中输入编号绑定设备。",
+    "en": "Enter the device number in device management."
+  },
+  "Device bound; waiting for the first measurement": {
+    "zh": "设备已绑定，等待第一组测量数据",
+    "en": "Device bound; waiting for the first measurement"
+  },
+  "Device is bound. Complete a measurement to upload the first result.": {
+    "zh": "设备已绑定，但服务器尚未收到有效测量结果。请启动设备并完成1次上传。",
+    "en": "Device is bound. Complete a measurement to upload the first result."
+  },
+  "Monitor": {
+    "zh": "监测设备",
+    "en": "Monitor"
+  },
+  "Device status": {
+    "zh": "设备状态",
+    "en": "Device status"
+  },
+  "ml": {
+    "zh": "mL",
+    "en": "mL"
+  },
+  "手机": {
+    "zh": "手机",
+    "en": "Phone"
+  },
+  "请输入验证码": {
+    "zh": "请输入验证码",
+    "en": "Enter code"
+  },
+  "请输入密码": {
+    "zh": "请输入密码",
+    "en": "Enter password"
+  },
+  "请再次输入密码": {
+    "zh": "请再次输入密码",
+    "en": "Confirm password"
+  },
+  "微信登录尚未开放": {
+    "zh": "微信登录尚未开放",
+    "en": "WeChat login not implemented"
+  },
+  "本应用用于记录和查看原型设备测量结果，结果仅供研究与参考。": {
+    "zh": "本应用用于记录和查看原型设备测量结果，结果仅供研究与参考。",
+    "en": "By using this app, you agree to be bound by these terms..."
+  },
+  "应用保存账号资料、设备绑定和测量记录，以提供监测展示功能。": {
+    "zh": "应用保存账号资料、设备绑定和测量记录，以提供监测展示功能。",
+    "en": "We collect health data to provide monitoring services..."
+  },
+  "中等": {
+    "zh": "中等",
+    "en": "Moderate"
+  },
+  "很高": {
+    "zh": "很高",
+    "en": "Very High"
+  },
+  "体重偏低": {
+    "zh": "体重偏低",
+    "en": "Underweight"
+  },
+  "体重偏高": {
+    "zh": "体重偏高",
+    "en": "Overweight"
+  },
+  "肥胖": {
+    "zh": "肥胖",
+    "en": "Obese"
+  },
+  "睡眠不足，注意休息": {
+    "zh": "睡眠不足，注意休息",
+    "en": "Insufficient sleep - may affect health"
+  },
+  "睡眠时间偏少，适当增加休息": {
+    "zh": "睡眠时间偏少，适当增加休息",
+    "en": "Below recommended - try to get more rest"
+  },
+  "睡眠时间适中": {
+    "zh": "睡眠时间适中",
+    "en": "Good sleep duration"
+  },
+  "睡眠时间较长": {
+    "zh": "睡眠时间较长",
+    "en": "Well above recommended - may be excessive"
+  },
+  "保持规律作息，根据自身情况安排充分休息。": {
+    "zh": "保持规律作息，根据自身情况安排充分休息。",
+    "en": "Consider getting more sleep - adults typically need 7-9 hours."
+  },
+  "根据自身情况适量饮水。": {
+    "zh": "根据自身情况适量饮水。",
+    "en": "Increase your water intake to at least 1.5L daily."
+  },
+  "咖啡因摄入较多，可考虑减少含咖啡因饮品。": {
+    "zh": "咖啡因摄入较多，可考虑减少含咖啡因饮品。",
+    "en": "Your caffeine intake is high. Consider reducing coffee or soda."
+  },
+  "身体质量指数偏高，注意均衡饮食及适量活动。": {
+    "zh": "身体质量指数偏高，注意均衡饮食及适量活动。",
+    "en": "Your BMI is in the overweight range. Consider more exercise and balanced diet."
+  },
+  "身体质量指数偏低，注意均衡营养。": {
+    "zh": "身体质量指数偏低，注意均衡营养。",
+    "en": "Your BMI is in the underweight range. Consider a more nutritious diet."
+  },
+  "日常饮食适量搭配蔬菜。": {
+    "zh": "日常饮食适量搭配蔬菜。",
+    "en": "Try to eat at least 2 servings of vegetables daily."
+  },
+  "日常饮食适量搭配水果。": {
+    "zh": "日常饮食适量搭配水果。",
+    "en": "Include 2 servings of fruits in your daily diet."
+  },
+  "根据身体情况安排适量步行。": {
+    "zh": "根据身体情况安排适量步行。",
+    "en": "Try to walk at least 5,000 steps daily for better health."
+  },
+  "根据身体情况安排适量活动。": {
+    "zh": "根据身体情况安排适量活动。",
+    "en": "Consider adding at least 30 minutes of exercise daily."
+  },
+  "继续保持规律作息和均衡的生活习惯。": {
+    "zh": "继续保持规律作息和均衡的生活习惯。",
+    "en": "Great job! Your health habits look good. Keep maintaining this balanced lifestyle."
+  },
+  "咖啡因总量": {
+    "zh": "咖啡因总量",
+    "en": "Total Caffeine"
+  },
+  "毫克": {
+    "zh": "mg",
+    "en": "mg"
+  },
+  "小时": {
+    "zh": "h",
+    "en": "h"
+  },
+  "今日饮食评分": {
+    "zh": "今日饮食评分",
+    "en": "Today's Diet Score"
+  },
+  "上传中": {
+    "zh": "上传中",
+    "en": "Uploading"
+  },
+  "头像已更新": {
+    "zh": "头像已更新",
+    "en": "Avatar updated"
+  },
+  "保存中……": {
+    "zh": "保存中……",
+    "en": "Saving..."
+  },
+  "暂无记录": {
+    "zh": "暂无记录",
+    "en": "No records"
+  },
+  "本机生活记录提示": {
+    "zh": "本机生活记录提示",
+    "en": "Local suggestions"
+  },
+  "当前密码（未设置可留空）": {
+    "zh": "当前密码（未设置可留空）",
+    "en": "Current password (leave empty if not set)"
+  },
+  "请输入有效手机号及至少六位密码": {
+    "zh": "请输入有效手机号及至少六位密码",
+    "en": "Enter a valid phone number and a password of at least six characters"
+  },
+  "Loading data…": {
+    "zh": "加载数据..",
+    "en": "Loading data…"
+  },
+  "Using local suggestions": {
+    "zh": "获取建议失败，使用本地分析",
+    "en": "Using local suggestions"
+  },
+  "Unknown error": {
+    "zh": "未知错误",
+    "en": "Unknown error"
+  },
+  "Empty response": {
+    "zh": "响应数据为空",
+    "en": "Empty response"
+  },
+  "Device bound · no recent Wi-Fi heartbeat": {
+    "zh": "设备已绑定，未收到联网心跳",
+    "en": "Device bound · no recent Wi-Fi heartbeat"
+  },
+  "设备已绑定，未收到联网心跳": {
+    "zh": "设备已绑定，未收到联网心跳",
+    "en": "Device bound · no recent Wi-Fi heartbeat"
+  },
+  "等待首次测量": {
+    "zh": "等待首次测量",
+    "en": "Waiting for the first measurement"
+  },
+  "Secret": {
+    "zh": "保密",
+    "en": "Secret"
+  },
+  "Select gender": {
+    "zh": "选择性别",
+    "en": "Select gender"
+  },
+  "选择性别": {
+    "zh": "选择性别",
+    "en": "Select gender"
+  },
+  "Select birthday": {
+    "zh": "选择生日",
+    "en": "Select birthday"
+  },
+  "选择生日": {
+    "zh": "选择生日",
+    "en": "Select birthday"
+  },
+  "Enter height": {
+    "zh": "请输入身高",
+    "en": "Enter height"
+  },
+  "请输入身高": {
+    "zh": "请输入身高",
+    "en": "Enter height"
+  },
+  "Enter weight": {
+    "zh": "请输入体重",
+    "en": "Enter weight"
+  },
+  "请输入体重": {
+    "zh": "请输入体重",
+    "en": "Enter weight"
+  },
+  "mL": {
+    "zh": "mL",
+    "en": "mL"
+  },
+  "L": {
+    "zh": "L",
+    "en": "L"
+  },
+  "Measurements": {
+    "zh": "测量",
+    "en": "Measurements"
+  },
+  "Activity": {
+    "zh": "运动",
+    "en": "Activity"
+  },
+  "min": {
+    "zh": "min",
+    "en": "min"
+  },
+  "h": {
+    "zh": "h",
+    "en": "h"
+  },
+  "TODAY’S PLAN": {
+    "zh": "今日计划",
+    "en": "TODAY’S PLAN"
+  },
+  "Small steps, every day": {
+    "zh": "让健康习惯成为日常",
+    "en": "Small steps, every day"
+  },
+  "goals completed": {
+    "zh": "项目标已完成",
+    "en": "goals completed"
+  },
+  "Your daily targets": {
+    "zh": "我的每日目标",
+    "en": "Your daily targets"
+  },
+  "Tap to adjust": {
+    "zh": "按需调整目标",
+    "en": "Tap to adjust"
+  },
+  "Automatically counted": {
+    "zh": "成功测量后自动计数",
+    "en": "Automatically counted"
+  },
+  "Manual record": {
+    "zh": "手动记录今日完成量",
+    "en": "Manual record"
+  },
+  "Daily target": {
+    "zh": "每日目标",
+    "en": "Daily target"
+  },
+  "Recorded today": {
+    "zh": "今日已完成",
+    "en": "Recorded today"
+  },
+  "Water, activity and sleep are recorded by you. These goals are saved on this phone for the current account.": {
+    "zh": "饮水、运动和睡眠由你手动记录，目标与进度按账号保存在这部手机上。",
+    "en": "Water, activity and sleep are recorded by you. These goals are saved on this phone for the current account."
+  },
+  "Save daily targets": {
+    "zh": "保存每日目标",
+    "en": "Save daily targets"
+  },
+  "Last hour": {
+    "zh": "近1小时数据",
+    "en": "Last hour"
+  },
+  "Measurement averages": {
+    "zh": "已保存测量的平均值",
+    "en": "Measurement averages"
+  },
+  "No measurements in the last hour": {
+    "zh": "近1小时暂无测量",
+    "en": "No measurements in the last hour"
+  },
+  "The latest saved reading remains above": {
+    "zh": "上方仍显示最近1次已保存的数据",
+    "en": "The latest saved reading remains above"
+  },
+  "Each dot is one measurement · 10-minute ticks": {
+    "zh": "每个圆点代表1次测量 · 时间间隔10分钟",
+    "en": "Each dot is one measurement · 10-minute ticks"
+  },
+  "Signal overview, filtering and detail": {
+    "zh": "信号概览、滤波与局部细节",
+    "en": "Signal overview, filtering and detail"
+  },
+  "Your daily wellness plan": {
+    "zh": "记录饮水、运动、睡眠和测量",
+    "en": "Your daily wellness plan"
+  },
+  "Manage": {
+    "zh": "管理",
+    "en": "Manage"
+  },
+  "Offline · showing latest reading": {
+    "zh": "离线 · 显示最近数据",
+    "en": "Offline · showing latest reading"
+  },
+  "Latest reading": {
+    "zh": "最近测量数据",
+    "en": "Latest reading"
+  },
+  "Saved measurement": {
+    "zh": "已保存的测量",
+    "en": "Saved measurement"
+  },
+  "Signal analysis": {
+    "zh": "测量信号分析",
+    "en": "Signal analysis"
+  },
+  "FULL SIGNAL": {
+    "zh": "完整信号",
+    "en": "FULL SIGNAL"
+  },
+  "Signal details": {
+    "zh": "信号详情",
+    "en": "Signal details"
+  },
+  "Full recording": {
+    "zh": "完整测量",
+    "en": "Full recording"
+  },
+  "Filtered signal": {
+    "zh": "滤波信号",
+    "en": "Filtered signal"
+  },
+  "Raw signal": {
+    "zh": "原始信号",
+    "en": "Raw signal"
+  },
+  "Sample count": {
+    "zh": "采样点数",
+    "en": "Sample count"
+  },
+  "Peak-to-peak": {
+    "zh": "峰峰值",
+    "en": "Peak-to-peak"
+  },
+  "Effective amplitude": {
+    "zh": "有效幅度",
+    "en": "Effective amplitude"
+  },
+  "Processing": {
+    "zh": "信号处理",
+    "en": "Processing"
+  },
+  "4th-order zero-phase bandpass": {
+    "zh": "4阶零相位带通滤波",
+    "en": "4th-order zero-phase bandpass"
+  },
+  "Select a section to inspect": {
+    "zh": "选择一段信号查看细节",
+    "en": "Select a section to inspect"
+  },
+  "View mode": {
+    "zh": "显示模式",
+    "en": "View mode"
+  },
+  "Acquisition overview": {
+    "zh": "采集概览",
+    "en": "Acquisition overview"
+  },
+  "Amplitude": {
+    "zh": "幅度",
+    "en": "Amplitude"
+  },
+  "No signal saved yet": {
+    "zh": "还没有已保存的信号",
+    "en": "No signal saved yet"
+  },
+  "Complete a measurement to see its signal here": {
+    "zh": "完成1次测量后，可在此查看信号波形",
+    "en": "Complete a measurement to see its signal here"
+  },
+  "Tap the curve to inspect a sample": {
+    "zh": "点击曲线查看时间与幅度",
+    "en": "Tap the curve to inspect a sample"
+  },
+  "Raw signal is shown after DC removal": {
+    "zh": "原始信号已去除直流分量",
+    "en": "Raw signal is shown after DC removal"
+  },
+  "Refreshing the latest saved signal": {
+    "zh": "正在读取最近的测量信号",
+    "en": "Refreshing the latest saved signal"
+  },
+  "Your monitoring devices": {
+    "zh": "我的监测设备",
+    "en": "Your monitoring devices"
+  },
+  "Keep your measurements connected": {
+    "zh": "管理设备与测量数据",
+    "en": "Keep your measurements connected"
+  },
+  "bound devices": {
+    "zh": "台已绑定设备",
+    "en": "bound devices"
+  },
+  "Select a device for your data": {
+    "zh": "选择查看数据的设备",
+    "en": "Select a device for your data"
+  },
+  "Add your device below to get started": {
+    "zh": "在下方输入设备编号完成绑定",
+    "en": "Add your device below to get started"
+  },
+  "Connected and ready": {
+    "zh": "已联网，等待接收新的测量",
+    "en": "Connected and ready"
+  },
+  "Latest saved measurements are still available": {
+    "zh": "离线时仍可查看最近保存的数据",
+    "en": "Latest saved measurements are still available"
+  },
+  "Current device": {
+    "zh": "当前使用设备",
+    "en": "Current device"
+  },
+  "Add a device": {
+    "zh": "添加设备",
+    "en": "Add a device"
+  },
+  "Bind by device number": {
+    "zh": "通过设备编号绑定",
+    "en": "Bind by device number"
+  },
+  "Device status comes from its connection heartbeat. Unbinding keeps your saved measurements.": {
+    "zh": "设备状态根据联网心跳更新，解除绑定不会删除已保存的测量记录。",
+    "en": "Device status comes from its connection heartbeat. Unbinding keeps your saved measurements."
+  },
+  "How can we help?": {
+    "zh": "需要什么帮助？",
+    "en": "How can we help?"
+  },
+  "A simple guide to your device and measurements": {
+    "zh": "了解设备连接、测量记录与日常使用",
+    "en": "A simple guide to your device and measurements"
+  },
+  "Start your first measurement": {
+    "zh": "开始第1次测量",
+    "en": "Start your first measurement"
+  },
+  "Bind your device, connect to your network, then press its measurement button.": {
+    "zh": "先绑定设备并连接网络，再按下设备上的测量按钮。",
+    "en": "Bind your device, connect to your network, then press its measurement button."
+  },
+  "Frequently asked questions": {
+    "zh": "常见问题",
+    "en": "Frequently asked questions"
+  },
+  "How do I bind my device?": {
+    "zh": "如何绑定设备？",
+    "en": "How do I bind my device?"
+  },
+  "Why is my device offline?": {
+    "zh": "为什么设备显示离线？",
+    "en": "Why is my device offline?"
+  },
+  "Can I view results while offline?": {
+    "zh": "离线时还能查看数据吗？",
+    "en": "Can I view results while offline?"
+  },
+  "Your latest saved reading stays visible while the device is offline. New results appear after the next upload.": {
+    "zh": "设备离线时仍显示最近保存的数据，新的测量结果会在下次上传后更新。",
+    "en": "Your latest saved reading stays visible while the device is offline. New results appear after the next upload."
+  },
+  "How are trend charts calculated?": {
+    "zh": "趋势图是如何计算的？",
+    "en": "How are trend charts calculated?"
+  },
+  "How do I update daily goals?": {
+    "zh": "如何设置每日目标？",
+    "en": "How do I update daily goals?"
+  },
+  "Open Daily Goals to adjust your targets. Measurements count automatically; water, activity and sleep are entered manually.": {
+    "zh": "在每日目标中调整目标值。测量次数自动统计，饮水、运动与睡眠由你手动记录。",
+    "en": "Open Daily Goals to adjust your targets. Measurements count automatically; water, activity and sleep are entered manually."
+  },
+  "Local draft": {
+    "zh": "本地草稿",
+    "en": "Local draft"
+  },
+  "Tell us what could be better": {
+    "zh": "记录你的问题与建议",
+    "en": "Tell us what could be better"
+  },
+  "Describe the issue or your suggestion...": {
+    "zh": "描述遇到的问题，或写下你的建议……",
+    "en": "Describe the issue or your suggestion..."
+  },
+  "Save feedback draft": {
+    "zh": "保存反馈草稿",
+    "en": "Save feedback draft"
+  },
+  "Draft saved": {
+    "zh": "草稿已保存",
+    "en": "Draft saved"
+  },
+  "Understand each measurement": {
+    "zh": "了解每1次测量",
+    "en": "Understand each measurement"
+  },
+  "Built around your daily health": {
+    "zh": "陪伴你的健康日常",
+    "en": "Built around your daily health"
+  },
+  "Measurement records": {
+    "zh": "测量记录",
+    "en": "Measurement records"
+  },
+  "Heart rate, blood pressure and oxygen readings in one place.": {
+    "zh": "集中查看心率、血压与血氧测量记录。",
+    "en": "Heart rate, blood pressure and oxygen readings in one place."
+  },
+  "Trends over time": {
+    "zh": "历史趋势",
+    "en": "Trends over time"
+  },
+  "Explore individual measurements and daily averages.": {
+    "zh": "查看单次测量与按日汇总的变化。",
+    "en": "Explore individual measurements and daily averages."
+  },
+  "Signal insight": {
+    "zh": "信号分析",
+    "en": "Signal insight"
+  },
+  "Compare raw and filtered signals and inspect local detail.": {
+    "zh": "对比原始与滤波信号，查看局部细节。",
+    "en": "Compare raw and filtered signals and inspect local detail."
+  },
+  "Everyday goals": {
+    "zh": "每日目标",
+    "en": "Everyday goals"
+  },
+  "Track measurements, water, activity and sleep.": {
+    "zh": "记录测量、饮水、运动与睡眠进度。",
+    "en": "Track measurements, water, activity and sleep."
+  },
+  "Interface language": {
+    "zh": "界面语言",
+    "en": "Interface language"
+  },
+  "Project type": {
+    "zh": "项目类型",
+    "en": "Project type"
+  },
+  "Research prototype": {
+    "zh": "研究原型",
+    "en": "Research prototype"
+  },
+  "Clear records. Meaningful trends.": {
+    "zh": "清晰记录每1次变化",
+    "en": "Clear records. Meaningful trends."
+  },
+  "Your profile": {
+    "zh": "我的资料",
+    "en": "Your profile"
+  },
+  "Make your health records personal": {
+    "zh": "完善属于你的健康资料",
+    "en": "Make your health records personal"
+  },
+  "Change avatar": {
+    "zh": "更换头像",
+    "en": "Change avatar"
+  },
+  "Basic information": {
+    "zh": "基本信息",
+    "en": "Basic information"
+  },
+  "Body measurements": {
+    "zh": "身体信息",
+    "en": "Body measurements"
+  },
+  "Linked defaults": {
+    "zh": "默认关联",
+    "en": "Linked defaults"
+  },
+  "Saved height and weight become the defaults in Health Input.": {
+    "zh": "保存后的身高、体重将作为健康录入页的默认值。",
+    "en": "Saved height and weight become the defaults in Health Input."
+  },
+  "Save profile": {
+    "zh": "保存个人资料",
+    "en": "Save profile"
+  },
+  "Your changes are saved to your account": {
+    "zh": "资料将保存到当前账号",
+    "en": "Your changes are saved to your account"
+  },
+  "Choose the user before measuring": {
+    "zh": "测量前选择当前使用者",
+    "en": "Choose the user before measuring"
+  },
+  "The next result from this shared device will be saved to the selected account.": {
+    "zh": "这台共享设备的下一次测量结果将保存到选中的账号。",
+    "en": "The next result from this shared device will be saved to the selected account."
+  },
+  "This account will receive the next measurement": {
+    "zh": "下一次测量将保存到此账号",
+    "en": "This account will receive the next measurement"
+  },
+  "Current measurement user": {
+    "zh": "当前测量使用者",
+    "en": "Current measurement user"
+  },
+  "Use for next measurement": {
+    "zh": "用于下一次测量",
+    "en": "Use for next measurement"
+  },
+  "Ready for next measurement": {
+    "zh": "已切换本次测量使用者",
+    "en": "Ready for next measurement"
+  },
+  "已设为本次测量使用者": {
+    "zh": "已设为本次测量使用者",
+    "en": "Selected for the next measurement"
+  },
+  "请先绑定该设备": {
+    "zh": "请先绑定该设备",
+    "en": "Bind this device first"
+  },
+  "AI 生成": {
+    "zh": "智能分析生成",
+    "en": "AI generated"
+  },
+  "本地分析 · AI 暂不可用": {
+    "zh": "本地分析 · 智能服务暂不可用",
+    "en": "Local analysis · AI unavailable"
+  },
+  "请立即关注": {
+    "zh": "请立即关注",
+    "en": "Needs immediate attention"
+  },
+  "AI 暂不可用，以下为本地分析": {
+    "zh": "智能服务暂不可用，以下为本地分析",
+    "en": "AI is unavailable; showing local analysis"
+  },
+  "响应数据为空": {
+    "zh": "响应数据为空",
+    "en": "The response was empty"
+  },
+  "获取建议失败，使用本地分析": {
+    "zh": "获取建议失败，使用本地分析",
+    "en": "Advice request failed; showing local analysis"
+  },
+  "未知错误": {
+    "zh": "未知错误",
+    "en": "Unknown error"
+  },
+  "登录已失效，请重新登录": {
+    "zh": "登录已失效，请重新登录",
+    "en": "Your session expired. Please sign in again"
+  },
+  "Today has no measurement; analysis uses the latest reading": {
+    "zh": "今天尚未测量，以下分析采用最近一次数据",
+    "en": "Today has no measurement; analysis uses the latest reading"
+  },
+  "Analysis uses the selected reading": {
+    "zh": "以下分析采用本次测量数据",
+    "en": "Analysis uses the selected reading"
+  },
+  "What the data shows": {
+    "zh": "从数据中看到了什么",
+    "en": "What the data shows"
+  },
+  "Your next steps": {
+    "zh": "接下来优先做什么",
+    "en": "Your next steps"
+  },
+  "Check again": {
+    "zh": "下一次怎么观察",
+    "en": "Check again"
+  }
+}

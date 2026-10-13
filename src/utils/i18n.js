@@ -1,3 +1,4 @@
+import uiMessages from './ui-messages.json';
 export const messages = {
   en: {
     home: 'Home',
@@ -162,7 +163,7 @@ export const messages = {
     connectDevice: '请连接设备',
     systolic: '收缩压',
     diastolic: '舒张压',
-    bpm: 'bpm',
+    bpm: '次／分钟',
     mmHg: 'mmHg',
     percent: '%',
     today: '今日',
@@ -234,10 +235,23 @@ export const messages = {
 };
 
 export const getLang = () => {
-  return uni.getStorageSync('language') || 'en';
+  // This product is Chinese-first; users can switch to English in the UI.
+  const language = uni.getStorageSync('language');
+  return language === 'en' || language === 'zh' ? language : 'zh';
 };
 
 export const t = (key) => {
   const lang = getLang();
   return messages[lang][key] || key;
 };
+
+export function tr(text,lang=getLang()) {return uiMessages[text]?.[lang] || text;}
+export function syncNavigation() {
+  const lang=getLang();
+  uni.setNavigationBarTitle({title:lang==='zh'?'健康监测':'Health Monitor'});
+  ['Home','Health','Trend','Me'].forEach((text,index)=>uni.setTabBarItem({index,text:lang==='zh'?['首页','健康','趋势','我的'][index]:text}));
+  // #ifdef H5
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.title = lang === 'zh' ? '健康监测' : 'Health Monitor';
+  // #endif
+}

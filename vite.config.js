@@ -7,13 +7,6 @@ export default defineConfig({
   // 插件配置
   plugins: [uni()],
   
-  // 构建配置
-  build: {
-    rollupOptions: {
-      input: 'src/main.js'  // 明确指定入口
-    }
-  },
-  
   // CSS 配置
   css: {
     preprocessorOptions: {

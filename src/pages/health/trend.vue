@@ -3,9 +3,9 @@
     <view class="nav-bar">
       <view class="nav-back" @click="goBack">
         <text class="back-icon">‹</text>
-        <text class="back-text">Back</text>
+        <text class="back-text">{{ tr("Back") }}</text>
       </view>
-      <text class="nav-title">History Trends</text>
+      <text class="nav-title">{{ tr("History Trends") }}</text>
       <view class="nav-placeholder"></view>
     </view>
 
@@ -14,17 +14,17 @@
         class="range-tab"
         :class="{ active: currentRange === 'day' }"
         @click="switchRange('day')"
-      >Day</view>
+      >{{ tr("Day") }}</view>
       <view
         class="range-tab"
         :class="{ active: currentRange === 'week' }"
         @click="switchRange('week')"
-      >Week</view>
+      >{{ tr("Week") }}</view>
       <view
         class="range-tab"
         :class="{ active: currentRange === 'month' }"
         @click="switchRange('month')"
-      >Month</view>
+      >{{ tr("Month") }}</view>
     </view>
 
     <view class="metric-tabs">
@@ -34,23 +34,15 @@
         @click="switchMetric('heart_rate')"
       >
         <text class="metric-icon">❤️</text>
-        <text>HR</text>
+        <text>{{ tr("HR") }}</text>
       </view>
       <view
         class="metric-tab"
-        :class="{ active: currentMetric === 'systolic_bp' }"
-        @click="switchMetric('systolic_bp')"
+        :class="{ active: currentMetric === 'blood_pressure' }"
+        @click="switchMetric('blood_pressure')"
       >
         <text class="metric-icon">🩸</text>
-        <text>SYS</text>
-      </view>
-      <view
-        class="metric-tab"
-        :class="{ active: currentMetric === 'diastolic_bp' }"
-        @click="switchMetric('diastolic_bp')"
-      >
-        <text class="metric-icon">💓</text>
-        <text>DIA</text>
+        <text>{{ tr("BP") }}</text>
       </view>
       <view
         class="metric-tab"
@@ -58,56 +50,55 @@
         @click="switchMetric('spo2')"
       >
         <text class="metric-icon">🫁</text>
-        <text>SpO2</text>
+        <text>{{ tr("SpO2") }}</text>
       </view>
     </view>
 
-    <view class="stats-card">
+    <view class="stats-card" v-if="currentMetric !== 'blood_pressure'">
       <view class="stat-item">
-        <text class="stat-label">Min</text>
+        <text class="stat-label">{{ tr("Min") }}</text>
         <text class="stat-value">{{ stats.min }}</text>
         <text class="stat-unit">{{ metricUnit }}</text>
       </view>
       <view class="stat-item main">
-        <text class="stat-label">Avg</text>
+        <text class="stat-label">{{ tr("Avg") }}</text>
         <text class="stat-value">{{ stats.avg }}</text>
         <text class="stat-unit">{{ metricUnit }}</text>
       </view>
       <view class="stat-item">
-        <text class="stat-label">Max</text>
+        <text class="stat-label">{{ tr("Max") }}</text>
         <text class="stat-value">{{ stats.max }}</text>
         <text class="stat-unit">{{ metricUnit }}</text>
       </view>
     </view>
 
-    <view class="chart-card" v-if="currentRange !== 'month'">
+    <view class="stats-card bp-stats" v-else>
+      <view class="stat-item"><text class="stat-label">{{ tr("Min") }}</text><text class="stat-value bp-value"><text class="sys">{{ stats.systolic.min }}</text>/<text class="dia">{{ stats.diastolic.min }}</text></text><text class="stat-unit">{{ tr("SYS / DIA") }}</text></view>
+      <view class="stat-item main"><text class="stat-label">{{ tr("Avg") }}</text><text class="stat-value bp-value"><text class="sys">{{ stats.systolic.avg }}</text>/<text class="dia">{{ stats.diastolic.avg }}</text></text><text class="stat-unit">{{ tr("SYS / DIA") }}</text></view>
+      <view class="stat-item"><text class="stat-label">{{ tr("Max") }}</text><text class="stat-value bp-value"><text class="sys">{{ stats.systolic.max }}</text>/<text class="dia">{{ stats.diastolic.max }}</text></text><text class="stat-unit">{{ tr("SYS / DIA") }}</text></view>
+    </view>
+
+    <view class="chart-card" >
       <view class="chart-header">
-        <text class="chart-title">{{ metricName }} Trend</text>
+        <text class="chart-title">{{ metricName }} {{ tr('Trend') }}</text>
         <view class="chart-badge" :style="{ background: metricColor }">
           <text class="badge-text">{{ metricUnit }}</text>
         </view>
       </view>
-      <canvas
-        type="2d"
-        id="trendChart"
-        class="chart-canvas"
-      ></canvas>
-      <view class="chart-note" v-if="chartData.length === 0">
-        <view class="empty-icon">📊</view>
-        <text>No data available</text>
-      </view>
+      <MeasurementChart v-if="chartData.length" chart-id="trendChart" :labels="displayChartData.map(item => formatBarLabel(item.date))" :series="lineSeries" :x-values="displayChartData.map(item => dateValue(item.date))" :axis-ticks="chartAxisTicks" :minimum-span="currentMetric === 'spo2' ? 2 : 10" />
+      <view class="chart-note" v-else>{{ tr('No data available') }}</view>
     </view>
 
-    <view class="calendar-section" v-if="currentRange === 'month'">
+    <view class="calendar-section" v-if="currentRange === 'month' && currentMetric !== 'blood_pressure'">
       <view class="section-header">
-        <text class="section-title">Daily Averages - {{ metricName }}</text>
+        <text class="section-title">{{ tr('Daily Averages') }} · {{ metricName }}</text>
         <view class="chart-badge" :style="{ background: metricColor }">
           <text class="badge-text">{{ metricUnit }}</text>
         </view>
       </view>
       <view class="calendar-grid">
         <view class="calendar-weekdays">
-          <text v-for="day in ['S','M','T','W','T','F','S']" :key="day" class="weekday">{{ day }}</text>
+          <text v-for="(day,index) in [tr('Sun'),tr('Mon'),tr('Tue'),tr('Wed'),tr('Thu'),tr('Fri'),tr('Sat')]" :key="index" class="weekday">{{ day }}</text>
         </view>
         <view class="calendar-days">
           <view
@@ -123,48 +114,21 @@
         </view>
       </view>
       <view class="calendar-legend">
-        <text class="legend-label">Low</text>
+        <text class="legend-label">{{ tr('Low') }} {{ heatMin }}</text>
         <view class="legend-gradient" :style="{ background: metricGradient }"></view>
-        <text class="legend-label">High</text>
+        <text class="legend-label">{{ tr('High') }} {{ heatMax }}</text>
       </view>
-    </view>
-
-    <view class="bar-chart-section" v-if="currentRange !== 'month'">
-      <view class="section-header">
-        <text class="section-title">Daily Averages</text>
-      </view>
-      <scroll-view scroll-x class="bar-chart-scroll">
-        <view class="bar-chart">
-          <view
-            v-for="(item, index) in displayChartData"
-            :key="index"
-            class="bar-item"
-          >
-            <view class="bar-wrapper">
-              <view
-                class="bar-fill"
-                :style="{
-                  height: getBarHeight(item.value) + '%',
-                  background: metricGradient
-                }"
-              ></view>
-            </view>
-            <text class="bar-label">{{ formatBarLabel(item.date) }}</text>
-            <text class="bar-value">{{ Math.round(item.value) }}</text>
-          </view>
-        </view>
-      </scroll-view>
     </view>
 
     <view class="records-card">
       <view class="card-header">
-        <text class="card-title">Recent Records</text>
-        <text class="card-count">{{ recordsList.length }} records</text>
+        <text class="card-title">{{ tr("Recent Records") }}</text>
+        <text class="card-count">{{ recordsList.length }} {{ tr('measurements') }}</text>
       </view>
-      <scroll-view scroll-y class="records-list">
+      <view class="records-list">
         <view v-if="recordsList.length === 0" class="empty-records">
           <view class="empty-icon">📝</view>
-          <text>No recent records</text>
+          <text>{{ tr("No recent records") }}</text>
         </view>
         <view
           v-for="(item, index) in recordsList"
@@ -173,653 +137,83 @@
         >
           <view class="record-date">{{ formatDate(item.measure_time) }}</view>
           <view class="record-values">
-            <text class="record-value">❤️ {{ item.heart_rate || '--' }} bpm</text>
-            <text class="record-value">🩸 {{ item.systolic_bp || '--' }}/{{ item.diastolic_bp || '--' }} mmHg</text>
+            <text class="record-value">❤️ {{ item.heart_rate || '--' }} {{ tr('bpm') }}</text>
+            <text class="record-value">🩸 {{ item.systolic_bp || '--' }}/{{ item.diastolic_bp || '--' }} {{ tr('mmHg') }}</text>
             <text class="record-value">🫁 {{ item.spo2 || '--' }}%</text>
           </view>
         </view>
-      </scroll-view>
+      </view>
     </view>
   </view>
 </template>
 
 <script>
-import uCharts from '@/uni_modules/qiun-data-charts/js_sdk/u-charts/u-charts.min.js'
-import { getDataUrl, getAuthUrl } from '@/config/api.js'
-
+import MeasurementChart from '@/components/MeasurementChart.vue';
+import {validNumber} from '@/utils/measurements.js';
+import {getDataUrl,getAuthUrl} from '@/config/api.js';
+const blank=()=>({min:'--',avg:'--',max:'--'});
+const stats=values=>{values=values.filter(validNumber).map(Number);return values.length?{min:Number(Math.min(...values).toFixed(1)),avg:Number((values.reduce((a,b)=>a+b,0)/values.length).toFixed(1)),max:Number(Math.max(...values).toFixed(1))}:blank();};
 export default {
-  data() {
-    return {
-      selectedDeviceId: '',
-      currentRange: 'week',
-      currentMetric: 'heart_rate',
-      metricConfig: {
-        heart_rate: {
-          name: 'Heart Rate',
-          unit: 'bpm',
-          color: '#ef4444',
-          gradient: 'linear-gradient(180deg, #ef4444 0%, #f87171 100%)',
-          min: 40,
-          max: 120
-        },
-        systolic_bp: {
-          name: 'Systolic BP',
-          unit: 'mmHg',
-          color: '#22c55e',
-          gradient: 'linear-gradient(180deg, #22c55e 0%, #4ade80 100%)',
-          min: 90,
-          max: 160
-        },
-        diastolic_bp: {
-          name: 'Diastolic BP',
-          unit: 'mmHg',
-          color: '#14b8a6',
-          gradient: 'linear-gradient(180deg, #14b8a6 0%, #2dd4bf 100%)',
-          min: 50,
-          max: 100
-        },
-        spo2: {
-          name: 'SpO2',
-          unit: '%',
-          color: '#06b6d4',
-          gradient: 'linear-gradient(180deg, #06b6d4 0%, #22d3ee 100%)',
-          min: 94,
-          max: 100
-        }
-      },
-      chartData: [],
-      aggregatedData: [],
-      calendarDays: [],
-      recordsList: [],
-      chartInstance: null,
-      stats: { min: '--', avg: '--', max: '--' }
-    };
-  },
-  computed: {
-    metricName() {
-      return this.metricConfig[this.currentMetric]?.name || 'Metric';
-    },
-    metricUnit() {
-      return this.metricConfig[this.currentMetric]?.unit || '';
-    },
-    metricColor() {
-      return this.metricConfig[this.currentMetric]?.color || '#4361ee';
-    },
-    metricGradient() {
-      return this.metricConfig[this.currentMetric]?.gradient || '';
-    },
-    metricMin() {
-      return this.metricConfig[this.currentMetric]?.min || 0;
-    },
-    metricMax() {
-      return this.metricConfig[this.currentMetric]?.max || 100;
-    },
-    displayChartData() {
-      // 趋势图和柱状图使用相同的数据
-      if (this.currentRange === 'day') {
-        return this.aggregateDataByHour(this.chartData);
-      }
-      return this.aggregatedData;
+  components:{MeasurementChart},
+  data:()=>({selectedDeviceId:'',currentRange:'week',currentMetric:'heart_rate',chartData:[],aggregatedData:[],calendarDays:[],recordsList:[],loadVersion:0,stats:{...blank(),systolic:blank(),diastolic:blank()}}),
+  computed:{
+    metricName(){return this.tr(this.currentMetric==='heart_rate'?'Heart Rate':this.currentMetric==='blood_pressure'?'Blood Pressure':'SpO2');},
+    metricUnit(){return this.tr(this.currentMetric==='heart_rate'?'bpm':this.currentMetric==='blood_pressure'?'mmHg':'%');},
+    metricColor(){return this.currentMetric==='spo2'?'#06b6d4':'#ef4444';},
+    metricGradient(){return this.currentMetric==='spo2'?'linear-gradient(90deg,#ecfeff,#0891b2)':'linear-gradient(90deg,#fef2f2,#dc2626)';},
+    displayChartData(){return this.currentRange==='day'?this.chartData:this.aggregatedData;},
+    lineSeries(){const rows=this.displayChartData;return this.currentMetric==='blood_pressure'?[{name:this.tr('Systolic'),color:'#ef4444',data:rows.map(r=>r.systolic)},{name:this.tr('Diastolic'),color:'#14b8a6',data:rows.map(r=>r.diastolic)}]:[{name:this.metricName,color:this.metricColor,data:rows.map(r=>r.value)}];},
+    heatValues(){return this.aggregatedData.map(r=>r.value).filter(validNumber).map(Number);},
+    heatMin(){return this.heatValues.length?Math.min(...this.heatValues).toFixed(1):'--';},
+    heatMax(){return this.heatValues.length?Math.max(...this.heatValues).toFixed(1):'--';},
+    chartAxisTicks(){
+      if(this.currentRange!=='week')return [];
+      return this.aggregatedData.map(row=>({
+        value:this.dateValue(row.date),
+        label:String(Number(String(row.date).slice(8,10)))
+      }));
     }
   },
-  onLoad() {
-    this.loadSelectedDevice();
-    this.loadData();
-  },
-  onUnload() {
-    if (this.chartInstance) {
-      this.chartInstance.destroy();
-    }
-  },
-  methods: {
-    goBack() {
-      uni.navigateBack();
+  async onShow(){await this.loadSelectedDevice();this.loadData();},
+  onHide(){this.loadVersion++;},
+  methods:{
+    goBack(){uni.switchTab({url:'/pages/index/index'});},
+    switchRange(range){this.currentRange=range;this.loadData();},
+    switchMetric(metric){this.currentMetric=metric;this.loadData();},
+    formatYMD(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;},
+    dateValue(text){return new Date(String(text).replace(' ','T')).getTime();},
+    formatBarLabel(text){if(this.currentRange==='day')return String(text).slice(11,16);return String(text).slice(5,10);},
+    formatDate(text){return text?String(text).replace('T',' ').slice(5,19):'--';},
+    request(url,data={}){return new Promise((resolve,reject)=>uni.request({url,data,success:r=>r.data.errcode===0?resolve(r.data.data||[]):reject(Error(r.data.msg)),fail:reject}));},
+    async loadSelectedDevice(){
+      try{const devices=await this.request(getAuthUrl('devices'));const stored=uni.getStorageSync('selectedDeviceId');const device=devices.find(d=>(d.deviceId||d.device_id)===stored)||devices[0];this.selectedDeviceId=device?.deviceId||device?.device_id||'';if(this.selectedDeviceId)uni.setStorageSync('selectedDeviceId',this.selectedDeviceId);else uni.removeStorageSync('selectedDeviceId');}catch(e){this.selectedDeviceId='';}
     },
-    switchRange(range) {
-      this.currentRange = range;
-      this.loadData();
-    },
-    switchMetric(metric) {
-      this.currentMetric = metric;
-      // 重新加载数据以获取当前指标的数据
-      this.loadData();
-    },
-    getHeatmapColor(value) {
-      const range = this.metricMax - this.metricMin;
-      const percent = Math.min(1, Math.max(0, (value - this.metricMin) / range));
-
-      const colors = {
-        heart_rate: ['#fef2f2', '#ef4444'],
-        systolic_bp: ['#f0fdf4', '#22c55e'],
-        diastolic_bp: ['#f0fdfa', '#14b8a6'],
-        spo2: ['#ecfeff', '#06b6d4']
-      };
-
-      const [low, high] = colors[this.currentMetric] || ['#f1f5f9', '#4361ee'];
-
-      if (percent < 0.5) {
-        return this.lerpColor(low, high, percent * 2);
-      }
-      return high;
-    },
-    lerpColor(color1, color2, t) {
-      const c1 = this.hexToRgb(color1);
-      const c2 = this.hexToRgb(color2);
-      const r = Math.round(c1.r + (c2.r - c1.r) * t);
-      const g = Math.round(c1.g + (c2.g - c1.g) * t);
-      const b = Math.round(c1.b + (c2.b - c1.b) * t);
-      return `rgb(${r}, ${g}, ${b})`;
-    },
-    hexToRgb(hex) {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : { r: 241, g: 245, b: 249 };
-    },
-    buildCalendarDays(data) {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth();
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      const dataMap = {};
-      data.forEach(item => {
-        const date = new Date(item.date);
-        const day = date.getDate();
-        dataMap[day] = item.value;
-      });
-
-      const days = [];
-
-      for (let i = 0; i < firstDay; i++) {
-        days.push({ day: '', value: null });
-      }
-
-      for (let d = 1; d <= daysInMonth; d++) {
-        days.push({
-          day: d,
-          value: dataMap[d] || null
-        });
-      }
-
-      return days;
-    },
-    getBarHeight(value) {
-      if (!value || value <= 0) return 0;
-      const range = this.metricMax - this.metricMin;
-      return Math.min(100, Math.max(5, ((value - this.metricMin) / range) * 100));
-    },
-    formatBarLabel(dateStr) {
-      if (!dateStr) return '';
-      const date = new Date(dateStr);
-      if (this.currentRange === 'day') {
-        const h = date.getHours();
-        return `${h}:00`;
-      } else if (this.currentRange === 'week') {
-        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        return weekdays[date.getDay()];
-      } else {
-        return `${date.getMonth() + 1}/${date.getDate()}`;
-      }
-    },
-    formatDate(dateStr) {
-      if (!dateStr) return '--';
-      
-      let date;
-      if (typeof dateStr === 'string') {
-        // 处理 YYYY-MM-DD HH:mm:ss 格式
-        if (dateStr.includes(' ')) {
-          const parts = dateStr.split(' ');
-          const dateParts = parts[0].split('-');
-          const timeParts = parts[1].split(':');
-          date = new Date(
-            parseInt(dateParts[0]),
-            parseInt(dateParts[1]) - 1,
-            parseInt(dateParts[2]),
-            parseInt(timeParts[0]),
-            parseInt(timeParts[1]),
-            parseInt(timeParts[2])
-          );
-        } else if (dateStr.includes('-')) {
-          // 处理 YYYY-MM-DD 格式
-          const parts = dateStr.split('-');
-          return `${parseInt(parts[1])}/${parseInt(parts[2])}`;
-        } else {
-          date = new Date(dateStr);
+    async loadData(){
+      const version=++this.loadVersion,range=this.currentRange,metric=this.currentMetric;
+      this.chartData=[];this.aggregatedData=[];this.calendarDays=[];this.recordsList=[];this.stats={...blank(),systolic:blank(),diastolic:blank()};
+      if(!this.selectedDeviceId)return;
+      const now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),range==='month'?1:now.getDate()-(range==='week'?6:0));
+      try{
+        const records=await this.request(getDataUrl('rangeRecords'),{deviceId:this.selectedDeviceId,startDate:this.formatYMD(start),endDate:this.formatYMD(now)});
+        if(version!==this.loadVersion)return;
+        this.recordsList=records.slice(0,50);
+        const rows=records.filter(r=>metric==='blood_pressure'?validNumber(r.systolic_bp)&&validNumber(r.diastolic_bp):validNumber(r[metric])).map(r=>metric==='blood_pressure'?{date:r.measure_time,systolic:Number(r.systolic_bp),diastolic:Number(r.diastolic_bp)}:{date:r.measure_time,value:Number(r[metric])}).sort((a,b)=>this.dateValue(a.date)-this.dateValue(b.date));
+        this.chartData=rows;
+        this.stats=metric==='blood_pressure'?{...blank(),systolic:stats(rows.map(r=>r.systolic)),diastolic:stats(rows.map(r=>r.diastolic))}:stats(rows.map(r=>r.value));
+        const groups={};for(const row of rows)(groups[row.date.slice(0,10)] ||= []).push(row);
+        const averages=[];
+        for(const day=new Date(start);day<=now;day.setDate(day.getDate()+1)){
+          const key=this.formatYMD(day),group=groups[key]||[],mean=k=>group.length?group.reduce((sum,r)=>sum+r[k],0)/group.length:null;
+          averages.push(metric==='blood_pressure'?{date:key+' 12:00:00',systolic:mean('systolic'),diastolic:mean('diastolic')}:{date:key+' 12:00:00',value:mean('value')});
         }
-      } else {
-        date = new Date(dateStr);
-      }
-      
-      if (isNaN(date.getTime())) return String(dateStr);
-      return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+        this.aggregatedData=rows.length?averages:[];
+        const calendar=Array.from({length:new Date(now.getFullYear(),now.getMonth(),1).getDay()},()=>({day:'',value:null}));
+        const map=new Map(averages.map(r=>[Number(r.date.slice(8,10)),r.value]));
+        for(let d=1;d<=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();d++)calendar.push({day:d,value:map.get(d)??null});
+        this.calendarDays=calendar;
+      }catch(e){if(version===this.loadVersion)uni.showToast({title:this.tr('Load failed'),icon:'none'});}
     },
-    formatYMD(date) {
-      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    },
-    loadSelectedDevice() {
-      const storedDeviceId = uni.getStorageSync('selectedDeviceId');
-      if (storedDeviceId) {
-        this.selectedDeviceId = storedDeviceId;
-      }
-      uni.request({
-        url: getAuthUrl('devices'),
-        header: { Authorization: 'Bearer ' + uni.getStorageSync('token') },
-        success: (res) => {
-          if (res.data.errcode === 0 && Array.isArray(res.data.data) && res.data.data.length > 0) {
-            const boundDevice = res.data.data[0];
-            const deviceId = boundDevice?.deviceId || boundDevice?.device_id;
-            if (deviceId) {
-              this.selectedDeviceId = deviceId;
-              uni.setStorageSync('selectedDeviceId', deviceId);
-            }
-          }
-        },
-        fail: () => {
-          // ignore, will use stored device id if available
-        }
-      });
-    },
-    async loadData() {
-      try {
-        const now = new Date();
-        let startDate, endDate;
-        if (this.currentRange === 'day') {
-          startDate = this.formatYMD(now);
-          endDate = startDate;
-        } else if (this.currentRange === 'week') {
-          const oneWeekAgo = new Date(now);
-          oneWeekAgo.setDate(now.getDate() - 6);
-          startDate = this.formatYMD(oneWeekAgo);
-          endDate = this.formatYMD(now);
-        } else {
-          const oneMonthAgo = new Date(now);
-          oneMonthAgo.setMonth(now.getMonth() - 1);
-          startDate = this.formatYMD(oneMonthAgo);
-          endDate = this.formatYMD(now);
-        }
-
-        const trendRes = await this.requestTrendData(startDate, endDate);
-        
-        console.log('趋势数据:', trendRes);
-        console.log('当前指标:', this.currentMetric);
-        
-        // 处理数据
-        if (trendRes && trendRes.length > 0) {
-          // 检查数据格式
-          const hasValueField = trendRes[0].value !== undefined;
-          const hasMetricField = trendRes[0][this.currentMetric] !== undefined;
-          
-          console.log('hasValueField:', hasValueField, 'hasMetricField:', hasMetricField);
-          
-          if (hasValueField) {
-            // 数据库格式: { date, value }
-            this.chartData = trendRes.map(item => ({
-              date: item.date,
-              value: item.value
-            }));
-            this.aggregatedData = trendRes.map(item => ({
-              date: item.date.includes(':') ? item.date : `${item.date} 12:00:00`,
-              value: item.value
-            }));
-          } else if (hasMetricField) {
-            // 模拟数据格式: { date, heart_rate: value }
-            this.chartData = this.filterDataByMetric(trendRes);
-            this.aggregatedData = this.aggregateData(trendRes);
-          } else {
-            this.chartData = [];
-            this.aggregatedData = [];
-          }
-        } else {
-          this.chartData = [];
-          this.aggregatedData = [];
-        }
-        
-        console.log('chartData:', this.chartData);
-        console.log('aggregatedData:', this.aggregatedData);
-        
-        this.updateStats();
-
-        if (this.currentRange === 'month') {
-          this.calendarDays = this.buildCalendarDays(this.aggregatedData);
-        } else {
-          this.drawChart();
-        }
-
-        const recordsRes = await this.requestRecordsList(startDate, endDate);
-        this.recordsList = recordsRes.slice(0, 20);
-      } catch (err) {
-        console.error('Failed to load history data', err);
-        uni.showToast({ title: 'Load failed', icon: 'none' });
-      }
-    },
-    filterDataByMetric(data) {
-      // 优先使用 measure_time 字段，因为它包含完整的时间信息
-      return data.map(item => {
-        // 优先使用 measure_time，因为它包含时间信息
-        let dateStr = item.measure_time || item.date || '';
-        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
-        return {
-          date: dateStr,
-          value: metricValue
-        };
-      }).filter(item => item.value !== undefined && item.value !== null && item.value !== '');
-    },
-    aggregateData(data) {
-      if (!data.length) return [];
-
-      const grouped = {};
-      data.forEach(item => {
-        const rawDate = item.date || item.measure_time || new Date().toISOString();
-        const dateKey = rawDate.split(' ')[0] || rawDate.split('T')[0];
-        if (!grouped[dateKey]) {
-          grouped[dateKey] = [];
-        }
-        // 优先使用当前指标的值，如果没有则使用 value 字段
-        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
-        if (metricValue !== undefined && metricValue !== null) {
-          grouped[dateKey].push(Number(metricValue));
-        }
-      });
-
-      console.log('分组数据:', grouped);
-
-      return Object.keys(grouped).map(dateKey => ({
-        date: `${dateKey} 12:00:00`,
-        value: grouped[dateKey].reduce((a, b) => a + b, 0) / grouped[dateKey].length
-      })).sort((a, b) => new Date(a.date) - new Date(b.date));
-    },
-    aggregateDataByHour(data) {
-      if (!data.length) return [];
-
-      const grouped = {};
-      data.forEach(item => {
-        const rawDate = item.date || item.measure_time || new Date().toISOString();
-        console.log('原始时间:', rawDate, '当前指标:', this.currentMetric, '值:', item[this.currentMetric]);
-        const parts = rawDate.split(' ');
-        const datePart = parts[0] || '';
-        const timePart = parts[1] || '00:00:00';
-        const hourKey = datePart + ' ' + timePart.substring(0, 2) + ':00:00';
-        
-        if (!grouped[hourKey]) {
-          grouped[hourKey] = [];
-        }
-        // 优先使用当前指标的值，如果没有则使用 value 字段
-        const metricValue = item[this.currentMetric] !== undefined ? item[this.currentMetric] : item.value;
-        if (metricValue !== undefined && metricValue !== null) {
-          grouped[hourKey].push(Number(metricValue));
-        }
-      });
-
-      console.log('按小时分组数据:', grouped);
-
-      return Object.keys(grouped).map(hourKey => ({
-        date: hourKey,
-        value: grouped[hourKey].reduce((a, b) => a + b, 0) / grouped[hourKey].length
-      })).sort((a, b) => new Date(a.date) - new Date(b.date));
-    },
-    updateStats() {
-      const values = this.aggregatedData.map(item => item.value).filter(v => v > 0);
-
-      if (values.length) {
-        this.stats = {
-          min: Math.round(Math.min(...values)),
-          avg: Math.round(values.reduce((a, b) => a + b, 0) / values.length),
-          max: Math.round(Math.max(...values))
-        };
-      } else {
-        this.stats = { min: '--', avg: '--', max: '--' };
-      }
-    },
-    async requestTrendData(startDate, endDate) {
-      const isSimulationMode = uni.getStorageSync('isSimulationMode') === 'true' || false;
-      
-      console.log('请求趋势数据 - 日期范围:', startDate, '到', endDate, '模拟模式:', isSimulationMode);
-      
-      if (isSimulationMode) {
-        let mockDataStr = uni.getStorageSync('mockTrendData');
-        
-        // 如果没有模拟数据，生成新的
-        if (!mockDataStr) {
-          console.log('没有模拟数据，生成新的...');
-          this.generateMockTrendData();
-          mockDataStr = uni.getStorageSync('mockTrendData');
-        }
-        
-        if (mockDataStr) {
-          try {
-            const allData = JSON.parse(mockDataStr);
-            console.log('模拟数据总数:', allData.length, '条');
-            
-            const filtered = allData.filter(item => {
-              const itemDate = item.date || (item.measure_time ? item.measure_time.split(' ')[0] : '');
-              return itemDate >= startDate && itemDate <= endDate;
-            });
-            console.log('模拟数据过滤后:', filtered.length, '条');
-            return Promise.resolve(filtered);
-          } catch (e) {
-            console.error('解析模拟数据失败:', e);
-            return Promise.resolve([]);
-          }
-        }
-        return Promise.resolve([]);
-      }
-      
-      const deviceId = this.selectedDeviceId || uni.getStorageSync('selectedDeviceId');
-      return new Promise((resolve, reject) => {
-        uni.request({
-          url: getDataUrl('historyTrend'),
-          data: {
-            deviceId,
-            startDate,
-            endDate,
-            metric: this.currentMetric
-          },
-          success: (res) => {
-            console.log('后端返回数据:', res.data);
-            if (res.data.errcode === 0) {
-              resolve(res.data.data || []);
-            } else {
-              reject(new Error(res.data.msg));
-            }
-          },
-          fail: reject
-        });
-      });
-    },
-    generateMockTrendData() {
-      const mockData = [];
-      const now = new Date();
-      
-      for (let i = 29; i >= 0; i--) {
-        const date = new Date(now);
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toISOString().split('T')[0];
-        
-        const baseHr = Math.floor(65 + Math.random() * 15);
-        const baseSys = Math.floor(105 + Math.random() * 15);
-        const baseDia = Math.floor(65 + Math.random() * 15);
-        const baseSpo2 = Math.floor(95 + Math.random() * 3);
-        
-        const recordCount = i === 0 ? Math.floor(5 + Math.random() * 5) : Math.floor(2 + Math.random() * 4);
-        
-        for (let j = 0; j < recordCount; j++) {
-          mockData.push({
-            date: dateStr,
-            heart_rate: Math.floor(baseHr + (Math.random() - 0.5) * 10),
-            systolic_bp: Math.floor(baseSys + (Math.random() - 0.5) * 8),
-            diastolic_bp: Math.floor(baseDia + (Math.random() - 0.5) * 6),
-            spo2: Math.max(94, Math.min(100, baseSpo2 + Math.floor((Math.random() - 0.5) * 3))),
-            measure_time: dateStr + ' ' + String(Math.floor(6 + Math.random() * 14)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0')
-          });
-        }
-      }
-      
-      console.log('生成模拟数据:', mockData.length, '条');
-      uni.setStorageSync('mockTrendData', JSON.stringify(mockData));
-    },
-    async requestRecordsList(startDate, endDate) {
-      const isSimulationMode = uni.getStorageSync('isSimulationMode') === 'true' || false;
-      
-      if (isSimulationMode) {
-        const mockDataStr = uni.getStorageSync('mockTrendData');
-        if (mockDataStr) {
-          try {
-            const allData = JSON.parse(mockDataStr);
-            const filtered = allData.filter(item => {
-              const itemDate = item.date || (item.measure_time ? item.measure_time.split(' ')[0] : '');
-              return itemDate >= startDate && itemDate <= endDate;
-            });
-            const formatted = filtered.map(item => ({
-              heart_rate: item.heart_rate,
-              systolic_bp: item.systolic_bp,
-              diastolic_bp: item.diastolic_bp,
-              spo2: item.spo2,
-              measure_time: item.measure_time
-            }));
-            return Promise.resolve(formatted);
-          } catch (e) {
-            return Promise.resolve([]);
-          }
-        }
-        return Promise.resolve([]);
-      }
-      
-      const deviceId = this.selectedDeviceId || uni.getStorageSync('selectedDeviceId');
-      return new Promise((resolve, reject) => {
-        uni.request({
-          url: getDataUrl('rangeRecords'),
-          data: {
-            deviceId,
-            startDate,
-            endDate
-          },
-          success: (res) => {
-            if (res.data.errcode === 0) {
-              const rawData = res.data.data || [];
-              const formatted = rawData.map(item => ({
-                heart_rate: item.heart_rate,
-                systolic_bp: item.systolic_bp,
-                diastolic_bp: item.diastolic_bp,
-                spo2: item.spo2,
-                measure_time: item.measure_time
-              }));
-              resolve(formatted);
-            } else {
-              reject(new Error(res.data.msg));
-            }
-          },
-          fail: reject
-        });
-      });
-    },
-    drawChart() {
-      if (!this.chartData || !this.chartData.length) {
-        this.chartInstance = null;
-        return;
-      }
-
-      const query = uni.createSelectorQuery().in(this);
-      query.select('#trendChart').fields({ node: true, size: true }).exec((res) => {
-        if (!res[0] || !res[0].node) return;
-
-        const canvas = res[0].node;
-        const ctx = canvas.getContext('2d');
-        const width = res[0].width;
-        const height = res[0].height;
-
-        const config = this.metricConfig[this.currentMetric];
-        const displayData = this.displayChartData;
-
-        if (!displayData || !displayData.length) {
-          return;
-        }
-
-        const validData = displayData.filter(item => {
-          const val = Number(item.value);
-          return !isNaN(val) && item.date;
-        });
-
-        if (!validData.length) {
-          return;
-        }
-
-        const categories = validData.map(item => this.formatBarLabel(item.date)).filter(label => label && label.length > 0);
-        const seriesData = validData.map(item => ({
-          value: Number(item.value)
-        }));
-
-        // Ensure arrays have the same length
-        const minLength = Math.min(categories.length, seriesData.length);
-        const finalCategories = categories.slice(0, minLength);
-        const finalSeriesData = seriesData.slice(0, minLength);
-
-        if (!finalCategories.length || !finalSeriesData.length) {
-          return;
-        }
-
-        console.log('drawChart - finalCategories:', finalCategories);
-        console.log('drawChart - finalSeriesData:', finalSeriesData);
-
-        try {
-          this.chartInstance = new uCharts({
-            $this: this,
-            canvasId: 'trendChart',
-            context: ctx,
-            type: 'line',
-            animation: false,
-            categories: finalCategories,
-            series: [{
-              name: this.metricName,
-              data: finalSeriesData,
-              color: config.color
-            }],
-            width: width,
-            height: height,
-            padding: [20, 15, 30, 40],
-            background: '#fff',
-            enableScroll: false,
-            enableMarkLine: false,
-            dataLabel: false,
-            dataPoint: false,
-            lineType: 'straight',
-            touchMoveLimit: 24,
-            tooltip: {
-              show: false
-            },
-            xAxis: {
-              disableGrid: true,
-              labelCount: Math.min(6, finalCategories.length),
-              fontColor: '#64748b',
-              fontSize: 10,
-              rotateLabel: this.currentRange === 'month'
-            },
-            yAxis: {
-              gridType: 'dash',
-              dashLength: 4,
-              gridColor: '#e2e8f0',
-              fontColor: '#64748b',
-              fontSize: 10,
-              min: config.min,
-              max: config.max
-            },
-            legend: { show: false },
-            tooltip: { show: true }
-          });
-        } catch (err) {
-          console.error('drawChart error:', err);
-        }
-      });
-    },
-    hexToRgba(hex, alpha) {
-      const r = parseInt(hex.slice(1, 3), 16);
-      const g = parseInt(hex.slice(3, 5), 16);
-      const b = parseInt(hex.slice(5, 7), 16);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
+    getHeatmapColor(value){const values=this.heatValues;if(!values.length)return '#f1f5f9';const lo=Math.min(...values),hi=Math.max(...values),fraction=hi===lo?0.5:(value-lo)/(hi-lo);const end=this.currentMetric==='spo2'?[8,145,178]:[220,38,38];return `rgb(${end.map(v=>Math.round(255+(v-255)*fraction)).join(',')})`;}
   }
 };
 </script>
@@ -828,7 +222,8 @@ export default {
 .trend-container {
   min-height: 100vh;
   background: #f8fafc;
-  padding: 0 24rpx 120rpx;
+  padding: 0 24rpx calc(140rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 .nav-bar {
@@ -954,6 +349,14 @@ export default {
   color: #1e293b;
   display: block;
 }
+
+.bp-value {
+  font-size: 34rpx;
+  white-space: nowrap;
+}
+
+.sys { color: #ef4444; }
+.dia { color: #14b8a6; }
 
 .stat-unit {
   font-size: 20rpx;
@@ -1180,7 +583,7 @@ export default {
 }
 
 .records-list {
-  max-height: 400rpx;
+  width: 100%;
 }
 
 .empty-records {

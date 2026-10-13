@@ -1,6 +1,7 @@
 <template>
   <view class="settings-page">
     <view class="header">
+      <view class="back-button" @click="back">‹ {{ tr('Back') }}</view>
       <view class="header-title">
         <text class="title">{{ t('settings') }}</text>
       </view>
@@ -17,26 +18,14 @@
           <text class="arrow">›</text>
         </view>
 
-        <view class="settings-item" @click="goPrivacy">
-          <view class="item-left">
-            <text class="item-icon">🔒</text>
-            <text class="item-text">{{ t('privacySettings') }}</text>
-          </view>
-          <text class="arrow">›</text>
-        </view>
+
       </view>
     </view>
 
     <view class="settings-section">
       <view class="section-title">{{ t('preferences') }}</view>
       <view class="settings-card">
-        <view class="settings-item">
-          <view class="item-left">
-            <text class="item-icon">🔔</text>
-            <text class="item-text">{{ t('notifications') }}</text>
-          </view>
-          <switch :checked="notificationEnabled" @change="toggleNotification" />
-        </view>
+
 
         <view class="settings-item" @click="clearCache">
           <view class="item-left">
@@ -55,7 +44,7 @@
             <text class="item-text">{{ t('language') }}</text>
           </view>
           <view class="item-right">
-            <text class="lang-text">{{ currentLang === 'en' ? 'English' : '中文' }}</text>
+            <text class="lang-text">{{ currentLang === 'en' ? tr("English") : '中文' }}</text>
             <text class="arrow">›</text>
           </view>
         </view>
@@ -91,24 +80,26 @@
 
 <script>
 import { t as translate, getLang } from '@/utils/i18n.js';
+import {backToTab} from '@/utils/navigation.js';
 
 export default {
   data() {
     return {
       notificationEnabled: true,
-      cacheSize: '12.3 MB',
-      currentLang: 'en'
+      cacheSize: '--',
+      currentLang: 'zh'
     };
   },
   onLoad() {
-    this.currentLang = uni.getStorageSync('language') || 'en';
+    this.currentLang = uni.getStorageSync('language') || 'zh';
   },
   onShow() {
-    this.currentLang = uni.getStorageSync('language') || 'en';
+    this.currentLang = uni.getStorageSync('language') || 'zh';
     this.loadSettings();
     this.calcCacheSize();
   },
   methods: {
+    back(){backToTab('profile');},
     t(key) {
       return translate(key);
     },
@@ -118,7 +109,7 @@ export default {
     },
     calcCacheSize() {
       setTimeout(() => {
-        this.cacheSize = '12.3 MB';
+        const info = uni.getStorageInfoSync(); this.cacheSize = info.currentSize + (this.currentLang === 'zh' ? ' 千字节' : ' KB');
       }, 500);
     },
     toggleNotification(e) {
@@ -141,7 +132,7 @@ export default {
       });
     },
     goChangePassword() {
-      uni.navigateTo({ url: '/pages/settings/changePassword' });
+      uni.navigateTo({ url: '/pages/change-password/change-password' });
     },
     goPrivacy() {
       uni.navigateTo({ url: '/pages/settings/privacy' });
@@ -158,7 +149,8 @@ export default {
             const token = uni.getStorageSync('token');
             const user = uni.getStorageSync('user');
             const language = uni.getStorageSync('language');
-            uni.clearStorageSync();
+            uni.removeStorageSync('mockTrendData');
+            uni.removeStorageSync('isSimulationMode');
             uni.setStorageSync('token', token);
             uni.setStorageSync('user', user);
             uni.setStorageSync('language', language);
@@ -185,15 +177,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.back-button{font-size:28rpx;color:#64748b;padding:16rpx 20rpx 16rpx 0;min-width:100rpx;}
 .settings-page {
   min-height: 100vh;
   background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
-  padding: 0 24rpx 120rpx;
+  padding: 0 24rpx calc(60rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 .header {
   padding: 60rpx 0 30rpx;
+  display:flex;
+  align-items:center;
+  gap:20rpx;
 }
 
 .header-title {
@@ -202,7 +199,7 @@ export default {
 }
 
 .title {
-  font-size: 48rpx;
+  font-size: 36rpx;
   font-weight: bold;
   color: #0f172a;
 }

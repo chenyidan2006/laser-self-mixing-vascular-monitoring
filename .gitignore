@@ -1,1 +1,11 @@
-node_modules
+node_modules/
+dist/
+unpackage/
+*.log
+.env
+.env.*
+!.env.example
+.dsh-write-test.tmp
+
+# 独立维护并推送到 health-backend 仓库
+health-backend/

@@ -4,40 +4,32 @@
       <view class="back-btn" @click="goBack">
         <text class="back-icon">‹</text>
       </view>
-      <text class="header-title">Register</text>
+      <text class="header-title">{{ tr("Register") }}</text>
       <view class="placeholder"></view>
     </view>
 
     <view class="form-container">
       <view class="form-header">
-        <text class="form-title">Create Account</text>
-        <text class="form-desc">Join us to monitor your health</text>
+        <text class="form-title">{{ tr("Create Account") }}</text>
+        <text class="form-desc">{{ tr("Join us to monitor your health") }}</text>
       </view>
 
       <view class="input-group">
         <view class="input-item">
-          <text class="input-label">Phone</text>
-          <input type="text" v-model="phone" placeholder="Enter phone number" class="input-field" />
+          <text class="input-label">{{ tr("Phone") }}</text>
+          <input type="text" v-model="phone" :placeholder="tr('Enter phone number')" class="input-field" />
+        </view>
+
+
+
+        <view class="input-item">
+          <text class="input-label">{{ tr("Password") }}</text>
+          <input type="password" v-model="password" :placeholder="tr('Enter password')" class="input-field" />
         </view>
 
         <view class="input-item">
-          <text class="input-label">Verification Code</text>
-          <view class="sms-row">
-            <input type="text" v-model="smsCode" placeholder="Enter code" class="input-field" />
-            <button class="sms-btn" @click="sendSmsCode" :disabled="smsCountdown > 0">
-              {{ smsCountdown > 0 ? `${smsCountdown}s` : 'Get Code' }}
-            </button>
-          </view>
-        </view>
-
-        <view class="input-item">
-          <text class="input-label">Password</text>
-          <input type="password" v-model="password" placeholder="Enter password" class="input-field" />
-        </view>
-
-        <view class="input-item">
-          <text class="input-label">Confirm Password</text>
-          <input type="password" v-model="confirmPassword" placeholder="Confirm password" class="input-field" />
+          <text class="input-label">{{ tr("Confirm Password") }}</text>
+          <input type="password" v-model="confirmPassword" :placeholder="tr('Confirm password')" class="input-field" />
         </view>
       </view>
 
@@ -45,31 +37,31 @@
         <view class="checkbox" :class="{ checked: agree }">
           <text class="check-icon" v-if="agree">✓</text>
         </view>
-        <text class="agreement-text">I agree to the <text class="link" @click.stop="showTerms">Terms of Service</text> and <text class="link" @click.stop="showPrivacy">Privacy Policy</text></text>
+        <text class="agreement-text">{{ tr("I agree to the") }}<text class="link" @click.stop="showTerms">{{ tr("Terms of Service") }}</text>{{ tr("and") }}<text class="link" @click.stop="showPrivacy">{{ tr("Privacy Policy") }}</text></text>
       </view>
 
-      <button class="register-btn" @click="handleRegister" :loading="registering">Register</button>
+      <button class="register-btn" @click="handleRegister" :loading="registering">{{ tr("Register") }}</button>
 
       <view class="divider">
         <view class="divider-line"></view>
-        <text class="divider-text">Or continue with</text>
+        <text class="divider-text">{{ tr("Or continue with") }}</text>
         <view class="divider-line"></view>
       </view>
 
       <view class="third-party">
         <view class="third-btn" @click="handleWechatLogin">
           <text class="third-icon">💬</text>
-          <text class="third-text">WeChat</text>
+          <text class="third-text">{{ tr("WeChat") }}</text>
         </view>
         <view class="third-btn" @click="handleQQLogin">
           <text class="third-icon">🐧</text>
-          <text class="third-text">QQ</text>
+          <text class="third-text">{{ tr("QQ") }}</text>
         </view>
       </view>
 
       <view class="footer">
-        <text class="footer-text">Already have an account?</text>
-        <text class="footer-link" @click="goLogin">Login</text>
+        <text class="footer-text">{{ tr("Already have an account?") }}</text>
+        <text class="footer-link" @click="goLogin">{{ tr("Login") }}</text>
       </view>
     </view>
   </view>
@@ -96,7 +88,7 @@ export default {
     },
     sendSmsCode() {
       if (!this.phone) {
-        uni.showToast({ title: 'Please enter phone number', icon: 'none' });
+        uni.showToast({ title: this.tr("Please enter phone number"), icon: 'none' });
         return;
       }
       uni.request({
@@ -105,7 +97,7 @@ export default {
         data: { phone: this.phone },
         success: (res) => {
           if (res.data.errcode === 0) {
-            uni.showToast({ title: 'Code sent', icon: 'success' });
+            uni.showToast({ title: this.tr("Code sent"), icon: 'success' });
             this.smsCountdown = 60;
             const timer = setInterval(() => {
               if (this.smsCountdown <= 1) {
@@ -119,22 +111,23 @@ export default {
             uni.showToast({ title: res.data.msg, icon: 'none' });
           }
         },
-        fail: () => uni.showToast({ title: 'Network error', icon: 'none' })
+        fail: () => uni.showToast({ title: this.tr("Network error"), icon: 'none' })
       });
     },
     handleRegister() {
       if (!this.agree) {
-        uni.showToast({ title: 'Please agree to the terms', icon: 'none' });
+        uni.showToast({ title: this.tr("Please agree to the terms"), icon: 'none' });
         return;
       }
-      if (!this.phone || !this.smsCode || !this.password || !this.confirmPassword) {
-        uni.showToast({ title: 'Please fill in all fields', icon: 'none' });
+      if (!this.phone || !this.password || !this.confirmPassword) {
+        uni.showToast({ title: this.tr("Please fill in all fields"), icon: 'none' });
         return;
       }
       if (this.password !== this.confirmPassword) {
-        uni.showToast({ title: 'Passwords do not match', icon: 'none' });
+        uni.showToast({ title: this.tr("Passwords do not match"), icon: 'none' });
         return;
       }
+      if(!/^1[3-9]\d{9}$/.test(this.phone.trim()) || this.password.length<6){uni.showToast({title:this.tr('Enter a valid phone number and a password of at least six characters'),icon:'none'});return;}
       this.registering = true;
       uni.request({
         url: getAuthUrl('register'),
@@ -146,9 +139,9 @@ export default {
         },
         success: (res) => {
           if (res.data.errcode === 0) {
-            uni.showToast({ title: 'Registration successful', icon: 'success' });
+            uni.showToast({ title: this.tr("Registration successful"), icon: 'success' });
             setTimeout(() => {
-              this.autoLoginAfterRegister();
+              this.loginSuccess(res.data.data);
             }, 1500);
           } else {
             uni.showToast({ title: res.data.msg, icon: 'none' });
@@ -164,7 +157,7 @@ export default {
       uni.request({
         url: getAuthUrl('login'),
         method: 'POST',
-        data: { username: this.phone, password: this.password },
+        data: { phone: this.phone.trim(), password: this.password },
         success: (res) => {
           if (res.data.errcode === 0) {
             this.loginSuccess(res.data.data);
@@ -177,45 +170,29 @@ export default {
         }
       });
     },
-    handleRegisterFail() {
-      const mockUser = {
-        token: 'guest_token_' + Date.now(),
-        user: {
-          id: 'guest_' + Date.now(),
-          username: this.phone || 'Guest',
-          phone: this.phone || '13800138000',
-          avatar: ''
-        }
-      };
-      uni.setStorageSync('token', mockUser.token);
-      uni.setStorageSync('user', mockUser.user);
-      uni.showToast({ title: 'Using guest mode', icon: 'none' });
-      setTimeout(() => {
-        uni.switchTab({ url: '/pages/index/index' });
-      }, 1000);
-    },
+    handleRegisterFail() {uni.showToast({title:this.tr('Network error'),icon:'none'});},
     loginSuccess(data) {
       uni.setStorageSync('token', data.token);
       uni.setStorageSync('user', data.user);
       uni.switchTab({ url: '/pages/index/index' });
     },
     handleWechatLogin() {
-      uni.showToast({ title: 'WeChat login not implemented', icon: 'none' });
+      uni.showToast({ title: this.tr("WeChat login not implemented"), icon: 'none' });
     },
     handleQQLogin() {
-      uni.showToast({ title: 'QQ login not implemented', icon: 'none' });
+      uni.showToast({ title: this.tr("QQ login not implemented"), icon: 'none' });
     },
     showTerms() {
       uni.showModal({
-        title: 'Terms of Service',
-        content: 'By using this app, you agree to be bound by these terms...',
+        title: this.tr("Terms of Service"),
+        content: this.tr("By using this app, you agree to be bound by these terms..."),
         showCancel: false
       });
     },
     showPrivacy() {
       uni.showModal({
-        title: 'Privacy Policy',
-        content: 'We collect health data to provide monitoring services...',
+        title: this.tr("Privacy Policy"),
+        content: this.tr("We collect health data to provide monitoring services..."),
         showCancel: false
       });
     },

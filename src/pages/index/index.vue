@@ -3,17 +3,16 @@
     <view class="header">
       <view class="user-info">
         <view class="avatar-wrapper">
-          <text class="avatar">{{ user?.nickname?.charAt(0) || 'U' }}</text>
+          <text class="avatar">{{ displayName.charAt(0) }}</text>
         </view>
         <view class="greeting">
-          <text class="greeting-text">{{ greeting }} {{ user?.nickname || 'User' }}</text>
+          <text class="greeting-text">{{ greeting }} {{ displayName }}</text>
           <text class="date-text">{{ currentDate }}</text>
         </view>
       </view>
       <view class="header-actions">
-        <view class="action-btn" @click="goToNotifications">
-          <text class="action-icon">🔔</text>
-          <view class="badge" v-if="notificationCount > 0">{{ notificationCount }}</view>
+        <view class="lang-switch" @click="toggleLanguage">
+          <text>{{ currentLang === 'zh' ? '英文' : 'Chinese' }}</text>
         </view>
       </view>
     </view>
@@ -21,39 +20,20 @@
     <view class="status-section">
       <view class="connection-status" :class="{ connected: isConnected, disconnected: !isConnected }">
         <view class="status-dot"></view>
-        <text class="status-text">{{ isConnected ? t('deviceConnected') : t('noDeviceConnected') }}</text>
-        <text class="status-hint">{{ isConnected ? t('realTimeMonitoring') : t('pleaseConnectDevice') }}</text>
+        <text class="status-text">{{ deviceStatusText }}</text>
+        <text class="status-hint">{{ deviceStatusHint }}</text>
       </view>
 
-      <view class="demo-control" v-if="!isConnected || isDemoRunning">
-        <view class="mode-toggle">
-          <text class="toggle-label">Sim</text>
-          <view class="toggle-switch" :class="{ active: isSimulationMode }" @click="switchMode(isSimulationMode ? 'real' : 'simulation')">
-            <view class="toggle-thumb"></view>
-          </view>
-          <text class="toggle-label">Real</text>
-        </view>
-        <view class="btn-row">
-          <button class="demo-btn start" @click="startDemo" :disabled="isDemoRunning">
-            {{ isDemoRunning ? '测量中' : '开始测量' }}
-          </button>
-          <button class="demo-btn refresh" @click="refreshDemoData" :disabled="!isDemoRunning || isRefreshing">
-            {{ isRefreshing ? '更新中...' : '刷新数据' }}
-          </button>
-          <button class="demo-btn server" @click="loadServerData">
-            读取服务器数据
-          </button>
-        </view>
-      </view>
     </view>
 
-    <view class="main-content" v-if="hasData && isConnected">
+    <!-- Latest stored measurement remains visible while the ESP32 is offline. -->
+    <view class="main-content">
       <view class="realtime-section">
         <view class="section-header">
-          <text class="section-title">{{ t('realTimeData') }}</text>
-          <view class="live-badge">
+          <text class="section-title">{{ tr('Latest reading') }}</text>
+          <view class="live-badge" :class="{ offline: !isConnected }">
             <view class="live-dot"></view>
-            <text>{{ t('live') }}</text>
+            <text>{{ tr('Saved measurement') }}</text>
           </view>
         </view>
 
@@ -62,7 +42,7 @@
             <view class="metric-left">
               <text class="metric-icon">❤️</text>
               <view class="metric-label-group">
-                <text class="metric-label">Heart Rate</text>
+                <text class="metric-label">{{ t('heartRate') }}</text>
                 <text class="metric-status" :class="getHeartRateStatus(realtimeData.heart_rate)">
                   {{ getHeartRateText(realtimeData.heart_rate) }}
                 </text>
@@ -70,7 +50,7 @@
             </view>
             <view class="metric-right">
               <text class="metric-value">{{ realtimeData.heart_rate || '--' }}</text>
-              <text class="metric-unit">bpm</text>
+              <text class="metric-unit">{{ tr('bpm') }}</text>
             </view>
           </view>
 
@@ -78,7 +58,7 @@
             <view class="metric-left">
               <text class="metric-icon">🩸</text>
               <view class="metric-label-group">
-                <text class="metric-label">Blood Pressure</text>
+                <text class="metric-label">{{ t('bloodPressure') }}</text>
                 <text class="metric-status" :class="getBPStatus(realtimeData.systolic_bp)">
                   {{ getBPText(realtimeData.systolic_bp) }}
                 </text>
@@ -88,7 +68,7 @@
               <text class="metric-value">
                 {{ realtimeData.systolic_bp || '--' }}/{{ realtimeData.diastolic_bp || '--' }}
               </text>
-              <text class="metric-unit">mmHg</text>
+              <text class="metric-unit">{{ tr('mmHg') }}</text>
             </view>
           </view>
 
@@ -96,7 +76,7 @@
             <view class="metric-left">
               <text class="metric-icon">🫁</text>
               <view class="metric-label-group">
-                <text class="metric-label">SpO2</text>
+                <text class="metric-label">{{ tr('SpO2') }}</text>
                 <text class="metric-status" :class="getSpO2Status(realtimeData.spo2)">
                   {{ getSpO2Text(realtimeData.spo2) }}
                 </text>
@@ -110,962 +90,112 @@
         </view>
       </view>
 
-      <view class="waveform-section">
-        <view class="section-header">
-          <text class="section-title">实时波形</text>
-          <view class="live-badge">
-            <view class="live-dot"></view>
-            <text>实时</text>
-          </view>
-        </view>
-        <view class="waveform-container">
-          <canvas canvas-id="waveformCanvas" class="waveform-canvas" :style="{ width: canvasWidth + 'px', height: canvasHeight + 'px' }"></canvas>
-        </view>
-      </view>
-
-      <view class="mini-chart-section">
-        <view class="section-header">
-          <text class="section-title">Last Hour Average</text>
-        </view>
-        <view class="mini-chart">
-          <view class="chart-items">
-            <view
-            v-for="(item, index) in miniChartData"
-            :key="index"
-            class="chart-bar"
-            :style="{ 
-              height: getMiniChartBarHeight(item.heart_rate) + '%',
-              background: metricConfig.heart_rate.gradient
-            }"
-          ></view>
-          </view>
-          <view class="chart-labels">
-            <text>-60m</text>
-            <text>-30m</text>
-            <text>Now</text>
-          </view>
-        </view>
+      <view class="hour-panel">
+        <view class="panel-heading"><view><text class="panel-title">{{ tr('Last hour') }}</text><text class="panel-sub">{{ tr('Measurement averages') }}</text></view><text class="count-chip">{{ miniChartData.length }} {{ tr('measurements') }}</text></view>
+        <view class="hour-stats"><view><text class="small-label">{{ tr('Heart Rate') }}</text><text class="stat-value red">{{ hourAverage('heart_rate') }}</text><text class="stat-unit">bpm</text></view><view><text class="small-label">{{ tr('Blood Pressure') }}</text><text class="stat-value violet">{{ hourAverage('systolic_bp') }}<text class="stat-slash">/</text>{{ hourAverage('diastolic_bp') }}</text><text class="stat-unit">mmHg</text></view><view><text class="small-label">{{ tr('SpO2') }}</text><text class="stat-value teal">{{ hourAverage('spo2') }}</text><text class="stat-unit">%</text></view></view>
+        <view class="metric-switch"><text v-for="metric in hourMetrics" :key="metric.key" :class="{active:hourMetric===metric.key}" @click="hourMetric=metric.key">{{ tr(metric.title) }}</text></view>
+        <MeasurementChart v-if="miniChartData.length" chart-id="hourChart" :labels="miniChartData.map(r => r.measure_time.slice(11,16))" :x-values="miniChartData.map(r => measurementTime(r.measure_time))" :x-domain="[chartNow-3600000,chartNow]" :axis-ticks="hourTicks" :series="hourSeries" :minimum-span="hourMetric==='spo2'?2:10" />
+        <view v-else class="chart-empty"><text>⌁</text><text>{{ tr('No measurements in the last hour') }}</text><text class="panel-sub">{{ tr('The latest saved reading remains above') }}</text></view>
+        <view class="chart-foot"><view class="subtle-dot"/><text>{{ tr('Each dot is one measurement · 10-minute ticks') }}</text></view>
       </view>
 
       <view class="health-tips-section">
         <view class="section-header">
-          <text class="section-title">💡 Health Tips</text>
+          <text class="section-title">{{ tr("💡 Health Tips") }}</text>
         </view>
         <view class="tips-card">
           <view class="tips-header">
             <text class="tips-icon">{{ currentTip.icon }}</text>
-            <text class="tips-category">{{ currentTip.category }}</text>
+            <text class="tips-category">{{ tr(currentTip.category) }}</text>
           </view>
-          <text class="tips-content">{{ currentTip.content }}</text>
+          <text class="tips-content">{{ tr(currentTip.content) }}</text>
           <view class="tips-footer">
-            <text class="tips-date">{{ currentTip.date }}</text>
+            <text class="tips-date">{{ tr(currentTip.date) }}</text>
             <view class="tips-action" @click="refreshTip">
-              <text>换一个</text>
+              <text>{{ tr("换一个") }}</text>
               <text class="refresh-icon">🔄</text>
             </view>
           </view>
         </view>
       </view>
 
-      <view class="quick-actions-section">
-        <view class="section-header">
-          <text class="section-title">⚡ Quick Actions</text>
-        </view>
-        <view class="actions-grid">
-          <view class="action-card" @click="goToGoalSettings">
-            <view class="action-icon-wrapper">🎯</view>
-            <text class="action-name">Goals</text>
-            <text class="action-desc">Set daily goals</text>
-          </view>
-          <view class="action-card" @click="goToDeviceManage">
-            <view class="action-icon-wrapper">📱</view>
-            <text class="action-name">Devices</text>
-            <text class="action-desc">Manage devices</text>
-          </view>
-        </view>
-      </view>
-
-      <view class="daily-goal-section">
-        <view class="section-header">
-          <text class="section-title">🎯 Today's Goal</text>
-          <text class="goal-progress">{{ dailyGoal.progress }}%</text>
-        </view>
-        <view class="goal-card">
-          <view class="goal-item">
-            <view class="goal-icon">💓</view>
-            <view class="goal-info">
-              <text class="goal-label">Heart Rate Check</text>
-              <text class="goal-status">
-                {{ dailyGoal.heartRateChecked }}/{{ dailyGoal.heartRateTarget }} times
-              </text>
-            </view>
-            <view class="goal-bar-container">
-              <view class="goal-bar" :style="{ width: dailyGoal.heartRateProgress + '%' }"></view>
-            </view>
-          </view>
-          <view class="goal-item">
-            <view class="goal-icon">🚶</view>
-            <view class="goal-info">
-              <text class="goal-label">Daily Steps</text>
-              <text class="goal-status">{{ dailyGoal.steps }}/{{ dailyGoal.stepsTarget }} steps</text>
-            </view>
-            <view class="goal-bar-container">
-              <view class="goal-bar" :style="{ width: dailyGoal.stepsProgress + '%' }"></view>
-            </view>
-          </view>
-        </view>
-      </view>
     </view>
-
-    <view class="empty-state" v-else>
-      <view class="empty-illustration">
-        <view class="device-icon">📱</view>
-        <view class="connection-lines">
-          <view class="line line1"></view>
-          <view class="line line2"></view>
-          <view class="line line3"></view>
-        </view>
-        <view class="sensor-icon">🩺</view>
-      </view>
-
-      <view class="empty-content">
-        <text class="empty-title">{{ isConnected ? t('waitingPulseWave') : t('connectYourDevice') }}</text>
-        <text class="empty-desc">
-          {{ isConnected
-            ? t('placeFingerOnSensor')
-            : t('connectDeviceDesc')
-          }}
-        </text>
-
-        <view class="empty-actions">
-          <view class="action-card" @click="goToDeviceList">
-            <text class="action-icon">🔗</text>
-            <text class="action-text">{{ t('connectDevice') }}</text>
-          </view>
-          <view class="action-card" @click="goToHistory">
-            <text class="action-icon">📊</text>
-            <text class="action-text">{{ t('viewHistory') }}</text>
-          </view>
-        </view>
-      </view>
-
-      <view class="health-tips">
-        <text class="tips-title">💡 {{ t('healthTips') }}</text>
-        <view class="tips-list">
-          <view class="tip-item" v-for="(tip, index) in healthTips" :key="index">
-            <text class="tip-icon">{{ tip.icon }}</text>
-            <text class="tip-text">{{ tip.text }}</text>
-          </view>
-        </view>
-      </view>
-
-      <view class="quick-guide">
-        <text class="guide-title">📖 {{ t('quickGuide') }}</text>
-        <view class="guide-steps">
-          <view class="guide-step">
-            <text class="step-number">1</text>
-            <text class="step-text">{{ t('guideStep1') }}</text>
-          </view>
-          <view class="guide-step">
-            <text class="step-number">2</text>
-            <text class="step-text">{{ t('guideStep2') }}</text>
-          </view>
-          <view class="guide-step">
-            <text class="step-number">3</text>
-            <text class="step-text">{{ t('guideStep3') }}</text>
-          </view>
-        </view>
-      </view>
-    </view>
+    <view class="goals-panel" @click="goToGoalSettings"><view class="panel-heading"><view><text class="panel-title">{{ tr('Daily Goals') }}</text><text class="panel-sub">{{ tr('Your daily wellness plan') }}</text></view><text class="manage-link">{{ tr('Manage') }} ›</text></view><view class="goal-grid"><view class="home-goal" v-for="goal in homeGoals" :key="goal.key"><view class="home-goal-top"><text :style="{color:goal.color}">{{ goal.icon }}</text><text>{{ tr(goal.title) }}</text></view><view class="home-goal-numbers"><text>{{ goal.value }}</text><text> / {{ goal.target }} {{ tr(goal.unit) }}</text></view><view class="home-goal-track"><view :style="{width:goal.progress+'%',background:goal.color}" /></view></view></view></view>
+    <view v-if="!hasData" class="chart-empty"><text>⌁</text><text>{{ tr(selectedDeviceId ? 'Waiting for the first measurement' : 'No device bound') }}</text></view>
   </view>
 </template>
 
 <script>
-import { t as translate } from '@/utils/i18n.js';
-import { getDataUrl, getAuthUrl } from '@/config/api.js';
+import { t as translate, getLang } from '@/utils/i18n.js';
+import MeasurementChart from '@/components/MeasurementChart.vue';
+import {lastHour, average, validNumber, measurementTime, tenMinuteTicks} from '@/utils/measurements.js';
+import {goalDefinitions,readGoals,saveGoals,goalProgress} from '@/utils/goals.js';
+import {getDataUrl,getAuthUrl} from '@/config/api.js';
 
 export default {
-  data() {
-    return {
-      user: null,
-      selectedDeviceId: '',
-      isConnected: false,
-      hasData: false,
-      realtimeData: {
-        heart_rate: null,
-        systolic_bp: null,
-        diastolic_bp: null,
-        spo2: null
-      },
-      metricConfig: {
-        heart_rate: {
-          name: 'Heart Rate',
-          unit: 'bpm',
-          color: '#ef4444',
-          gradient: 'linear-gradient(180deg, #ef4444 0%, #f87171 100%)',
-          min: 40,
-          max: 120
-        },
-        systolic_bp: {
-          name: 'Systolic BP',
-          unit: 'mmHg',
-          color: '#22c55e',
-          gradient: 'linear-gradient(180deg, #22c55e 0%, #4ade80 100%)',
-          min: 90,
-          max: 160
-        },
-        diastolic_bp: {
-          name: 'Diastolic BP',
-          unit: 'mmHg',
-          color: '#14b8a6',
-          gradient: 'linear-gradient(180deg, #14b8a6 0%, #2dd4bf 100%)',
-          min: 50,
-          max: 100
-        },
-        spo2: {
-          name: 'SpO2',
-          unit: '%',
-          color: '#06b6d4',
-          gradient: 'linear-gradient(180deg, #06b6d4 0%, #22d3ee 100%)',
-          min: 94,
-          max: 100
-        }
-      },
-      miniChartData: [],
-      notificationCount: 0,
-      healthTips: [],
-      currentTip: null,
-      dailyGoal: {
-        progress: 65,
-        heartRateChecked: 3,
-        heartRateTarget: 5,
-        heartRateProgress: 60,
-        steps: 4500,
-        stepsTarget: 10000,
-        stepsProgress: 45
-      },
-      timer: null,
-      statusTimer: null,
-      dataFetchCount: 0,
-      isDemoRunning: false,
-      demoTimer: null,
-      waveTimer: null,
-      isRefreshing: false,
-      isSimulationMode: true,
-      canvasWidth: 350,
-      canvasHeight: 150,
-      waveData: [],
-      waveOffset: 0,
-      baseHeartRate: 74,
-      baseSystolic: 139,
-      baseDiastolic: 73,
-      baseSpO2: 98,
-      realWaveTemplate: [0.35,0.50,0.37,0.36,0.48,0.69,0.50,0.50,0.72,0.68,0.83,0.20,1.00,0.59,0.52,0.73,0.80,0.73,0.64,0.63,0.53,0.49,0.54,0.43,0.32,0.45,0.61,0.63,0.21,0.64,0.25,0.60,0.50,0.49,0.50,0.44,0.54,0.50,0.45,0.52,0.45,0.39,0.60,0.61,0.73,0.61,0.37,0.23,0.24,0.50,0.20,0.30,0.65,0.21,0.30,0.46,0.55,0.28,0.31,0.38,0.48,0.49,0.44,0.51,0.62,0.39,0.65,0.22,0.28,0.82,0.69,0.42,0.53,0.35,0.61,0.56,0.36,0.69,0.37,0.64,0.50,0.48,0.41,0.36,0.48,0.47,0.66,0.66,0.32,0.53,0.55,0.71,0.51,0.34,0.40,0.58,0.52,0.42,0.49,0.59],
-      waveIndex: 0,
-      serverWaveData: [],
-      serverDataIndex: 0,
-      serverWaveTimer: null
-    };
+  components:{MeasurementChart},
+  data(){return {chartNow:Date.now(),goalState:{targets:{},values:{}},hourMetric:'heart_rate',hourMetrics:[{key:'heart_rate',title:'Heart Rate'},{key:'blood_pressure',title:'Blood Pressure'},{key:'spo2',title:'SpO2'}],user:null,currentLang:getLang(),selectedDeviceId:'',isConnected:false,hasData:false,lastMeasurementTime:null,realtimeData:{},miniChartData:[],healthTips:[],currentTip:{},dailyGoal:{heartRateChecked:0,heartRateTarget:3,progress:0},timer:null,refreshVersion:0};},
+  computed:{
+    homeGoals(){return goalDefinitions.map(d=>({...d,value:this.goalState.values[d.key]||0,target:this.goalState.targets[d.key]||d.target,progress:goalProgress(this.goalState.values[d.key]||0,this.goalState.targets[d.key]||d.target)}));},
+    hourSeries(){return this.hourMetric==='blood_pressure'?[{name:this.tr('Systolic'),color:'#e56d7e',data:this.miniChartData.map(r=>r.systolic_bp)},{name:this.tr('Diastolic'),color:'#38afa3',data:this.miniChartData.map(r=>r.diastolic_bp)}]:[{name:this.tr(this.hourMetric==='heart_rate'?'Heart Rate':'SpO2'),color:this.hourMetric==='heart_rate'?'#e56d7e':'#38afa3',data:this.miniChartData.map(r=>r[this.hourMetric])}];},
+    hourTicks(){return tenMinuteTicks(this.chartNow-3600000,this.chartNow);},
+    displayName(){const name=this.user?.nickname || this.tr('User');return this.currentLang==='zh' && /[A-Za-z]/.test(name)?this.tr('User'):name;},
+    greeting(){const hour=new Date().getHours();return this.tr(hour<12?'Good morning':hour<18?'Good afternoon':'Good evening');},
+    currentDate(){const now=new Date();const weekdays=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];return `${this.tr(weekdays[now.getDay()])} ${now.getMonth()+1}/${now.getDate()}`;},
+    deviceStatusText(){return this.tr(!this.selectedDeviceId?'No device bound':this.isConnected?'Online':'Offline · showing latest reading');},
+    deviceStatusHint(){return this.lastMeasurementTime?`${this.tr('Latest measurement')}: ${this.lastMeasurementTime}`:this.tr('Waiting for the first measurement');}
   },
-  computed: {
-    greeting() {
-      const hour = new Date().getHours();
-      if (hour < 12) return 'Good morning';
-      if (hour < 18) return 'Good afternoon';
-      return 'Good evening';
+  onShow(){this.currentLang=getLang();this.user=uni.getStorageSync('user');this.initHealthTips();this.initDailyGoal();this.restoreLatest();this.refresh();clearInterval(this.timer);this.timer=setInterval(()=>this.refresh(),30000);},
+  onHide(){clearInterval(this.timer);this.timer=null;this.refreshVersion++;},
+  onUnload(){clearInterval(this.timer);this.refreshVersion++;},
+  methods:{
+    measurementTime,
+    t(key){return translate(key);},
+    request(url,data={}){return new Promise((resolve,reject)=>uni.request({url,data,success:r=>r.data.errcode===0?resolve(r.data.data):reject(Error(r.data.msg)),fail:reject}));},
+    async refresh(){
+      this.chartNow=Date.now();
+      const version=++this.refreshVersion;
+      try{
+        const devices=await this.request(getAuthUrl('devices'));
+        if(version!==this.refreshVersion)return;
+        const selected=uni.getStorageSync('selectedDeviceId');
+        const device=devices.find(d=>(d.deviceId||d.device_id)===selected)||devices[0];
+        if(!device){this.selectedDeviceId='';this.isConnected=false;this.hasData=false;this.miniChartData=[];this.dailyGoal.heartRateChecked=0;this.dailyGoal.progress=0;uni.removeStorageSync('selectedDeviceId');return;}
+        const id=device.deviceId||device.device_id;
+        if(id!==this.selectedDeviceId){this.hasData=false;this.realtimeData={};this.miniChartData=[];this.lastMeasurementTime=null;}
+        this.selectedDeviceId=id;uni.setStorageSync('selectedDeviceId',id);
+        const now=new Date(),historyStart=new Date(now.getTime()-30*86400000);
+        const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        const results=await Promise.allSettled([
+          this.request(getDataUrl('deviceStatus'),{deviceId:id}),
+          this.request(getDataUrl('realtime'),{deviceId:id}),
+          this.request(getDataUrl('rangeRecords'),{deviceId:id,startDate:ymd(historyStart),endDate:ymd(now)})
+        ]);
+        if(version!==this.refreshVersion)return;
+        this.isConnected=results[0].status==='fulfilled' && Boolean(results[0].value?.isConnected);
+        if(results[2].status==='fulfilled'){
+          const rows=results[2].value||[];
+          const latest=results[1].status==='fulfilled'&&results[1].value?results[1].value:rows[0];
+          if(latest){this.realtimeData=latest;uni.setStorageSync('latestMeasurement_'+this.user?.id+'_'+id,this.realtimeData);this.lastMeasurementTime=latest.measure_time;this.hasData=['heart_rate','systolic_bp','diastolic_bp','spo2'].some(key=>validNumber(latest[key]));}
+          this.miniChartData=lastHour(rows);
+          this.dailyGoal.heartRateChecked=new Set(rows.filter(r=>r.measure_time.slice(0,10)===ymd(now)).map(r=>r.id??r.measure_time)).size;this.goalState.values.measurements=this.dailyGoal.heartRateChecked;saveGoals(this.user?.id,this.goalState);
+          this.dailyGoal.progress=Math.min(100,Math.round(this.dailyGoal.heartRateChecked/this.dailyGoal.heartRateTarget*100));
+        } else this.miniChartData=lastHour(this.miniChartData);
+      }catch(error){this.isConnected=false;this.miniChartData=lastHour(this.miniChartData);}
     },
-    currentDate() {
-      const now = new Date();
-      const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      return `${weekdays[now.getDay()]}, ${now.getMonth() + 1}/${now.getDate()}`;
-    }
-  },
-  onLoad() {
-    this.initHealthTips();
-    this.loadUserInfo();
-    this.loadSelectedDevice();
-    this.startRealtimeUpdate();
-    this.startDeviceStatusCheck();
-    this.initDailyGoal();
-    
-    if (this.isSimulationMode) {
-      this.isConnected = true;
-      this.hasData = true;
-      
-      this.realtimeData = {
-        heart_rate: 74,
-        systolic_bp: 139,
-        diastolic_bp: 73,
-        spo2: Math.floor(95 + Math.random() * 5)
-      };
-      
-      this.generateMockTrendData();
-      
-      setTimeout(() => {
-        this.startDemo();
-      }, 500);
-    }
-  },
-  onUnload() {
-    if (this.timer) {
-      clearInterval(this.timer);
-    }
-    if (this.statusTimer) {
-      clearInterval(this.statusTimer);
-    }
-    if (this.demoTimer) {
-      clearInterval(this.demoTimer);
-    }
-    if (this.waveTimer) {
-      clearInterval(this.waveTimer);
-    }
-  },
-  onReady() {
-    this.initWaveData();
-  },
-  methods: {
-    t(key) {
-      return translate(key);
-    },
-    getMiniChartBarHeight(value) {
-      if (!value || value <= 0) return 5;
-      const config = this.metricConfig.heart_rate;
-      const range = config.max - config.min;
-      return Math.min(100, Math.max(5, ((value - config.min) / range) * 100));
-    },
-    initWaveData() {
-      this.waveData = [];
-      for (let i = 0; i < 100; i++) {
-        const idx = i % this.realWaveTemplate.length;
-        this.waveData.push(this.realWaveTemplate[idx]);
-      }
-    },
-    switchMode(mode) {
-      this.isSimulationMode = mode === 'simulation';
-      uni.setStorageSync('isSimulationMode', this.isSimulationMode.toString());
-      
-      if (this.waveTimer) {
-        clearInterval(this.waveTimer);
-        this.waveTimer = null;
-      }
-      
-      if (this.isSimulationMode) {
-        this.generateMockTrendData();
-        setTimeout(() => {
-          this.startDemo();
-        }, 300);
-      } else {
-        this.hasData = false;
-        this.isConnected = false;
-        this.fetchRealtimeData();
-        this.startRealModeWaveUpdate();
-      }
-      uni.showToast({ 
-        title: this.isSimulationMode ? '已切换到模拟模式' : '已切换到真实模式', 
-        icon: 'none' 
-      });
-    },
-    async loadServerData() {
-      uni.showLoading({ title: '读取服务器数据...' });
-      try {
-        const serverUrl = 'http://192.144.185.64:3002/api/data/txt';
-        console.log('正在请求:', serverUrl);
-        
-        uni.request({
-          url: serverUrl,
-          method: 'GET',
-          responseType: 'text',
-          timeout: 10000,
-          success: (res) => {
-            console.log('响应状态码:', res.statusCode);
-            console.log('响应数据:', res.data ? res.data.substring(0, 100) : '空');
-            
-            if (res.statusCode === 200 && res.data) {
-              this.parseServerData(res.data);
-              uni.showToast({ title: '数据读取成功', icon: 'success' });
-            } else {
-              console.error('读取失败，状态码:', res.statusCode);
-              uni.showToast({ title: `读取失败: ${res.statusCode}`, icon: 'none' });
-            }
-          },
-          fail: (err) => {
-            console.error('网络错误:', err);
-            uni.showToast({ title: `网络错误: ${err.errMsg || '未知错误'}`, icon: 'none' });
-          },
-          complete: () => {
-            uni.hideLoading();
-          }
-        });
-      } catch (err) {
-        console.error('异常错误:', err);
-        uni.showToast({ title: `异常: ${err.message || '未知错误'}`, icon: 'none' });
-        uni.hideLoading();
-      }
-    },
-    parseServerData(data) {
-      const lines = data.trim().split('\n');
-      const waveValues = [];
-      const metrics = { heartRate: [], systolic: [], diastolic: [], spo2: [] };
-      
-      lines.forEach(line => {
-        const parts = line.trim().split(/[\t, ]+/);
-        if (parts.length >= 2) {
-          const value = parseFloat(parts[0]);
-          if (!isNaN(value)) {
-            waveValues.push(value);
-          }
-          if (parts.length >= 5) {
-            metrics.heartRate.push(parseFloat(parts[1]) || 75);
-            metrics.systolic.push(parseFloat(parts[2]) || 120);
-            metrics.diastolic.push(parseFloat(parts[3]) || 80);
-            metrics.spo2.push(parseFloat(parts[4]) || 98);
-          }
-        }
-      });
-      
-      if (waveValues.length > 0) {
-        const min = Math.min(...waveValues);
-        const max = Math.max(...waveValues);
-        this.serverWaveData = waveValues.map(v => (v - min) / (max - min || 1));
-        this.serverDataIndex = 0;
-        
-        if (metrics.heartRate.length > 0) {
-          const avgHr = Math.round(metrics.heartRate.reduce((a, b) => a + b, 0) / metrics.heartRate.length);
-          const avgSys = Math.round(metrics.systolic.reduce((a, b) => a + b, 0) / metrics.systolic.length);
-          const avgDia = Math.round(metrics.diastolic.reduce((a, b) => a + b, 0) / metrics.diastolic.length);
-          const avgSpo2 = Math.round(metrics.spo2.reduce((a, b) => a + b, 0) / metrics.spo2.length);
-          
-          this.realtimeData = {
-            heart_rate: avgHr,
-            systolic_bp: avgSys,
-            diastolic_bp: avgDia,
-            spo2: avgSpo2
-          };
-          
-          this.hasData = true;
-          this.isConnected = true;
-        }
-        
-        this.startServerWavePlayback();
-      }
-    },
-    // 处理原始数据（不保存原始数据到服务器）
-    processRawData(rawData) {
-      if (!rawData || !Array.isArray(rawData) || rawData.length === 0) {
-        return;
-      }
-      
-      // 直接更新波形显示
-      rawData.forEach(value => {
-        this.waveData.push(value);
-        if (this.waveData.length > 100) {
-          this.waveData.shift();
-        }
-      });
-      
-      // 发送到服务器进行算法计算（不保存原始数据）
-      uni.request({
-        url: 'http://192.144.185.64:3002/api/data/process/raw',
-        method: 'POST',
-        data: {
-          deviceId: this.selectedDeviceId,
-          rawVoltage: rawData,
-          sampleRate: 100
-        },
-        success: (res) => {
-          if (res.data && res.data.errcode === 0 && res.data.data) {
-            this.realtimeData = {
-              heart_rate: res.data.data.heartRate,
-              systolic_bp: res.data.data.systolicBp,
-              diastolic_bp: res.data.data.diastolicBp,
-              spo2: res.data.data.spo2
-            };
-            this.hasData = true;
-            this.isConnected = true;
-            uni.showToast({ title: '数据处理成功', icon: 'success' });
-          }
-        },
-        fail: () => {
-          uni.showToast({ title: '数据处理失败', icon: 'none' });
-        }
-      });
-    },
-    startServerWavePlayback() {
-      if (this.serverWaveTimer) {
-        clearInterval(this.serverWaveTimer);
-      }
-      
-      this.waveData = [];
-      for (let i = 0; i < 50; i++) {
-        const idx = (this.serverDataIndex + i) % this.serverWaveData.length;
-        this.waveData.push(this.serverWaveData[idx]);
-      }
-      
-      this.serverWaveTimer = setInterval(() => {
-        if (this.serverWaveData.length > 0) {
-          this.waveData.shift();
-          this.waveData.push(this.serverWaveData[this.serverDataIndex]);
-          this.serverDataIndex = (this.serverDataIndex + 1) % this.serverWaveData.length;
-          this.drawWaveform();
-        }
-      }, 30);
-    },
-    generateMockTrendData() {
-      const mockData = [];
-      const now = new Date();
-      
-      for (let i = 29; i >= 0; i--) {
-        const date = new Date(now);
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toISOString().split('T')[0];
-        
-        const baseHr = Math.floor(65 + Math.random() * 15);
-        const baseSys = Math.floor(105 + Math.random() * 15);
-        const baseDia = Math.floor(65 + Math.random() * 15);
-        const baseSpo2 = Math.floor(95 + Math.random() * 3);
-        
-        const recordCount = i === 0 ? Math.floor(5 + Math.random() * 5) : Math.floor(2 + Math.random() * 4);
-        
-        for (let j = 0; j < recordCount; j++) {
-          mockData.push({
-            date: dateStr,
-            heart_rate: Math.floor(baseHr + (Math.random() - 0.5) * 10),
-            systolic_bp: Math.floor(baseSys + (Math.random() - 0.5) * 8),
-            diastolic_bp: Math.floor(baseDia + (Math.random() - 0.5) * 6),
-            spo2: Math.max(94, Math.min(100, baseSpo2 + Math.floor((Math.random() - 0.5) * 3))),
-            measure_time: dateStr + ' ' + String(Math.floor(6 + Math.random() * 14)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0') + ':' + String(Math.floor(0 + Math.random() * 60)).padStart(2, '0')
-          });
-        }
-      }
-      
-      uni.setStorageSync('mockTrendData', JSON.stringify(mockData));
-    },
-
-    toggleConnection() {
-      this.isConnected = !this.isConnected;
-      if (this.isConnected) {
-        this.hasData = true;
-        const mockData = this.generateMockData();
-        this.realtimeData = mockData;
-        uni.showToast({ title: '设备已连接', icon: 'success' });
-      } else {
-        this.isDemoRunning = false;
-        if (this.waveTimer) {
-          clearInterval(this.waveTimer);
-          this.waveTimer = null;
-        }
-        uni.showToast({ title: '设备已断开', icon: 'none' });
-      }
-    },
-    startDemo() {
-      this.isDemoRunning = true;
-      this.hasData = true;
-      this.isConnected = true;
-      this.waveOffset = 0;
-      
-      const mockData = this.generateMockData();
-      this.realtimeData = mockData;
-
-      const waveInterval = setInterval(() => {
-        this.waveOffset += 0.15;
-        this.updateWaveData();
-        this.drawWaveform();
-      }, 50);
-
-      this.waveTimer = waveInterval;
-      
-      uni.showToast({ title: '开始测量', icon: 'success' });
-    },
-    startRealModeWaveUpdate() {
-      if (this.waveTimer) {
-        clearInterval(this.waveTimer);
-        this.waveTimer = null;
-      }
-      
-      this.waveOffset = 0;
-      
-      const waveInterval = setInterval(() => {
-        this.waveOffset += 0.15;
-        this.updateWaveData();
-        this.drawWaveform();
-      }, 50);
-
-      this.waveTimer = waveInterval;
-    },
-    refreshDemoData() {
-      if (!this.isDemoRunning || this.isRefreshing) return;
-      
-      this.isRefreshing = true;
-      
-      setTimeout(() => {
-        this.baseHeartRate = 74;
-        this.baseSystolic = 139;
-        this.baseDiastolic = 73;
-        this.baseSpO2 = Math.max(94, Math.min(100, this.baseSpO2 + (Math.random() - 0.5) * 2));
-        
-        const mockData = this.generateMockData();
-        this.realtimeData = mockData;
-
-        const now = Date.now();
-        this.miniChartData.push({
-          heart_rate: mockData.heart_rate,
-          systolic_bp: mockData.systolic_bp,
-          diastolic_bp: mockData.diastolic_bp,
-          spo2: mockData.spo2,
-          timestamp: now
-        });
-
-        if (this.miniChartData.length > 10) {
-          this.miniChartData.shift();
-        }
-
-        this.isRefreshing = false;
-        uni.showToast({ title: '数据已更新', icon: 'success' });
-      }, 2000 + Math.random() * 1500);
-    },
-    updateWaveData() {
-      const heartRate = this.realtimeData.heart_rate || 75;
-      const template = this.realWaveTemplate;
-      const templateLength = template.length;
-      
-      const speed = heartRate / 75;
-      this.waveIndex += speed * 0.8;
-      
-      if (this.waveIndex >= templateLength) {
-        this.waveIndex = this.waveIndex % templateLength;
-      }
-      
-      const idx1 = Math.floor(this.waveIndex);
-      const idx2 = (idx1 + 1) % templateLength;
-      const frac = this.waveIndex - idx1;
-      
-      let value = template[idx1] * (1 - frac) + template[idx2] * frac;
-      
-      const noise = (Math.random() - 0.5) * 0.015;
-      value = Math.max(0.02, Math.min(1, value + noise));
-      
-      this.waveData.push(value);
-      if (this.waveData.length > 100) {
-        this.waveData.shift();
-      }
-    },
-    drawWaveform() {
-      const ctx = uni.createCanvasContext('waveformCanvas', this);
-      const width = this.canvasWidth;
-      const height = this.canvasHeight;
-      const centerY = height / 2;
-      
-      ctx.clearRect(0, 0, width, height);
-      
-      ctx.setStrokeStyle('#10b981');
-      ctx.setLineWidth(2);
-      ctx.beginPath();
-      
-      const step = width / (this.waveData.length - 1);
-      
-      for (let i = 0; i < this.waveData.length; i++) {
-        const x = i * step;
-        const y = centerY - this.waveData[i] * (height * 0.4);
-        
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      
-      ctx.stroke();
-      
-      ctx.setStrokeStyle('rgba(16, 185, 129, 0.1)');
-      ctx.setLineWidth(1);
-      ctx.beginPath();
-      ctx.moveTo(0, centerY);
-      ctx.lineTo(width, centerY);
-      ctx.stroke();
-      
-      ctx.draw();
-    },
-    generateMockData() {
-      const heartRate = Math.floor(this.baseHeartRate + (Math.random() - 0.5) * 4);
-      const systolicBP = Math.floor(this.baseSystolic + (Math.random() - 0.5) * 3);
-      const diastolicBP = Math.floor(this.baseDiastolic + (Math.random() - 0.5) * 2);
-      const spo2 = Math.floor(this.baseSpO2 + (Math.random() - 0.5) * 1);
-      
-      return {
-        heart_rate: heartRate,
-        systolic_bp: systolicBP,
-        diastolic_bp: diastolicBP,
-        spo2: spo2
-      };
-    },
-    initHealthTips() {
-      this.healthTips = [
-        { icon: '💧', category: 'Hydration', content: 'Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism.', date: 'Today' },
-        { icon: '🏃', category: 'Exercise', content: 'Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling.', date: 'Today' },
-        { icon: '😴', category: 'Sleep', content: 'Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate.', date: 'Today' },
-        { icon: '🥗', category: 'Diet', content: 'Maintain a balanced diet rich in fruits, vegetables, whole grains, and lean proteins.', date: 'Today' },
-        { icon: '🧘', category: 'Relaxation', content: 'Practice mindfulness or meditation for 10-15 minutes daily to reduce stress levels.', date: 'Today' },
-        { icon: '❤️', category: 'Heart Health', content: 'Regular heart rate monitoring helps detect potential cardiovascular issues early.', date: 'Today' },
-        { icon: '🌬️', category: 'Breathing', content: 'Practice deep breathing exercises to improve lung function and reduce anxiety.', date: 'Today' },
-        { icon: '🧪', category: 'Check-ups', content: 'Schedule regular health check-ups to stay proactive about your well-being.', date: 'Today' }
-      ];
-      this.currentTip = this.healthTips[Math.floor(Math.random() * this.healthTips.length)];
-    },
-    initDailyGoal() {
-      const today = new Date().toDateString();
-      const storedDailyGoal = uni.getStorageSync('dailyGoal_' + today);
-      const goalSettings = uni.getStorageSync('goalSettings');
-      
-      const defaultSettings = {
-        heartRateTarget: 5,
-        stepsTarget: 10000,
-        waterTarget: 8,
-        sleepTarget: 8
-      };
-      
-      const userSettings = goalSettings ? JSON.parse(goalSettings) : defaultSettings;
-      
-      if (storedDailyGoal) {
-        const saved = JSON.parse(storedDailyGoal);
-        this.dailyGoal = {
-          ...saved,
-          heartRateTarget: userSettings.heartRateTarget,
-          stepsTarget: userSettings.stepsTarget
-        };
-      } else {
-        this.dailyGoal = {
-          progress: 65,
-          heartRateChecked: Math.floor(Math.random() * 3) + 1,
-          heartRateTarget: userSettings.heartRateTarget,
-          heartRateProgress: 40,
-          steps: Math.floor(Math.random() * 5000) + 3000,
-          stepsTarget: userSettings.stepsTarget,
-          stepsProgress: 45,
-          waterDrank: Math.floor(Math.random() * 4) + 2,
-          waterTarget: userSettings.waterTarget,
-          sleepHours: Math.floor(Math.random() * 3) + 5,
-          sleepTarget: userSettings.sleepTarget
-        };
-      }
-      
-      this.updateDailyGoalProgress();
-    },
-    updateDailyGoalProgress() {
-      const hrProgress = Math.min(100, Math.round((this.dailyGoal.heartRateChecked / this.dailyGoal.heartRateTarget) * 100));
-      const stepsProgress = Math.min(100, Math.round((this.dailyGoal.steps / this.dailyGoal.stepsTarget) * 100));
-      const avgProgress = Math.round((hrProgress + stepsProgress) / 2);
-      
-      this.dailyGoal.heartRateProgress = hrProgress;
-      this.dailyGoal.stepsProgress = stepsProgress;
-      this.dailyGoal.progress = avgProgress;
-      
-      const today = new Date().toDateString();
-      uni.setStorageSync('dailyGoal_' + today, JSON.stringify(this.dailyGoal));
-    },
-    refreshTip() {
-      const currentIndex = this.healthTips.findIndex(tip => tip.content === this.currentTip.content);
-      let newIndex = currentIndex;
-      while (newIndex === currentIndex) {
-        newIndex = Math.floor(Math.random() * this.healthTips.length);
-      }
-      this.currentTip = this.healthTips[newIndex];
-    },
-    goToGoalSettings() {
-      uni.navigateTo({ url: '/pages/goal-settings/goal-settings' });
-    },
-    goToDeviceManage() {
-      uni.navigateTo({ url: '/pages/device/manage' });
-    },
-    loadUserInfo() {
-      const storedUser = uni.getStorageSync('user');
-      if (storedUser) {
-        this.user = storedUser;
-      } else {
-        this.user = { nickname: 'Guest' };
-      }
-    },
-    loadSelectedDevice() {
-      const storedDeviceId = uni.getStorageSync('selectedDeviceId');
-      if (storedDeviceId) {
-        this.selectedDeviceId = storedDeviceId;
-        this.fetchRealtimeData();
-      } else {
-        // 如果没有存储的设备ID，使用默认设备ID
-        this.selectedDeviceId = 'ESP32_001';
-        uni.setStorageSync('selectedDeviceId', 'ESP32_001');
-        this.fetchRealtimeData();
-      }
-      uni.request({
-        url: getAuthUrl('devices'),
-        header: { Authorization: 'Bearer ' + uni.getStorageSync('token') },
-        success: (res) => {
-          if (res.data.errcode === 0 && Array.isArray(res.data.data) && res.data.data.length > 0) {
-            const boundDevice = res.data.data[0];
-            const deviceId = boundDevice?.deviceId || boundDevice?.device_id;
-            if (deviceId) {
-              this.selectedDeviceId = deviceId;
-              uni.setStorageSync('selectedDeviceId', deviceId);
-              this.fetchRealtimeData();
-            }
-          }
-        },
-        fail: () => {
-          // 如果请求失败，使用默认设备ID
-          if (!this.selectedDeviceId) {
-            this.selectedDeviceId = 'ESP32_001';
-            uni.setStorageSync('selectedDeviceId', 'ESP32_001');
-            this.fetchRealtimeData();
-          }
-        }
-      });
-    },
-    checkDeviceStatus() {
-      if (!this.selectedDeviceId) {
-        this.isConnected = false;
-        return;
-      }
-      uni.request({
-        url: getDataUrl('deviceStatus'),
-        data: { deviceId: this.selectedDeviceId },
-        success: (res) => {
-          if (res.data.errcode === 0) {
-            this.isConnected = res.data.data?.isConnected || false;
-          }
-        },
-        fail: () => {
-          this.isConnected = false;
-        }
-      });
-    },
-    startRealtimeUpdate() {
-      this.timer = setInterval(() => {
-        this.fetchRealtimeData();
-      }, 60000);
-      this.fetchRealtimeData();
-    },
-    startDeviceStatusCheck() {
-      if (this.isSimulationMode) {
-        return;
-      }
-      this.statusTimer = setInterval(() => {
-        this.checkDeviceStatus();
-      }, 30000); // 每30秒检查一次设备状态
-      this.checkDeviceStatus();
-    },
-    fetchRealtimeData() {
-      if (this.isSimulationMode) {
-        return;
-      }
-      if (!this.selectedDeviceId) {
-        this.isConnected = false;
-        this.hasData = false;
-        return;
-      }
-      uni.request({
-        url: getDataUrl('realtime'),
-        data: {
-          deviceId: this.selectedDeviceId
-        },
-        success: (res) => {
-          if (res.data.errcode === 0) {
-            const data = res.data.data;
-            if (data && data.heart_rate !== undefined && data.heart_rate !== null) {
-              this.realtimeData = {
-                heart_rate: data.heart_rate,
-                systolic_bp: data.systolic_bp,
-                diastolic_bp: data.diastolic_bp,
-                spo2: data.spo2
-              };
-              this.hasData = true;
-              this.isConnected = true;
-
-              const now = Date.now();
-              const lastEntry = this.miniChartData[this.miniChartData.length - 1];
-
-              if (!lastEntry || (now - lastEntry.timestamp) >= 60000) {
-                this.miniChartData.push({
-                  heart_rate: this.realtimeData.heart_rate,
-                  systolic_bp: this.realtimeData.systolic_bp,
-                  diastolic_bp: this.realtimeData.diastolic_bp,
-                  spo2: this.realtimeData.spo2,
-                  timestamp: now
-                });
-
-                if (this.miniChartData.length > 10) {
-                  this.miniChartData.shift();
-                }
-              }
-            }
-          }
-        },
-        fail: () => {
-          this.isConnected = false;
-          this.hasData = false;
-        }
-      });
-    },
-
-    getHeartRateStatus(hr) {
-      if (!hr) return 'unknown';
-      if (hr < 60) return 'low';
-      if (hr > 100) return 'high';
-      return 'normal';
-    },
-    getHeartRateText(hr) {
-      if (!hr) return '--';
-      if (hr < 60) return this.t('bradycardia');
-      if (hr > 100) return this.t('tachycardia');
-      return this.t('normal');
-    },
-    getBPStatus(systolic) {
-      if (!systolic) return 'unknown';
-      if (systolic < 120) return 'normal';
-      if (systolic < 140) return 'elevated';
-      if (systolic < 160) return 'high';
-      return 'critical';
-    },
-    getBPText(systolic) {
-      if (!systolic) return '--';
-      if (systolic < 120) return this.t('normal');
-      if (systolic < 140) return this.t('elevated');
-      if (systolic < 160) return this.t('high');
-      return this.t('critical');
-    },
-    getSpO2Status(spo2) {
-      if (!spo2) return 'unknown';
-      if (spo2 >= 95) return 'normal';
-      if (spo2 >= 90) return 'low';
-      return 'critical';
-    },
-    getSpO2Text(spo2) {
-      if (!spo2) return '--';
-      if (spo2 >= 95) return this.t('normal');
-      if (spo2 >= 90) return this.t('low');
-      return this.t('critical');
-    },
-    getAgeDiffText(status) {
-      if (status === 'younger') return 'younger than actual age';
-      if (status === 'older') return 'older than actual age';
-      return 'matches actual age';
-    },
-    goToDeviceList() {
-      uni.navigateTo({ url: '/pages/device/device' });
-    },
-    goToHelp() {
-      uni.navigateTo({ url: '/pages/help/help' });
-    },
-    goToSettings() {
-      uni.navigateTo({ url: '/pages/settings/settings' });
-    },
-    goToNotifications() {
-      uni.showToast({ title: 'Notifications', icon: 'none' });
-    },
-    goToHistory() {
-      uni.navigateTo({ url: '/pages/health/trend' });
-    },
-    goToInput() {
-      uni.navigateTo({ url: '/pages/health/input' });
-    }
+    hourAverage(key){return average(this.miniChartData,key);},
+    restoreLatest(){const id=uni.getStorageSync('selectedDeviceId');const cached=uni.getStorageSync('latestMeasurement_'+this.user?.id+'_'+id);if(id&&cached){this.selectedDeviceId=id;this.realtimeData=cached;this.lastMeasurementTime=cached.measure_time;this.hasData=['heart_rate','systolic_bp','diastolic_bp','spo2'].some(key=>validNumber(cached[key]));}},
+    initDailyGoal(){this.goalState=readGoals(this.user?.id);const target=Number(uni.getStorageSync('measurementGoal_'+this.user?.id))||3;this.dailyGoal.heartRateTarget=target;},
+    initHealthTips(){this.healthTips=[{icon:'💧',category:'Hydration',content:'Drink at least 8 glasses of water daily to maintain proper hydration and support metabolism.',date:'Today'},{icon:'🏃',category:'Exercise',content:'Aim for 30 minutes of moderate exercise daily, such as walking, jogging, or cycling.',date:'Today'},{icon:'😴',category:'Sleep',content:'Get 7-8 hours of quality sleep each night to allow your body to rest and rejuvenate.',date:'Today'}];this.currentTip=this.healthTips[0];},
+    refreshTip(){const index=this.healthTips.indexOf(this.currentTip);this.currentTip=this.healthTips[(index+1)%this.healthTips.length];},
+    toggleLanguage(){uni.setStorageSync('language',this.currentLang==='zh'?'en':'zh');uni.reLaunch({url:'/pages/index/index'});},
+    goToGoalSettings(){uni.navigateTo({url:'/pages/goal-settings/goal-settings'});},
+    getHeartRateStatus(hr){return !validNumber(hr)?'unknown':hr<60?'low':hr>100?'high':'normal';},
+    getHeartRateText(hr){return !validNumber(hr)?'--':this.t(hr<60?'bradycardia':hr>100?'tachycardia':'normal');},
+    getBPStatus(sbp){return !validNumber(sbp)?'unknown':sbp<120?'normal':sbp<140?'elevated':sbp<160?'high':'critical';},
+    getBPText(sbp){return !validNumber(sbp)?'--':this.t(sbp<120?'normal':sbp<140?'elevated':sbp<160?'high':'critical');},
+    getSpO2Status(value){return !validNumber(value)?'unknown':value>=95?'normal':value>=90?'low':'critical';},
+    getSpO2Text(value){return !validNumber(value)?'--':this.t(value>=95?'normal':value>=90?'low':'critical');}
   }
 };
 </script>
@@ -1074,7 +204,8 @@ export default {
 .container {
   min-height: 100vh;
   background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
-  padding: 0 24rpx 120rpx;
+  padding: 0 24rpx calc(140rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 .header {
@@ -1576,6 +707,115 @@ export default {
   gap: 32rpx;
 }
 
+.offline-device-card {
+  padding: 34rpx 30rpx 28rpx;
+  border-radius: 30rpx;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 2rpx solid #e2e8f0;
+  box-shadow: 0 12rpx 38rpx rgba(15, 23, 42, 0.08);
+}
+
+.offline-device-top {
+  display: flex;
+  align-items: center;
+}
+
+.offline-device-icon {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff7ed;
+  color: #ea580c;
+  font-size: 50rpx;
+  font-weight: 700;
+}
+
+.offline-device-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+
+.offline-device-label {
+  color: #64748b;
+  font-size: 23rpx;
+}
+
+.offline-device-name {
+  margin-top: 4rpx;
+  color: #0f172a;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.offline-chip {
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  background: #fff7ed;
+}
+
+.offline-chip text {
+  color: #c2410c;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.offline-divider {
+  height: 2rpx;
+  margin: 28rpx 0 24rpx;
+  background: #e2e8f0;
+}
+
+.offline-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.offline-message-title {
+  color: #1e293b;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.offline-message-desc {
+  margin-top: 12rpx;
+  color: #64748b;
+  font-size: 25rpx;
+  line-height: 1.65;
+}
+
+.offline-actions {
+  display: flex;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}
+
+.offline-actions button {
+  flex: 1;
+  margin: 0;
+  padding: 18rpx 0;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.offline-primary {
+  border: 0;
+  color: #ffffff;
+  background: #2563eb;
+}
+
+.offline-secondary {
+  border: 2rpx solid #dbeafe;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
 .empty-illustration {
   display: flex;
   flex-direction: column;
@@ -1617,6 +857,51 @@ export default {
 .empty-content {
   text-align: center;
   padding: 0 40rpx;
+}
+
+.device-empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36rpx 30rpx;
+  margin-bottom: 26rpx;
+  border-radius: 28rpx;
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  border: 2rpx solid #ddd6fe;
+}
+
+.device-empty-badge {
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: #ddd6fe;
+  color: #5b21b6;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.device-empty-title {
+  margin-top: 18rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #312e81;
+}
+
+.device-empty-desc {
+  margin-top: 14rpx;
+  color: #5b6478;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.device-bind-button {
+  width: 100%;
+  margin-top: 24rpx;
+  border: none;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
 }
 
 .empty-title {
@@ -2192,4 +1477,7 @@ export default {
 .waveform-canvas {
   display: block;
 }
+
+.hour-panel,.goals-panel{background:#fff;border-radius:28rpx;padding:30rpx;margin:28rpx 0;box-shadow:0 5rpx 24rpx #26385505}.panel-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:28rpx;gap:16rpx}.panel-title{display:block;font-size:31rpx;font-weight:700;color:#26314a}.panel-sub{display:block;font-size:22rpx;color:#969fb0;margin-top:9rpx}.count-chip{background:#f1effc;color:#8570db;font-size:22rpx;border-radius:20rpx;padding:10rpx 16rpx;white-space:nowrap}.hour-stats{display:flex;margin-bottom:30rpx}.hour-stats>view{flex:1;display:flex;align-items:center;flex-direction:column;border-right:1px solid #f0f2f7}.hour-stats>view:last-child{border:0}.small-label{color:#8791a5;font-size:23rpx}.stat-value{font-size:35rpx;font-weight:700;margin:15rpx 0 6rpx;white-space:nowrap}.stat-slash{font-size:22rpx;margin:0 3rpx}.stat-unit{font-size:21rpx;color:#9aa3b3}.red{color:#e56d7e}.violet{color:#8973d8}.teal{color:#38afa3}.metric-switch{display:flex;background:#f5f6fa;border-radius:18rpx;padding:6rpx;margin-bottom:24rpx}.metric-switch>text{flex:1;text-align:center;font-size:23rpx;padding:13rpx 6rpx;color:#9099ad;border-radius:14rpx}.metric-switch>text.active{background:white;color:#7661d9;box-shadow:0 3rpx 9rpx #2638550d;font-weight:600}.chart-foot{display:flex;gap:12rpx;align-items:center;font-size:21rpx;color:#9ca5b5;border-top:1px solid #f1f3f8;padding-top:20rpx;margin-top:16rpx}.subtle-dot{width:10rpx;height:10rpx;border-radius:50%;background:#b9c0cf}.chart-empty{height:230rpx;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12rpx;color:#9ca5b5;font-size:25rpx}.chart-empty>text:first-child{font-size:70rpx;color:#c4bcf2}.wave-link{display:flex;align-items:center;gap:22rpx;padding:28rpx;background:white;border-radius:26rpx;margin:28rpx 0}.wave-icon{background:#eeebfc;color:#8870d8;width:80rpx;height:80rpx;border-radius:22rpx;text-align:center;line-height:80rpx;font-size:55rpx}.link-arrow{margin-left:auto;font-size:44rpx;color:#a1aabd}.manage-link{color:#8870d8;font-size:24rpx;white-space:nowrap}.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20rpx}.home-goal{background:#f8f9fc;border-radius:22rpx;padding:22rpx}.home-goal-top{display:flex;align-items:center;gap:12rpx;font-size:24rpx;color:#748097}.home-goal-top>text:first-child{font-size:33rpx}.home-goal-numbers{margin:18rpx 0;font-size:21rpx;color:#9aa3b5}.home-goal-numbers>text:first-child{color:#34425d;font-size:34rpx;font-weight:600}.home-goal-track{height:8rpx;border-radius:20rpx;background:#e9edf4;overflow:hidden}.home-goal-track>view{height:100%;border-radius:20rpx}.connection-status{background:#f2f4f9!important;border-radius:22rpx!important;align-items:flex-start!important}.status-text{color:#6c7890!important;font-size:25rpx!important}.status-hint{font-size:22rpx!important;color:#9aa3b2!important}.live-badge,.live-badge.offline{background:#f0eefb!important;color:#8570d2!important}.live-badge .live-dot{background:#aa97e3!important}.connection-status.disconnected .status-dot{background:#a7afbd!important}
+
 </style>

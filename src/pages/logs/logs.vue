@@ -2,8 +2,8 @@
 <template>
   <view class="logs-page">
     <view class="header">
-      <text class="title">应用日志</text>
-      <button @click="clearLogs" class="clear-btn">清空日志</button>
+      <text class="title">{{ tr("应用日志") }}</text>
+      <button @click="clearLogs" class="clear-btn">{{ tr("清空日志") }}</button>
     </view>
     
     <scroll-view class="log-list" scroll-y>
@@ -11,9 +11,7 @@
         <text class="log-time">{{ log.time }}</text>
         <text class="log-message">{{ log.message }}</text>
       </view>
-      <view v-if="logs.length === 0" class="empty">
-        暂无日志
-      </view>
+      <view v-if="logs.length === 0" class="empty">{{ tr("暂无日志") }}</view>
     </scroll-view>
   </view>
 </template>

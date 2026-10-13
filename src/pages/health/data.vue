@@ -13,39 +13,42 @@
     <!-- 数据卡片 -->
     <view v-if="hasData" class="data-card">
       <view class="data-item">
-        <text class="label">平均心率</text>
-        <text class="value">{{ dailyData.avgHeartRate || '--' }} <text class="unit">bpm</text></text>
+        <text class="label">{{ tr("平均心率") }}</text>
+        <text class="value">{{ dailyData.avgHeartRate || '--' }} <text class="unit">{{ tr("bpm") }}</text></text>
       </view>
       <view class="data-item">
-        <text class="label">收缩压</text>
-        <text class="value">{{ dailyData.avgSystolic || '--' }} <text class="unit">mmHg</text></text>
+        <text class="label">{{ tr("收缩压") }}</text>
+        <text class="value">{{ dailyData.avgSystolic || '--' }} <text class="unit">{{ tr("mmHg") }}</text></text>
       </view>
       <view class="data-item">
-        <text class="label">舒张压</text>
-        <text class="value">{{ dailyData.avgDiastolic || '--' }} <text class="unit">mmHg</text></text>
+        <text class="label">{{ tr("舒张压") }}</text>
+        <text class="value">{{ dailyData.avgDiastolic || '--' }} <text class="unit">{{ tr("mmHg") }}</text></text>
       </view>
       <view class="data-item">
-        <text class="label">血氧</text>
+        <text class="label">{{ tr("血氧") }}</text>
         <text class="value">{{ dailyData.avgSpo2 || '--' }} <text class="unit">%</text></text>
       </view>
       <view class="data-item">
-        <text class="label">记录总数</text>
-        <text class="value">{{ dailyData.totalRecords || 0 }} <text class="unit">条</text></text>
+        <text class="label">{{ tr("记录总数") }}</text>
+        <text class="value">{{ dailyData.totalRecords || 0 }} <text class="unit">{{ tr("条") }}</text></text>
       </view>
     </view>
 
     <view v-else class="empty">
-      <text>该日期暂无数据</text>
+      <text>{{ tr("该日期暂无数据") }}</text>
     </view>
 
     <!-- 历史趋势入口 -->
     <navigator url="/pages/health/trend" class="trend-link">
-      <text>查看历史趋势</text>
+      <text>{{ tr("查看历史趋势") }}</text>
     </navigator>
+
   </view>
 </template>
 
 <script>
+import { getDataUrl } from '@/config/api.js';
+
 export default {
   data() {
     const today = new Date();
@@ -74,18 +77,11 @@ export default {
     },
 
     async loadData() {
-      const isSimulationMode = uni.getStorageSync('isSimulationMode') === 'true' || false;
-      
-      if (isSimulationMode) {
-        this.loadMockData();
-        return;
-      }
-      
-      uni.showLoading({ title: '加载数据..' });
+      uni.showLoading({ title: this.tr("加载数据..") });
       try {
         const res = await uni.request({
-          url: 'http://192.144.185.64:3002/api/data/dailySummary',
-          data: { date: this.selectedDate },
+          url: getDataUrl('dailySummary'),
+          data: { date: this.selectedDate, deviceId: uni.getStorageSync('selectedDeviceId') || '' },
           header: { Authorization: 'Bearer ' + uni.getStorageSync('token') }
         });
         if (res.data.errcode === 0) {
@@ -95,7 +91,9 @@ export default {
           uni.showToast({ title: res.data.msg, icon: 'none' });
         }
       } catch (err) {
-        this.loadMockData();
+        this.dailyData = {};
+        this.hasData = false;
+        uni.showToast({ title: this.tr("读取真实数据失败"), icon: 'none' });
       } finally {
         uni.hideLoading();
       }
@@ -224,6 +222,17 @@ export default {
     color: #2b85e4;
     font-size: 30rpx;
     padding: 20rpx;
+  }
+
+  .reference-link {
+    margin-top: 20rpx;
+    background: #ffffff;
+    border: 2rpx solid #2b85e4;
+    border-radius: 16rpx;
+    color: #2b85e4;
+    font-size: 30rpx;
+    padding: 22rpx;
+    text-align: center;
   }
 }
 </style>

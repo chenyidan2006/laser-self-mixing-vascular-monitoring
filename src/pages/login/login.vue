@@ -1,53 +1,54 @@
 <template>
   <view class="login-container">
-    <view class="logo">Health Monitor</view>
+    <view class="language-toggle" @click="switchLanguage">{{ uiLang === 'zh' ? '英文' : 'Chinese' }}</view>
+    <view class="logo">{{ tr("Health Monitor") }}</view>
 
     <!-- Tab switch -->
     <view class="tab-bar">
-      <view :class="['tab-item', { active: currentTab === 'password' }]" @click="currentTab = 'password'">Password</view>
-      <view :class="['tab-item', { active: currentTab === 'sms' }]" @click="currentTab = 'sms'">SMS Code</view>
+      <view :class="['tab-item', { active: currentTab === 'password' }]" @click="currentTab = 'password'">{{ tr("Password") }}</view>
+      <view :class="['tab-item', { active: currentTab === 'sms' }]" @click="currentTab = 'sms'">{{ tr("SMS Code") }}</view>
     </view>
 
     <!-- Password login -->
     <view v-if="currentTab === 'password'" class="form">
-      <input type="text" v-model="phone" placeholder="Phone Number" />
-      <input type="password" v-model="password" placeholder="Password" />
-      <button @click="handlePasswordLogin" :loading="logining">Login</button>
+      <input type="text" v-model="phone" :placeholder="tr('Phone Number')" />
+      <input type="password" v-model="password" :placeholder="tr('Password')" />
+      <button @click="handlePasswordLogin" :loading="logining">{{ tr("Login") }}</button>
     </view>
 
     <!-- SMS login -->
     <view v-if="currentTab === 'sms'" class="form">
-      <input type="text" v-model="phone" placeholder="Phone Number"/>
+      <input type="text" v-model="phone" :placeholder="tr('Phone Number')"/>
       <view class="sms-row">
-        <input type="text" v-model="smsCode" placeholder="Verification Code"/>
+        <input type="text" v-model="smsCode" :placeholder="tr('Verification Code')"/>
         <button @click="sendSmsCode" :disabled="smsCountdown > 0" class="sms-btn">
-          {{ smsCountdown > 0 ? `${smsCountdown}s Resend` : 'Get Code' }}
+          {{ smsCountdown > 0 ? `${smsCountdown} ${tr('seconds')} ${tr('Get Code')}` : tr("Get Code") }}
         </button>
       </view>
-      <button @click="handleSmsLogin" :loading="logining">Login</button>
+      <button @click="handleSmsLogin" :loading="logining">{{ tr("Login") }}</button>
     </view>
 
     <!-- Third party login -->
     <view class="third-party">
-      <view class="third-title">Other Login Methods</view>
+      <view class="third-title">{{ tr("Other Login Methods") }}</view>
       <view class="third-icons">
         <view class="third-icon" @click="handleWechatLogin" v-if="hasWechat">
           <image src="/static/wechat.png" mode="aspectFit"></image>
-          <text>WeChat</text>
+          <text>{{ tr("WeChat") }}</text>
         </view>
         <view class="third-icon" @click="handleQQLogin" v-if="hasQQ">
           <image src="/static/qq.png" mode="aspectFit"></image>
-          <text>QQ</text>
+          <text>{{ tr("QQ") }}</text>
         </view>
       </view>
     </view>
 
     <!-- Footer -->
     <view class="footer">
-      <text @click="goGuest">Guest Access</text>
+      <text @click="goGuest">{{ tr("Guest Access") }}</text>
       <view class="footer-links">
-        <text @click="goResetPassword">Forgot Password?</text>
-        <text @click="goRegister">Register</text>
+        <text @click="goResetPassword">{{ tr("Forgot Password?") }}</text>
+        <text @click="goRegister">{{ tr("Register") }}</text>
       </view>
     </view>
   </view>
@@ -87,7 +88,7 @@ export default {
     // 密码登录
     handlePasswordLogin() {
       if (!this.phone || !this.password) {
-        uni.showToast({ title: 'Please fill in all fields', icon: 'none' });
+        uni.showToast({ title: this.tr("Please fill in all fields"), icon: 'none' });
         return;
       }
       this.logining = true;
@@ -102,14 +103,14 @@ export default {
             uni.showToast({ title: res.data.msg, icon: 'none' });
           }
         },
-        fail: () => uni.showToast({ title: 'Network error', icon: 'none' }),
+        fail: () => uni.showToast({ title: this.tr("Network error"), icon: 'none' }),
         complete: () => this.logining = false
       });
     },
     // Send SMS code
     sendSmsCode() {
       if (!this.phone) {
-        uni.showToast({ title: 'Please enter phone number', icon: 'none' });
+        uni.showToast({ title: this.tr("Please enter phone number"), icon: 'none' });
         return;
       }
       uni.request({
@@ -118,7 +119,7 @@ export default {
         data: { phone: this.phone },
         success: (res) => {
           if (res.data.errcode === 0) {
-            uni.showToast({ title: 'Verification code sent' });
+            uni.showToast({ title: this.tr("Verification code sent") });
             this.smsCountdown = 60;
             const timer = setInterval(() => {
               if (this.smsCountdown <= 1) {
@@ -132,20 +133,20 @@ export default {
             uni.showToast({ title: res.data.msg, icon: 'none' });
           }
         },
-        fail: () => uni.showToast({ title: 'Network error', icon: 'none' })
+        fail: () => uni.showToast({ title: this.tr("Network error"), icon: 'none' })
       });
     },
     // SMS login
     handleSmsLogin() {
       if (!this.phone || !this.smsCode) {
-        uni.showToast({ title: 'Please fill in all fields', icon: 'none' });
+        uni.showToast({ title: this.tr("Please fill in all fields"), icon: 'none' });
         return;
       }
       this.logining = true;
       uni.request({
         url: getAuthUrl('loginBySms'),
         method: 'POST',
-        data: { phone: this.phone, code: this.smsCode },
+        data: { phone: this.phone, smsCode: this.smsCode },
         success: (res) => {
           if (res.data.errcode === 0) {
             this.loginSuccess(res.data.data);
@@ -153,7 +154,7 @@ export default {
             uni.showToast({ title: res.data.msg, icon: 'none' });
           }
         },
-        fail: () => uni.showToast({ title: 'Network error', icon: 'none' }),
+        fail: () => uni.showToast({ title: this.tr("Network error"), icon: 'none' }),
         complete: () => this.logining = false
       });
     },
@@ -174,11 +175,11 @@ export default {
                 uni.showToast({ title: res.data.msg, icon: 'none' });
               }
             },
-            fail: () => uni.showToast({ title: '微信登录失败', icon: 'none' })
+            fail: () => uni.showToast({ title: this.tr("微信登录失败"), icon: 'none' })
           });
         },
         fail: (err) => {
-          uni.showToast({ title: '微信登录失败', icon: 'none' });
+          uni.showToast({ title: this.tr("微信登录失败"), icon: 'none' });
         }
       });
       // #endif
@@ -199,7 +200,7 @@ export default {
                     uni.showToast({ title: res.data.msg, icon: 'none' });
                   }
                 },
-                fail: () => uni.showToast({ title: '微信登录失败', icon: 'none' })
+                fail: () => uni.showToast({ title: this.tr("微信登录失败"), icon: 'none' })
               });
             }, (err) => {});
           }, (err) => {});
@@ -208,12 +209,12 @@ export default {
       // #endif
     },
     handleQQLogin() {
-      uni.showToast({ title: 'QQ login not implemented', icon: 'none' });
+      uni.showToast({ title: this.tr("QQ login not implemented"), icon: 'none' });
     },
     // Guest login
     goGuest() {
       uni.request({
-        url: 'http://192.144.185.64:3001/api/user/guestLogin',
+        url: 'http://192.144.185.64:3002/api/user/guestLogin',
         method: 'POST',
         success: (res) => {
           if (res.data.errcode === 0) {
@@ -222,12 +223,21 @@ export default {
             uni.showToast({ title: res.data.msg, icon: 'none' });
           }
         },
-        fail: () => uni.showToast({ title: '网络错误', icon: 'none' })
+        fail: () => uni.showToast({ title: this.tr("网络错误"), icon: 'none' })
       });
     },
     // 登录成功处理
     loginSuccess(data) {
-      uni.setStorageSync('token', data.token);
+      const token = typeof data?.token === 'string'
+        ? data.token.trim().replace(/^Bearer\s+/i, '').replace(/^['"]|['"]$/g, '')
+        : '';
+      if (!/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token)) {
+        uni.removeStorageSync('token');
+        uni.showToast({ title: this.tr("登录响应中的 token 无效，请重新登录"), icon: 'none' });
+        console.error('Invalid login token shape', { type: typeof data?.token });
+        return;
+      }
+      uni.setStorageSync('token', token);
       uni.setStorageSync('user', data.user);
       uni.switchTab({ url: '/pages/index/index' }); // 根据实际首页调整
     },
@@ -235,7 +245,13 @@ export default {
       uni.navigateTo({ url: '/pages/register/register' });
     },
     goResetPassword() {
-      uni.navigateTo({ url: '/pages/reset-password/reset-password' });
+      uni.showModal({
+        title: this.tr('Forgot Password?'),
+        content: this.uiLang === 'zh'
+          ? '当前回退服务器不提供密码重置接口，请联系管理员处理。'
+          : 'This server version does not provide password reset. Please contact the administrator.',
+        showCancel: false
+      });
     }
   }
 };

@@ -4,19 +4,19 @@
       <view class="back-btn" @click="goBack">
         <text class="back-icon">‹</text>
       </view>
-      <text class="header-title">Reset Password</text>
+      <text class="header-title">{{ tr("Reset Password") }}</text>
       <view class="placeholder"></view>
     </view>
 
     <view class="form-card">
-      <view class="form-title">Verify Your Phone</view>
-      <view class="form-subtitle">We'll send a verification code to your phone</view>
+      <view class="form-title">{{ tr("Verify Your Phone") }}</view>
+      <view class="form-subtitle">{{ tr("We'll send a verification code to your phone") }}</view>
 
       <view class="input-group">
         <input
           type="text"
           v-model="phone"
-          placeholder="Phone Number"
+          :placeholder="tr('Phone Number')"
           class="input-field"
         />
       </view>
@@ -25,7 +25,7 @@
         <input
           type="text"
           v-model="code"
-          placeholder="Verification Code"
+          :placeholder="tr('Verification Code')"
           class="input-field code-input"
         />
         <button
@@ -33,7 +33,7 @@
           @click="sendCode"
           :disabled="countdown > 0"
         >
-          {{ countdown > 0 ? `${countdown}s` : 'Get Code' }}
+          {{ countdown > 0 ? `${countdown} ${tr('seconds')}` : tr("Get Code") }}
         </button>
       </view>
 
@@ -41,7 +41,7 @@
         <input
           type="password"
           v-model="newPassword"
-          placeholder="New Password"
+          :placeholder="tr('New Password')"
           class="input-field"
         />
       </view>
@@ -50,18 +50,18 @@
         <input
           type="password"
           v-model="confirmPassword"
-          placeholder="Confirm Password"
+          :placeholder="tr('Confirm Password')"
           class="input-field"
         />
       </view>
 
       <button class="submit-btn" @click="resetPassword" :disabled="resetting">
-        {{ resetting ? 'Resetting...' : 'Reset Password' }}
+        {{ resetting ? tr("Resetting...") : tr("Reset Password") }}
       </button>
 
       <view class="back-login" @click="goBack">
-        <text>Remember password?</text>
-        <text class="link">Back to Login</text>
+        <text>{{ tr("Remember password?") }}</text>
+        <text class="link">{{ tr("Back to Login") }}</text>
       </view>
     </view>
   </view>
@@ -87,7 +87,7 @@ export default {
     },
     sendCode() {
       if (!this.phone) {
-        uni.showToast({ title: 'Please enter phone number', icon: 'none' });
+        uni.showToast({ title: this.tr("Please enter phone number"), icon: 'none' });
         return;
       }
       uni.request({
@@ -96,7 +96,7 @@ export default {
         data: { phone: this.phone },
         success: (res) => {
           if (res.data.errcode === 0) {
-            uni.showToast({ title: 'Code sent', icon: 'success' });
+            uni.showToast({ title: this.tr("Code sent"), icon: 'success' });
             this.countdown = 60;
             const timer = setInterval(() => {
               this.countdown--;
@@ -105,25 +105,25 @@ export default {
               }
             }, 1000);
           } else {
-            uni.showToast({ title: res.data.msg || 'Failed to send', icon: 'none' });
+            uni.showToast({ title: res.data.msg || this.tr("Failed to send"), icon: 'none' });
           }
         },
         fail: () => {
-          uni.showToast({ title: 'Network error', icon: 'none' });
+          uni.showToast({ title: this.tr("Network error"), icon: 'none' });
         }
       });
     },
     resetPassword() {
       if (!this.phone || !this.code || !this.newPassword) {
-        uni.showToast({ title: 'Please fill all fields', icon: 'none' });
+        uni.showToast({ title: this.tr("Please fill all fields"), icon: 'none' });
         return;
       }
       if (this.newPassword !== this.confirmPassword) {
-        uni.showToast({ title: 'Passwords do not match', icon: 'none' });
+        uni.showToast({ title: this.tr("Passwords do not match"), icon: 'none' });
         return;
       }
       if (this.newPassword.length < 6) {
-        uni.showToast({ title: 'Password at least 6 characters', icon: 'none' });
+        uni.showToast({ title: this.tr("Password at least 6 characters"), icon: 'none' });
         return;
       }
       this.resetting = true;
@@ -137,16 +137,16 @@ export default {
         },
         success: (res) => {
           if (res.data.errcode === 0) {
-            uni.showToast({ title: 'Password reset success', icon: 'success' });
+            uni.showToast({ title: this.tr("Password reset success"), icon: 'success' });
             setTimeout(() => {
               uni.navigateBack();
             }, 1500);
           } else {
-            uni.showToast({ title: res.data.msg || 'Reset failed', icon: 'none' });
+            uni.showToast({ title: res.data.msg || this.tr("Reset failed"), icon: 'none' });
           }
         },
         fail: () => {
-          uni.showToast({ title: 'Network error', icon: 'none' });
+          uni.showToast({ title: this.tr("Network error"), icon: 'none' });
         },
         complete: () => {
           this.resetting = false;

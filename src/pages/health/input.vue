@@ -3,9 +3,9 @@
     <view class="nav-bar">
       <view class="nav-back" @click="goBack">
         <text class="back-icon">‹</text>
-        <text class="back-text">Back</text>
+        <text class="back-text">{{ tr("Back") }}</text>
       </view>
-      <text class="nav-title">Health Input</text>
+      <text class="nav-title">{{ tr("Health Input") }}</text>
       <view class="nav-placeholder"></view>
     </view>
 
@@ -13,11 +13,11 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">💧</text>
-          <text>Hydration</text>
+          <text>{{ tr("Hydration") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Water Intake (ml)</text>
+            <text class="input-label">{{ tr("Water Intake (ml)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('water', 100)">-</view>
               <text class="stepper-value">{{ userInputs.water }}</text>
@@ -25,10 +25,10 @@
             </view>
           </view>
           <view class="quick-btns">
-            <view class="quick-btn" @click="setQuick('water', 250)">250ml</view>
-            <view class="quick-btn" @click="setQuick('water', 500)">500ml</view>
-            <view class="quick-btn" @click="setQuick('water', 1000)">1L</view>
-            <view class="quick-btn" @click="setQuick('water', 1500)">1.5L</view>
+            <view class="quick-btn" @click="setQuick('water', 250)">{{ tr("250ml") }}</view>
+            <view class="quick-btn" @click="setQuick('water', 500)">{{ tr("500ml") }}</view>
+            <view class="quick-btn" @click="setQuick('water', 1000)">{{ tr("1L") }}</view>
+            <view class="quick-btn" @click="setQuick('water', 1500)">{{ tr("1.5L") }}</view>
           </view>
         </view>
       </view>
@@ -36,11 +36,11 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">☕</text>
-          <text>Caffeine Intake</text>
+          <text>{{ tr("Caffeine Intake") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Coffee (cups)</text>
+            <text class="input-label">{{ tr("Coffee (cups)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('coffee', 1)">-</view>
               <text class="stepper-value">{{ userInputs.coffee }}</text>
@@ -48,10 +48,10 @@
             </view>
           </view>
           <view class="caffeine-info">
-            <text class="caffeine-note">☕ ~95mg per cup | 🥤 Soda ~40mg | 🧃 Tea ~30mg</text>
+            <text class="caffeine-note">{{ tr("☕ ~95mg per cup | 🥤 Soda ~40mg | 🧃 Tea ~30mg") }}</text>
           </view>
           <view class="input-row">
-            <text class="input-label">Soda (cups)</text>
+            <text class="input-label">{{ tr("Soda (cups)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('soda', 1)">-</view>
               <text class="stepper-value">{{ userInputs.soda }}</text>
@@ -59,7 +59,7 @@
             </view>
           </view>
           <view class="input-row">
-            <text class="input-label">Tea (cups)</text>
+            <text class="input-label">{{ tr("Tea (cups)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('tea', 1)">-</view>
               <text class="stepper-value">{{ userInputs.tea }}</text>
@@ -67,7 +67,7 @@
             </view>
           </view>
           <view class="total-caffeine">
-            <text>Total Caffeine: ~{{ totalCaffeine }}mg</text>
+            <text>{{ tr('Total Caffeine') }}: ~{{ totalCaffeine }} {{ tr('mg') }}</text>
             <text class="caffeine-level" :class="caffeineLevelClass">{{ caffeineLevel }}</text>
           </view>
         </view>
@@ -76,19 +76,19 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">😴</text>
-          <text>Sleep</text>
+          <text>{{ tr("Sleep") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Sleep Duration (hours)</text>
+            <text class="input-label">{{ tr("Sleep Duration (hours)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decreaseSleep">-</view>
-              <text class="stepper-value">{{ userInputs.sleepHours }}h {{ userInputs.sleepMinutes }}m</text>
+              <text class="stepper-value">{{ userInputs.sleepHours }} {{ tr('hours') }} {{ userInputs.sleepMinutes }} {{ tr('minutes') }}</text>
               <view class="stepper-btn plus" @click="increaseSleep">+</view>
             </view>
           </view>
           <view class="sleep-quality">
-            <text>Sleep Quality:</text>
+            <text>{{ tr("Sleep Quality:") }}</text>
             <view class="quality-btns">
               <view
                 v-for="q in ['Poor', 'Fair', 'Good', 'Excellent']"
@@ -96,7 +96,7 @@
                 class="quality-btn"
                 :class="{ active: userInputs.sleepQuality === q }"
                 @click="userInputs.sleepQuality = q"
-              >{{ q }}</view>
+              >{{ tr(q) }}</view>
             </view>
           </view>
           <view class="sleep-status" :class="sleepStatusClass">
@@ -108,11 +108,11 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">⚖️</text>
-          <text>Body Metrics</text>
+          <text>{{ tr("Body Metrics") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Weight (kg)</text>
+            <text class="input-label">{{ tr("Weight (kg)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('weight', 0.5)">-</view>
               <text class="stepper-value">{{ userInputs.weight }}</text>
@@ -120,7 +120,7 @@
             </view>
           </view>
           <view class="input-row">
-            <text class="input-label">Height (cm)</text>
+            <text class="input-label">{{ tr("Height (cm)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('height', 1)">-</view>
               <text class="stepper-value">{{ userInputs.height }}</text>
@@ -130,7 +130,7 @@
           <view class="bmi-display" v-if="bmi > 0">
             <view class="bmi-value">
               <text class="bmi-number">{{ bmi }}</text>
-              <text class="bmi-label">BMI</text>
+              <text class="bmi-label">{{ tr("BMI") }}</text>
             </view>
             <view class="bmi-status" :class="bmiStatusClass">
               <text>{{ bmiStatus }}</text>
@@ -142,11 +142,11 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">🍽️</text>
-          <text>Diet</text>
+          <text>{{ tr("Diet") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Meals Today</text>
+            <text class="input-label">{{ tr("Meals Today") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('meals', 1)">-</view>
               <text class="stepper-value">{{ userInputs.meals }}</text>
@@ -154,7 +154,7 @@
             </view>
           </view>
           <view class="input-row">
-            <text class="input-label">Vegetables (servings)</text>
+            <text class="input-label">{{ tr("Vegetables (servings)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('vegetables', 1)">-</view>
               <text class="stepper-value">{{ userInputs.vegetables }}</text>
@@ -162,7 +162,7 @@
             </view>
           </view>
           <view class="input-row">
-            <text class="input-label">Fruits (servings)</text>
+            <text class="input-label">{{ tr("Fruits (servings)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('fruits', 1)">-</view>
               <text class="stepper-value">{{ userInputs.fruits }}</text>
@@ -170,7 +170,7 @@
             </view>
           </view>
           <view class="diet-summary">
-            <text>Today's Diet Score: {{ dietScore }}/100</text>
+            <text>{{ tr("Today's Diet Score") }}: {{ dietScore }}/100</text>
             <view class="diet-progress">
               <view class="diet-fill" :style="{ width: dietScore + '%', background: dietColor }"></view>
             </view>
@@ -181,11 +181,11 @@
       <view class="section">
         <view class="section-title">
           <text class="title-icon">🏃</text>
-          <text>Exercise</text>
+          <text>{{ tr("Exercise") }}</text>
         </view>
         <view class="input-card">
           <view class="input-row">
-            <text class="input-label">Steps Today</text>
+            <text class="input-label">{{ tr("Steps Today") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('steps', 1000)">-</view>
               <text class="stepper-value">{{ userInputs.steps.toLocaleString() }}</text>
@@ -193,12 +193,12 @@
             </view>
           </view>
           <view class="quick-btns">
-            <view class="quick-btn" @click="setQuick('steps', 5000)">5K</view>
-            <view class="quick-btn" @click="setQuick('steps', 8000)">8K</view>
-            <view class="quick-btn" @click="setQuick('steps', 10000)">10K</view>
+            <view class="quick-btn" @click="setQuick('steps', 5000)">{{ tr("5K") }}</view>
+            <view class="quick-btn" @click="setQuick('steps', 8000)">{{ tr("8K") }}</view>
+            <view class="quick-btn" @click="setQuick('steps', 10000)">{{ tr("10K") }}</view>
           </view>
           <view class="input-row">
-            <text class="input-label">Exercise (minutes)</text>
+            <text class="input-label">{{ tr("Exercise (minutes)") }}</text>
             <view class="stepper">
               <view class="stepper-btn minus" @click="decrease('exercise', 15)">-</view>
               <text class="stepper-value">{{ userInputs.exercise }}</text>
@@ -210,15 +210,29 @@
 
       <view class="section submit-section">
         <view class="submit-btn" @click="submitAndGetAdvice">
-          <text v-if="!loading">Get AI Health Advice</text>
-          <text v-else>Analyzing...</text>
+          <text v-if="!loading">{{ tr("Get AI Health Advice") }}</text>
+          <text v-else>{{ tr("Analyzing...") }}</text>
         </view>
       </view>
 
       <view class="section" v-if="healthAdvice">
         <view class="section-title">
           <text class="title-icon">🤖</text>
-          <text>AI Health Advice</text>
+          <text>{{ tr("AI Health Advice") }}</text>
+        </view>
+        <!-- 来源标记：区分 AI 生成与本地兜底，终结“静默兜底” -->
+        <view class="advice-source" :class="adviceSource === 'ai' ? 'from-ai' : 'from-local'">
+          <text class="advice-source-text">{{ adviceSource === 'ai' ? tr("AI 生成") : tr("本地分析 · AI 暂不可用") }}</text>
+          <text v-if="adviceSource === 'ai' && advicePromptVersion" class="advice-source-ver">{{ advicePromptVersion }}</text>
+        </view>
+        <view v-if="adviceMeasurementDate" class="advice-basis">
+          <text>{{ tr(usedLatestMeasurement ? 'Today has no measurement; analysis uses the latest reading' : 'Analysis uses the selected reading') }} · {{ adviceMeasurementDate }}</text>
+        </view>
+
+        <!-- 危险值硬提示：由后端规则判定，不依赖模型输出 -->
+        <view class="safety-alert" v-if="healthAdvice.safetyAlert">
+          <text class="safety-alert-title">⚠️ {{ tr("请立即关注") }}</text>
+          <text class="safety-alert-text">{{ healthAdvice.safetyAlert }}</text>
         </view>
         
         <!-- 结构化建议展示 -->
@@ -247,15 +261,44 @@
                 </view>
               </view>
               <view class="indicator-advice">
-                <text class="advice-label">💡 建议</text>
+                <text class="advice-label">{{ tr("💡 建议") }}</text>
                 <text class="advice-content">{{ indicator.advice }}</text>
               </view>
             </view>
           </view>
+
+          <view class="insights-section" v-if="healthAdvice.insights && healthAdvice.insights.length">
+            <text class="lifestyle-title">{{ tr('What the data shows') }}</text>
+            <view v-for="(item,index) in healthAdvice.insights" :key="'insight-'+index" class="insight-card" :class="item.status">
+              <view class="insight-title"><text>{{ item.icon }}</text><text>{{ item.title }}</text></view>
+              <text class="insight-evidence">{{ item.evidence }}</text>
+              <text class="insight-meaning">{{ item.meaning }}</text>
+            </view>
+          </view>
+
+          <view class="priorities-section" v-if="healthAdvice.priorities && healthAdvice.priorities.length">
+            <text class="lifestyle-title">{{ tr('Your next steps') }}</text>
+            <view v-for="(item,index) in healthAdvice.priorities" :key="'priority-'+index" class="priority-card">
+              <view class="priority-rank">{{ index + 1 }}</view>
+              <view class="priority-body">
+                <text class="priority-title">{{ item.icon }} {{ item.title }}</text>
+                <text class="priority-reason">{{ item.reason }}</text>
+                <text class="priority-action">{{ item.action }}</text>
+                <view class="priority-meta"><text>{{ item.target }}</text><text>{{ item.when }}</text></view>
+              </view>
+            </view>
+          </view>
+
+          <view class="follow-up" v-if="healthAdvice.followUp && healthAdvice.followUp.when">
+            <text class="follow-up-title">{{ tr('Check again') }}</text>
+            <text>⏱ {{ healthAdvice.followUp.when }}</text>
+            <text>◉ {{ healthAdvice.followUp.measure }}</text>
+            <text>✓ {{ healthAdvice.followUp.success }}</text>
+          </view>
           
           <!-- 生活方式建议 -->
-          <view class="lifestyle-section">
-            <text class="lifestyle-title">🌟 生活方式建议</text>
+          <view class="lifestyle-section" v-if="healthAdvice.lifestyle && healthAdvice.lifestyle.length">
+            <text class="lifestyle-title">{{ tr("🌟 生活方式建议") }}</text>
             <view 
               v-for="(item, index) in healthAdvice.lifestyle" 
               :key="index"
@@ -291,6 +334,7 @@
 </template>
 
 <script>
+import {getAuthUrl,getDataUrl} from '@/config/api.js';
 export default {
   data() {
     return {
@@ -310,7 +354,12 @@ export default {
         steps: 0,
         exercise: 0
       },
+      bodyEdited:{height:false,weight:false},profileVersion:0,
       healthAdvice: '',
+      adviceSource: '',
+      advicePromptVersion: '',
+      adviceMeasurementDate: '',
+      usedLatestMeasurement: false,
       loading: false
     };
   },
@@ -319,10 +368,10 @@ export default {
       return this.userInputs.coffee * 95 + this.userInputs.soda * 40 + this.userInputs.tea * 30;
     },
     caffeineLevel() {
-      if (this.totalCaffeine < 200) return 'Low';
-      if (this.totalCaffeine < 400) return 'Moderate';
-      if (this.totalCaffeine < 600) return 'High';
-      return 'Very High';
+      if (this.totalCaffeine < 200) return this.tr("Low");
+      if (this.totalCaffeine < 400) return this.tr("Moderate");
+      if (this.totalCaffeine < 600) return this.tr("High");
+      return this.tr("Very High");
     },
     caffeineLevelClass() {
       if (this.totalCaffeine < 200) return 'low';
@@ -336,10 +385,10 @@ export default {
       return Number((this.userInputs.weight / (heightM * heightM)).toFixed(1));
     },
     bmiStatus() {
-      if (this.bmi < 18.5) return 'Underweight';
-      if (this.bmi < 24) return 'Normal';
-      if (this.bmi < 28) return 'Overweight';
-      return 'Obese';
+      if (this.bmi < 18.5) return this.tr("Underweight");
+      if (this.bmi < 24) return this.tr("Normal");
+      if (this.bmi < 28) return this.tr("Overweight");
+      return this.tr("Obese");
     },
     bmiStatusClass() {
       if (this.bmi < 18.5) return 'underweight';
@@ -349,10 +398,10 @@ export default {
     },
     sleepStatus() {
       const hours = this.userInputs.sleepHours + this.userInputs.sleepMinutes / 60;
-      if (hours < 6) return 'Insufficient sleep - may affect health';
-      if (hours < 7) return 'Below recommended - try to get more rest';
-      if (hours <= 9) return 'Good sleep duration';
-      return 'Well above recommended - may be excessive';
+      if (hours < 6) return this.tr("Insufficient sleep - may affect health");
+      if (hours < 7) return this.tr("Below recommended - try to get more rest");
+      if (hours <= 9) return this.tr("Good sleep duration");
+      return this.tr("Well above recommended - may be excessive");
     },
     sleepStatusClass() {
       const hours = this.userInputs.sleepHours + this.userInputs.sleepMinutes / 60;
@@ -387,14 +436,26 @@ export default {
   onLoad() {
     this.loadSavedData();
   },
+  onShow(){this.applyProfileDefaults();},
+  onHide(){this.profileVersion++;this.bodyEdited={height:false,weight:false};},
+  onUnload(){this.profileVersion++;},
   methods: {
+    applyProfileDefaults(){
+      const user=uni.getStorageSync('user')||{},version=++this.profileVersion;
+      const apply=profile=>{for(const key of ['height','weight']){const value=Number(profile[key]);if(!this.bodyEdited[key]&&Number.isFinite(value)&&value>0)this.userInputs[key]=value;}};
+      apply(user);
+      if(user.is_guest||!uni.getStorageSync('token'))return;
+      uni.request({url:getAuthUrl('profile'),success:r=>{if(version!==this.profileVersion||r.data.errcode!==0||!r.data.data)return;const currentUser=uni.getStorageSync('user')||{};if(currentUser.id!==user.id)return;const profile={...currentUser,...r.data.data};uni.setStorageSync('user',profile);apply(profile);}});
+    },
     goBack() {
       uni.navigateBack();
     },
     increase(key, amount) {
+      if(key==='height'||key==='weight')this.bodyEdited[key]=true;
       this.userInputs[key] = Math.min(9999, (this.userInputs[key] || 0) + amount);
     },
     decrease(key, amount) {
+      if(key==='height'||key==='weight')this.bodyEdited[key]=true;
       this.userInputs[key] = Math.max(0, (this.userInputs[key] || 0) - amount);
     },
     increaseSleep() {
@@ -416,16 +477,17 @@ export default {
       }
     },
     setQuick(key, value) {
+      if(key==='height'||key==='weight')this.bodyEdited[key]=true;
       this.userInputs[key] = value;
     },
     loadSavedData() {
-      const saved = uni.getStorageSync('healthInputs');
+      const saved = uni.getStorageSync('healthInputs_'+uni.getStorageSync('user')?.id);
       if (saved) {
         this.userInputs = { ...this.userInputs, ...saved };
       }
     },
     saveData() {
-      uni.setStorageSync('healthInputs', this.userInputs);
+      uni.setStorageSync('healthInputs_'+uni.getStorageSync('user')?.id, this.userInputs);
     },
     async submitAndGetAdvice() {
       this.saveData();
@@ -433,7 +495,7 @@ export default {
       // 检查是否已登录
       const token = uni.getStorageSync('token');
       if (!token) {
-        uni.showToast({ title: '请先登录', icon: 'none', duration: 2000 });
+        uni.showToast({ title: this.tr("请先登录"), icon: 'none', duration: 2000 });
         setTimeout(() => {
           uni.reLaunch({ url: '/pages/login/login' });
         }, 1500);
@@ -447,7 +509,7 @@ export default {
         
         const resData = await new Promise((resolve, reject) => {
           uni.request({
-            url: 'http://192.144.185.64:3002/api/ai/health-advice',
+            url: getDataUrl('aiHealthAdvice'),
             method: 'POST',
             header: {
               'Authorization': 'Bearer ' + token,
@@ -455,7 +517,19 @@ export default {
             },
             data: {
               deviceId: selectedDeviceId,
-              date: new Date().toISOString().split('T')[0]
+              date: new Date().toISOString().split('T')[0],
+              language: this.uiLang,
+              wellness: {
+                waterMl: this.userInputs.water,
+                caffeineMg: this.totalCaffeine,
+                sleepMinutes: this.userInputs.sleepHours * 60 + this.userInputs.sleepMinutes,
+                sleepQuality: this.userInputs.sleepQuality,
+                meals: this.userInputs.meals,
+                vegetables: this.userInputs.vegetables,
+                fruits: this.userInputs.fruits,
+                steps: this.userInputs.steps,
+                exerciseMinutes: this.userInputs.exercise
+              }
             },
             timeout: 60000,
             success: (res) => {
@@ -469,7 +543,7 @@ export default {
         });
 
         if (!resData) {
-          throw new Error('响应数据为空');
+          throw new Error(this.tr("响应数据为空"));
         }
 
         // 检查业务错误码（401/403 表示登录失效）
@@ -484,17 +558,25 @@ export default {
           if (advice && typeof advice === 'object' && advice.indicators) {
             advice.type = 'structured';
           }
+          // 来源标记：由后端显式告知这次是 AI 生成还是本地兜底
+          this.adviceSource = (advice && typeof advice === 'object' && advice.usedFallback) ? 'local' : 'ai';
+          this.advicePromptVersion = (advice && typeof advice === 'object' && advice.promptVersion) || (resData.data && resData.data.promptVersion) || '';
+          this.adviceMeasurementDate = (resData.data && resData.data.date) || '';
+          this.usedLatestMeasurement = Boolean(resData.data && resData.data.usedLatestMeasurement);
+          if (this.adviceSource === 'local') {
+            uni.showToast({ title: this.tr("AI 暂不可用，以下为本地分析"), icon: 'none', duration: 2500 });
+          }
           this.healthAdvice = advice;
         } else {
           // 其他错误（如无数据）则使用本地建议
-          this.healthAdvice = this.generateLocalAdvice();
-          uni.showToast({ title: resData.msg || '获取建议失败，使用本地分析', icon: 'none' });
+          this.adviceSource = 'local'; this.advicePromptVersion = ''; this.adviceMeasurementDate=''; this.usedLatestMeasurement=false; this.healthAdvice = this.generateLocalAdvice();
+          uni.showToast({ title: resData.msg || this.tr("获取建议失败，使用本地分析"), icon: 'none' });
         }
       } catch (e) {
         console.error('AI建议请求失败:', e);
-        this.healthAdvice = this.generateLocalAdvice();
-        const errorMsg = e.errMsg || e.message || '未知错误';
-        uni.showToast({ title: '网络错误: ' + errorMsg, icon: 'none', duration: 3000 });
+        this.adviceSource = 'local'; this.advicePromptVersion = ''; this.adviceMeasurementDate=''; this.usedLatestMeasurement=false; this.healthAdvice = this.generateLocalAdvice();
+        const errorMsg = e.errMsg || e.message || this.tr("未知错误");
+        uni.showToast({ title: this.tr('Network error'), icon: 'none', duration: 3000 });
       } finally {
         this.loading = false;
       }
@@ -504,7 +586,7 @@ export default {
     handleLoginExpired() {
       uni.removeStorageSync('token');
       uni.removeStorageSync('userInfo');
-      uni.showToast({ title: '登录已失效，请重新登录', icon: 'none', duration: 2000 });
+      uni.showToast({ title: this.tr("登录已失效，请重新登录"), icon: 'none', duration: 2000 });
       setTimeout(() => {
         uni.reLaunch({ url: '/pages/login/login' }); // 根据实际登录页路径修改
       }, 1500);
@@ -514,41 +596,41 @@ export default {
       const hours = this.userInputs.sleepHours + this.userInputs.sleepMinutes / 60;
 
       if (hours < 7) {
-        advices.push('Consider getting more sleep - adults typically need 7-9 hours.');
+        advices.push(this.tr("Consider getting more sleep - adults typically need 7-9 hours."));
       }
 
       if (this.userInputs.water < 1500) {
-        advices.push('Increase your water intake to at least 1.5L daily.');
+        advices.push(this.tr("Increase your water intake to at least 1.5L daily."));
       }
 
       if (this.totalCaffeine > 400) {
-        advices.push('Your caffeine intake is high. Consider reducing coffee or soda.');
+        advices.push(this.tr("Your caffeine intake is high. Consider reducing coffee or soda."));
       }
 
       if (this.bmi > 25) {
-        advices.push('Your BMI is in the overweight range. Consider more exercise and balanced diet.');
+        advices.push(this.tr("Your BMI is in the overweight range. Consider more exercise and balanced diet."));
       } else if (this.bmi < 18.5) {
-        advices.push('Your BMI is in the underweight range. Consider a more nutritious diet.');
+        advices.push(this.tr("Your BMI is in the underweight range. Consider a more nutritious diet."));
       }
 
       if (this.userInputs.vegetables < 2) {
-        advices.push('Try to eat at least 2 servings of vegetables daily.');
+        advices.push(this.tr("Try to eat at least 2 servings of vegetables daily."));
       }
 
       if (this.userInputs.fruits < 2) {
-        advices.push('Include 2 servings of fruits in your daily diet.');
+        advices.push(this.tr("Include 2 servings of fruits in your daily diet."));
       }
 
       if (this.userInputs.steps < 5000) {
-        advices.push('Try to walk at least 5,000 steps daily for better health.');
+        advices.push(this.tr("Try to walk at least 5,000 steps daily for better health."));
       }
 
       if (this.userInputs.exercise < 30) {
-        advices.push('Consider adding at least 30 minutes of exercise daily.');
+        advices.push(this.tr("Consider adding at least 30 minutes of exercise daily."));
       }
 
       if (advices.length === 0) {
-        return 'Great job! Your health habits look good. Keep maintaining this balanced lifestyle.';
+        return this.tr("Great job! Your health habits look good. Keep maintaining this balanced lifestyle.");
       }
 
       return advices.join(' ');
@@ -601,7 +683,12 @@ export default {
 }
 
 .content-scroll {
-  height: calc(100vh - 120rpx);
+  height: calc(100vh - 220rpx - env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.content-scroll .section:last-child {
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
 }
 
 .section {
@@ -1052,5 +1139,97 @@ export default {
   color: #1e40af;
   line-height: 1.6;
   font-weight: 500;
+}
+
+/* AI 建议来源标记 */
+.advice-source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 20rpx;
+  margin-bottom: 16rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+}
+.advice-source.from-ai { background: #eff6ff; color: #1d4ed8; }
+.advice-source.from-local { background: #fef3c7; color: #92400e; }
+.advice-source-ver { font-size: 20rpx; opacity: 0.7; }
+
+.advice-basis {
+  margin: -4rpx 0 16rpx;
+  color: #64748b;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.insights-section,
+.priorities-section {
+  padding: 0 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.insight-card {
+  padding: 20rpx;
+  margin-bottom: 12rpx;
+  border-radius: 16rpx;
+  background: #f8fafc;
+  border-left: 6rpx solid #94a3b8;
+}
+.insight-card.positive { border-left-color: #22c55e; background: #f0fdf4; }
+.insight-card.attention { border-left-color: #f59e0b; background: #fffbeb; }
+.insight-title { display:flex; gap:10rpx; font-size:27rpx; font-weight:600; color:#1e293b; }
+.insight-evidence { display:block; margin-top:10rpx; font-size:24rpx; color:#6366f1; }
+.insight-meaning { display:block; margin-top:8rpx; font-size:25rpx; color:#475569; line-height:1.55; }
+
+.priority-card {
+  display:flex;
+  gap:18rpx;
+  padding:22rpx;
+  margin-bottom:14rpx;
+  border-radius:18rpx;
+  background:linear-gradient(135deg,#faf5ff,#f5f3ff);
+  border:1rpx solid #e9d5ff;
+}
+.priority-rank { width:42rpx; height:42rpx; line-height:42rpx; text-align:center; border-radius:50%; background:#7c3aed; color:white; font-size:23rpx; font-weight:700; flex:none; }
+.priority-body { flex:1; min-width:0; }
+.priority-title { display:block; color:#312e81; font-size:28rpx; font-weight:700; }
+.priority-reason { display:block; color:#7c3aed; font-size:23rpx; margin-top:8rpx; }
+.priority-action { display:block; color:#334155; font-size:26rpx; line-height:1.55; margin-top:12rpx; }
+.priority-meta { display:flex; flex-wrap:wrap; gap:10rpx; margin-top:14rpx; }
+.priority-meta text { background:white; color:#64748b; padding:7rpx 12rpx; border-radius:10rpx; font-size:21rpx; }
+
+.follow-up {
+  display:flex;
+  flex-direction:column;
+  gap:10rpx;
+  margin:0 24rpx 24rpx;
+  padding:22rpx;
+  border-radius:16rpx;
+  background:#f0f9ff;
+  color:#475569;
+  font-size:24rpx;
+  line-height:1.5;
+}
+.follow-up-title { color:#075985; font-size:28rpx; font-weight:700; margin-bottom:2rpx; }
+
+/* 危险值硬提示（规则判定，不依赖模型） */
+.safety-alert {
+  background: #fef2f2;
+  border-left: 8rpx solid #ef4444;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 16rpx;
+}
+.safety-alert-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #991b1b;
+  margin-bottom: 8rpx;
+}
+.safety-alert-text {
+  font-size: 26rpx;
+  color: #7f1d1d;
+  line-height: 1.6;
 }
 </style>

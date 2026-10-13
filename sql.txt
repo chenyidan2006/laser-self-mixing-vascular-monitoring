@@ -1,0 +1,61 @@
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_health_monitor |
++--------------------------+
+| user_devices             |
+| user_health_data         |
+| users                    |
++--------------------------+
+3 rows in set (6.142 sec)
+
+mysql> DESC users;
++---------------+--------------+------+-----+-------------------+-----------------------------+
+| Field         | Type         | Null | Key | Default           | Extra                       |
++---------------+--------------+------+-----+-------------------+-----------------------------+
+| id            | int unsigned | NO   | PRI | NULL              | auto_increment              |
+| phone         | varchar(20)  | YES  | UNI | NULL              |                             |
+| password      | varchar(255) | YES  |     | NULL              |                             |
+| wechat_openid | varchar(64)  | YES  | UNI | NULL              |                             |
+| nickname      | varchar(50)  | YES  |     | NULL              |                             |
+| avatar        | varchar(255) | YES  |     | NULL              |                             |
+| gender        | tinyint      | YES  |     | 0                 |                             |
+| birthday      | date         | YES  |     | NULL              |                             |
+| height        | decimal(5,2) | YES  |     | NULL              |                             |
+| weight        | decimal(5,2) | YES  |     | NULL              |                             |
+| email         | varchar(100) | YES  |     | NULL              |                             |
+| is_guest      | tinyint(1)   | NO   |     | 0                 |                             |
+| last_login    | datetime     | YES  |     | NULL              |                             |
+| created_at    | datetime     | NO   | MUL | CURRENT_TIMESTAMP | DEFAULT_GENERATED           |
+| updated_at    | datetime     | YES  |     | NULL              | on update CURRENT_TIMESTAMP |
++---------------+--------------+------+-----+-------------------+-----------------------------+
+15 rows in set (2.959 sec)
+
+mysql> DESC user_devices;
++-------------+--------------+------+-----+-------------------+-------------------+
+| Field       | Type         | Null | Key | Default           | Extra             |
++-------------+--------------+------+-----+-------------------+-------------------+
+| id          | int unsigned | NO   | PRI | NULL              | auto_increment    |
+| user_id     | int unsigned | NO   | MUL | NULL              |                   |
+| device_id   | varchar(64)  | NO   | UNI | NULL              |                   |
+| device_name | varchar(50)  | YES  |     | NULL              |                   |
+| status      | tinyint      | NO   |     | 0                 |                   |
+| last_active | datetime     | YES  |     | NULL              |                   |
+| bind_time   | datetime     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------+--------------+------+-----+-------------------+-------------------+
+7 rows in set (0.019 sec)
+
+mysql> DESC user_health_data;
++--------------+-------------------+------+-----+-------------------+-------------------+
+| Field        | Type              | Null | Key | Default           | Extra             |
++--------------+-------------------+------+-----+-------------------+-------------------+
+| id           | bigint unsigned   | NO   | PRI | NULL              | auto_increment    |
+| user_id      | int unsigned      | NO   | MUL | NULL              |                   |
+| device_id    | varchar(64)       | NO   | MUL | NULL              |                   |
+| measure_time | datetime          | NO   | MUL | NULL              |                   |
+| heart_rate   | smallint unsigned | YES  |     | NULL              |                   |
+| systolic_bp  | smallint unsigned | YES  |     | NULL              |                   |
+| diastolic_bp | smallint unsigned | YES  |     | NULL              |                   |
+| spo2         | tinyint unsigned  | YES  |     | NULL              |                   |
+| created_at   | datetime          | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------+-------------------+------+-----+-------------------+-------------------+
+9 rows in set (1.048 sec)

@@ -1,6 +1,7 @@
 <!-- App.vue -->
 <script setup>
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import {tr, syncNavigation} from '@/utils/i18n.js'
 
 // 初始化全局数据
 const initGlobalData = () => {
@@ -21,33 +22,48 @@ const initGlobalData = () => {
 
 // 全局请求拦截器
 const setupRequestInterceptor = () => {
-  const originalRequest = uni.request;
+  // Keep the original `uni` receiver.  In H5, extracting the method and
+  // calling it as a plain function can lose its internal request context.
+  const originalRequest = uni.request.bind(uni);
+
+  const normalizeJwt = (value) => {
+    if (value && typeof value === 'object') value = value.token;
+    if (typeof value !== 'string') return '';
+    const token = value.trim()
+      .replace(/^Bearer\s+/i, '')
+      .replace(/^['"]|['"]$/g, '');
+    return /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token) ? token : '';
+  };
   
   uni.request = (options) => {
-    // 添加 token 到请求头
-    const token = uni.getStorageSync('token');
+    // Only send a real JWT. Older builds may have left "undefined", an
+    // object, or an already-prefixed value in storage; any of those becomes
+    // "jwt malformed" on protected device/data endpoints.
+    const storedToken = uni.getStorageSync('token');
+    const token = normalizeJwt(storedToken);
+    options.header = options.header || {};
     if (token) {
-      if (!options.header) {
-        options.header = {};
-      }
-      options.header['Authorization'] = 'Bearer ' + token;
+      options.header.Authorization = `Bearer ${token}`;
+    } else {
+      delete options.header.Authorization;
+      if (storedToken) uni.removeStorageSync('token');
     }
     
     // 保存原始的 success 和 fail 回调
+    const expectsPromise = !options.success && !options.fail;
     const originalSuccess = options.success;
     const originalFail = options.fail;
     
     // 重写 success 回调处理 401
     options.success = (res) => {
-      if (res.statusCode === 401) {
+      if (res.statusCode === 401 && /\/api\/(?:data|user\/(?:profile|devices))/.test(options.url)) {
         // Token 过期或未登录，清除本地存储并跳转登录页
         uni.removeStorageSync('token');
         uni.removeStorageSync('user');
-        uni.showToast({ title: '登录已失效，请重新登录', icon: 'none' });
+        uni.showToast({ title: tr('登录已失效，请重新登录'), icon: 'none' });
         setTimeout(() => {
           uni.reLaunch({ url: '/pages/login/login' });
         }, 1500);
-        return;
       }
       if (originalSuccess) {
         originalSuccess(res);
@@ -62,6 +78,7 @@ const setupRequestInterceptor = () => {
       }
     };
     
+    if(expectsPromise) return new Promise((resolve,reject)=>originalRequest({...options,success:res=>{options.success(res);resolve(res);},fail:err=>{options.fail(err);reject(err);}}));
     return originalRequest(options);
   };
 }
@@ -76,6 +93,10 @@ onLaunch((options) => {
   
   // 设置全局请求拦截器
   setupRequestInterceptor()
+  syncNavigation()
+  for (const method of ['showToast','showLoading','showModal']) {
+    uni.addInterceptor(method,{invoke(args){for(const key of ['title','content','confirmText','cancelText'])if(args[key])args[key]=tr(args[key]);if(method==='showModal'){args.confirmText=args.confirmText||tr('Confirm');args.cancelText=args.cancelText||tr('Cancel');}}});
+  }
   
   console.log('应用启动完成')
     const token = uni.getStorageSync('token');
@@ -106,8 +127,7 @@ page {
   height: 100%;
   overflow-y: auto;
   box-sizing: border-box;
-  padding-bottom: 300rpx; /* 根据你的 tabBar 高度调整 */
-  box-sizing: border-box;
+  padding-bottom: 0;
 }
 
 /* 重置默认样式 */

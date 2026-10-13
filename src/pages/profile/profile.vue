@@ -3,11 +3,11 @@
     <view class="header">
       <view class="user-info">
         <view class="avatar-wrapper">
-          <text class="avatar">{{ user?.nickname?.charAt(0) || 'U' }}</text>
+          <text class="avatar">{{ user?.nickname?.charAt(0) || '·' }}</text>
         </view>
         <view class="greeting">
-          <text class="greeting-text">{{ user?.nickname || 'Guest' }}</text>
-          <text class="phone-text">{{ user?.phone || (user?.is_guest ? 'Guest Mode' : 'No phone') }}</text>
+          <text class="greeting-text">{{ user?.nickname || tr('Guest') }}</text>
+          <text class="phone-text">{{ user?.phone || (user?.is_guest ? tr('Guest Mode') : tr('No phone')) }}</text>
         </view>
       </view>
       <view class="header-actions">
@@ -19,15 +19,20 @@
 
     <view class="menu-section">
       <view class="section-header">
-        <text class="section-title">Menu</text>
+        <text class="section-title">{{ tr("Menu") }}</text>
       </view>
 
       <view class="menu-card">
+        <view class="menu-item" @click="goGoals">
+          <view class="menu-icon goal-menu-icon">◎</view>
+          <view class="menu-content"><text class="menu-title">{{ tr('Daily Goals') }}</text><text class="menu-desc">{{ tr('Your daily wellness plan') }}</text></view>
+          <text class="arrow">›</text>
+        </view>
         <view class="menu-item" @click="goEditProfile">
           <view class="menu-icon">👤</view>
           <view class="menu-content">
-            <text class="menu-title">Personal Info</text>
-            <text class="menu-desc">View and edit profile</text>
+            <text class="menu-title">{{ tr("Personal Info") }}</text>
+            <text class="menu-desc">{{ tr("View and edit profile") }}</text>
           </view>
           <text class="arrow">›</text>
         </view>
@@ -35,8 +40,8 @@
         <view class="menu-item" @click="goDeviceManage">
           <view class="menu-icon">📱</view>
           <view class="menu-content">
-            <text class="menu-title">Device Management</text>
-            <text class="menu-desc">Bind/unbind devices</text>
+            <text class="menu-title">{{ tr("Device Management") }}</text>
+            <text class="menu-desc">{{ tr("Bind/unbind devices") }}</text>
           </view>
           <text class="arrow">›</text>
         </view>
@@ -45,15 +50,15 @@
 
     <view class="menu-section">
       <view class="section-header">
-        <text class="section-title">Settings</text>
+        <text class="section-title">{{ tr("Settings") }}</text>
       </view>
 
       <view class="menu-card">
         <view class="menu-item" @click="goSettings">
           <view class="menu-icon">⚙️</view>
           <view class="menu-content">
-            <text class="menu-title">Settings</text>
-            <text class="menu-desc">Account, notifications</text>
+            <text class="menu-title">{{ tr("Settings") }}</text>
+            <text class="menu-desc">{{ tr("Account, language") }}</text>
           </view>
           <text class="arrow">›</text>
         </view>
@@ -61,8 +66,8 @@
         <view class="menu-item" @click="goHelp">
           <view class="menu-icon">❓</view>
           <view class="menu-content">
-            <text class="menu-title">Help & Feedback</text>
-            <text class="menu-desc">FAQ, feedback</text>
+            <text class="menu-title">{{ tr("Help & Feedback") }}</text>
+            <text class="menu-desc">{{ tr("FAQ, feedback") }}</text>
           </view>
           <text class="arrow">›</text>
         </view>
@@ -70,8 +75,8 @@
         <view class="menu-item" @click="goAbout">
           <view class="menu-icon">ℹ️</view>
           <view class="menu-content">
-            <text class="menu-title">About Us</text>
-            <text class="menu-desc">Version, privacy policy</text>
+            <text class="menu-title">{{ tr("About Us") }}</text>
+            <text class="menu-desc">{{ tr("Version, privacy policy") }}</text>
           </view>
           <text class="arrow">›</text>
         </view>
@@ -79,8 +84,8 @@
     </view>
 
     <view class="action-section">
-      <button v-if="!user?.is_guest" class="logout-btn" @click="logout">Logout</button>
-      <button v-else class="login-btn" @click="goLogin">Login / Register</button>
+      <button v-if="!user?.is_guest" class="logout-btn" @click="logout">{{ tr("Logout") }}</button>
+      <button v-else class="login-btn" @click="goLogin">{{ tr("Login / Register") }}</button>
     </view>
   </view>
 </template>
@@ -97,10 +102,11 @@ export default {
     if (storedUser) {
       this.user = storedUser;
     } else {
-      this.user = { is_guest: true, nickname: 'Guest', phone: 'Guest Mode' };
+      this.user = { is_guest: true, nickname: this.tr('Guest'), phone: '' };
     }
   },
   methods: {
+    goGoals() {uni.navigateTo({url:'/pages/goal-settings/goal-settings?returnTo=profile'});},
     goEditProfile() {
       if (this.user?.is_guest) {
         this.goLogin();
@@ -129,8 +135,8 @@ export default {
     },
     logout() {
       uni.showModal({
-        title: 'Confirm',
-        content: 'Are you sure you want to logout?',
+        title: this.tr("Confirm"),
+        content: this.tr("Are you sure you want to logout?"),
         success: (res) => {
           if (res.confirm) {
             uni.removeStorageSync('token');
@@ -144,11 +150,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.goal-menu-icon{background:#eeeafa!important;color:#8a73d9;font-size:44rpx!important;}
 .profile-page {
   min-height: 100vh;
   background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 50%, #ffffff 100%);
-  padding: 0 24rpx 120rpx;
+  padding: 0 24rpx calc(140rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 .header {
