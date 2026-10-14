@@ -99,7 +99,7 @@ SERVER_PATH = "/api/upload/raw";
 - `#ADS8688` 帧头是否正确；
 - 是否恰好有 640,000 字节负载；
 - `#END` 帧尾是否完整；
-- 双通道声明是否符合物理采样；
+- 遗留 `ch=2` 是否被错误用于拆分现役单通道连续流；
 - 算法和数据库是否成功。
 
 完整验证必须使用 [`../raw-receiver/README.md`](../raw-receiver/README.md) 中的现役接收器。

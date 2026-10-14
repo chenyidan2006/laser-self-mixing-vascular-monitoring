@@ -21,7 +21,7 @@
 - 硬件总览、STM32/ADS8688、PCB 和联调文档：[`硬件/README.md`](硬件/README.md)
 - MATLAB 原始帧转换、解析和 8 图诊断工具：[`tools/matlab/README.md`](tools/matlab/README.md)
 
-服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；双通道帧协议见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
+服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；现役单通道布局、旧版块交替格式和 40→20 kHz 降采样关系见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
 
 数据库的创建、已有库迁移、环境变量、验证和备份说明见后端仓库的 [`docs/DATABASE_SETUP_AND_USAGE.md`](https://github.com/chenyidan2006/health-backend/blob/master/docs/DATABASE_SETUP_AND_USAGE.md)。
 
@@ -31,7 +31,7 @@
 SMI 模拟前端与 ADS8688/STM32 采集 → ESP32-S3 → HTTP 原始帧接收 → MATLAB 编译算法 → 后端数据库 → App 展示
 ```
 
-ESP32 每次上传一帧原始 SMI 数据；帧头将其声明为双通道、分块交错。历史 MATLAB 工具也按 2,000 点 A/B 块交错解释实测文件，并记录过相邻块之间约 40–80 µV 的直流偏差，说明这套分组方式不是后来凭空添加的。不过，当前归档 STM32 构建仍未展示两个物理 ADC 输入的切换过程，因此“存在两组交错数据”与“已经确认两个物理通道”必须分开表述。完整证据与帧格式见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
+ESP32 每次上传一帧原始 SMI 数据。学长已确认现役硬件只采一个物理通道：STM32 以 40 kHz 连续采样，模型则按 20 kHz 训练，因此模型前应对连续流做 2 倍降采样。帧头中的 `ch=2` 是 ESP32 硬编码的历史兼容字段，不代表现役物理双通道。旧版曾讨论/实现过按 2,000 点块交替的双通道格式，只用于恢复来源明确的旧文件。完整解释见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 
 现役网络端口只有两个项目服务端口：ESP32 向 `3000` 端口上传原始帧；App 和算法向 `3002` 端口访问业务后端。MySQL 默认使用 `3306`，只供后端在服务器内部访问。算法由接收服务启动为本地子进程，本身不监听网络端口。
 
@@ -50,29 +50,29 @@ ESP32 每次上传一帧原始 SMI 数据；帧头将其声明为双通道、分
 
 ### 为什么程序设置为 40 kHz
 
-现有聊天记录给出的设计思路是：先依据奈奎斯特采样定理，采样率应高于待测信号最高有效频率的 2 倍；考虑实际 SMI 信号质量、采集链路精度和滤波余量，工程上希望留到约 3–4 倍，讨论中先得到约 `20 kHz`，随后又把程序设为 `40 kHz` 以增加余量。
+学长已确认：模型使用 `20 kHz` 数据训练，但采集端为了获得更好的原始数据改用 `40 kHz`。现役系统仍是单物理通道；40 kHz 不是由“双通道各 20 kHz”相加得到的。
 
-这段记录只能说明**当时选取 40 kHz 的工程理由**，不能据此断言老师的采集卡固定工作在 40 kHz，也不能反推出被测信号的最高频率。要复现老师采集卡的基准，还需要找到其型号、配置截图或原始数据的时间戳。仓库能够直接证实的是：当前 STM32 的 TIM2 确实产生 `40,000 Hz` 触发。
+仓库代码可以直接证实 STM32 TIM2 产生 `40,000 Hz` 触发；模型训练采样率 `20,000 Hz` 来自学长确认。训练期具体采用了哪一种抗混叠滤波/重采样方法仍需从训练脚本或训练数据生成记录中核实，不能自行假设。
 
 还要避免把两个“乘 2”混为一谈：
 
 - 奈奎斯特的 `×2`：`采样率 > 2 × 信号最高频率`，是避免混叠的理论下限；实际系统通常还要为模拟滤波器过渡带和噪声留余量。
-- 协议拆分的 `÷2`：服务器把总计 `40 kS/s` 的 160 个块按 `ch=2` 拆为两组，于是解释成每组 `20 kS/s`。这是数据格式的解释，不是奈奎斯特定理，也尚未证明对应两个物理 ADC 通道。
+- 模型适配的 `÷2`：现役连续单通道流从 40 kHz 降采样到 20 kHz，这是采样率转换；应均匀降采样并采用与训练流程一致的抗混叠处理。
 
-因此目前最严谨的表述是：“系统参考奈奎斯特准则并考虑低信噪比与采集误差，最终将 STM32 总触发率保守设置为 40 kHz；服务器按协议暂解释为两组各 20 kS/s。”不要写成“老师采集卡是 20 kHz，所以我们的双通道乘 2 得到 40 kHz”，因为现有材料不足以证明这条因果关系。
+因此最准确的表述是：“现役 ADS8688 单通道以 40 kHz 连续采集；旧模型按 20 kHz 训练，推理前需要将连续流降采样到 20 kHz。”不要再写成“两通道各 20 kHz”。
 
-协议把 160 个块声明为双通道按块交替：
+现役单通道的数据量与模型输入关系为：
 
 ```text
-2000 点/块 × 160 块 = 320000 点
-160 块 ÷ 2 通道 = 80 块/通道
-80 块 × 2000 点 = 160000 点/通道
-160000 点 ÷ 8 秒 = 20000 点/秒/通道
+40000 点/秒 × 8 秒 = 320000 个单通道原始点
+320000 点 × 2 字节/点 = 640000 字节
+连续流按 2 倍降采样后 = 160000 点（20 kHz、8 秒）
+模型取前 100000 点 = 20 kHz、5 秒
 ```
 
-因此服务器目前按“总计 40 kS/s、每通道 20 kS/s”解析，并从通道 1 取前 `100,000` 点，即 `100,000 ÷ 20,000 = 5 s`，输入旧模型。
+这里的“2 字节/点”和“2 倍降采样”都不代表两个通道。16 位采样在 `.bin` 中按两个二进制字节保存；十六进制只是人工显示方式，转换成带空格的十六进制文本反而更占空间。
 
-但必须区分**协议/数据解释**与**物理采样实现**：ESP32 给 640,000 字节补了 `ch=2` 头；归档的 [`frame_fix_convert_plot.m`](tools/matlab/frame_fix_convert_plot.m) 也把真实文件按奇偶 2,000 点块拆为两组、按 `Fs/2 = 20 kHz` 绘图，并曾观察到相邻块约 40–80 µV 的偏差。另一方面，Keil 工程文件和最后一次构建的 `.map` 都表明参与链接的是 `ads8_test.c`；它先发 `MAN_2`，之后连续发 `CONT`，源码没有展示两个物理 ADC 通道交替选择。`ads8688 - 副本.c` 也不在该工程的编译列表内，当前有效代码只手动读 CH0，并在 1,024 点停止。因此现有材料能确认 40 kHz 总触发、8 秒/640,000 字节协议以及 A/B 分块解释，尚不能确认 A/B 一定来自两个物理 ADC 输入。正式结论需要找到同期固件/HEX，或用两路可区分测试波形复测。
+当前仓库存在一个已经确认的解析错误：`frame_pipeline.py` 仍信任过时的 `ch=2`，隔一个 2,000 点块取一块。这会把现役连续流变成“保留 50 ms、丢掉 50 ms”的断续数据，并不等于 40→20 kHz 均匀降采样。`replay_old_frame_no_upload.py` 也复用该错误逻辑。文档已明确记录风险；代码正式修复前，不应把其预测或 fallback 值当作可靠测量/训练数据。
 
 ### 正式串口速率：1,152,000 baud
 

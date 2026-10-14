@@ -7,11 +7,11 @@
 - 固件标识：`BP-CTRL-2026-10-09-RECOVER`
 - 归档日期：2026-10-13
 
-该固件控制测量按键、激光 MOS、WS2812 状态灯，尝试通过 UART 命令启动 STM32，并接收 640,000 字节 ADS8688 负载，再补齐声明 `ch=2` 的帧头/帧尾并上传服务器。仓库现有 STM32 快照不解析该命令；`ch=2` 也只是传输协议声明，尚不能证明两个物理 ADC 通道确实交替采样。两项版本疑点见下文和帧协议文档。
+该固件控制测量按键、激光 MOS、WS2812 状态灯，尝试通过 UART 命令启动 STM32，并接收 640,000 字节 ADS8688 负载，再补齐帧头/帧尾并上传服务器。学长已确认现役负载是单通道连续 40 kHz；固件写死的 `ch=2` 是过时兼容字段。仓库现有 STM32 快照不解析 ESP32 启动命令，仍存在控制版本不一致。
 
 为适合公开 GitHub，归档版本已将原文件中的 Wi-Fi 名称和密码替换为 `REPLACE_WITH_...` 占位符；服务器地址和数据协议保持不变。烧录前只在本机填写网络配置，不要提交真实密码。
 
-帧结构、双通道含义与服务器拆帧方式见 [`../../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
+帧结构、现役连续布局、旧版块交替格式和服务器已知解析错误见 [`../../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 
 硬件总览、STM32 采集说明和联调清单分别见 [`../README.md`](../README.md)、[`../STM32_ADS8688.md`](../STM32_ADS8688.md) 和 [`../BRINGUP_CHECKLIST.md`](../BRINGUP_CHECKLIST.md)。
 
@@ -95,7 +95,7 @@ Connection: close
 1. 按下飞线按钮（GPIO5 低电平有效），GPIO47 拉高驱动飞线 MOS，激光通电，WS2812 显示琥珀色。
 2. 等待 5 秒软启动后，通过 UART1 TX 向 STM32 发送 `A5 5A 01`。
 3. STM32 通过 UART1 RX 返回 640,000 字节；串口参数为 1,152,000 baud、8N1、无流控。
-4. ESP32 在 PSRAM 中缓存负载，并补上 `#ADS8688 ... ch=2` 帧头和 `#END ...` 帧尾。
+4. ESP32 在 PSRAM 中缓存负载，并补上 `#ADS8688 ... ch=2` 帧头和 `#END ...` 帧尾；其中 `ch=2` 是待升级的遗留字段，现役物理通道为 1。
 5. 上传任务向服务器 `3000` 端口发送 `application/octet-stream` 请求。
 6. 原始帧接收器校验、落盘并排队运行算法；算法再将结果发给 `3002` 端口的后端。
 7. 激光从按键时刻起最多通电 15 秒；超时或控制错误时 GPIO47 拉低，MOS 断开激光供电。

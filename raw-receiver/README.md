@@ -1,6 +1,6 @@
 # `raw-receiver` 原始 SMI 帧接收服务
 
-这是现役服务器链路的第一站。它默认监听 `3000` 端口，接收 ESP32 上传的 ADS8688 完整二进制帧，校验、去重、落盘，然后串行调用相邻的 `prodict_algorithm_infuwuqi/project/frame_pipeline.py`。
+这是服务器链路的第一站。它默认监听 `3000` 端口，接收 ESP32 上传的 ADS8688 完整二进制帧，校验、去重、落盘，然后串行调用相邻的 `prodict_algorithm_infuwuqi/project/frame_pipeline.py`。注意：接收和保存流程可用，但当前算法工作器仍错误按遗留 `ch=2` 拆块；现役硬件实际是单通道连续 40 kHz，详见帧协议文档。
 
 它不负责登录、App 查询或数据库 API；这些功能由独立的 `health-backend` 在 `3002` 端口提供。
 

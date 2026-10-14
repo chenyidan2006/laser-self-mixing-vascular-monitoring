@@ -17,7 +17,7 @@ raw-receiver（Node.js，端口 3000）
   │ 校验帧 → received/*.bin + *.json → 串行启动 Python
   ▼
 frame_pipeline.py（本地子进程，无网络监听端口）
-  │ 拆双通道 → 取通道 1 前 100,000 点
+  │ 当前代码仍错误按旧双通道拆块；目标：连续 40 kHz → 20 kHz → 前 100,000 点
   ▼
 predictor.py → callPredictFixed.exe（本地进程，无网络监听端口）
   │ 得到 DBP / SBP / HR
@@ -43,7 +43,7 @@ App 通过 http://<server>:3002/api/... 查询并展示
 
 算法不是 Web 服务：`frame_pipeline.py`、`predictor.py` 和 `callPredictFixed.exe` 都由 `raw-receiver` 在服务器本机启动，不需要再开放“算法端口”。
 
-注意：`1,152,000` 是已经确认的正式 UART 波特率，`40,000 Hz` 才是当前 TIM2 触发频率。历史讨论中的 `2,000,000`、`4,000,000` 没有启用，也不能写成 ADC 采样率。详细换算和物理双通道疑点见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
+注意：`1,152,000` 是已经确认的正式 UART 波特率，`40,000 Hz` 是现役单通道 TIM2 采样率，模型训练采样率是 `20,000 Hz`。历史讨论中的 `2,000,000`、`4,000,000` 没有启用，也不能写成 ADC 采样率。布局和降采样说明见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 
 ## ESP32 如何上传
 
@@ -72,6 +72,8 @@ Content-Type = "application/octet-stream"
 ```text
 #ADS8688 v1 rate=40000 secs=8 col=10000 blk=2000 nblk=160 ch=2 range=0x02 code=u16le\r\n
 ```
+
+其中 `ch=2` 是 ESP32 写死的历史兼容字段。学长已确认现役负载是单通道连续 40 kHz；接收器目前可用 `blk × nblk × 2 bytes` 校验长度，但算法不能再据 `ch=2` 拆成两路。640,000 字节来自 `40000 × 8 × 2 bytes`。
 
 `X-Device-Id` 应与 App 中绑定的设备号完全一致。服务器通过这个值决定结果最终属于哪个设备。
 
@@ -119,18 +121,22 @@ npm start
 Invoke-RestMethod http://127.0.0.1:3000/api/upload/raw
 ```
 
-## 算法如何解析
+## 算法解析：正确目标与当前错误
 
-算法入口为 [`../prodict_algorithm_infuwuqi/project/frame_pipeline.py`](../prodict_algorithm_infuwuqi/project/frame_pipeline.py)。流程如下：
+算法入口为 [`../prodict_algorithm_infuwuqi/project/frame_pipeline.py`](../prodict_algorithm_infuwuqi/project/frame_pipeline.py)。学长确认后的正确目标流程是：
 
 1. 定位第一行换行符并解析 ASCII 帧头。
-2. 强制要求 `ch=2`。
-3. 以小端 `uint16` 读取 `blk × nblk` 个 ADC 码。
-4. reshape 为 `160 × 2000`：偶数编号块属于通道 1，奇数编号块属于通道 2。
-5. 当前模型只拼接通道 1，并取前 100,000 点，即 20 kHz 下 5 秒信号。
+2. 以小端 `uint16` 读取 320,000 个连续单通道 ADC 码；每点两个字节。
+3. 不使用遗留 `ch=2` 判断物理通道，不隔 2,000 点块丢数据。
+4. 将连续 40 kHz 流按与训练流程一致的抗混叠/重采样方法降到 20 kHz，得到约 160,000 点。
+5. 取前 100,000 点，即 20 kHz 下 5 秒信号。
 6. `predictor.py` 创建唯一临时文件，依次写入 `float64 fs`、`uint32 point_count`、`float64 samples[]`。
 7. `callPredictFixed.exe` 读取文件并输出 `DBP、SBP、HR`。
 8. `frame_pipeline.py` 做有限性和生理范围检查，再 POST 到后端 `3002`。
+
+但当前提交的 `frame_pipeline.py` 仍执行旧版块交替逻辑：强制 `ch=2`，取块 `0,2,4...` 并标成 20 kHz。这会对现役连续数据造成每 50 ms 丢失一整块，并不是正确降采样。代码修复和已知样本回归完成前，只能把该链路视为待修复部署快照。
+
+旧讨论中的 `--layout continuous/interleaved` 和 `strong-lag-alternation` 没有出现在当前代码或 Git 历史中，不能按已实现功能使用。两种布局的逐点示例见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 
 详细字节布局见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)，MATLAB EXE 与 `_mcr` 目录关系见 [`../prodict_algorithm_infuwuqi/README.md`](../prodict_algorithm_infuwuqi/README.md)。
 

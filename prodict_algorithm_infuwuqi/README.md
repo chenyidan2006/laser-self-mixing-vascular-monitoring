@@ -7,7 +7,7 @@
 - **现役入口不是 `_mcr` 目录，也不是 `main.py`。** 原始帧接收服务 `raw-receiver/server.js` 保存文件后，调用 `project/frame_pipeline.py`。
 - `project/` 是现役部署工作目录；里面的 `frame_pipeline.py`、`predictor.py`、`callPredictFixed.exe` 和模型文件共同完成预测。
 - 根目录的 `callPredictFixed_mcr/` 与 `project/callPredictFixed_mcr/` 经逐文件 SHA-256 对比完全相同。它们是同一个 MATLAB 编译程序的运行时展开缓存，不是两套算法。
-- 当前帧协议声明为 **双通道、按块交替**。服务器只取通道 1 的前 100,000 点进入旧模型。
+- 学长已确认现役数据是 **单通道连续 40 kHz**，旧模型按 **20 kHz** 训练。帧头 `ch=2` 是遗留硬编码字段；当前 `frame_pipeline.py` 仍按旧版块交替拆分，属于已知解析错误。
 
 完整帧说明见 [FRAME_PROTOCOL.md](FRAME_PROTOCOL.md)，现役部署文件逐项说明见 [project/README.md](project/README.md)。
 
@@ -19,7 +19,7 @@ STM32 / ADS8688
       └─ ESP32-S3 补 #ADS8688 头和 #END 尾
           └─ HTTP POST :3000/api/upload/raw
               └─ raw-receiver/server.js 校验并保存 .bin
-                  └─ project/frame_pipeline.py 拆双通道、取通道 1
+                  └─ project/frame_pipeline.py（当前仍错误按旧双通道拆块，待修复）
                       └─ project/predictor.py 写临时输入文件
                           └─ project/callPredictFixed.exe
                               └─ Health-backend :3002 写数据库
@@ -44,7 +44,7 @@ STM32 / ADS8688
 | 项目 | 状态 | 说明 |
 | --- | --- | --- |
 | `project/` | 现役 | 服务器预测工作目录 |
-| `project/frame_pipeline.py` | 现役入口 | 解析完整 ADS8688 帧、选择通道、预测、上传结果 |
+| `project/frame_pipeline.py` | 部署入口，但布局解析待修复 | 当前错误信任 `ch=2`；目标应为连续 40 kHz 单通道降到模型 20 kHz |
 | `project/predictor.py` | 现役桥接 | 按旧 EXE 的文件协议传参并解析结果 |
 | `project/callPredictFixed.exe` | 现役算法二进制 | MATLAB Compiler 产物 |
 | `project/main.py` | 废弃/不可独立运行 | 旧 WebSocket/TCP 方案，依赖已不存在的 `config.py`、`db_writer.py` |
@@ -55,7 +55,7 @@ STM32 / ADS8688
 
 ## 当前必须知道的数据风险
 
-`frame_pipeline.py` 默认允许算法失败后生成可重复的演示血压值，并继续写入数据库；`spo2` 也固定写为 98。这些值只能用于演示链路，不能当成真实测量或训练标签。正式采集前应设置：
+`frame_pipeline.py` 当前布局解析与现役单通道固件不一致；此外，它默认允许算法失败后生成可重复的演示血压值，并继续写入数据库，`spo2` 也固定写为 98。这些值只能用于演示链路，不能当成真实测量或训练标签。正式采集前应先修复布局/降采样，并设置：
 
 ```powershell
 $env:ENABLE_FAILURE_FALLBACK = "0"
