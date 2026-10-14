@@ -49,7 +49,7 @@ ESP32-S3
 | 核心/总线时钟 | 168 MHz；APB1 42 MHz、TIM2 84 MHz；APB2 84 MHz | `.ioc` 和生成代码 |
 | ADC 触发频率 | 40,000 Hz | `tim.c`: `84 MHz / 84 / 25` |
 | SPI1 | 主机、16 bit、Mode 1、约 5.25 Mbit/s | `spi .c` |
-| STM32 ↔ ESP32 UART | 1,152,000 baud、8N1、无流控 | STM32 `usart.c` 与 ESP32 固件一致 |
+| STM32 ↔ ESP32 UART | 1,152,000 baud、8N1、无流控 | 项目负责人确认的正式值；STM32 `usart.c` 与 ESP32 固件一致 |
 | 单次采集 | 8 s、320,000 个 `uint16`、640,000 bytes | `ads8688.h` 与 ESP32 帧常量 |
 | 发送分块 | 2,000 点/块、4,000 bytes/块，共 160 块 | `ads8_test.c` |
 

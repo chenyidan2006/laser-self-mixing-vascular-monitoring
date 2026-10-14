@@ -34,7 +34,7 @@ App 通过 http://<server>:3002/api/... 查询并展示
 
 | 端口/速率 | 使用方 | 用途 | 是否应公网开放 |
 | --- | --- | --- | --- |
-| UART `1,152,000 baud` | STM32 → ESP32 | 8N1、无流控，现役固件两端一致 | 不是网络端口 |
+| UART `1,152,000 baud` | STM32 → ESP32 | 项目负责人确认的正式值；8N1、无流控，现役固件两端一致 | 不是网络端口 |
 | TCP `3000` | ESP32 → `raw-receiver` | `POST /api/upload/raw` 上传完整 ADS8688 帧 | 当前固件直连时需要；最好限制来源或经反向代理保护 |
 | TCP `3002` | App、算法 → `health-backend` | 登录、设备、健康数据、趋势与 AI 接口 | App 直连时需要；生产环境建议改为 HTTPS 443 反代 |
 | TCP `3306` | `health-backend` → MySQL | 数据库连接 | 不应向公网开放，只允许本机或内网后端访问 |
@@ -43,7 +43,7 @@ App 通过 http://<server>:3002/api/... 查询并展示
 
 算法不是 Web 服务：`frame_pipeline.py`、`predictor.py` 和 `callPredictFixed.exe` 都由 `raw-receiver` 在服务器本机启动，不需要再开放“算法端口”。
 
-注意：`1,152,000` 是 UART 波特率，`40,000 Hz` 才是当前 TIM2 触发频率。学长提到的 `2,000,000`、`4,000,000` 如果是 UART 候选速率，不能写成 ADC 采样率；仓库当前也没有启用这两个值。详细换算和物理双通道疑点见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
+注意：`1,152,000` 是已经确认的正式 UART 波特率，`40,000 Hz` 才是当前 TIM2 触发频率。历史讨论中的 `2,000,000`、`4,000,000` 没有启用，也不能写成 ADC 采样率。详细换算和物理双通道疑点见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 
 ## ESP32 如何上传
 
