@@ -4,7 +4,7 @@
 #define USART_IDLE      0
 #define USART_TXING     1
 
-uint8_t usart_status;
+volatile uint8_t usart_status;
 
 uint8_t Usart_DMA_Init_TX(uint8_t *TxBuffer,uint16_t size)
 {
@@ -50,7 +50,7 @@ uint8_t Usart_DMA_Init_TX(uint8_t *TxBuffer,uint16_t size)
 	return 1;
 }
 
-uint8_t tx_end_flag;
+volatile uint8_t tx_end_flag;
 
 
 void DMA2_Stream7_IRQHandler(void)
@@ -102,4 +102,32 @@ bool usart_is_busy(void)
         return false;
 
     }
+}
+
+bool usart_take_start_command(void)
+{
+    static uint8_t command_state = 0;
+    bool start_requested = false;
+
+    // USART1 remains full-duplex: PA9/DMA sends ADS8688 data while PA10
+    // receives the short ESP32 control command.
+    while (LL_USART_IsActiveFlag_RXNE(USART1))
+    {
+        const uint8_t value = LL_USART_ReceiveData8(USART1);
+        switch (command_state)
+        {
+            case 0:
+                command_state = (value == 0xA5) ? 1 : 0;
+                break;
+            case 1:
+                command_state = (value == 0x5A) ? 2 : ((value == 0xA5) ? 1 : 0);
+                break;
+            default:
+                if (value == 0x01)
+                    start_requested = true;
+                command_state = (value == 0xA5) ? 1 : 0;
+                break;
+        }
+    }
+    return start_requested;
 }

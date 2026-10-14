@@ -23,6 +23,11 @@
 
 ADS8688_CTRL_t ads8688_ctrl;
 uint16_t raw_data[ARRIY_COLUMN][10000];
+static volatile bool acquisition_active = false;
+static volatile bool acquisition_start_requested = false;
+static volatile bool frame_trailer_pending = false;
+static const uint8_t FRAME_TRAILER[] =
+    "#END blk=160 skip=0 over=0 dma=0 ecode=0 to=0 spi=0 ack=0\r\n";
 //uint8_t raw_data[40000];
 
 /**
@@ -192,6 +197,11 @@ void TIM2_IRQHandler(void)
         {
 
             HAL_TIM_Base_Stop_IT(&htim2);
+            acquisition_active = false;
+            // ESP32 accepts a frame only after this exact ASCII trailer.
+            // It is transmitted by the main-loop DMA state machine after the
+            // final 4 kB raw-data block has finished.
+            frame_trailer_pending = true;
         }
 
         if ((ads8688_ctrl.total_sample_cnt % 2000) == 0)
@@ -226,6 +236,14 @@ void TIM2_IRQHandler(void)
 
 void usart_tx_task(void)
 {
+	// Each physical button press arrives from ESP32 as A5 5A 01 on PA10.
+	// Do not restart until sampling and the prior UART DMA transmission end.
+	if (usart_take_start_command() && !ads8688_is_busy())
+	{
+		ads8688_request_start_sample();
+		ads8688_start_sample();
+	}
+
 	#if 1
     if (ads8688_ctrl.sample_flag == 0x11)
     {
@@ -251,12 +269,23 @@ void usart_tx_task(void)
         if(Usart_DMA_Init_TX((uint8_t *)&raw_data[ads8688_ctrl.array_column][6000], 4000))
 					ads8688_ctrl.sample_flag = 0;
     }
-    else if (ads8688_ctrl.sample_flag == 0x55)
+	else if (ads8688_ctrl.sample_flag == 0x55)
     {
         
         if(Usart_DMA_Init_TX((uint8_t *)&raw_data[ads8688_ctrl.array_column][8000], 4000))
 					ads8688_ctrl.sample_flag = 0;
-    }
+	}
+
+
+	// Do not send #END until the final raw block has been handed to DMA and its
+	// DMA transfer has completed.  This preserves the exact 640000-byte payload.
+	if (frame_trailer_pending && ads8688_ctrl.sample_flag == 0 && !usart_is_busy())
+	{
+		if (Usart_DMA_Init_TX((uint8_t *)FRAME_TRAILER, sizeof(FRAME_TRAILER) - 1))
+		{
+			frame_trailer_pending = false;
+		}
+	}
 		#else
 		Usart_DMA_Init_TX((uint8_t *)&raw_data[ads8688_ctrl.array_column][0], 4000);
 		HAL_Delay(1000);
@@ -267,6 +296,14 @@ void usart_tx_task(void)
 
 void ads8688_start_sample(void)
 {
+	// main.c from the original project calls this once at boot.  Keep boot
+	// idle: only the ESP32 command path is allowed to arm a real acquisition.
+	if (!acquisition_start_requested)
+	{
+		return;
+	}
+	acquisition_start_requested = false;
+	frame_trailer_pending = false;
 
     memset(&ads8688_ctrl,0,sizeof(ADS8688_CTRL_t));
 
@@ -278,10 +315,23 @@ void ads8688_start_sample(void)
         }
     }
 
+    acquisition_active = true;
     HAL_TIM_Base_Start_IT(&htim2);
+}
+
+void ads8688_request_start_sample(void)
+{
+	acquisition_start_requested = true;
 }
 
 void ads8688_stop_sample(void)
 {
     HAL_TIM_Base_Stop_IT(&htim2);
+    acquisition_active = false;
+}
+
+bool ads8688_is_busy(void)
+{
+    return acquisition_active || frame_trailer_pending ||
+           ads8688_ctrl.sample_flag != 0 || usart_is_busy();
 }

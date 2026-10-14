@@ -16,6 +16,8 @@ extern uint8_t Usart_DMA_Init_TX(uint8_t *TxBuffer,uint16_t size);
 extern void set_dam_tc_flag(uint8_t tc_status);
 extern uint8_t get_dam_tc_flag(void);
 extern bool usart_is_busy(void);
+// Returns true once for a complete ESP32 start command: A5 5A 01 on PA10.
+extern bool usart_take_start_command(void);
 
 #endif 
 

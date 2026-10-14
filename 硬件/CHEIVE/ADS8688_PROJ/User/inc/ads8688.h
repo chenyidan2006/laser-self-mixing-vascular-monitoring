@@ -73,10 +73,10 @@
 
 typedef struct
 {
-    uint32_t total_sample_cnt;
-    uint16_t array_column;
-    uint8_t sample_flag;
-    uint8_t current_cnt;
+    volatile uint32_t total_sample_cnt;
+    volatile uint16_t array_column;
+    volatile uint8_t sample_flag;
+    volatile uint8_t current_cnt;
 
 } ADS8688_CTRL_t;
 
@@ -87,7 +87,10 @@ extern uint16_t raw_data[ARRIY_COLUMN][10000];
 
 extern uint8_t ADS8688_Init(void);
 extern void ads8688_start_sample(void);
+// Arms the next ads8688_start_sample call; used only for ESP32 control.
+extern void ads8688_request_start_sample(void);
 extern void ads8688_stop_sample(void);
 extern void usart_tx_task(void);
+extern bool ads8688_is_busy(void);
 
 #endif
