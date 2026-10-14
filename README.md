@@ -19,6 +19,7 @@
 - 非生产串口/Flask 调试脚本：`server-tools/`
 - ESP32-S3 固件：`硬件/ESP32/firmware/`
 - 硬件总览、STM32/ADS8688、PCB 和联调文档：[`硬件/README.md`](硬件/README.md)
+- MATLAB 原始帧转换、解析和 8 图诊断工具：[`tools/matlab/README.md`](tools/matlab/README.md)
 
 服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；双通道帧协议见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
 
@@ -71,7 +72,7 @@ ESP32 每次上传一帧原始 SMI 数据；帧头将其声明为双通道、分
 
 因此服务器目前按“总计 40 kS/s、每通道 20 kS/s”解析，并从通道 1 取前 `100,000` 点，即 `100,000 ÷ 20,000 = 5 s`，输入旧模型。
 
-但必须区分**协议/数据解释**与**物理采样实现**：ESP32 给 640,000 字节补了 `ch=2` 头；`frame_fix_convert_plot(3).m` 也把真实文件按奇偶 2,000 点块拆为两组、按 `Fs/2 = 20 kHz` 绘图，并曾观察到相邻块约 40–80 µV 的偏差。另一方面，Keil 工程文件和最后一次构建的 `.map` 都表明参与链接的是 `ads8_test.c`；它先发 `MAN_2`，之后连续发 `CONT`，源码没有展示两个物理 ADC 通道交替选择。`ads8688 - 副本.c` 也不在该工程的编译列表内，当前有效代码只手动读 CH0，并在 1,024 点停止。因此现有材料能确认 40 kHz 总触发、8 秒/640,000 字节协议以及 A/B 分块解释，尚不能确认 A/B 一定来自两个物理 ADC 输入。正式结论需要找到同期固件/HEX，或用两路可区分测试波形复测。
+但必须区分**协议/数据解释**与**物理采样实现**：ESP32 给 640,000 字节补了 `ch=2` 头；归档的 [`frame_fix_convert_plot.m`](tools/matlab/frame_fix_convert_plot.m) 也把真实文件按奇偶 2,000 点块拆为两组、按 `Fs/2 = 20 kHz` 绘图，并曾观察到相邻块约 40–80 µV 的偏差。另一方面，Keil 工程文件和最后一次构建的 `.map` 都表明参与链接的是 `ads8_test.c`；它先发 `MAN_2`，之后连续发 `CONT`，源码没有展示两个物理 ADC 通道交替选择。`ads8688 - 副本.c` 也不在该工程的编译列表内，当前有效代码只手动读 CH0，并在 1,024 点停止。因此现有材料能确认 40 kHz 总触发、8 秒/640,000 字节协议以及 A/B 分块解释，尚不能确认 A/B 一定来自两个物理 ADC 输入。正式结论需要找到同期固件/HEX，或用两路可区分测试波形复测。
 
 ### 正式串口速率：1,152,000 baud
 

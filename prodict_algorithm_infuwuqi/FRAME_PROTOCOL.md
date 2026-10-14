@@ -12,7 +12,7 @@
 
 需要注意：ESP32 本身不采 ADC，也不判断两个通道是否真的不同。它从 STM32 串口精确接收 640,000 字节，再补上声明 `ch=2` 的头和 `#END` 尾。
 
-历史 MATLAB 工具 `frame_fix_convert_plot(3).m` 对这类文件的处理与服务器一致：中间 640,000 字节解析为 320,000 个 `uint16`，按 2,000 点一块排列为 A/B/A/B；选择 A 或 B 时隔块抽取，并把绘图采样率设为 `Fs/2 = 20 kHz`。工具注释还记录过相邻块约 40–80 µV 的直流偏差，而同奇偶块之间没有同样现象。这是“历史实测文件曾被当作两组交错数据处理”的证据，但偏置本身不能单独证明两个物理 ADC 输入。
+归档 MATLAB 工具 [`tools/matlab/frame_fix_convert_plot.m`](../tools/matlab/frame_fix_convert_plot.m) 对这类文件的处理与服务器一致：中间 640,000 字节解析为 320,000 个 `uint16`，按 2,000 点一块排列为 A/B/A/B；选择 A 或 B 时隔块抽取，并把绘图采样率设为 `Fs/2 = 20 kHz`。工具注释还记录过相邻块约 40–80 µV 的直流偏差，而同奇偶块之间没有同样现象。这是“历史实测文件曾被当作两组交错数据处理”的证据，但偏置本身不能单独证明两个物理 ADC 输入。工具使用方法和 8 个主图的逐图解释见 [`tools/matlab/README.md`](../tools/matlab/README.md)。
 
 进一步检查 Keil 工程后发现：`ADS8688_PROJ.uvprojx` 将 `User/src/ads8688.c` 排除编译，实际包含 `User/src/ads8_test.c`；最后一次成功构建的 `ADS8688_PROJ.map` 也把 `ADS8688_Init`、`TIM2_IRQHandler`、`read_ch` 和 `usart_tx_task` 定位到 `ads8_test.o`。该文件的 `read_ch()` 第一次发送 `MAN_2`，之后连续发送 `CONT`，没有明确交替选择第二个物理通道。
 
