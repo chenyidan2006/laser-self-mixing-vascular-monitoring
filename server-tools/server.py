@@ -33,5 +33,5 @@ def upload_raw():
     return {"status": "success", "received_bytes": data_length}, 200
 
 if __name__ == '__main__':
-    # 监听所有IP的 3001 端口，与你的 ESP32 配置一致
+    # 仅用于临时 HTTP 连通性测试；现役 raw-receiver 使用 3000。
     app.run(host='0.0.0.0', port=3001, debug=True)
