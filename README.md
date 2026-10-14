@@ -18,6 +18,7 @@
 - 原始波形接收服务快照：`raw-receiver/`
 - 非生产串口/Flask 调试脚本：`server-tools/`
 - ESP32-S3 固件：`硬件/ESP32/firmware/`
+- 硬件总览、STM32/ADS8688、PCB 和联调文档：[`硬件/README.md`](硬件/README.md)
 
 服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；双通道帧协议见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
 
@@ -26,7 +27,7 @@
 ## 数据链路
 
 ```text
-双通道 LSMI 采集板 → ESP32-S3 → HTTP 原始帧接收 → MATLAB 编译算法 → 后端数据库 → App 展示
+SMI 模拟前端与 ADS8688/STM32 采集 → ESP32-S3 → HTTP 原始帧接收 → MATLAB 编译算法 → 后端数据库 → App 展示
 ```
 
 ESP32 每次上传一帧原始 SMI 数据；帧头将其声明为双通道、分块交错。当前 STM32 源码是否真的交替采集两个物理通道仍需实测确认。完整帧格式、采样点数和服务器拆帧逻辑见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
