@@ -21,7 +21,7 @@
 - 硬件总览、STM32/ADS8688、PCB 和联调文档：[`硬件/README.md`](硬件/README.md)
 - MATLAB 原始帧转换、解析和 8 图诊断工具：[`tools/matlab/README.md`](tools/matlab/README.md)
 
-服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；现役单通道布局、旧版块交替格式和 40→20 kHz 降采样关系见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
+服务器公开接口、私有算法资产注入方式见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；现役单通道布局、旧版块交替格式和 40→20 kHz 降采样关系见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)，冲突与剩余风险见 [`docs/KNOWN_ISSUES_AND_ALGORITHM_STATUS.md`](docs/KNOWN_ISSUES_AND_ALGORITHM_STATUS.md)。核心 MATLAB 源码、模型、EXE、MCR、训练代码和真实数据属于保密资产，不随本公开仓库分发。
 
 数据库的创建、已有库迁移、环境变量、验证和备份说明见后端仓库的 [`docs/DATABASE_SETUP_AND_USAGE.md`](https://github.com/chenyidan2006/health-backend/blob/master/docs/DATABASE_SETUP_AND_USAGE.md)。
 
@@ -72,7 +72,7 @@ ESP32 每次上传一帧原始 SMI 数据。学长已确认现役硬件只采一
 
 这里的“2 字节/点”和“2 倍降采样”都不代表两个通道。16 位采样在 `.bin` 中按两个二进制字节保存；十六进制只是人工显示方式，转换成带空格的十六进制文本反而更占空间。
 
-当前仓库存在一个已经确认的解析错误：`frame_pipeline.py` 仍信任过时的 `ch=2`，隔一个 2,000 点块取一块。这会把现役连续流变成“保留 50 ms、丢掉 50 ms”的断续数据，并不等于 40→20 kHz 均匀降采样。`replay_old_frame_no_upload.py` 也复用该错误逻辑。文档已明确记录风险；代码正式修复前，不应把其预测或 fallback 值当作可靠测量/训练数据。
+当前仓库存在一个已经确认的解析错误：`frame_pipeline.py` 仍信任过时的 `ch=2`，隔一个 2,000 点块取一块。这会把现役连续流变成“保留 50 ms、丢掉 50 ms”的断续数据，并不等于 40→20 kHz 均匀降采样。旧离线回放脚本曾复用同一错误逻辑，现已从公开现役入口中删除。代码正式修复前，不应把预测或 fallback 值当作可靠测量/训练数据。
 
 ### 正式串口速率：1,152,000 baud
 
@@ -95,6 +95,7 @@ UART 使用 8N1，每个数据字节在线路上约占 10 bit。只计算 640,00
 本项目不提供一键部署脚本。所有部署步骤都写成可以逐条执行、逐条验证的命令：
 
 - [ESP32、算法、后端部署与端口说明](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)
+- [算法状态、已解决冲突与剩余问题](docs/KNOWN_ISSUES_AND_ALGORITHM_STATUS.md)
 - [原始 SMI 帧接收服务](raw-receiver/README.md)
 - [服务器调试工具](server-tools/README.md)
 - [MySQL 讲解、建表与使用](https://github.com/chenyidan2006/health-backend/blob/master/docs/DATABASE_SETUP_AND_USAGE.md)

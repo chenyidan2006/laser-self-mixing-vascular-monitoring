@@ -14,6 +14,10 @@ apk-handoff/
 # 服务器运行时锁和临时输入保留在本机部署包，不作为版本源文件
 prodict_algorithm_infuwuqi/project/.deploy_lock
 prodict_algorithm_infuwuqi/project/smi_legacy_*.dat
+prodict_algorithm_infuwuqi/**/callPredictFixed_mcr/
+prodict_algorithm_infuwuqi/project/callPredictFixed.exe
+prodict_algorithm_infuwuqi/project/*.mat
+prodict_algorithm_infuwuqi/project/processOneSignal.m
 raw-receiver/received/
 
 # 独立维护并推送到 health-backend 仓库
