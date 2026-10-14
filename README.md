@@ -19,7 +19,7 @@
 - 非生产串口/Flask 调试脚本：`server-tools/`
 - ESP32-S3 固件：`硬件/ESP32/firmware/`
 
-服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；双通道帧协议见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)；App 从比赛视频版到当前版的提交关系见 [`docs/APP_VERSION_HISTORY.md`](docs/APP_VERSION_HISTORY.md)。
+服务器算法各文件、MATLAB `_mcr` 目录关系和现役入口见 [`prodict_algorithm_infuwuqi/README.md`](prodict_algorithm_infuwuqi/README.md)；双通道帧协议见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。ESP32 上传、服务器解析、服务端口和联调顺序统一见 [`docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md`](docs/DEPLOYMENT_PORTS_AND_DATA_FLOW.md)。
 
 数据库的创建、已有库迁移、环境变量、验证和备份说明见后端仓库的 [`docs/DATABASE_SETUP_AND_USAGE.md`](https://github.com/chenyidan2006/health-backend/blob/master/docs/DATABASE_SETUP_AND_USAGE.md)。
 
@@ -30,6 +30,8 @@
 ```
 
 ESP32 每次上传双通道、分块交错的原始 SMI 帧。完整帧格式、采样点数和服务器拆帧逻辑见 [`prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
+
+现役网络端口只有两个项目服务端口：ESP32 向 `3000` 端口上传原始帧；App 和算法向 `3002` 端口访问业务后端。MySQL 默认使用 `3306`，只供后端在服务器内部访问。算法由接收服务启动为本地子进程，本身不监听网络端口。
 
 ## 重要说明
 

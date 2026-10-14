@@ -6,14 +6,16 @@ const crypto = require('crypto');
 const { spawn } = require('child_process');
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.RAW_RECEIVER_PORT || 3000);
 const PYTHON_BIN = process.env.PYTHON_BIN || 'python';
 const ALGORITHM_WORKER = process.env.ALGORITHM_WORKER || path.resolve(
   __dirname, '..', 'prodict_algorithm_infuwuqi', 'project', 'frame_pipeline.py'
 );
 
 // 数据保存目录
-const SAVE_DIR = path.join(__dirname, 'received');
+const SAVE_DIR = process.env.RAW_DATA_DIR
+  ? path.resolve(process.env.RAW_DATA_DIR)
+  : path.join(__dirname, 'received');
 if (!fs.existsSync(SAVE_DIR)) fs.mkdirSync(SAVE_DIR, { recursive: true });
 const TRAINING_MANIFEST = path.join(SAVE_DIR, 'training_manifest.ndjson');
 const LABELS_CSV = path.join(SAVE_DIR, 'reference_labels.csv');
