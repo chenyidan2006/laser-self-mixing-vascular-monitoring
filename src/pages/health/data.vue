@@ -39,9 +39,11 @@
     </view>
 
     <!-- 历史趋势入口 -->
-    <navigator url="/pages/health/trend" class="trend-link">
+    <navigator url="/pages/health/trend" open-type="switchTab" class="trend-link">
       <text>{{ tr("查看历史趋势") }}</text>
     </navigator>
+    <navigator url="/pages/health/waveform" class="reference-link">{{ tr('Signal analysis') }}</navigator>
+    <navigator url="/pages/health/reference-bp" class="reference-link">录入袖带血压真值</navigator>
 
   </view>
 </template>
@@ -85,9 +87,10 @@ export default {
           header: { Authorization: 'Bearer ' + uni.getStorageSync('token') }
         });
         if (res.data.errcode === 0) {
-          this.dailyData = res.data.data;
+          this.dailyData = res.data.data || {};
           this.hasData = this.dailyData.totalRecords > 0;
         } else {
+          this.dailyData = {}; this.hasData = false;
           uni.showToast({ title: res.data.msg, icon: 'none' });
         }
       } catch (err) {

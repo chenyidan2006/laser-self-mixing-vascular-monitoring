@@ -62,6 +62,8 @@
           <text class="arrow">›</text>
         </view>
 
+        <view class="settings-item" @click="goPrivacy"><text>数据与隐私</text><text class="arrow">›</text></view>
+        <view class="settings-item" @click="openLogs"><text>应用日志</text><text class="arrow">›</text></view>
         <view class="settings-item">
           <view class="item-left">
             <text class="item-icon">📌</text>
@@ -99,6 +101,7 @@ export default {
     this.calcCacheSize();
   },
   methods: {
+    openLogs(){uni.navigateTo({url:'/pages/logs/logs'});},
     back(){backToTab('profile');},
     t(key) {
       return translate(key);

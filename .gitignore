@@ -10,6 +10,7 @@ apk-handoff/
 .dsh-write-test.tmp
 **/__pycache__/
 *.pyc
+**/.venv/
 
 # 服务器运行时锁和临时输入保留在本机部署包，不作为版本源文件
 prodict_algorithm_infuwuqi/project/.deploy_lock

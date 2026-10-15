@@ -19,6 +19,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 import numpy as np
+from scipy.signal import resample_poly
 
 from predictor import predict_blood_pressure
 
@@ -28,9 +29,8 @@ HEALTH_BACKEND_URL = os.environ.get(
 )
 
 # The trained legacy model was configured for a 5-second, 20-kHz mono signal.
-# Channel A (the user's selected channel) has 160000 points in an 8-second
-# two-channel frame, so retain the first 100000 points for model compatibility.
-SELECTED_CHANNEL = 1
+# Resample the continuous 40-kHz mono stream, then use its first five seconds.
+MODEL_RATE_HZ = 20000
 MODEL_POINTS = 100000
 ENABLE_FAILURE_FALLBACK = os.environ.get("ENABLE_FAILURE_FALLBACK", "1").lower() not in {
     "0", "false", "no", "off"
@@ -56,15 +56,20 @@ def parse_ads8688_frame(path: Path) -> tuple[np.ndarray, float, dict]:
     rate = required_int("rate")
     block_len = required_int("blk")
     block_count = required_int("nblk")
-    channel_count = required_int("ch")
-    if channel_count != 2:
-        raise ValueError(f"this worker expects two alternating channels, got ch={channel_count}")
+    legacy_channels = required_int("ch")
+    if rate != 40000 or block_len != 2000 or block_count != 160:
+        raise ValueError("expected current firmware: rate=40000 blk=2000 nblk=160")
+    if legacy_channels not in (1, 2) or "code=u16le" not in header:
+        raise ValueError("unsupported legacy ch or sample encoding")
+    layout = re.search(r"(?:^|\s)layout=(\S+)", header)
+    if layout and layout.group(1) != "continuous":
+        raise ValueError("only current continuous single-channel frames are supported")
 
     payload_bytes = block_len * block_count * 2
     payload_start = line_end + 1
     payload_end = payload_start + payload_bytes
     trailer = raw[payload_end:]
-    if len(raw) != payload_end + len(trailer) or not trailer.startswith(b"#END") or not trailer.endswith(b"\r\n"):
+    if not re.fullmatch(rb"#END[^\r\n]*\r\n", trailer):
         raise ValueError("invalid or truncated #END trailer")
     if payload_end > len(raw):
         raise ValueError("payload shorter than header declares")
@@ -72,23 +77,29 @@ def parse_ads8688_frame(path: Path) -> tuple[np.ndarray, float, dict]:
     codes = np.frombuffer(raw[payload_start:payload_end], dtype="<u2")
     if len(codes) != block_len * block_count:
         raise ValueError("payload sample count mismatch")
-    blocks = codes.reshape((-1, block_len))
-    selected = blocks[SELECTED_CHANNEL - 1 :: channel_count].reshape(-1)
+    selected = codes.astype(np.float64)
 
     # Firmware documents the first word (0xFFFF) as an invalid rail sample.
     if selected.size and selected[0] == 0xFFFF:
         selected = selected[1:]
+    # FIR anti-alias filter followed by uniform 2:1 decimation. Preserve the
+    # legacy ADC-code amplitude convention expected by the existing EXE.
+    selected = resample_poly(selected, 1, 2, window=("kaiser", 5.0), padtype="line")
     if selected.size < MODEL_POINTS:
         raise ValueError(f"channel A has only {selected.size} valid points; expected {MODEL_POINTS}")
 
-    effective_fs = rate / channel_count
+    effective_fs = float(MODEL_RATE_HZ)
     metadata = {
         "header": header,
         "trailer": trailer.decode("ascii", errors="replace").strip(),
         "source_bytes": len(raw),
         "raw_rate_hz": rate,
         "effective_fs_hz": effective_fs,
-        "channel": SELECTED_CHANNEL,
+        "channel": 1,
+        "physical_channels": 1,
+        "legacy_header_ch": legacy_channels,
+        "layout": "continuous",
+        "resampling": "resample_poly: 1/2, Kaiser 5.0, line padding",
         "available_points": int(selected.size),
     }
     return selected[:MODEL_POINTS].astype(np.float64), effective_fs, metadata
@@ -156,10 +167,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("frame", type=Path, help="validated raw-receiver .bin file")
     parser.add_argument("--device-id", default=DEVICE_ID)
+    parser.add_argument("--parse-only", action="store_true", help="validate and resample without running EXE or uploading")
     args = parser.parse_args()
 
     signal, fs, metadata = parse_ads8688_frame(args.frame)
     print("[frame-pipeline] parsed", json.dumps(metadata, ensure_ascii=False))
+    if args.parse_only:
+        return 0
     fallback_reason = None
     try:
         dbp, sbp, heart_rate = predict_blood_pressure(signal, fs)

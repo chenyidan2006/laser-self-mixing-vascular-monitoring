@@ -6,7 +6,8 @@
 * const data = await request('/user/login', { method: 'POST', data: { username, password } });
 */
 
-const BASE_URL = 'http://192.144.185.64:3000/api';
+import { API_BASE_URL } from '../../src/config/api.js';
+const BASE_URL = API_BASE_URL + '/api';
 
 function request(url, options = {}) {
   return new Promise((resolve, reject) => {

@@ -27,7 +27,24 @@ import {getDataUrl} from '@/config/api.js';
 export default {
   components:{MeasurementChart},data:()=>({wave:null,loading:false,mode:'filtered',windowSize:0.08,zoomStart:0,loadVersion:0}),onShow(){this.load();},onUnload(){this.loadVersion++;},
   computed:{signal(){return this.wave?.[this.mode]||[];},zoomPoints(){if(!this.wave)return [];if(this.zoomStart===0&&this.windowSize===0.08)return this.wave.zoom;const end=this.zoomStart+this.windowSize;return this.wave.filtered.filter(p=>p.time>=this.zoomStart&&p.time<=end);},receivedTime(){if(!this.wave)return '--';const d=new Date(this.wave.receivedAt);if(!Number.isFinite(d.getTime()))return '--';const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;}},
-  methods:{back(){uni.navigateBack();},statistic(key){const value=this.wave?.statistics?.[key];return Number.isFinite(value)?value.toFixed(2):'--';},setWindow(size){this.windowSize=size;this.zoomStart=Math.min(this.zoomStart,Math.max(0,this.wave.duration-size));},load(){const version=++this.loadVersion;this.loading=true;const user=uni.getStorageSync('user'),deviceId=uni.getStorageSync('selectedDeviceId'),key='latestWaveform_'+user?.id+'_'+deviceId;if(!this.wave)this.wave=uni.getStorageSync(key)||null;uni.request({url:getDataUrl('waveform'),data:{deviceId},success:res=>{if(version!==this.loadVersion)return;if(res.data.errcode===0&&res.data.data){this.wave=res.data.data;uni.setStorageSync(key,this.wave);this.zoomStart=0;}},fail:()=>uni.showToast({title:this.tr('Network error'),icon:'none'}),complete:()=>{if(version===this.loadVersion)this.loading=false;}});}}
+  methods:{
+    back(){uni.navigateBack();},
+    statistic(key){const value=this.wave?.statistics?.[key];return Number.isFinite(value)?value.toFixed(2):'--';},
+    setWindow(size){this.windowSize=size;this.zoomStart=Math.min(this.zoomStart,Math.max(0,this.wave.duration-size));},
+    load(){
+      const version=++this.loadVersion;
+      const user=uni.getStorageSync('user'),deviceId=uni.getStorageSync('selectedDeviceId');
+      if(!user?.id||!deviceId){this.wave=null;this.loading=false;uni.showToast({title:'请先登录并选择设备',icon:'none'});return;}
+      const key='latestWaveform_'+user.id+'_'+deviceId;
+      if(this.wave?.deviceId!==deviceId)this.wave=uni.getStorageSync(key)||null;
+      this.loading=true;
+      uni.request({url:getDataUrl('waveform'),data:{deviceId},success:res=>{
+        if(version!==this.loadVersion)return;
+        if(res.data.errcode===0){this.wave=res.data.data||null;if(this.wave)uni.setStorageSync(key,this.wave);else uni.removeStorageSync(key);this.zoomStart=0;}
+        else uni.showToast({title:res.data.msg||'读取波形失败',icon:'none'});
+      },fail:()=>uni.showToast({title:this.tr('Network error'),icon:'none'}),complete:()=>{if(version===this.loadVersion)this.loading=false;}});
+    }
+  }
 };
 </script>
 <style scoped>

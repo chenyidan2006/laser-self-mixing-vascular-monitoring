@@ -1,4 +1,5 @@
 <template><view class="page"><view class="nav"><view class="back" @click="goBack">‹ {{ tr('Back') }}</view><text>{{ tr('Personal Info') }}</text><view class="nav-space" /></view>
+  <button @click="changeAvatar">{{ tr('Change avatar') }}</button>
   <view class="profile-banner"><view class="avatar-wrapper"><image v-if="userInfo.avatar" :src="avatarUrl" class="avatar-image" mode="aspectFill" /><text v-else>{{ formData.nickname?.charAt(0)||'·' }}</text></view><view class="profile-copy"><text>{{ formData.nickname || tr('Your profile') }}</text><text>{{ tr('Make your health records personal') }}</text></view></view>
   <text class="section-title">{{ tr('Basic information') }}</text><view class="card form-card"><view class="form-row"><text>{{ tr('Nickname') }}</text><input v-model="formData.nickname" :maxlength="40" :placeholder="tr('Enter nickname')" /></view><view class="form-row"><text>{{ tr('Gender') }}</text><picker :value="formData.gender" :range="genderOptions" range-key="text" @change="onGenderChange"><view class="picker-value"><text>{{ genderOptions[formData.gender]?.text || tr('Select gender') }}</text><text class="chevron">›</text></view></picker></view><view class="form-row"><text>{{ tr('Birthday') }}</text><picker mode="multiSelector" :value="birthdaySelection" :range="birthdayRange" @columnchange="onBirthdayColumnChange" @change="onBirthdayChange"><view class="picker-value"><text :class="{placeholder:!formData.birthday}">{{ formData.birthday || tr('Select birthday') }}</text><text class="chevron">›</text></view></picker></view></view>
   <view class="body-heading"><text class="section-title">{{ tr('Body measurements') }}</text><text class="linked-chip">{{ tr('Linked defaults') }}</text></view><view class="body-grid"><view class="body-card"><view class="body-icon height-icon">↕</view><text>{{ tr('Height') }}</text><view class="body-value"><input type="digit" v-model="formData.height" :placeholder="tr('Not set')" /><text>cm</text></view></view><view class="body-card"><view class="body-icon weight-icon">⚖</view><text>{{ tr('Weight') }}</text><view class="body-value"><input type="digit" v-model="formData.weight" :placeholder="tr('Not set')" /><text>kg</text></view></view></view>
@@ -66,7 +67,9 @@ export default {
         name: 'avatar',
         header: { Authorization: 'Bearer ' + uni.getStorageSync('token') },
         success: (res) => {
-          const data = JSON.parse(res.data);
+          let data;
+          try { data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data; }
+          catch { uni.showToast({title:this.tr('Upload failed'),icon:'none'}); return; }
           if (data.errcode === 0) {
             this.userInfo.avatar = data.data.avatar;
             uni.setStorageSync('user', this.userInfo);

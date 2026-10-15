@@ -2,6 +2,7 @@
 <script setup>
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import {tr, syncNavigation} from '@/utils/i18n.js'
+import {appendAppLog} from '@/utils/app-logs.js'
 
 // 初始化全局数据
 const initGlobalData = () => {
@@ -56,6 +57,7 @@ const setupRequestInterceptor = () => {
     
     // 重写 success 回调处理 401
     options.success = (res) => {
+      if(res.statusCode>=400) appendAppLog(`HTTP ${res.statusCode} ${String(options.url).split('?')[0]}`);
       if (res.statusCode === 401 && /\/api\/(?:data|user\/(?:profile|devices))/.test(options.url)) {
         // Token 过期或未登录，清除本地存储并跳转登录页
         uni.removeStorageSync('token');
@@ -72,6 +74,7 @@ const setupRequestInterceptor = () => {
     
     // 重写 fail 回调
     options.fail = (err) => {
+      appendAppLog(`Request failed: ${String(options.url).split('?')[0]}`);
       console.error('Request failed:', err);
       if (originalFail) {
         originalFail(err);
@@ -85,6 +88,7 @@ const setupRequestInterceptor = () => {
 
 // 应用启动时执行
 onLaunch((options) => {
+  appendAppLog('Application started');
   console.log('========== App Launch ==========', options)
   console.log('当前平台:', uni.getSystemInfoSync().platform)
   

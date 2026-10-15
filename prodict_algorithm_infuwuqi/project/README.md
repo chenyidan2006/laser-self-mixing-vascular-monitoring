@@ -1,10 +1,10 @@
 # `project` 公开接口壳
 
-此目录只保留两个现役 Python 接口文件。核心算法与模型为私有资产，不随公开仓库分发。
+此目录保存现役 Python 接口、锁定依赖与合成回归测试。核心算法与模型为私有资产，不随公开仓库分发。
 
 | 文件 | 作用 | 当前状态 |
 | --- | --- | --- |
-| `frame_pipeline.py` | 解析保存帧、调用预测器、提交后端 | 现役接口，但 40→20 kHz 解析待修复 |
+| `frame_pipeline.py` | 连续单通道40→20 kHz解析、调用预测器、提交后端 | 已修复，支持 --parse-only |
 | `predictor.py` | 将波形写入临时文件，调用私有 MATLAB EXE，并解析结果 | 现役桥接 |
 
 已删除的旧/私有内容包括：`main.py`、离线旧解析脚本、MATLAB 源码、模型 `.mat`、预测 EXE 和两个重复 MCR 展开目录。这些不再是公开仓库入口。
@@ -16,7 +16,7 @@
 ```powershell
 $env:PREDICTOR_EXE = 'D:\project\PPG\算法\服务器部署\prodict_algorithm_infuwuqi\project\callPredictFixed.exe'
 $env:PREDICTOR_TIMEOUT_SECONDS = '60'
-$env:ENABLE_FAILURE_FALLBACK = '0'
+$env:ENABLE_FAILURE_FALLBACK = '1' # 比赛演示；保留默认兜底
 ```
 
 接收服务调用：
@@ -47,6 +47,6 @@ float64 signal[point_count]
 | `HEALTH_BACKEND_URL` | `http://127.0.0.1:3002/api/upload/health-data` | 后端写库接口 |
 | `ENABLE_FAILURE_FALLBACK` | `1` | 演示兜底；正式数据必须设为 `0` |
 
-## 当前已知错误
+## 解析状态
 
-现役物理数据是连续 40 kHz 单通道，模型目标是 20 kHz。当前 `frame_pipeline.py` 仍强制历史 `ch=2` 并按 2,000 点块隔块取样，会形成“保留 50 ms、丢弃 50 ms”的断续时间轴。这不是抗混叠降采样。在修复、回归测试和禁用 fallback 前，输出不能作为真实测量或训练标签。
+2026-10-15 改为完整连续流 → resample_poly FIR抗混叠 → 20 kHz → 前100,000点。保留首点0xFFFF剔除及既有EXE幅值契约。通过 requirements.txt 安装依赖；使用 --parse-only 检查时不会运行EXE或写库。完整命令、滤波选择、回归与回退见 [解析与回退手册](../../docs/PARSER_REPAIR_AND_ROLLBACK.md)。训练期具体滤波和模型精度未在此次修复中确认，演示fallback不能作为真值。

@@ -17,7 +17,7 @@ raw-receiver（Node.js，端口 3000）
   │ 校验帧 → received/*.bin + *.json → 串行启动 Python
   ▼
 frame_pipeline.py（本地子进程，无网络监听端口）
-  │ 当前代码仍错误按旧双通道拆块；目标：连续 40 kHz → 20 kHz → 前 100,000 点
+  │ 连续单通道40 kHz → FIR抗混叠/均匀降采样20 kHz → 前100,000点
   ▼
 predictor.py → callPredictFixed.exe（本地进程，无网络监听端口）
   │ 得到 DBP / SBP / HR
@@ -121,20 +121,20 @@ npm start
 Invoke-RestMethod http://127.0.0.1:3000/api/upload/raw
 ```
 
-## 算法解析：正确目标与当前错误
+## 算法解析：2026-10-15 修复后的实现
 
 算法入口为 [`../prodict_algorithm_infuwuqi/project/frame_pipeline.py`](../prodict_algorithm_infuwuqi/project/frame_pipeline.py)。学长确认后的正确目标流程是：
 
 1. 定位第一行换行符并解析 ASCII 帧头。
 2. 以小端 `uint16` 读取 320,000 个连续单通道 ADC 码；每点两个字节。
 3. 不使用遗留 `ch=2` 判断物理通道，不隔 2,000 点块丢数据。
-4. 将连续 40 kHz 流按与训练流程一致的抗混叠/重采样方法降到 20 kHz，得到约 160,000 点。
+4. 使用 scipy.signal.resample_poly 的Kaiser FIR抗混叠与均匀2倍降采样，降到20 kHz、约160,000点。训练期确切滤波参数仍待核实。
 5. 取前 100,000 点，即 20 kHz 下 5 秒信号。
 6. `predictor.py` 创建唯一临时文件，依次写入 `float64 fs`、`uint32 point_count`、`float64 samples[]`。
 7. `callPredictFixed.exe` 读取文件并输出 `DBP、SBP、HR`。
 8. `frame_pipeline.py` 做有限性和生理范围检查，再 POST 到后端 `3002`。
 
-但当前提交的 `frame_pipeline.py` 仍执行旧版块交替逻辑：强制 `ch=2`，取块 `0,2,4...` 并标成 20 kHz。这会对现役连续数据造成每 50 ms 丢失一整块，并不是正确降采样。代码修复和已知样本回归完成前，只能把该链路视为待修复部署快照。
+此前的旧块交替实现已于2026-10-15替换。现役入口接受遗留ch=1/2，但都按确认的物理单通道连续流处理。安装依赖、仅解析检查和比赛演示开关见 [解析与回退手册](PARSER_REPAIR_AND_ROLLBACK.md)。
 
 旧讨论中的 `--layout continuous/interleaved` 和 `strong-lag-alternation` 没有出现在当前代码或 Git 历史中，不能按已实现功能使用。两种布局的逐点示例见 [`../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md`](../prodict_algorithm_infuwuqi/FRAME_PROTOCOL.md)。
 

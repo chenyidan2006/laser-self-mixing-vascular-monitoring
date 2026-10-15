@@ -5,10 +5,7 @@
     "versionCode" : "100",
     // 启用 uniCloud(DCloud提供的云开发)
     "uniCloud" : {
-        "enable" : false,
-        "provider" : "aliyun", // 或 "tcb" 腾讯云
-        "spaceId" : "mp-4c720286-d2a9-47bd-ac02-bb9f04ae1704", //需要换成自己的spaceId
-        "clientSecret" : "pET7ABUS7/Qe46zTVbie4w==" //需要换成自己的clientSecret
+        "enable" : false
     },
     // 注意:如果需要禁用 uniCloud,请将上方的 "enable": true 改为 false,并确保下方没有重复的 uniCloud 键
     // 原注释块已移除,因为其内部结构会破坏JSON.
@@ -50,15 +47,7 @@
     "h5" : {
         "devServer" : {
             "port" : 8081,
-            "disableHostCheck" : true,
-            "https" : false,
-            "proxy" : {
-                "/api" : {
-                    "target" : "https://192.144.185.64", //需要换https://你的DCloud云函数域名
-                    "changeOrigin" : true,
-                    "secure" : false
-                }
-            }
+            "https" : false
         }
     },
     "vueVersion" : "3"

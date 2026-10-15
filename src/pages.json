@@ -12,6 +12,11 @@
         "navigationBarTitleText": "首页"
       }
     },
+    { "path": "pages/health/waveform", "style": { "navigationBarTitleText": "信号分析" } },
+    { "path": "pages/health/reference-bp", "style": { "navigationBarTitleText": "袖带血压真值" } },
+    { "path": "pages/reset-password/reset-password", "style": { "navigationBarTitleText": "重置密码" } },
+    { "path": "pages/logs/logs", "style": { "navigationBarTitleText": "应用日志" } },
+    { "path": "pages/settings/privacy", "style": { "navigationBarTitleText": "数据与隐私" } },
     {
       "path": "pages/login/login",
       "style": {

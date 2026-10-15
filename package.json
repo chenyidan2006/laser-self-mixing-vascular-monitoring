@@ -7,10 +7,11 @@
     "dev": "uni -p h5",
     "build:h5": "uni build -p h5",
     "build:app-plus": "uni build -p app",
-    "build:mp-weixin": "cross-env NODE_ENV=production UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
-    "build:mp-alipay": "cross-env NODE_ENV=production UNI_PLATFORM=mp-alipay vue-cli-service uni-build",
-    "build:mp-baidu": "cross-env NODE_ENV=production UNI_PLATFORM=mp-baidu vue-cli-service uni-build",
-    "build:mp-toutiao": "cross-env NODE_ENV=production UNI_PLATFORM=mp-toutiao vue-cli-service uni-build"
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "build:mp-alipay": "uni build -p mp-alipay",
+    "build:mp-baidu": "uni build -p mp-baidu",
+    "build:mp-toutiao": "uni build -p mp-toutiao",
+    "doctor": "node tools/check-environment.cjs"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-alpha-5000120260205001",
@@ -20,30 +21,32 @@
     "@dcloudio/uni-mp-baidu": "3.0.0-alpha-5000120260205001",
     "@dcloudio/uni-mp-toutiao": "3.0.0-alpha-5000120260205001",
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-5000120260205001",
-    "@dcloudio/uni-ui": "^1.5.11",
-    "@qiun/ucharts": "^2.5.0-20230101",
-    "axios": "^1.13.5",
-    "cors": "^2.8.6",
-    "csv-parser": "^3.2.0",
-    "express": "^5.2.1",
-    "ucharts": "^0.0.0",
-    "uview-plus": "^3.7.13",
-    "vue": "^3.2.0"
+    "@dcloudio/uni-ui": "1.5.11",
+    "@qiun/ucharts": "2.5.0-20230101",
+    "axios": "1.13.5",
+    "cors": "2.8.6",
+    "csv-parser": "3.2.0",
+    "express": "5.2.1",
+    "ucharts": "0.0.0",
+    "uview-plus": "3.7.13",
+    "vue": "3.4.21"
   },
   "devDependencies": {
     "@dcloudio/types": "3.4.28",
     "@dcloudio/uni-cli-shared": "3.0.0-alpha-5000120260205001",
     "@dcloudio/vite-plugin-uni": "3.0.0-alpha-5000120260205001",
-    "cross-env": "^7.0.3",
-    "postcss": "^8.4.21",
-    "sass": "^1.77.8",
-    "terser": "^5.31.0",
-    "vite": "^5.2.8",
-    "vite-plugin-uni-pages": "^0.2.9"
+    "cross-env": "7.0.3",
+    "postcss": "8.5.6",
+    "sass": "1.77.8",
+    "terser": "5.31.0",
+    "vite": "5.2.8",
+    "vite-plugin-uni-pages": "0.2.23"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "22.14.0",
+    "npm": "10.9.2"
   },
+  "packageManager": "npm@10.9.2",
   "uni-app": {
     "scripts": {}
   },

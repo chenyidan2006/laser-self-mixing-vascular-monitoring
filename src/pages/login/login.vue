@@ -214,7 +214,7 @@ export default {
     // Guest login
     goGuest() {
       uni.request({
-        url: 'http://192.144.185.64:3002/api/user/guestLogin',
+        url: getAuthUrl('guestLogin'),
         method: 'POST',
         success: (res) => {
           if (res.data.errcode === 0) {
@@ -245,13 +245,7 @@ export default {
       uni.navigateTo({ url: '/pages/register/register' });
     },
     goResetPassword() {
-      uni.showModal({
-        title: this.tr('Forgot Password?'),
-        content: this.uiLang === 'zh'
-          ? '当前回退服务器不提供密码重置接口，请联系管理员处理。'
-          : 'This server version does not provide password reset. Please contact the administrator.',
-        showCancel: false
-      });
+      uni.navigateTo({ url: '/pages/reset-password/reset-password' });
     }
   }
 };

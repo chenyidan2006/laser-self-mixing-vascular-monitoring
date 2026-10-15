@@ -1,6 +1,6 @@
 # `raw-receiver` 原始 SMI 帧接收服务
 
-这是服务器链路的第一站。它默认监听 `3000` 端口，接收 ESP32 上传的 ADS8688 完整二进制帧，校验、去重、落盘，然后串行调用相邻的 `prodict_algorithm_infuwuqi/project/frame_pipeline.py`。注意：接收和保存流程可用，但当前算法工作器仍错误按遗留 `ch=2` 拆块；现役硬件实际是单通道连续 40 kHz，详见帧协议文档。
+这是服务器链路的第一站。它默认监听 `3000` 端口，接收 ESP32 上传的 ADS8688 完整二进制帧，校验、去重、落盘，然后串行调用相邻的 `prodict_algorithm_infuwuqi/project/frame_pipeline.py`。2026-10-15 工作器已修复为连续单通道40→20 kHz抗混叠降采样，须安装新增SciPy依赖并设置PYTHON_BIN，详见 [解析手册](../docs/PARSER_REPAIR_AND_ROLLBACK.md)。比赛演示fallback保留。
 
 它不负责登录、App 查询或数据库 API；这些功能由独立的 `health-backend` 在 `3002` 端口提供。
 
@@ -56,7 +56,7 @@ X-Device-Id: ESP32_001
 | `raw_<时间>_<长度>.bin` | 完整、未经改写的 ADS8688 帧 |
 | `*.bin.json` | 设备号、接收时间、来源 IP、SHA-256 和帧参数 |
 | `training_manifest.ndjson` | 所有原始帧的追加式索引 |
-| `reference_labels.csv` | 预留的真值标签清单；当前 App 尚未接通自动录入 |
+| `reference_labels.csv` | 历史预留CSV；新App标注保存为每帧独立的 .bin.reference.json，不自动回填CSV |
 
 `received/` 保存真实波形，`node_modules/` 保存本机依赖；二者都不会上传 GitHub。
 

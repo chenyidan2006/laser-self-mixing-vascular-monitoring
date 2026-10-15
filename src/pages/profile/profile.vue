@@ -84,6 +84,9 @@
     </view>
 
     <view class="action-section">
+      <button @click="openPage('health/data')">测量记录与标注</button>
+      <button @click="openPage('health/waveform')">信号分析</button>
+      <button @click="openPage('health/reference-bp')">袖带血压真值</button>
       <button v-if="!user?.is_guest" class="logout-btn" @click="logout">{{ tr("Logout") }}</button>
       <button v-else class="login-btn" @click="goLogin">{{ tr("Login / Register") }}</button>
     </view>
@@ -106,6 +109,7 @@ export default {
     }
   },
   methods: {
+    openPage(name){uni.navigateTo({url:'/pages/'+name});},
     goGoals() {uni.navigateTo({url:'/pages/goal-settings/goal-settings?returnTo=profile'});},
     goEditProfile() {
       if (this.user?.is_guest) {

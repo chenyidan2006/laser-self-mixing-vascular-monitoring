@@ -6,13 +6,13 @@
       <view class="placeholder" />
     </view>
 
-    <view class="tip">设备完成一次测量后会生成待标注记录。请在同一时段完成袖带测量，再将真值写入对应记录。</view>
+    <view class="tip">选择当前设备已上传的原始帧，录入同一时段袖带测量的真值。标注独立保存，不会修改模型预测，也不会自动训练。</view>
     <view v-if="loading" class="empty">正在加载…</view>
     <view v-else-if="!sessions.length" class="empty">当前设备没有待标注的测量记录。</view>
 
     <view v-for="session in sessions" :key="session.id" class="card">
       <view class="time">{{ session.measureTime }}</view>
-      <view class="meta">{{ session.deviceId }} · {{ session.featureCount }} 条有效五特征记录</view>
+      <view class="meta">{{ session.deviceId }} · {{ session.file }}</view>
       <view class="inputs">
         <input v-model="form[session.id].subjectId" placeholder="受试者编号，如 P001" />
       </view>
@@ -38,6 +38,7 @@ export default {
     headers() { return { Authorization: `Bearer ${uni.getStorageSync('token')}`, 'Content-Type': 'application/json' }; },
     async load() {
       const deviceId = this.deviceId();
+      this.sessions = [];
       if (!deviceId) { uni.showToast({ title: '请先选择设备', icon: 'none' }); return; }
       this.loading = true;
       try {
@@ -65,7 +66,7 @@ export default {
       try {
         const response = await new Promise((resolve, reject) => uni.request({
           url: `${getTrainingUrl('referenceBase')}/sessions/${session.id}/reference`, method: 'PUT', header: this.headers(),
-          data: { subjectId: String(values.subjectId).trim(), referenceSbp: sbp, referenceDbp: dbp, referenceHr: hr },
+          data: { deviceId: session.deviceId, subjectId: String(values.subjectId).trim(), referenceSbp: sbp, referenceDbp: dbp, referenceHr: hr },
           success: (result) => resolve(result.data), fail: reject,
         }));
         if (response.errcode !== 0) throw new Error(response.msg || '保存失败');

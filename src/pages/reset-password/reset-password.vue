@@ -10,7 +10,7 @@
 
     <view class="form-card">
       <view class="form-title">{{ tr("Verify Your Phone") }}</view>
-      <view class="form-subtitle">{{ tr("We'll send a verification code to your phone") }}</view>
+      <view class="form-subtitle">当前开发版验证码由服务器控制台提供；接入真实短信服务后再用于正式用户。</view>
 
       <view class="input-group">
         <input

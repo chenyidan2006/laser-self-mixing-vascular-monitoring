@@ -1,8 +1,9 @@
 //使用你自己的服务器
 //D:/code/app/appprogram/config/env.prod.js
+import { API_BASE_URL } from '../src/config/api.js';
 export default {
   // 你的服务器地址（重要！这里要改成你的服务器）
-  baseURL: 'http://192.144.185.64:3001/api', // 认证服务端口
+  baseURL: API_BASE_URL + '/api',
   
   // 生产环境配置
   debug: false,
@@ -11,14 +12,14 @@ export default {
   // 不同平台的特殊配置
   platform: {
     h5: {
-      baseURL: 'https://your-domain.com/api'
+      baseURL: API_BASE_URL + '/api'
     },
     mpWeixin: {
       // 微信小程序必须使用HTTPS且已备案的域名
-      baseURL: 'https://your-domain.com/api'
+      baseURL: API_BASE_URL + '/api'
     },
     app: {
-      baseURL: 'https://your-domain.com/api'
+      baseURL: API_BASE_URL + '/api'
     }
   },
   
