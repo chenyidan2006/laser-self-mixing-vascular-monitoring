@@ -1,5 +1,7 @@
 // src/config/api.js - API配置文件
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://192.144.185.64:3002').replace(/\/+$/, '');
+// 开发阶段直接使用原服务器。换服务器时只修改这一行即可。
+// HBuilderX运行前端即可，不需要把前端放到后端目录。
+export const API_BASE_URL = 'http://192.144.185.64:3002';
 export const API_CONFIG = {
   auth: {
     baseUrl: API_BASE_URL,

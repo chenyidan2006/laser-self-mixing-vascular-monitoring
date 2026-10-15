@@ -9,8 +9,8 @@ let config = {}
 
 // 判断当前环境
 if (import.meta.env.MODE === 'development') {
-  // 开发环境 - 使用DCloud服务器
-  console.log('当前是开发环境，使用DCloud服务器')
+  // 开发环境与发布环境读取同一个API地址，只有调试日志配置不同。
+  console.log('开发模式：使用 src/config/api.js 中的服务器地址')
   config = devConfig
 } else {
   // 生产环境 - 使用自己的服务器

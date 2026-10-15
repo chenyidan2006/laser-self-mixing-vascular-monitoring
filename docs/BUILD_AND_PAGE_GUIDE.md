@@ -1,5 +1,7 @@
 # App 构建与页面接通手册（2026-10-15）
 
+**日常开发请先看 [HBuilderX简单运行说明](HBUILDERX_QUICK_START.md)。** 本页是换电脑、重装依赖和排错参考；已有依赖时直接用HBuilderX运行，不必每次执行这些命令。前端不需要放到后端或服务器上。
+
 ## 固定的构建组合
 
 | 项目 | 版本 |
@@ -66,14 +68,13 @@ npm run doctor
 
 ## 统一 API 地址
 
-全部页面和旧配置统一读取 `src/config/api.js`。
+全部页面和旧配置统一读取 `src/config/api.js`，开发阶段直接保留原IP：
 
-```powershell
-Copy-Item .env.example .env.local
-notepad .env.local
+```js
+export const API_BASE_URL = 'http://192.144.185.64:3002';
 ```
 
-设置 `VITE_API_BASE_URL=http://你的服务器:3002`，不要附加 `/api`。修改后必须重新启动开发服务或重新构建。正式部署可改为 `https://你的域名`。
+换服务器只改这一行，再用HBuilderX重新运行。不需要.env.local或VITE_API_BASE_URL。将来启用HTTPS时再换成正式域名。
 
 ## 已接通页面
 
